@@ -39,6 +39,21 @@
   var years = document.querySelectorAll('[data-year]');
   for (var y = 0; y < years.length; y++) years[y].textContent = String(new Date().getFullYear());
 
+  /* ---- carrier ticker (concept 6 layout) -------------------------------- */
+  // The list is doubled so the strip can loop; the copies are hidden from
+  // screen readers.
+  var ticker = document.querySelector('.hs--v6 .hs-carriers__grid');
+  if (ticker && !reduceMotion) {
+    var items = Array.prototype.slice.call(ticker.children);
+    items.forEach(function (li) {
+      var copy = li.cloneNode(true);
+      copy.setAttribute('aria-hidden', 'true');
+      copy.classList.remove('hs-reveal');
+      ticker.appendChild(copy);
+    });
+    ticker.classList.add('is-ticking');
+  }
+
   /* ---- counting stats --------------------------------------------------- */
   function countUp(el) {
     var target = parseFloat(el.dataset.count);
