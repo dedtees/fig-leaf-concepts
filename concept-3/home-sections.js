@@ -23,7 +23,7 @@
       img.replaceWith(span);
       return;
     }
-    var media = img.closest('.hs-card__media, .hs-about__media');
+    var media = img.closest('.hs-service__media, .hs-about__media');
     if (media) media.classList.add('is-fallback');
     img.classList.add('hs-img-missing');
   }
@@ -50,10 +50,12 @@
       if (start === null) start = t;
       var p = Math.min(1, (t - start) / duration);
       var eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = (target * eased).toFixed(decimals);
+      el.textContent = format(target * eased);
       if (p < 1) requestAnimationFrame(frame);
     }
-    el.textContent = (0).toFixed(decimals);
+    // 1000 shows as 1,000
+    function format(n) { return n.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }); }
+    el.textContent = format(0);
     requestAnimationFrame(frame);
   }
 
