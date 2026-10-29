@@ -23,7 +23,7 @@
       img.replaceWith(span);
       return;
     }
-    var media = img.closest('.hs-card__media, .hs-about__media');
+    var media = img.closest('.hs-service__media, .hs-about__media');
     if (media) media.classList.add('is-fallback');
     img.classList.add('hs-img-missing');
   }
@@ -39,6 +39,21 @@
   var years = document.querySelectorAll('[data-year]');
   for (var y = 0; y < years.length; y++) years[y].textContent = String(new Date().getFullYear());
 
+  /* ---- carrier ticker (concept 6 layout) -------------------------------- */
+  // The list is doubled so the strip can loop; the copies are hidden from
+  // screen readers.
+  var ticker = document.querySelector('.hs--v6 .hs-carriers__grid');
+  if (ticker && !reduceMotion) {
+    var items = Array.prototype.slice.call(ticker.children);
+    items.forEach(function (li) {
+      var copy = li.cloneNode(true);
+      copy.setAttribute('aria-hidden', 'true');
+      copy.classList.remove('hs-reveal');
+      ticker.appendChild(copy);
+    });
+    ticker.classList.add('is-ticking');
+  }
+
   /* ---- counting stats --------------------------------------------------- */
   function countUp(el) {
     var target = parseFloat(el.dataset.count);
@@ -50,10 +65,12 @@
       if (start === null) start = t;
       var p = Math.min(1, (t - start) / duration);
       var eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = (target * eased).toFixed(decimals);
+      el.textContent = format(target * eased);
       if (p < 1) requestAnimationFrame(frame);
     }
-    el.textContent = (0).toFixed(decimals);
+    // 1000 shows as 1,000
+    function format(n) { return n.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }); }
+    el.textContent = format(0);
     requestAnimationFrame(frame);
   }
 

@@ -19,7 +19,7 @@
   <link rel="preload" href="assets/hero-scene.jpg" as="image">
   <link rel="preconnect" href="https://fonts.googleapis.com/">
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&amp;family=Montserrat:wght@500;600;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&amp;family=Montserrat:wght@400;500;600;700&amp;family=Lato:wght@400;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap">
   <link rel="stylesheet" href="styles.css">
 
   <!-- Business details for search engines. Opening hours are still to be supplied by the agency. -->
@@ -215,21 +215,16 @@
        Homepage sections (from figleafagency.com/home-rebuild, below the hero)
        Styles: home-sections.css   Behaviour: home-sections.js
        ==================================================================== -->
-  <div class="hs" id="home-sections">
+  <div class="hs hs--v4" id="home-sections">
 
-    <!-- Bundle -->
-    <section class="hs-section hs-bundle" id="quote" aria-labelledby="hs-bundle-title">
-      <div class="hs-wrap hs-bundle__grid">
-        <div class="hs-bundle__copy hs-reveal">
-          <h2 class="hs-title" id="hs-bundle-title">Select One or Bundle!</h2>
-          <p class="hs-lede">You can select either Homeowners, Renters, or Condo Owners alone or bundle it with Auto!</p>
-          <a class="hs-btn hs-btn--primary" href="https://figleafagency.com/crq">Start My New Quote<svg class="hs-arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
-        </div>
-        <!-- The numbers: 20+ and 1000s come from the agency's original brief; edit data-count / data-suffix to change them -->
-        <ul class="hs-stats">
-          <li class="hs-stat hs-reveal"><span class="hs-stat__value"><span data-count="20">20</span>+</span><span class="hs-stat__label">Years serving New Jersey families and businesses</span></li>
-          <li class="hs-stat hs-reveal"><span class="hs-stat__value"><span data-count="1000">1000</span>s</span><span class="hs-stat__label">Happy clients across personal and commercial lines</span></li>
-          <li class="hs-stat hs-reveal"><span class="hs-stat__value"><span data-count="5" data-decimals="1">5.0</span><svg class="hs-stat__star" aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></span><span class="hs-stat__label">Five star rated across 140+ Google reviews</span></li>
+    <!-- Stats band: sits across the bottom edge of the hero.
+         The numbers come from the agency's original brief; edit data-count / data-suffix to change them. -->
+    <section class="hs-statband" aria-label="Fig Leaf at a glance">
+      <div class="hs-wrap">
+        <ul class="hs-stats hs-reveal">
+          <li class="hs-stat"><span class="hs-stat__value"><span data-count="20">20</span>+</span><span class="hs-stat__label">Years serving New Jersey families and businesses</span></li>
+          <li class="hs-stat"><span class="hs-stat__value"><span data-count="1000">1,000</span>s</span><span class="hs-stat__label">Happy clients across personal and commercial lines</span></li>
+          <li class="hs-stat"><span class="hs-stat__value"><span data-count="5">5</span><span class="hs-stars hs-stars--lg" role="img" aria-label="5 out of 5 stars"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg></span></span><span class="hs-stat__label">Five star rated across 140+ Google reviews</span></li>
         </ul>
       </div>
     </section>
@@ -237,88 +232,121 @@
     <!-- Comprehensive Coverage -->
     <section class="hs-section hs-coverage" aria-labelledby="hs-coverage-title">
       <div class="hs-wrap">
-        <header class="hs-head hs-reveal">
-          <h2 class="hs-title" id="hs-coverage-title">Comprehensive Coverage</h2>
-          <p class="hs-lede">Coverage for the things that matter most, from your home and vehicle to your assets and financial future. See all <a href="https://figleafagency.com/personal-insurance/">Personal</a> and <a href="https://figleafagency.com/business-insurance/">Business</a> insurance policies.</p>
+        <header class="hs-split hs-reveal">
+          <h2 class="hs-split__title" id="hs-coverage-title">Comprehensive Coverage</h2>
+          <p class="hs-split__text">Coverage for the things that matter most, from your home and vehicle to your assets and financial future. See all <a href="https://figleafagency.com/personal-insurance/">Personal</a> and <a href="https://figleafagency.com/business-insurance/">Business</a> insurance policies.</p>
         </header>
-        <ul class="hs-cards">
-          <li class="hs-card hs-reveal">
-            <a class="hs-card__link" href="https://figleafagency.com/auto-insurance/">
-              <span class="hs-card__media"><img class="hs-card__img" src="https://figleafagency.com/wp-content/uploads/car-1.png" alt="" width="600" height="450" loading="lazy" decoding="async" data-fallback></span>
-              <span class="hs-card__body">
-                <span class="hs-card__title">Auto Insurance</span>
-                <span class="hs-card__text">Protect yourself, your passengers and your vehicle from accidents, damage and the unexpected.</span>
-                <span class="hs-card__more">Learn more<svg class="hs-arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
-              </span>
-            </a>
+        <ul class="hs-lines">
+          <li class="hs-line hs-reveal">
+            <svg class="hs-line__icon" aria-hidden="true" viewBox="0 0 112 96"><g class="hs-ico">
+              <path d="M18 43 25 24c1.6-4.4 4.4-6 8.6-6h28.8c4.2 0 7 1.6 8.6 6L78 43Z"/>
+              <rect x="8" y="40" width="80" height="26" rx="9"/>
+              <rect x="13" y="62" width="14" height="12" rx="4"/><rect x="69" y="62" width="14" height="12" rx="4"/>
+              <path class="hs-ico__cut" d="M26 39 31 27c.8-2 2-3 4.2-3h25.6c2.2 0 3.4 1 4.2 3l5 12Z"/>
+              <circle class="hs-ico__cut" cx="21" cy="52" r="5"/><circle class="hs-ico__cut" cx="75" cy="52" r="5"/>
+            </g><use href="#hs-shield" x="64" y="46"/></svg>
+            <div class="hs-line__body">
+              <h3 class="hs-line__title">Auto Insurance</h3>
+              <p>Protect yourself, your passengers and your vehicle from accidents, damage and the unexpected.</p>
+              <a class="hs-more" href="https://figleafagency.com/auto-insurance/">Learn more<span class="visually-hidden"> about auto insurance</span></a>
+            </div>
           </li>
-          <li class="hs-card hs-reveal">
-            <a class="hs-card__link" href="https://figleafagency.com/boat-insurance/">
-              <span class="hs-card__media"><img class="hs-card__img" src="https://figleafagency.com/wp-content/uploads/boat-2.png" alt="" width="600" height="450" loading="lazy" decoding="async" data-fallback></span>
-              <span class="hs-card__body">
-                <span class="hs-card__title">Boat Insurance</span>
-                <span class="hs-card__text">Protect your boat, passengers and yourself with coverage for damage, accidents, liability and more.</span>
-                <span class="hs-card__more">Learn more<svg class="hs-arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
-              </span>
-            </a>
+          <li class="hs-line hs-reveal">
+            <svg class="hs-line__icon" aria-hidden="true" viewBox="0 0 112 96"><g class="hs-ico">
+              <path d="M6 46 48 8l42 38-6 6-6-5.4V84H18V46.6L12 52Z"/>
+              <rect x="62" y="14" width="10" height="20"/>
+              <path class="hs-ico__cut" d="M40 36h16v16H40Z"/>
+              <path d="M47 36h2v16h-2ZM40 43h16v2H40Z"/>
+            </g><use href="#hs-shield" x="64" y="46"/></svg>
+            <div class="hs-line__body">
+              <h3 class="hs-line__title">Home Insurance</h3>
+              <p>Protect your home, belongings and property from damage, theft, accidents and liability.</p>
+              <a class="hs-more" href="https://figleafagency.com/homeowners-insurance/">Learn more<span class="visually-hidden"> about home insurance</span></a>
+            </div>
           </li>
-          <li class="hs-card hs-reveal">
-            <a class="hs-card__link" href="https://figleafagency.com/homeowners-insurance/">
-              <span class="hs-card__media"><img class="hs-card__img" src="https://figleafagency.com/wp-content/uploads/home-1.png" alt="" width="600" height="450" loading="lazy" decoding="async" data-fallback></span>
-              <span class="hs-card__body">
-                <span class="hs-card__title">Home Insurance</span>
-                <span class="hs-card__text">Protect your home, belongings and property from damage, theft, accidents and liability.</span>
-                <span class="hs-card__more">Learn more<svg class="hs-arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
-              </span>
-            </a>
+          <li class="hs-line hs-reveal">
+            <svg class="hs-line__icon" aria-hidden="true" viewBox="0 0 112 96"><g class="hs-ico">
+              <rect x="34" y="8" width="26" height="6" rx="2"/>
+              <path d="M28 16h38l4 14H24Z"/>
+              <path d="M20 32h54l4 14H16Z"/>
+              <path d="M6 48h84l-9 20H17Z"/>
+              <path class="hs-ico__cut" d="M30 20h7v6h-7ZM44 20h7v6h-7ZM58 20h5v6h-5Z"/>
+              <path class="hs-ico__wave" d="M6 76c7 0 7 5 14 5s7-5 14-5 7 5 14 5 7-5 14-5 7 5 14 5 7-5 14-5M6 88c7 0 7 5 14 5s7-5 14-5 7 5 14 5 7-5 14-5"/>
+            </g><use href="#hs-shield" x="64" y="46"/></svg>
+            <div class="hs-line__body">
+              <h3 class="hs-line__title">Boat Insurance</h3>
+              <p>Protect your boat, passengers and yourself with coverage for damage, accidents, liability and more.</p>
+              <a class="hs-more" href="https://figleafagency.com/boat-insurance/">Learn more<span class="visually-hidden"> about boat insurance</span></a>
+            </div>
           </li>
-          <li class="hs-card hs-reveal">
-            <a class="hs-card__link" href="https://figleafagency.com/personal-umbrella-insurance/">
-              <span class="hs-card__media"><img class="hs-card__img" src="https://figleafagency.com/wp-content/uploads/personal-umbrella.png" alt="" width="600" height="450" loading="lazy" decoding="async" data-fallback></span>
-              <span class="hs-card__body">
-                <span class="hs-card__title">Personal Umbrella</span>
-                <span class="hs-card__text">Protect your assets and future earnings with extra liability coverage when you need it most.</span>
-                <span class="hs-card__more">Learn more<svg class="hs-arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
-              </span>
-            </a>
+          <li class="hs-line hs-reveal">
+            <svg class="hs-line__icon" aria-hidden="true" viewBox="0 0 112 96"><g class="hs-ico">
+              <path d="M4 40C8 20 26 6 48 6s40 14 44 34c-4-4-8-4-12 0-4-4-8-4-12 0-4-4-8-4-12 0-4-4-8-4-12 0-4-4-8-4-12 0-4-4-8-4-12 0-4-4-8-4-12 0Z"/>
+              <rect x="46.5" y="2" width="3" height="10" rx="1.5"/>
+              <rect x="46.5" y="38" width="3" height="18" rx="1.5"/>
+              <circle cx="30" cy="54" r="8"/><path d="M16 88V74c0-6 5-10 14-10s14 4 14 10v14Z"/>
+              <circle cx="62" cy="58" r="7"/><path d="M50 88V77c0-5 4-9 12-9s12 4 12 9v11Z"/>
+            </g><use href="#hs-shield" x="64" y="46"/></svg>
+            <div class="hs-line__body">
+              <h3 class="hs-line__title">Personal Umbrella</h3>
+              <p>Protect your assets and future earnings with extra liability coverage when you need it most.</p>
+              <a class="hs-more" href="https://figleafagency.com/personal-umbrella-insurance/">Learn more<span class="visually-hidden"> about personal umbrella insurance</span></a>
+            </div>
           </li>
         </ul>
-
-        <article class="hs-about hs-reveal" aria-labelledby="hs-about-title">
-          <div class="hs-about__media"><img class="hs-about__img" src="https://figleafagency.com/wp-content/uploads/about-fig-leaf.jpg" alt="The Fig Leaf Agency team" width="900" height="700" loading="lazy" decoding="async" data-fallback></div>
-          <div class="hs-about__body">
-            <p class="hs-eyebrow">About Fig Leaf</p>
-            <h3 class="hs-about__title" id="hs-about-title">Your word is your bond.</h3>
-            <p>Fig Leaf Insurance Agency was founded to give New Jersey a better alternative to high insurance costs and impersonal service. We take the time to find the best possible coverage and price while making sure every client understands what they're buying and how they're protected.</p>
-            <p>Our leadership learned an important lesson while working on the NYSE that applies to every industry: Your word is your bond.</p>
-            <a class="hs-btn hs-btn--outline" href="https://figleafagency.com/about/">Learn More About Our Values<svg class="hs-arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
-          </div>
-        </article>
       </div>
     </section>
 
-    <!-- Additional Services -->
+    <!-- Bundle -->
+    <section class="hs-section hs-bundle" id="quote" aria-labelledby="hs-bundle-title">
+      <div class="hs-wrap">
+        <div class="hs-split hs-reveal">
+          <h2 class="hs-split__title" id="hs-bundle-title">Select One or Bundle!</h2>
+          <div class="hs-split__text">
+            <p>You can select either Homeowners, Renters, or Condo Owners alone or bundle it with Auto!</p>
+            <a class="hs-btn hs-btn--primary" href="https://figleafagency.com/crq">Start My New Quote</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="hs-section hs-about-section" aria-labelledby="hs-about-title">
+      <div class="hs-wrap hs-about hs-reveal">
+        <div class="hs-about__media"><img class="hs-about__img" src="https://figleafagency.com/wp-content/uploads/about-fig-leaf.jpg" alt="The Fig Leaf Agency team" width="900" height="700" loading="lazy" decoding="async" data-fallback></div>
+        <div class="hs-about__body">
+          <p class="hs-eyebrow">About Fig Leaf</p>
+          <h2 class="hs-heading" id="hs-about-title">Your word is your bond.</h2>
+          <p>Fig Leaf Insurance Agency was founded to give New Jersey a better alternative to high insurance costs and impersonal service. We take the time to find the best possible coverage and price while making sure every client understands what they're buying and how they're protected.</p>
+          <p>Our leadership learned an important lesson while working on the NYSE that applies to every industry: Your word is your bond.</p>
+          <a class="hs-btn hs-btn--outline" href="https://figleafagency.com/about/">Learn More About Our Values</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Additional Services (the side copy here is new; edit freely) -->
     <section class="hs-section hs-services" aria-labelledby="hs-services-title">
       <div class="hs-wrap">
-        <header class="hs-head hs-reveal">
-          <h2 class="hs-title" id="hs-services-title">Additional Services</h2>
+        <header class="hs-split hs-reveal">
+          <h2 class="hs-split__title" id="hs-services-title">Additional Services</h2>
+          <p class="hs-split__text">Beyond your everyday policies, we help contractors stay covered on the job and drivers keep their records and premiums down.</p>
         </header>
         <div class="hs-services__grid">
           <article class="hs-service hs-reveal">
-            <img class="hs-service__img" src="https://figleafagency.com/wp-content/uploads/contractor-policies.jpg" alt="" width="900" height="600" loading="lazy" decoding="async" data-fallback>
+            <div class="hs-service__media"><img class="hs-service__img" src="https://figleafagency.com/wp-content/uploads/contractor-policies.jpg" alt="" width="900" height="600" loading="lazy" decoding="async" data-fallback></div>
             <div class="hs-service__body">
-              <h3 class="hs-service__title">Special contractor policies</h3>
+              <h3 class="hs-line__title">Special Contractor Policies</h3>
               <p>Coverage built for trades working across New Jersey, including general liability, tools and equipment, and workers comp all in one place.</p>
               <!-- The rebuild page has no link for this button yet -->
-              <a class="hs-btn hs-btn--light" href="https://figleafagency.com/business-insurance/">Learn more<svg class="hs-arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+              <a class="hs-more" href="https://figleafagency.com/business-insurance/">Learn more<span class="visually-hidden"> about contractor policies</span></a>
             </div>
           </article>
           <article class="hs-service hs-reveal">
-            <img class="hs-service__img" src="https://figleafagency.com/wp-content/uploads/defensive-driving-course.jpg" alt="" width="900" height="600" loading="lazy" decoding="async" data-fallback>
+            <div class="hs-service__media"><img class="hs-service__img" src="https://figleafagency.com/wp-content/uploads/defensive-driving-course.jpg" alt="" width="900" height="600" loading="lazy" decoding="async" data-fallback></div>
             <div class="hs-service__body">
-              <h3 class="hs-service__title">Defensive Driving Course</h3>
+              <h3 class="hs-line__title">Defensive Driving Course</h3>
               <p>Remove points from your license and earn a discount on your car insurance while taking the course on your own schedule.</p>
-              <a class="hs-btn hs-btn--light" href="https://www.drivesafetoday.com/insurance-agent/share-referral?agentId=267" target="_blank" rel="noopener">Start the course<svg class="hs-arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+              <a class="hs-more" href="https://www.drivesafetoday.com/insurance-agent/share-referral?agentId=267" target="_blank" rel="noopener">Start the course</a>
             </div>
           </article>
         </div>
@@ -328,32 +356,29 @@
     <!-- Google Reviews -->
     <section class="hs-section hs-reviews" aria-labelledby="hs-reviews-title">
       <div class="hs-wrap">
-        <header class="hs-head hs-reviews__head hs-reveal">
-          <div>
-            <h2 class="hs-title" id="hs-reviews-title">Google Reviews</h2>
-            <p class="hs-reviews__score"><span class="hs-reviews__num">5.0</span> <span class="hs-stars" role="img" aria-label="5 out of 5 stars"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></span> <span>across 140+ reviews</span></p>
-          </div>
-          <div class="hs-reviews__actions">
-            <a class="hs-btn hs-btn--gold" href="https://search.google.com/local/reviews?placeid=ChIJVVVxbAOzw4kRoLVw8ornr5Q" target="_blank" rel="noopener">See all reviews<svg class="hs-arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
-            <a class="hs-btn hs-btn--ghost" href="https://search.google.com/local/writereview?placeid=ChIJVVVxbAOzw4kRoLVw8ornr5Q" target="_blank" rel="noopener">Review us on Google</a>
+        <header class="hs-split hs-reveal">
+          <h2 class="hs-split__title" id="hs-reviews-title">Google Reviews</h2>
+          <div class="hs-split__text">
+            <p class="hs-reviews__score"><span class="hs-reviews__num">5.0</span> <span class="hs-stars" role="img" aria-label="5 out of 5 stars"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg></span> <span>across 140+ reviews</span></p>
+            <p class="hs-reviews__actions"><a class="hs-more" href="https://search.google.com/local/reviews?placeid=ChIJVVVxbAOzw4kRoLVw8ornr5Q" target="_blank" rel="noopener">See all reviews</a> <a class="hs-more" href="https://search.google.com/local/writereview?placeid=ChIJVVVxbAOzw4kRoLVw8ornr5Q" target="_blank" rel="noopener">Review us on Google</a></p>
           </div>
         </header>
-        <!-- Short excerpts from the reviews on the rebuild page; "Read more" opens them on Google -->
+        <!-- Short excerpts from the reviews on the rebuild page; "Read the full review" opens them on Google -->
         <ul class="hs-reviews__list">
           <li class="hs-review hs-reveal">
-            <span class="hs-stars" role="img" aria-label="5 out of 5 stars"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></span>
+            <span class="hs-stars" role="img" aria-label="5 out of 5 stars"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg></span>
             <blockquote class="hs-review__text"><p>&ldquo;Jarihana genuinely was a big help! She helped me get lower insurance than the one I previously had&hellip;&rdquo;</p></blockquote>
             <p class="hs-review__author"><span class="hs-review__avatar" aria-hidden="true">N</span><span><strong>Natalie Montesino</strong><span class="hs-review__meta">Google review</span></span></p>
             <a class="hs-review__more" href="https://search.google.com/local/reviews?placeid=ChIJVVVxbAOzw4kRoLVw8ornr5Q" target="_blank" rel="noopener">Read the full review<span class="visually-hidden"> by Natalie Montesino</span> on Google</a>
           </li>
           <li class="hs-review hs-reveal">
-            <span class="hs-stars" role="img" aria-label="5 out of 5 stars"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></span>
+            <span class="hs-stars" role="img" aria-label="5 out of 5 stars"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg></span>
             <blockquote class="hs-review__text"><p>&ldquo;Jarihana muy amable, profesional, me contestó mis inquietudes . Hablamos por teléfono siempre dispuesta a ayudar&hellip;&rdquo;</p></blockquote>
             <p class="hs-review__author"><span class="hs-review__avatar" aria-hidden="true">J</span><span><strong>Jaylynn Cabrera</strong><span class="hs-review__meta">Google review</span></span></p>
             <a class="hs-review__more" href="https://search.google.com/local/reviews?placeid=ChIJVVVxbAOzw4kRoLVw8ornr5Q" target="_blank" rel="noopener">Read the full review<span class="visually-hidden"> by Jaylynn Cabrera</span> on Google</a>
           </li>
           <li class="hs-review hs-reveal">
-            <span class="hs-stars" role="img" aria-label="5 out of 5 stars"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></span>
+            <span class="hs-stars" role="img" aria-label="5 out of 5 stars"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg></span>
             <blockquote class="hs-review__text"><p>&ldquo;This is the company you want if you are looking for competitive prices, great customer service&hellip;&rdquo;</p></blockquote>
             <p class="hs-review__author"><span class="hs-review__avatar" aria-hidden="true">E</span><span><strong>Eric Duchin</strong><span class="hs-review__meta">Google review</span></span></p>
             <a class="hs-review__more" href="https://search.google.com/local/reviews?placeid=ChIJVVVxbAOzw4kRoLVw8ornr5Q" target="_blank" rel="noopener">Read the full review<span class="visually-hidden"> by Eric Duchin</span> on Google</a>
@@ -362,12 +387,14 @@
       </div>
     </section>
 
-    <!-- Our Carriers -->
+    <!-- Our Carriers (the side copy here is new; edit freely) -->
     <section class="hs-section hs-carriers" aria-labelledby="hs-carriers-title">
       <div class="hs-wrap">
-        <header class="hs-head hs-head--center hs-reveal">
-          <h2 class="hs-title" id="hs-carriers-title">Our Carriers</h2>
+        <header class="hs-split hs-reveal">
+          <h2 class="hs-split__title" id="hs-carriers-title">Our Carriers</h2>
+          <p class="hs-split__text">As an independent agency we compare policies from dozens of trusted carriers to find the right fit for you. <a href="https://figleafagency.com/carriers/">See all our carriers</a>.</p>
         </header>
+        <div class="hs-carriers__wrap">
         <ul class="hs-carriers__grid">
           <li class="hs-carrier hs-reveal"><img class="hs-carrier__logo" src="https://figleafagency.com/wp-content/uploads/provider_logo_american_collectors_insurance.png" alt="American Collectors Insurance" width="240" height="120" loading="lazy" decoding="async" data-fallback><span class="hs-carrier__name">American Collectors Insurance</span></li>
           <li class="hs-carrier hs-reveal"><img class="hs-carrier__logo" src="https://figleafagency.com/wp-content/uploads/provider_logo_american_modern.png" alt="American Modern" width="240" height="120" loading="lazy" decoding="async" data-fallback><span class="hs-carrier__name">American Modern</span></li>
@@ -394,12 +421,22 @@
           <li class="hs-carrier hs-reveal"><img class="hs-carrier__logo" src="https://figleafagency.com/wp-content/uploads/provider_logo_philadelphia_contributionship.png" alt="The Philadelphia Contributionship" width="240" height="120" loading="lazy" decoding="async" data-fallback><span class="hs-carrier__name">The Philadelphia Contributionship</span></li>
           <li class="hs-carrier hs-reveal"><img class="hs-carrier__logo" src="https://figleafagency.com/wp-content/uploads/provider_logo_travellers.png" alt="Travelers" width="240" height="120" loading="lazy" decoding="async" data-fallback><span class="hs-carrier__name">Travelers</span></li>
         </ul>
-        <p class="hs-center"><a class="hs-textlink" href="https://figleafagency.com/carriers/">See all our carriers<svg class="hs-arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a></p>
+        </div>
       </div>
     </section>
 
-  </div>
+    <!-- Shared icon parts: star and the shield-with-check badge on the coverage icons -->
+    <svg class="hs-defs" aria-hidden="true" focusable="false" width="0" height="0">
+      <defs>
+        <path id="hs-star" d="m12 2.6 2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4-4.7-4.6 6.5-.9z"/>
+        <g id="hs-shield">
+          <path d="M22 2 42 9.5V25c0 13-9 21.5-20 25C11 46.5 2 38 2 25V9.5Z" fill="var(--hs-green)" stroke="#fff" stroke-width="4" stroke-linejoin="round"/>
+          <path d="m12.5 26 7 7 12-13.5" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </defs>
+    </svg>
 
+  </div>
 
   </main>
 
