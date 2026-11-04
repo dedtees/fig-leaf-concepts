@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/concept-7", "destination": "/concept-4/", "permanent": true },
+    { "source": "/concept-7/:path*", "destination": "/concept-4/:path*", "permanent": true }
+  ]
+}

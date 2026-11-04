@@ -397,7 +397,7 @@ a { color: var(--forest); }
 .scene__leader {
   position: absolute;
   left: var(--x);
-  top: 73%;
+  top: var(--y);
   width: calc(var(--card-left) - var(--x));
   height: 2px;
   margin-top: -1px;
@@ -414,7 +414,7 @@ a { color: var(--forest); }
 .hotspot {
   position: absolute;
   left: var(--x);
-  top: 73%;
+  top: var(--y);
   width: 44px;
   height: 44px;
   margin: -22px 0 0 -22px;
@@ -451,24 +451,23 @@ a { color: var(--forest); }
 /* Card beside the layer in focus, at the end of the gold line */
 .scene__card {
   position: absolute;
-  left: var(--x);
-  top: 73%;
+  left: min(var(--card-left), calc(100% - 214px)); /* on narrower screens it overlaps the leaf edge a little */
+  top: var(--y);
   z-index: 2;
-  width: min(300px, 34%);
+  width: clamp(210px, 27%, 260px);
   padding: 14px 18px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(232, 194, 126, 0.32);
   border-radius: 14px;
-  background: rgba(10, 17, 23, 0.78);
+  background: rgba(9, 13, 14, 0.8);
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
   color: #fff;
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
-  transform: translate(-50%, 8px);
+  transform: translate(10px, -50%);
   opacity: 0;
   transition: opacity 300ms ease, transform 300ms ease;
 }
-.scene__card.is-shown { opacity: 1; transform: translate(-50%, 0); }
-.scene__card[data-scene="boat"] { left: min(var(--x), 82%); }
+.scene__card.is-shown { opacity: 1; transform: translate(0, -50%); transition-delay: 160ms; }
 .scene__card-title {
   margin: 0 0 4px;
   font-family: var(--font-heading);
@@ -1183,10 +1182,9 @@ html[data-header="c"] .hero { --bar: calc(var(--header-height) + var(--utility-h
   html[data-header="b"] .hero__content,
   html[data-header="c"] .hero__content { padding-top: var(--bar); }
   html[data-header="c"] .scene { top: calc(50% + var(--bar) / 2); }
-  /* B & C: the picture grows to the full height, so the top leaf rises up
+  /* B: the picture grows to the full height, so the top leaf rises up
      behind the menu */
-  html[data-header="b"] .scene,
-  html[data-header="c"] .scene {
+  html[data-header="b"] .scene {
     width: min(calc((var(--hero-h) + var(--bar)) * 0.97 * 1300 / 1024), calc(100% - var(--scene-right) * 2 - var(--text-room)));
   }
 }

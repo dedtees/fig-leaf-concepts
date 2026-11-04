@@ -114,7 +114,7 @@ const CRQ_URL = '';
 
       if (!CRQ_URL) {
         status.textContent =
-          'Online quotes are almost ready. For now, call us at 877-9-THE-FIG and we’ll get your ' +
+          'Online quotes are almost ready. For now, call us at (908) 862-3447 and we’ll get your ' +
           coverage + ' quote started.';
         status.hidden = false;
         return;
