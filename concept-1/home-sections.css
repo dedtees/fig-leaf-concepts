@@ -839,3 +839,56 @@
   .hs--v6 .hs-line__icon { display: none; }
   .hs--v6 .hs-line::before { font-size: 2rem; }
 }
+
+/* --- concept 1: moving coverage icons ------------------------------------
+   Only concept 1's markup has the moving parts (.hs-anim icons with
+   spinning wheels, chimney smoke, rolling waves and rain). The loops run
+   only when motion is welcome; otherwise the icons stay still. */
+
+.hs-home__smoke,
+.hs-umb__drop { opacity: 0; }
+.hs-car__wheel { transform-box: fill-box; transform-origin: center; }
+.hs-umb__canopy { transform-box: view-box; transform-origin: 48px 56px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hs-anim--car .hs-car__wheel { animation: hs-spin .9s linear infinite; }
+  .hs-anim--car .hs-car__body { animation: hs-bump .45s ease-in-out infinite alternate; }
+
+  .hs-anim--home .hs-home__smoke { animation: hs-smoke 3.6s ease-out infinite; }
+  .hs-anim--home .hs-home__smoke:nth-child(2) { animation-delay: 1.2s; }
+  .hs-anim--home .hs-home__smoke:nth-child(3) { animation-delay: 2.4s; }
+  .hs-anim--home .hs-home__window { animation: hs-glow 4s ease-in-out infinite; }
+
+  .hs-anim--boat .hs-boat__hull { transform-box: view-box; transform-origin: 48px 68px; animation: hs-bob 2.4s ease-in-out infinite; }
+  .hs-anim--boat .hs-boat__wave { animation: hs-wave 1.8s linear infinite; }
+  .hs-anim--boat .hs-boat__wave--back { animation-duration: 2.6s; animation-direction: reverse; }
+
+  .hs-anim--umbrella .hs-umb__canopy { animation: hs-sway 3.2s ease-in-out infinite; }
+  .hs-anim--umbrella .hs-umb__drop { animation: hs-rain 1.6s ease-in infinite; }
+  .hs-anim--umbrella .hs-umb__drop:nth-child(2) { animation-delay: .55s; }
+  .hs-anim--umbrella .hs-umb__drop:nth-child(3) { animation-delay: 1.1s; }
+}
+
+@keyframes hs-spin { to { transform: rotate(360deg); } }
+@keyframes hs-bump { to { transform: translateY(-1.5px); } }
+@keyframes hs-smoke {
+  0% { opacity: 0; transform: translate(0, 0) scale(.6); }
+  20% { opacity: .9; }
+  100% { opacity: 0; transform: translate(6px, -16px) scale(1.5); }
+}
+@keyframes hs-glow { 0%, 100% { fill: #fff; } 50% { fill: #f4e6c0; } }
+@keyframes hs-bob {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(2px) rotate(2deg); }
+}
+@keyframes hs-wave { to { transform: translateX(28px); } }
+@keyframes hs-sway {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+@keyframes hs-rain {
+  0% { opacity: 0; translate: 0 0; }
+  15% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; translate: 0 20px; }
+}
