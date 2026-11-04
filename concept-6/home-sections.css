@@ -1367,3 +1367,14 @@
   .hs--v2 .hs-px__quote { font-size: 340px; }
   .hs--v2 .hs-carriers__grid { gap: 8px; }
 }
+
+/* --- concept 2: moving coverage icons ------------------------------------
+   Same loops as concept 1, tinted for the mint icon tiles; the tile lifts
+   a little while you hover a card. */
+.hs--v2 .hs-car__tread { fill: #e4f1e7; opacity: 1; }
+.hs--v2 .hs-line__icon { transition: transform .35s cubic-bezier(.2, .7, .2, 1), box-shadow .35s ease; }
+.hs--v2 .hs-line:hover .hs-line__icon { transform: translateY(-4px) scale(1.04); box-shadow: 0 16px 30px -18px rgba(15, 36, 24, .45); }
+@media (prefers-reduced-motion: no-preference) {
+  .hs--v2 .hs-anim--home .hs-home__window { animation-name: hs-glow-mint; }
+}
+@keyframes hs-glow-mint { 0%, 100% { fill: #e4f1e7; } 50% { fill: #f6d77a; } }
