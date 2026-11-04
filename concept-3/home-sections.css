@@ -1378,3 +1378,26 @@
   .hs--v2 .hs-anim--home .hs-home__window { animation-name: hs-glow-mint; }
 }
 @keyframes hs-glow-mint { 0%, 100% { fill: #e4f1e7; } 50% { fill: #f6d77a; } }
+
+/* --- concept 2: compact Additional Services -------------------------------
+   The two services sit side by side as short cards (photo strip on the
+   left, copy on the right) instead of two tall full-width rows. */
+.hs--v2 .hs-services { padding-top: calc(clamp(56px, 6vw, 80px) + 8px); padding-bottom: calc(clamp(56px, 6vw, 80px) + var(--hs-sheet)); }
+.hs--v2 .hs-services .hs-split { margin-bottom: clamp(28px, 3.5vw, 44px); }
+.hs--v2 .hs-services .hs-split__text { padding-top: 14px; }
+.hs--v2 .hs-services__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 1.8vw, 22px); }
+.hs--v2 .hs-service { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
+.hs--v2 .hs-service + .hs-service .hs-service__media { order: 0; }
+.hs--v2 .hs-service .hs-service__media { min-height: 0; aspect-ratio: auto; height: 100%; }
+.hs--v2 .hs-service__body { align-self: center; padding: clamp(20px, 2.2vw, 28px); }
+.hs--v2 .hs-service .hs-line__title { font-size: clamp(1.2rem, 1rem + .5vw, 1.4rem); margin-bottom: 8px; }
+.hs--v2 .hs-service__body p { font-size: .98rem; line-height: 1.55; margin-bottom: 10px; }
+@media (max-width: 960px) {
+  .hs--v2 .hs-services__grid { grid-template-columns: minmax(0, 1fr); }
+  .hs--v2 .hs-service { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
+  .hs--v2 .hs-service .hs-service__media { aspect-ratio: auto; }
+}
+@media (max-width: 520px) {
+  .hs--v2 .hs-service { grid-template-columns: minmax(0, 1fr); }
+  .hs--v2 .hs-service .hs-service__media { height: auto; aspect-ratio: 16 / 7; }
+}
