@@ -54,6 +54,37 @@
     ticker.classList.add('is-ticking');
   }
 
+  /* ---- parallax (concept 2 layout) ----------------------------------- */
+  // Anything marked data-hs-px="speed" drifts against the scroll, measured
+  // from the middle of its section: positive speeds lag behind like a far
+  // background, negative ones rush ahead like something close. Phones get a
+  // gentler version, and reduced motion turns it off.
+  var pxEls = Array.prototype.slice.call(document.querySelectorAll('.hs [data-hs-px]'));
+  if (pxEls.length && !reduceMotion) {
+    var small = window.matchMedia('(max-width: 760px)');
+    var pxItems = pxEls.map(function (el) {
+      return { el: el, host: el.closest('.hs-about__media, .hs-service__media, section') || el.parentElement, speed: parseFloat(el.dataset.hsPx) || 0 };
+    });
+    var pxQueued = false;
+    var pxUpdate = function () {
+      pxQueued = false;
+      var vh = window.innerHeight;
+      var damp = small.matches ? 0.5 : 1;
+      for (var n = 0; n < pxItems.length; n++) {
+        var it = pxItems[n];
+        var box = it.host.getBoundingClientRect();
+        if (box.bottom < -vh * 0.5 || box.top > vh * 1.5) continue;
+        var offset = box.top + box.height / 2 - vh / 2;
+        it.el.style.transform = 'translate3d(0,' + (-offset * it.speed * damp).toFixed(1) + 'px,0)';
+      }
+    };
+    var pxQueue = function () { if (!pxQueued) { pxQueued = true; requestAnimationFrame(pxUpdate); } };
+    root.classList.add('hs-px-on');
+    window.addEventListener('scroll', pxQueue, { passive: true });
+    window.addEventListener('resize', pxQueue);
+    pxUpdate();
+  }
+
   /* ---- counting stats --------------------------------------------------- */
   function countUp(el) {
     var target = parseFloat(el.dataset.count);
