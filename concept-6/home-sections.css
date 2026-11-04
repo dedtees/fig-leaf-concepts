@@ -893,3 +893,120 @@
   80% { opacity: 1; }
   100% { opacity: 0; translate: 0 20px; }
 }
+
+/* --- concept 1: dark and gold, continuing the hero -----------------------
+   The sections pick up the hero's backdrop (#070d0f), its gold accent and
+   its Fraunces headings, so the page carries on from the hero without a
+   break. One long gradient runs behind all the sections; each section is
+   transparent on top of it. */
+
+.hs--v1 {
+  --hs-gold: #e8c27e;
+  --hs-ink-bg: #070d0f;
+  --hs-ink-2: #0b1714;
+  --hs-text: rgba(255, 255, 255, .72);
+  --hs-line: rgba(255, 255, 255, .1);
+  --hs-glass: rgba(255, 255, 255, .035);
+  --hs-heading: var(--font-heading, "Fraunces", Georgia, serif);
+  --hs-body: var(--font-body, "Source Sans 3", system-ui, sans-serif);
+  --hs-shield: var(--hs-gold);
+  --hs-shield-ring: var(--hs-ink-bg);
+  --hs-shield-check: var(--hs-ink-bg);
+  color: var(--hs-text);
+  background:
+    radial-gradient(ellipse 45% 420px at 80% 560px, rgba(74, 58, 30, .3), transparent 70%),
+    radial-gradient(ellipse 50% 700px at 10% 55%, rgba(43, 98, 64, .18), transparent 70%),
+    linear-gradient(180deg, var(--hs-ink-bg) 0, var(--hs-ink-2) 45%, var(--hs-ink-bg) 100%);
+}
+.hs--v1 a:focus-visible { outline-color: var(--hs-gold); }
+
+.hs--v1 .hs-section,
+.hs--v1 .hs-bundle,
+.hs--v1 .hs-services { background: none; }
+.hs--v1 .hs-carriers { border-top: 0; }
+
+/* headings: Fraunces like the hero title, gold rule */
+.hs--v1 .hs-split__title {
+  font-family: var(--hs-heading);
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: -.01em;
+  font-size: clamp(2rem, 1.4rem + 1.8vw, 2.8rem);
+  color: #fff;
+  border-right-color: var(--hs-gold);
+}
+.hs--v1 .hs-split__text { color: rgba(255, 255, 255, .8); }
+.hs--v1 .hs-split a:not(.hs-btn):not(.hs-more) { color: var(--hs-gold); }
+.hs--v1 .hs-heading,
+.hs--v1 .hs-line__title { font-family: var(--hs-heading); font-weight: 500; color: #fff; }
+.hs--v1 .hs-eyebrow { font-family: var(--hs-body); font-weight: 800; color: var(--hs-gold); border-left-color: var(--hs-gold); }
+.hs--v1 .hs-more { color: var(--hs-gold); font-weight: 700; letter-spacing: .08em; font-size: .92rem; }
+.hs--v1 .hs-stars { color: var(--hs-gold); }
+
+.hs--v1 .hs-btn { border-radius: 999px; font-family: var(--hs-body); font-weight: 700; letter-spacing: .04em; }
+.hs--v1 .hs-btn--primary { background: var(--hs-gold); border-color: var(--hs-gold); color: #10140f; }
+.hs--v1 .hs-btn--primary:hover { background: #f1d29c; border-color: #f1d29c; }
+.hs--v1 .hs-btn--outline { border-color: var(--hs-gold); color: var(--hs-gold); }
+.hs--v1 .hs-btn--outline:hover { background: var(--hs-gold); color: #10140f; }
+
+/* stats: a glass card resting on the bottom edge of the hero */
+.hs--v1 .hs-statband { background: none; }
+.hs--v1 .hs-stats {
+  background: rgba(13, 22, 22, .72);
+  border: 1px solid rgba(232, 194, 126, .35);
+  border-radius: 18px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .45);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.hs--v1 .hs-stat__value { font-family: var(--hs-heading); font-weight: 600; color: #fff; }
+.hs--v1 .hs-stat__label { color: rgba(255, 255, 255, .68); }
+
+/* coverage icons: pale sage on the dark, gold shields */
+.hs--v1 .hs-ico { fill: #a9c7b4; }
+.hs--v1 .hs-ico__cut,
+.hs--v1 .hs-car__tread { fill: var(--hs-ink-bg); }
+.hs--v1 .hs-ico__wave { stroke: #a9c7b4; }
+
+/* bundle: a gold-edged panel */
+.hs--v1 .hs-bundle .hs-split {
+  max-width: 980px;
+  padding: clamp(32px, 5vw, 56px);
+  border: 1px solid rgba(232, 194, 126, .3);
+  border-radius: 18px;
+  background: linear-gradient(120deg, rgba(232, 194, 126, .1), rgba(43, 98, 64, .12));
+}
+
+.hs--v1 .hs-about__media,
+.hs--v1 .hs-service,
+.hs--v1 .hs-service__media { border-radius: 18px; }
+.hs--v1 .hs-about__media { box-shadow: 0 0 0 1px rgba(232, 194, 126, .25); }
+.hs--v1 .hs-service { background: var(--hs-glass); border: 1px solid var(--hs-line); overflow: hidden; }
+.hs--v1 .hs-service__media { border-radius: 0; }
+.hs--v1 .hs-about__media.is-fallback,
+.hs--v1 .hs-service__media.is-fallback {
+  background:
+    radial-gradient(circle at 30% 30%, rgba(232, 194, 126, .35), transparent 55%),
+    linear-gradient(160deg, #2b6240, var(--hs-ink-bg));
+}
+
+.hs--v1 .hs-reviews__num { color: var(--hs-gold); }
+.hs--v1 .hs-review { background: var(--hs-glass); border: 1px solid var(--hs-line); border-radius: 18px; }
+.hs--v1 .hs-review__text p { font-family: var(--hs-heading); font-size: 1.15rem; color: #fff; }
+.hs--v1 .hs-review__author strong { color: #fff; }
+.hs--v1 .hs-review__avatar { background: var(--hs-gold); color: #10140f; }
+.hs--v1 .hs-review__more { color: var(--hs-gold); }
+
+.hs--v1 .hs-carriers__grid { border-color: var(--hs-line); }
+.hs--v1 .hs-carrier { border-color: var(--hs-line); }
+.hs--v1 .hs-carrier__logo { filter: brightness(0) invert(1); opacity: .75; }
+.hs--v1 .hs-carrier__name { color: rgba(255, 255, 255, .8); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hs--v1 .hs-anim--home .hs-home__window { animation-name: hs-glow-gold; }
+}
+@keyframes hs-glow-gold { 0%, 100% { fill: #070d0f; } 50% { fill: #e8c27e; } }
+
+@media (max-width: 760px) {
+  .hs--v1 .hs-split__title { border-bottom-color: var(--hs-gold); }
+}
