@@ -1010,3 +1010,99 @@
 @media (max-width: 760px) {
   .hs--v1 .hs-split__title { border-bottom-color: var(--hs-gold); }
 }
+
+/* --- concept 1: rhythm down the page --------------------------------------
+   Dark straight out of the hero, then deep green, warm ivory, green, ivory.
+   Each dark section fades into the green below it so only the ivory bands
+   have an edge, and that edge is a gold hairline. Gold leaf watermarks
+   (the logo's leaf, as a mask) sit in the green bands. */
+
+.hs--v1 {
+  --hs-forest-1: #0f2a1d;
+  --hs-forest-2: #17402b;
+  --hs-ivory: #f6f1e4;
+  --hs-ivory-2: #fbf8f0;
+  --hs-gold-ink: #94702c;   /* gold dark enough for text on ivory */
+  background: var(--hs-ink-bg);
+}
+
+.hs--v1 .hs-section { position: relative; isolation: isolate; overflow: hidden; }
+
+/* dark → deep green */
+.hs--v1 .hs-coverage {
+  background:
+    radial-gradient(ellipse 45% 420px at 80% 300px, rgba(74, 58, 30, .3), transparent 70%),
+    linear-gradient(180deg, var(--hs-ink-bg) 0, var(--hs-ink-bg) 55%, var(--hs-forest-1) 100%);
+}
+
+/* green bands with a gold leaf */
+.hs--v1 .hs-bundle,
+.hs--v1 .hs-services {
+  background:
+    radial-gradient(ellipse 60% 80% at 20% 0, rgba(232, 194, 126, .12), transparent 70%),
+    linear-gradient(180deg, var(--hs-forest-1), var(--hs-forest-2));
+}
+.hs--v1 .hs-bundle::before,
+.hs--v1 .hs-services::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: clamp(280px, 34vw, 520px);
+  aspect-ratio: 520 / 567;
+  right: -6%;
+  top: 50%;
+  transform: translateY(-50%) rotate(-14deg);
+  background: linear-gradient(150deg, var(--hs-gold), rgba(232, 194, 126, .2));
+  -webkit-mask: url("assets/fig-leaf-fill.svg") center / contain no-repeat;
+  mask: url("assets/fig-leaf-fill.svg") center / contain no-repeat;
+  opacity: .14;
+  pointer-events: none;
+}
+.hs--v1 .hs-services::before { right: auto; left: -8%; transform: translateY(-50%) rotate(18deg) scaleX(-1); }
+.hs--v1 .hs-bundle .hs-split {
+  background: rgba(7, 13, 15, .35);
+  border-color: rgba(232, 194, 126, .45);
+}
+
+/* ivory bands */
+.hs--v1 .hs-about-section,
+.hs--v1 .hs-reviews,
+.hs--v1 .hs-carriers {
+  --hs-text: #4a524c;
+  --hs-line: rgba(31, 74, 48, .14);
+  color: var(--hs-text);
+  background: var(--hs-ivory);
+}
+.hs--v1 .hs-about-section,
+.hs--v1 .hs-reviews { border-top: 1px solid rgba(232, 194, 126, .7); }
+.hs--v1 .hs-carriers { background: linear-gradient(180deg, var(--hs-ivory), var(--hs-ivory-2)); }
+
+.hs--v1 .hs-about-section .hs-heading,
+.hs--v1 .hs-reviews .hs-split__title,
+.hs--v1 .hs-carriers .hs-split__title,
+.hs--v1 .hs-reviews .hs-review__author strong { color: #173a26; }
+.hs--v1 .hs-reviews .hs-split__text,
+.hs--v1 .hs-carriers .hs-split__text { color: #4a524c; }
+.hs--v1 .hs-about-section .hs-eyebrow,
+.hs--v1 .hs-reviews .hs-more,
+.hs--v1 .hs-reviews .hs-reviews__num,
+.hs--v1 .hs-reviews .hs-review__more,
+.hs--v1 .hs-carriers .hs-split a:not(.hs-btn):not(.hs-more) { color: var(--hs-gold-ink); }
+.hs--v1 .hs-about-section .hs-eyebrow { border-left-color: var(--hs-gold); }
+.hs--v1 .hs-about-section .hs-btn--outline { border-color: #173a26; color: #173a26; }
+.hs--v1 .hs-about-section .hs-btn--outline:hover { background: #173a26; color: var(--hs-gold); }
+.hs--v1 .hs-about__media { box-shadow: 18px 18px 0 -2px var(--hs-gold); }
+
+.hs--v1 .hs-reviews .hs-stars { color: #d9a441; }
+.hs--v1 .hs-review {
+  background: #fff;
+  border: 1px solid rgba(232, 194, 126, .55);
+  box-shadow: 0 18px 40px rgba(23, 58, 38, .08);
+}
+.hs--v1 .hs-review__text p { color: #173a26; }
+.hs--v1 .hs-review__avatar { background: #173a26; color: var(--hs-gold); }
+
+.hs--v1 .hs-carriers__grid { border-color: var(--hs-line); }
+.hs--v1 .hs-carrier { border-color: var(--hs-line); background: #fff; }
+.hs--v1 .hs-carrier__logo { filter: none; opacity: 1; }
+.hs--v1 .hs-carrier__name { color: #173a26; }
