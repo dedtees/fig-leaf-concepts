@@ -842,16 +842,17 @@
 
 /* --- concept 1: moving coverage icons ------------------------------------
    Only concept 1's markup has the moving parts (.hs-anim icons with
-   spinning wheels, chimney smoke, rolling waves and rain). The loops run
+   rolling tyre treads, chimney smoke, rolling waves and rain). The loops run
    only when motion is welcome; otherwise the icons stay still. */
 
 .hs-home__smoke,
 .hs-umb__drop { opacity: 0; }
-.hs-car__wheel { transform-box: fill-box; transform-origin: center; }
+.hs-car__tread { fill: #fff; opacity: .9; }
 .hs-umb__canopy { transform-box: view-box; transform-origin: 48px 56px; }
 
 @media (prefers-reduced-motion: no-preference) {
-  .hs-anim--car .hs-car__wheel { animation: hs-spin .9s linear infinite; }
+  /* the car faces us, so the treads roll down toward the viewer */
+  .hs-anim--car .hs-car__tread { animation: hs-roll .35s linear infinite; }
   .hs-anim--car .hs-car__body { animation: hs-bump .45s ease-in-out infinite alternate; }
 
   .hs-anim--home .hs-home__smoke { animation: hs-smoke 3.6s ease-out infinite; }
@@ -869,7 +870,7 @@
   .hs-anim--umbrella .hs-umb__drop:nth-child(3) { animation-delay: 1.1s; }
 }
 
-@keyframes hs-spin { to { transform: rotate(360deg); } }
+@keyframes hs-roll { from { transform: translateY(-4px); } to { transform: translateY(0); } }
 @keyframes hs-bump { to { transform: translateY(-1.5px); } }
 @keyframes hs-smoke {
   0% { opacity: 0; transform: translate(0, 0) scale(.6); }
