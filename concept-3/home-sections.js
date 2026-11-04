@@ -85,6 +85,27 @@
     pxUpdate();
   }
 
+  /* ---- reading progress beside pinned headings (concept 3 layout) ------ */
+  // Each section's --hs-p runs from 0 to 1 as the section passes the middle
+  // of the screen; the gold line beside its heading fills to match.
+  var progSections = document.querySelectorAll('.hs--v3 .hs-section');
+  if (progSections.length) {
+    var progQueued = false;
+    var progUpdate = function () {
+      progQueued = false;
+      var mid = window.innerHeight * 0.55;
+      for (var q = 0; q < progSections.length; q++) {
+        var r = progSections[q].getBoundingClientRect();
+        var pr = Math.min(1, Math.max(0, (mid - r.top) / Math.max(1, r.height)));
+        progSections[q].style.setProperty('--hs-p', pr.toFixed(3));
+      }
+    };
+    var progQueue = function () { if (!progQueued) { progQueued = true; requestAnimationFrame(progUpdate); } };
+    window.addEventListener('scroll', progQueue, { passive: true });
+    window.addEventListener('resize', progQueue);
+    progUpdate();
+  }
+
   /* ---- counting stats --------------------------------------------------- */
   function countUp(el) {
     var target = parseFloat(el.dataset.count);

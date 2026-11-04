@@ -246,12 +246,15 @@
         </header>
         <ul class="hs-lines">
           <li class="hs-line hs-reveal">
-            <svg class="hs-line__icon" aria-hidden="true" viewBox="0 0 112 96"><g class="hs-ico">
-              <path d="M18 43 25 24c1.6-4.4 4.4-6 8.6-6h28.8c4.2 0 7 1.6 8.6 6L78 43Z"/>
-              <rect x="8" y="40" width="80" height="26" rx="9"/>
-              <rect x="13" y="62" width="14" height="12" rx="4"/><rect x="69" y="62" width="14" height="12" rx="4"/>
-              <path class="hs-ico__cut" d="M26 39 31 27c.8-2 2-3 4.2-3h25.6c2.2 0 3.4 1 4.2 3l5 12Z"/>
-              <circle class="hs-ico__cut" cx="21" cy="52" r="5"/><circle class="hs-ico__cut" cx="75" cy="52" r="5"/>
+            <svg class="hs-line__icon hs-anim hs-anim--car" aria-hidden="true" viewBox="0 0 112 96"><defs><clipPath id="hs-tire-l"><rect x="14" y="58" width="14" height="18" rx="4"/></clipPath><clipPath id="hs-tire-r"><rect x="62" y="58" width="14" height="18" rx="4"/></clipPath></defs><g class="hs-ico" transform="translate(-6 0)">
+              <g clip-path="url(#hs-tire-l)"><rect class="hs-car__tire" x="14" y="58" width="14" height="18" rx="4"/><g class="hs-car__tread"><rect x="14" y="58" width="14" height="1.6"/><rect x="14" y="62" width="14" height="1.6"/><rect x="14" y="66" width="14" height="1.6"/><rect x="14" y="70" width="14" height="1.6"/><rect x="14" y="74" width="14" height="1.6"/><rect x="14" y="78" width="14" height="1.6"/></g></g>
+              <g clip-path="url(#hs-tire-r)"><rect class="hs-car__tire" x="62" y="58" width="14" height="18" rx="4"/><g class="hs-car__tread"><rect x="62" y="58" width="14" height="1.6"/><rect x="62" y="62" width="14" height="1.6"/><rect x="62" y="66" width="14" height="1.6"/><rect x="62" y="70" width="14" height="1.6"/><rect x="62" y="74" width="14" height="1.6"/><rect x="62" y="78" width="14" height="1.6"/></g></g>
+              <g class="hs-car__body">
+                <path d="M18 43 25 24c1.6-4.4 4.4-6 8.6-6h28.8c4.2 0 7 1.6 8.6 6L78 43Z"/>
+                <rect x="8" y="40" width="80" height="26" rx="9"/>
+                <path class="hs-ico__cut" d="M26 39 31 27c.8-2 2-3 4.2-3h25.6c2.2 0 3.4 1 4.2 3l5 12Z"/>
+                <circle class="hs-ico__cut hs-car__light" cx="16" cy="52" r="4"/><circle class="hs-ico__cut hs-car__light" cx="80" cy="52" r="4"/>
+              </g>
             </g><use href="#hs-shield" x="64" y="46"/></svg>
             <div class="hs-line__body">
               <h3 class="hs-line__title">Auto Insurance</h3>
@@ -260,10 +263,11 @@
             </div>
           </li>
           <li class="hs-line hs-reveal">
-            <svg class="hs-line__icon" aria-hidden="true" viewBox="0 0 112 96"><g class="hs-ico">
+            <svg class="hs-line__icon hs-anim hs-anim--home" aria-hidden="true" viewBox="0 0 112 96"><g class="hs-ico">
+              <circle class="hs-home__smoke" cx="67" cy="10" r="3.5"/><circle class="hs-home__smoke" cx="67" cy="10" r="3.5"/><circle class="hs-home__smoke" cx="67" cy="10" r="3.5"/>
               <path d="M6 46 48 8l42 38-6 6-6-5.4V84H18V46.6L12 52Z"/>
               <rect x="62" y="14" width="10" height="20"/>
-              <path class="hs-ico__cut" d="M40 36h16v16H40Z"/>
+              <path class="hs-ico__cut hs-home__window" d="M40 36h16v16H40Z"/>
               <path d="M47 36h2v16h-2ZM40 43h16v2H40Z"/>
             </g><use href="#hs-shield" x="64" y="46"/></svg>
             <div class="hs-line__body">
@@ -273,13 +277,18 @@
             </div>
           </li>
           <li class="hs-line hs-reveal">
-            <svg class="hs-line__icon" aria-hidden="true" viewBox="0 0 112 96"><g class="hs-ico">
-              <rect x="34" y="8" width="26" height="6" rx="2"/>
-              <path d="M28 16h38l4 14H24Z"/>
-              <path d="M20 32h54l4 14H16Z"/>
-              <path d="M6 48h84l-9 20H17Z"/>
-              <path class="hs-ico__cut" d="M30 20h7v6h-7ZM44 20h7v6h-7ZM58 20h5v6h-5Z"/>
-              <path class="hs-ico__wave" d="M6 76c7 0 7 5 14 5s7-5 14-5 7 5 14 5 7-5 14-5 7 5 14 5 7-5 14-5M6 88c7 0 7 5 14 5s7-5 14-5 7 5 14 5 7-5 14-5"/>
+            <svg class="hs-line__icon hs-anim hs-anim--boat" aria-hidden="true" viewBox="0 0 112 96"><defs><clipPath id="hs-wave-clip"><rect x="4" y="68" width="90" height="30"/></clipPath></defs><g class="hs-ico">
+              <g class="hs-boat__hull">
+                <rect x="34" y="8" width="26" height="6" rx="2"/>
+                <path d="M28 16h38l4 14H24Z"/>
+                <path d="M20 32h54l4 14H16Z"/>
+                <path d="M6 48h84l-9 20H17Z"/>
+                <path class="hs-ico__cut" d="M30 20h7v6h-7ZM44 20h7v6h-7ZM58 20h5v6h-5Z"/>
+              </g>
+              <g clip-path="url(#hs-wave-clip)">
+                <path class="hs-ico__wave hs-boat__wave" d="M-50 76c7 0 7 5 14 5s7-5 14-5c7 0 7 5 14 5s7-5 14-5c7 0 7 5 14 5s7-5 14-5c7 0 7 5 14 5s7-5 14-5c7 0 7 5 14 5s7-5 14-5c7 0 7 5 14 5s7-5 14-5"/>
+                <path class="hs-ico__wave hs-boat__wave hs-boat__wave--back" d="M-36 88c7 0 7 5 14 5s7-5 14-5c7 0 7 5 14 5s7-5 14-5c7 0 7 5 14 5s7-5 14-5c7 0 7 5 14 5s7-5 14-5c7 0 7 5 14 5s7-5 14-5"/>
+              </g>
             </g><use href="#hs-shield" x="64" y="46"/></svg>
             <div class="hs-line__body">
               <h3 class="hs-line__title">Boat Insurance</h3>
@@ -288,10 +297,13 @@
             </div>
           </li>
           <li class="hs-line hs-reveal">
-            <svg class="hs-line__icon" aria-hidden="true" viewBox="0 0 112 96"><g class="hs-ico">
-              <path d="M4 40C8 20 26 6 48 6s40 14 44 34c-4-4-8-4-12 0-4-4-8-4-12 0-4-4-8-4-12 0-4-4-8-4-12 0-4-4-8-4-12 0-4-4-8-4-12 0-4-4-8-4-12 0Z"/>
-              <rect x="46.5" y="2" width="3" height="10" rx="1.5"/>
-              <rect x="46.5" y="38" width="3" height="18" rx="1.5"/>
+            <svg class="hs-line__icon hs-anim hs-anim--umbrella" aria-hidden="true" viewBox="0 0 112 96"><g class="hs-ico">
+              <path class="hs-umb__drop" transform="translate(16 -14)" d="M0 0c2 3.5 3.5 5.6 3.5 7.5a3.5 3.5 0 0 1-7 0C-3.5 5.6-2 3.5 0 0Z"/><path class="hs-umb__drop" transform="translate(40 -14)" d="M0 0c2 3.5 3.5 5.6 3.5 7.5a3.5 3.5 0 0 1-7 0C-3.5 5.6-2 3.5 0 0Z"/><path class="hs-umb__drop" transform="translate(72 -14)" d="M0 0c2 3.5 3.5 5.6 3.5 7.5a3.5 3.5 0 0 1-7 0C-3.5 5.6-2 3.5 0 0Z"/>
+              <g class="hs-umb__canopy">
+                <path d="M4 40C8 20 26 6 48 6s40 14 44 34c-4-4-8-4-12 0-4-4-8-4-12 0-4-4-8-4-12 0-4-4-8-4-12 0-4-4-8-4-12 0-4-4-8-4-12 0-4-4-8-4-12 0Z"/>
+                <rect x="46.5" y="2" width="3" height="10" rx="1.5"/>
+                <rect x="46.5" y="38" width="3" height="18" rx="1.5"/>
+              </g>
               <circle cx="30" cy="54" r="8"/><path d="M16 88V74c0-6 5-10 14-10s14 4 14 10v14Z"/>
               <circle cx="62" cy="58" r="7"/><path d="M50 88V77c0-5 4-9 12-9s12 4 12 9v11Z"/>
             </g><use href="#hs-shield" x="64" y="46"/></svg>
@@ -307,6 +319,7 @@
 
     <!-- Bundle -->
     <section class="hs-section hs-bundle" id="quote" aria-labelledby="hs-bundle-title">
+      <span class="hs-v3leaf" aria-hidden="true"></span>
       <div class="hs-wrap">
         <div class="hs-split hs-reveal">
           <h2 class="hs-split__title" id="hs-bundle-title">Select One or Bundle!</h2>
@@ -363,6 +376,7 @@
 
     <!-- Google Reviews -->
     <section class="hs-section hs-reviews" aria-labelledby="hs-reviews-title">
+      <span class="hs-v3leaf" aria-hidden="true"></span>
       <div class="hs-wrap">
         <header class="hs-split hs-reveal">
           <h2 class="hs-split__title" id="hs-reviews-title">Google Reviews</h2>
@@ -438,8 +452,8 @@
       <defs>
         <path id="hs-star" d="m12 2.6 2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4-4.7-4.6 6.5-.9z"/>
         <g id="hs-shield">
-          <path d="M22 2 42 9.5V25c0 13-9 21.5-20 25C11 46.5 2 38 2 25V9.5Z" fill="var(--hs-green)" stroke="#fff" stroke-width="4" stroke-linejoin="round"/>
-          <path d="m12.5 26 7 7 12-13.5" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22 2 42 9.5V25c0 13-9 21.5-20 25C11 46.5 2 38 2 25V9.5Z" style="fill: var(--hs-shield, var(--hs-green)); stroke: var(--hs-shield-ring, #fff)" stroke-width="4" stroke-linejoin="round"/>
+          <path d="m12.5 26 7 7 12-13.5" fill="none" style="stroke: var(--hs-shield-check, #fff)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
         </g>
       </defs>
     </svg>
