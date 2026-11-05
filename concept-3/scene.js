@@ -1,8 +1,7 @@
-// Stacked leaves: move over the car, house or boat layer in the picture (or
-// tap a dot) to light that layer up. A gold line draws out to a card beside
-// it and the headline's last words follow along. With no one interacting, it
-// steps down through the layers on its own. On mouse devices the picture also
-// tilts a touch toward the cursor.
+// Interactive scene: move over the car, house or boat in the picture (or tap
+// a dot) to light it up. The headline's last words and the card underneath
+// follow along. With no one interacting, it steps through them on its own.
+// On mouse devices the picture also tilts a touch toward the cursor.
 
 const AUTO_MS = 3200;    // time on each spot while nobody is interacting
 const RESUME_MS = 2500;  // wait after the pointer leaves before stepping again
@@ -29,11 +28,9 @@ const WORD_MS = 480;     // headline words sliding
       key: key,
       btn: btn,
       card: scene.querySelector('.scene__card[data-scene="' + key + '"]'),
-      leader: scene.querySelector('.scene__leader[data-scene="' + key + '"]'),
       word: hero.querySelector('.scene-word[data-scene="' + key + '"]'),
-      // centre of the layer, where the light goes
-      cx: parseFloat(btn.style.getPropertyValue('--cx')),
-      cy: parseFloat(btn.style.getPropertyValue('--cy'))
+      x: parseFloat(btn.style.getPropertyValue('--x')),
+      y: parseFloat(btn.style.getPropertyValue('--y'))
     };
   });
   if (!items.length) return;
@@ -55,12 +52,11 @@ const WORD_MS = 480;     // headline words sliding
     items.forEach(function (it, n) {
       it.btn.setAttribute('aria-pressed', String(n === i));
       if (it.card) it.card.classList.toggle('is-shown', n === i);
-      if (it.leader) it.leader.classList.toggle('is-shown', n === i);
     });
     scene.classList.toggle('has-focus', i >= 0);
     if (i >= 0) {
-      scene.style.setProperty('--sx', items[i].cx + '%');
-      scene.style.setProperty('--sy', items[i].cy + '%');
+      scene.style.setProperty('--sx', items[i].x + '%');
+      scene.style.setProperty('--sy', items[i].y + '%');
       swapWords(i);
     }
   }
@@ -135,15 +131,14 @@ const WORD_MS = 480;     // headline words sliding
   function kick() { if (!rafId) rafId = requestAnimationFrame(tick); }
 
   function nearest(px, py) {
-    // only the column where the leaves sit counts; the layers are stacked,
-    // so the closest one up or down wins
-    if (px < 8 || px > 76) return -1;
+    // only the band where the car, house and boat sit counts
+    if (py < 18 || py > 78) return -1;
     let best = -1, bestD = Infinity;
     items.forEach(function (it, n) {
-      const d = Math.abs(py - it.cy);
+      const d = Math.abs(px - it.x);
       if (d < bestD) { bestD = d; best = n; }
     });
-    return bestD < 16 ? best : -1;
+    return bestD < 12 ? best : -1;
   }
 
   scene.addEventListener('pointermove', function (e) {
