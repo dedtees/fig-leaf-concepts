@@ -1599,3 +1599,37 @@
   .hs--v3 .hs-service { grid-template-columns: minmax(0, 1fr); }
   .hs--v3 .hs-service .hs-service__media { height: auto; aspect-ratio: 16 / 6; }
 }
+
+/* --- concept 3: concept 2 with concept 1's Google Reviews layout ---------
+   .hs-reviews--split brings back the split heading (title, a rule, then the
+   score and links beside it) and left-aligned review cards, in concept 2's
+   colours and type. */
+.hs--v2 .hs-reviews--split .hs-split {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  justify-items: stretch; align-items: center; text-align: left;
+  max-width: 860px; gap: 0;
+}
+.hs--v2 .hs-reviews--split .hs-split__title {
+  text-align: right; padding: 4px 28px 4px 0;
+  border-right: 4px solid transparent;
+  border-image: linear-gradient(180deg, var(--hs-green), var(--hs-mint)) 1;
+}
+.hs--v2 .hs-reviews--split .hs-split__title::after { content: none; }
+.hs--v2 .hs-reviews--split .hs-split__text { padding: 0 0 0 26px; }
+.hs--v2 .hs-reviews--split .hs-reviews__score,
+.hs--v2 .hs-reviews--split .hs-reviews__actions { justify-content: flex-start; }
+.hs--v2 .hs-reviews--split .hs-reviews__score { margin-bottom: 8px; }
+.hs--v2 .hs-reviews--split .hs-review { text-align: left; align-items: flex-start; }
+.hs--v2 .hs-reviews--split .hs-review__author { justify-content: flex-start; }
+.hs--v2 .hs-reviews--split .hs-review__text p { font-size: 1.12rem; }
+@media (max-width: 760px) {
+  .hs--v2 .hs-reviews--split .hs-split { grid-template-columns: minmax(0, 1fr); }
+  .hs--v2 .hs-reviews--split .hs-split__title {
+    text-align: left; padding: 0 0 18px; border-right: 0;
+    border-bottom: 4px solid transparent;
+    border-image: linear-gradient(90deg, var(--hs-green), var(--hs-mint)) 1;
+    justify-self: start;
+  }
+  .hs--v2 .hs-reviews--split .hs-split__text { padding: 18px 0 0; }
+}
+.hs--v2 .hs-reviews--split .hs-px__quote { left: auto; right: 4%; margin-left: 0; }
