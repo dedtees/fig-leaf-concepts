@@ -410,14 +410,14 @@ a { color: var(--forest); }
 }
 .scene__leader.is-shown { transform: scaleX(1); transition-delay: 120ms; }
 
-/* Pulsing dots on the car, house and boat */
+/* No visible markers — glow highlights only. */
 .hotspot {
   position: absolute;
   left: var(--x);
   top: var(--y);
-  width: 44px;
-  height: 44px;
-  margin: -22px 0 0 -22px;
+  width: 60px;
+  height: 60px;
+  margin: -30px 0 0 -30px;
   padding: 0;
   border: 0;
   border-radius: 50%;
@@ -426,48 +426,50 @@ a { color: var(--forest); }
   transform: translateZ(30px);
 }
 .hotspot::before,
-.hotspot::after {
-  content: "";
+.hotspot::after { content: none; }
+.hotspot:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 2px;
+}
+.scene__hint {
   position: absolute;
-  inset: 13px;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 0 4px rgba(232, 194, 126, 0.55), 0 2px 10px rgba(0, 0, 0, 0.5);
-  transition: transform 250ms ease, background 250ms ease;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 600ms ease;
 }
-.hotspot::after {
-  background: none;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.7);
-  animation: hotspot-pulse 2.2s ease-out infinite;
-}
-.hotspot:hover::before,
-.hotspot[aria-pressed="true"]::before { background: var(--accent); transform: scale(1.25); }
-.hotspot:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
-@keyframes hotspot-pulse {
-  0% { transform: scale(1); opacity: 0.9; }
-  100% { transform: scale(2.6); opacity: 0; }
-}
+.scene.is-hovered .scene__hint,
+.scene.has-focus .scene__hint { opacity: 0; }
 
 /* Card beside the layer in focus, at the end of the gold line */
 .scene__card {
   position: absolute;
-  left: min(var(--card-left), calc(100% - 214px)); /* on narrower screens it overlaps the leaf edge a little */
-  top: var(--y);
+  left: var(--x);
+  top: 73%;
   z-index: 2;
-  width: clamp(210px, 27%, 260px);
+  width: min(300px, 34%);
   padding: 14px 18px 16px;
-  border: 1px solid rgba(232, 194, 126, 0.32);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 14px;
-  background: rgba(9, 13, 14, 0.8);
+  background: rgba(10, 17, 23, 0.78);
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
   color: #fff;
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
-  transform: translate(10px, -50%);
+  transform: translate(-50%, 8px);
   opacity: 0;
   transition: opacity 300ms ease, transform 300ms ease;
 }
-.scene__card.is-shown { opacity: 1; transform: translate(0, -50%); transition-delay: 160ms; }
+.scene__card.is-shown { opacity: 1; transform: translate(-50%, 0); }
+.scene__card[data-scene="boat"] { left: min(var(--x), 82%); }
 .scene__card-title {
   margin: 0 0 4px;
   font-family: var(--font-heading);
@@ -1164,6 +1166,18 @@ html[data-header] .site-header :focus-visible { outline-color: #fff; }
    address row by a thin gold line. One continuous dark block. */
 html[data-header="a"] .site-header { background: var(--hero-dark); }
 html[data-header="a"] .utility { border-bottom: 1px solid rgba(232, 194, 126, 0.22); }
+html[data-header="a"] .hero { --bar: calc(var(--header-height) + var(--utility-height)); }
+@media (min-width: 761px) {
+  html[data-header="a"] .hero { height: calc(var(--hero-h) + var(--bar)); }
+  html[data-header="a"] .hero__content { padding-top: var(--bar); }
+  html[data-header="a"] .scene {
+    width: min(calc((var(--hero-h) + var(--bar)) * 0.97 * 1300 / 1024), calc(100% - var(--scene-right) * 2 - var(--text-room)));
+    top: calc(50% + var(--bar) / 2);
+  }
+}
+@media (max-width: 760px) {
+  html[data-header="a"] .hero .hero__content { padding-top: calc(var(--bar) + 36px); }
+}
 
 /* B. Transparent: the header sits on top of the hero, so the hero's glow
    and picture run all the way to the top of the screen. */
