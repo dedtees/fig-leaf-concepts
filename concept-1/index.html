@@ -62,6 +62,7 @@
     <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18z"></path></symbol>
     <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path></symbol>
     <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"></path></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></symbol>
     <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"></path></symbol>
     <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5.5c0 4.4 3 8 7 9.5 4-1.5 7-5.1 7-9.5V6z"></path><path d="m9 12 2 2 4-4"></path></symbol>
@@ -137,7 +138,19 @@
 
       <nav class="site-nav" id="site-nav" aria-label="Main">
         <ul class="site-nav__list">
-          <li><a class="site-nav__link" href="services/#personal">Personal Insurance</a></li>
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="services/#personal">Personal Insurance</a>
+            <button class="site-nav__sub-toggle" type="button" aria-expanded="false" aria-controls="sub-personal">
+              <svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg>
+              <span class="visually-hidden">Personal Insurance pages</span>
+            </button>
+            <ul class="site-nav__sub" id="sub-personal">
+              <li><a href="https://figleafagency.com/auto-insurance/">Auto Insurance</a></li>
+              <li><a href="homeowners-insurance/">Homeowners Insurance</a></li>
+              <li><a href="https://figleafagency.com/boat-insurance/">Boat Insurance</a></li>
+              <li><a href="https://figleafagency.com/personal-umbrella-insurance/">Personal Umbrella Insurance</a></li>
+            </ul>
+          </li>
           <li><a class="site-nav__link" href="services/#business">Business Insurance</a></li>
           <li><a class="site-nav__link" href="carriers/">Carriers</a></li>
           <li><a class="site-nav__link" href="about/">About</a></li></ul>
@@ -270,7 +283,7 @@
             <div class="hs-line__body">
               <h3 class="hs-line__title">Home Insurance</h3>
               <p>Protect your home, belongings and property from damage, theft, accidents and liability.</p>
-              <a class="hs-more" href="https://figleafagency.com/homeowners-insurance/">Learn more<span class="visually-hidden"> about home insurance</span></a>
+              <a class="hs-more" href="homeowners-insurance/">Learn more<span class="visually-hidden"> about home insurance</span></a>
             </div>
           </li>
           <li class="hs-line hs-reveal">
@@ -471,7 +484,7 @@
           <a href="mailto:quotes@figleafagency.com">quotes@figleafagency.com</a>
         </address>
       </div>
-      <nav class="hs-footer__col" aria-label="Personal insurance"><h2 class="hs-footer__head">Personal Insurance</h2><ul><li><a href="https://figleafagency.com/auto-insurance/">Auto Insurance</a></li><li><a href="https://figleafagency.com/homeowners-insurance/">Homeowners Insurance</a></li><li><a href="https://figleafagency.com/boat-insurance/">Boat Insurance</a></li><li><a href="https://figleafagency.com/personal-umbrella-insurance/">Personal Umbrella Insurance</a></li><li><span>Renters Insurance</span></li><li><span>Condo Owners Insurance</span></li><li><span>Health Insurance</span></li><li><span>Life Insurance</span></li><li><span>Pet Insurance</span></li></ul></nav>
+      <nav class="hs-footer__col" aria-label="Personal insurance"><h2 class="hs-footer__head">Personal Insurance</h2><ul><li><a href="https://figleafagency.com/auto-insurance/">Auto Insurance</a></li><li><a href="homeowners-insurance/">Homeowners Insurance</a></li><li><a href="https://figleafagency.com/boat-insurance/">Boat Insurance</a></li><li><a href="https://figleafagency.com/personal-umbrella-insurance/">Personal Umbrella Insurance</a></li><li><span>Renters Insurance</span></li><li><span>Condo Owners Insurance</span></li><li><span>Health Insurance</span></li><li><span>Life Insurance</span></li><li><span>Pet Insurance</span></li></ul></nav>
       <nav class="hs-footer__col" aria-label="Business insurance"><h2 class="hs-footer__head">Business Insurance</h2><ul><li><span>Commercial Auto Insurance</span></li><li><span>Workers Comp Insurance</span></li><li><span>General Liability Insurance</span></li><li><span>Commercial Umbrella</span></li><li><span>Employee Benefits</span></li><li><span>Contractors Policies</span></li></ul></nav>
       <nav class="hs-footer__col" aria-label="Company"><h2 class="hs-footer__head">Company</h2><ul><li><a href="https://figleafagency.com/about/">About Us</a></li><li><a href="https://figleafagency.com/meet-our-team/">Meet Our Team</a></li><li><a href="https://figleafagency.com/carriers/">Carriers</a></li><li><a href="https://figleafagency.com/request-policy-documents/">Request Policy Documents</a></li><li><a href="https://figleafagency.com/contact/">Contact</a></li><li><a href="https://figleafagency.com/privacy-policy/">Privacy Policy</a></li><li><a href="https://figleafagency.com/terms-conditions/">Terms &amp; Conditions</a></li></ul></nav>
       <div class="hs-footer__col">
