@@ -419,7 +419,9 @@
   font-size: .85rem;
   color: rgba(255, 255, 255, .8);
 }
-.hs-footer__social { font-weight: 700; }
+.hs-footer__social { display: inline-flex; color: #fff !important; }
+.hs-footer__social svg { display: block; width: 32px; height: 32px; }
+.hs-footer__social:hover { color: var(--hs-gold) !important; }
 .hs-footer__bottom {
   margin-top: clamp(40px, 5vw, 72px);
   padding-block: 24px;
