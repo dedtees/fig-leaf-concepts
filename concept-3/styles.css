@@ -1337,3 +1337,104 @@ html[data-header="c"] .site-header { top: var(--review-h); }
   .review-bar { justify-content: center; }
   .review-bar__title { display: none; }
 }
+
+/* ---- Header: Personal Insurance dropdown -------------------------------------
+   Opens when you point at it, tab into it, or press the arrow beside it
+   (main.js). On phones it opens inside the menu, under its link. -------- */
+.site-nav__item { position: relative; display: flex; align-items: center; gap: 2px; }
+.site-nav__sub-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+.site-nav__sub-toggle .icon { width: 16px; height: 16px; transition: transform 200ms ease; }
+.site-nav__item.is-open .site-nav__sub-toggle .icon { transform: rotate(180deg); }
+.site-nav__sub {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 14px);
+  left: -18px;
+  min-width: 270px;
+  margin: 0;
+  padding: 10px;
+  list-style: none;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 18px 40px rgba(16, 36, 26, 0.16);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity 180ms ease, transform 180ms ease, visibility 0s linear 180ms;
+}
+/* a bridge so the menu stays open while the pointer crosses the gap */
+.site-nav__sub::before { content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 16px; }
+.site-nav__item:hover .site-nav__sub,
+.site-nav__item:has(:focus-visible) .site-nav__sub,
+.site-nav__item.is-open .site-nav__sub {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 180ms ease, transform 180ms ease, visibility 0s;
+}
+.site-nav__sub a {
+  display: block;
+  padding: 11px 14px;
+  border-radius: 8px;
+  color: #222;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.site-nav__sub a:hover { background: #f1efe8; color: var(--brand-green); }
+.site-nav__sub a[aria-current="page"] { color: var(--brand-green); font-weight: 700; }
+
+html[data-header] .site-nav__sub {
+  background: #0c1416;
+  border: 1px solid rgba(232, 194, 126, 0.28);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+}
+html[data-header] .site-nav__sub a { color: rgba(244, 239, 226, 0.88); }
+html[data-header] .site-nav__sub a:hover { background: rgba(232, 194, 126, 0.1); color: #fff; }
+html[data-header] .site-nav__sub a[aria-current="page"] { color: var(--gold); }
+html[data-header] .site-nav__sub-toggle { color: rgba(244, 239, 226, 0.88); }
+html[data-header] .site-nav__sub-toggle:hover { color: #fff; }
+
+@media (max-width: 1000px) {
+  .site-nav__item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0;
+    border-bottom: 1px solid #eee9dd;
+  }
+  .site-nav__item > .site-nav__link { border-bottom: 0; }
+  .site-nav__sub-toggle { width: 44px; height: 44px; }
+  .site-nav__sub-toggle .icon { width: 20px; height: 20px; }
+  .site-nav__sub,
+  html[data-header] .site-nav__sub {
+    position: static;
+    grid-column: 1 / -1;
+    display: none;
+    min-width: 0;
+    padding: 0 0 12px 12px;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  .site-nav__sub::before { content: none; }
+  .site-nav__item.is-open .site-nav__sub { display: block; }
+  .site-nav__sub a { padding: 10px 12px; font-size: 15px; white-space: normal; }
+  html[data-header] .site-nav__item { border-bottom-color: rgba(255, 255, 255, 0.08); }
+}

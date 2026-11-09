@@ -38,6 +38,42 @@ const CRQ_URL = '';
     });
   }
 
+  // ---- Personal Insurance dropdown ---------------------------------------
+  // Pointing at it or tabbing into it opens it on desktop (CSS); the arrow
+  // button beside the link opens it for taps, clicks and the phone menu.
+  const subItems = document.querySelectorAll('.site-nav__item');
+
+  function setSub(item, open) {
+    const toggle = item.querySelector('.site-nav__sub-toggle');
+    if (toggle) toggle.setAttribute('aria-expanded', String(open));
+    item.classList.toggle('is-open', open);
+  }
+
+  subItems.forEach(function (item) {
+    const toggle = item.querySelector('.site-nav__sub-toggle');
+    if (!toggle) return;
+    toggle.addEventListener('click', function () {
+      setSub(item, toggle.getAttribute('aria-expanded') !== 'true');
+    });
+  });
+
+  if (subItems.length) {
+    document.addEventListener('click', function (e) {
+      subItems.forEach(function (item) {
+        if (item.classList.contains('is-open') && !item.contains(e.target)) setSub(item, false);
+      });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      subItems.forEach(function (item) {
+        if (!item.classList.contains('is-open')) return;
+        setSub(item, false);
+        const toggle = item.querySelector('.site-nav__sub-toggle');
+        if (toggle.offsetParent) toggle.focus(); // not when the phone menu just closed
+      });
+    });
+  }
+
   // ---- Language selector (Google Translate loads only when opened) --------
   const translateToggle = document.querySelector('.translate__toggle');
   const translatePanel = document.getElementById('translate-panel');
