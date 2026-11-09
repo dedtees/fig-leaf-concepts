@@ -401,14 +401,15 @@
 }
 .hs-footer__col li { margin-bottom: 10px; line-height: 1.35; }
 .hs-footer__col li span { color: rgba(255, 255, 255, .6); }
-.hs-footer__badges { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px !important; }
+.hs-footer__badges { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-bottom: 20px !important; }
 .hs-footer__badges li { margin: 0; }
+/* The membership logos are white on transparent, made for the dark footer */
 .hs-footer__badges img {
-  height: 44px;
+  display: block;
+  height: 48px;
   width: auto;
-  padding: 6px 10px;
-  border-radius: 8px;
-  background: #fff;
+  max-width: 120px;
+  object-fit: contain;
 }
 .hs-footer__badge-text {
   display: inline-block;
