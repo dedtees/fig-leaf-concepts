@@ -162,78 +162,93 @@
 
   <!-- ====================================================================
        Homeowners Insurance (content from figleafagency.com/homeowners-insurance)
-       Styles: insurance-page.css on top of home-sections.css
+       An interior page: light title band and a document layout, in the
+       concept's colours and type. Styles: insurance-page.css
        ==================================================================== -->
-  <main id="main" class="hs hs--v1 pg pg--v1">
+  <main id="main" class="hs pg pg--v1">
 
-    <section class="pg-hero" aria-labelledby="pg-title">
-      <div class="hs-wrap pg-hero__grid">
-        <div class="pg-hero__text">
-          <nav class="pg-crumbs" aria-label="Breadcrumb">
-            <ol><li><a href="../">Home</a></li><li><a href="../services/#personal">Personal Insurance</a></li><li aria-current="page">Homeowners Insurance</li></ol>
-          </nav>
-          <h1 class="pg-hero__title" id="pg-title"><span>Protect your home.</span> <em>Preserve what matters.</em></h1>
-          <span class="pg-hero__rule" aria-hidden="true"></span>
-          <p class="pg-hero__lead">If you own a home or a condo, or you rent, you need homeowners insurance. A homeowners policy gives you financial protection if your home is damaged or if someone is injured in your home or on your property.</p>
-          <div class="pg-hero__actions">
-            <a class="hs-btn hs-btn--primary" href="https://figleafagency.com/crq">Get Homeowners Quote</a>
-            <a class="pg-call" href="tel:+19088623447"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>Call (908) 862-3447</a>
+    <!-- Title band -->
+    <header class="pg-head">
+      <div class="pg-wrap">
+        <nav class="pg-crumbs" aria-label="Breadcrumb"><ol><li><a href="../">Home</a></li><li><a href="../services/#personal">Personal Insurance</a></li><li aria-current="page">Homeowners Insurance</li></ol></nav>
+        <div class="pg-head__grid">
+          <div>
+            <p class="pg-head__eyebrow">Personal Insurance</p>
+            <h1 class="pg-head__title" id="pg-title">Homeowners Insurance</h1>
           </div>
-        </div>
-        <div class="pg-hero__media">
-          <div class="pg-arches">
-            <figure><img src="../assets/homeowners/home-1.jpg" alt="A white two-story house at dusk with its windows lit" width="430" height="483" decoding="async"></figure>
-            <figure><img src="../assets/homeowners/home-2.jpg" alt="A smiling family of four sitting on the lawn in front of their home" width="430" height="483" decoding="async"></figure>
-            <figure><img src="../assets/homeowners/home-3.jpg" alt="A large tree branch fallen onto the roof of a gray house" width="430" height="483" decoding="async"></figure>
-            <figure><img src="../assets/homeowners/home-4.jpg" alt="A couple looking up at their roof with an agent holding a tablet" width="430" height="483" decoding="async"></figure>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="pg-section pg-intro" aria-labelledby="pg-intro-title">
-      <div class="hs-wrap">
-        <header class="hs-split hs-reveal">
-          <h2 class="hs-split__title" id="pg-intro-title">Homeowners Insurance</h2>
-          <p class="hs-split__text">The homeowners policy that you purchase determines which perils you're insured against, such as fire, wind and theft.</p>
-        </header>
-        <ul class="pg-perils hs-reveal" aria-label="Perils a policy can insure against">
-          <li><svg class="icon" aria-hidden="true"><use href="#i-fire"></use></svg>Fire</li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-wind"></use></svg>Wind</li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-lock"></use></svg>Theft</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="pg-section pg-covers" aria-labelledby="pg-covers-title">
-      <div class="hs-wrap pg-covers__grid">
-        <div class="pg-covers__head hs-reveal">
-          <p class="hs-eyebrow">Keeping you protected</p>
-          <h2 class="hs-heading" id="pg-covers-title">A homeowners policy generally covers:</h2>
-          <figure class="pg-covers__photo"><img src="../assets/homeowners/home-3.jpg" alt="A large tree branch fallen onto the roof of a gray house" width="430" height="483" decoding="async" loading="lazy"></figure>
-        </div>
-        <ol class="pg-cover-list">
-          <li class="pg-cover hs-reveal"><span class="pg-cover__num" aria-hidden="true">01</span><span class="pg-cover__icon" aria-hidden="true"><svg class="icon"><use href="#i-home"></use></svg></span><div><h3 class="pg-cover__title">Dwelling</h3><p>The physical structure of your home.</p></div></li>
-          <li class="pg-cover hs-reveal"><span class="pg-cover__num" aria-hidden="true">02</span><span class="pg-cover__icon" aria-hidden="true"><svg class="icon"><use href="#i-garage"></use></svg></span><div><h3 class="pg-cover__title">Other Structures</h3><p>Additional structures on your property, such as swimming pools and detached garages.</p></div></li>
-          <li class="pg-cover hs-reveal"><span class="pg-cover__num" aria-hidden="true">03</span><span class="pg-cover__icon" aria-hidden="true"><svg class="icon"><use href="#i-receipt"></use></svg></span><div><h3 class="pg-cover__title">Additional Costs</h3><p>Incurred as a result of a covered loss.</p></div></li>
-          <li class="pg-cover hs-reveal"><span class="pg-cover__num" aria-hidden="true">04</span><span class="pg-cover__icon" aria-hidden="true"><svg class="icon"><use href="#i-sofa"></use></svg></span><div><h3 class="pg-cover__title">Personal Property</h3><p>Your personal belongings, including clothing, furniture and electronics.<span class="pg-cover__note">Items such as jewelry, watches and fine art may need to be covered separately.</span></p></div></li>
-          <li class="pg-cover hs-reveal"><span class="pg-cover__num" aria-hidden="true">05</span><span class="pg-cover__icon" aria-hidden="true"><svg class="icon"><use href="#i-liability"></use></svg></span><div><h3 class="pg-cover__title">Personal Liability</h3><p>Occurrences that arise from being a homeowner.</p></div></li>
-        </ol>
-      </div>
-    </section>
-
-    <section class="pg-section pg-cta" id="quote" aria-labelledby="pg-cta-title">
-      <div class="hs-wrap">
-        <div class="pg-cta__grid hs-reveal">
-          <figure class="pg-cta__media" style="margin:0"><img src="../assets/homeowners/home-cta.jpg" alt="A laughing little boy riding in a moving box pushed by his dad" width="800" height="800" decoding="async" loading="lazy"></figure>
-          <div class="pg-cta__body">
-            <h2 class="hs-heading" id="pg-cta-title">Get the home coverage you need</h2>
-            <p>For more information about homeowners insurance, condominium insurance and renters insurance, call us at <a href="tel:+19088623447">(908) 862-3447</a>. You can also start a quote with the button below.</p>
-            <div class="pg-cta__actions">
-              <a class="hs-btn hs-btn--primary" href="https://figleafagency.com/crq">Get Homeowners Quote Now</a>
+          <div>
+            <p class="pg-head__tagline">Protect your home. Preserve what matters.</p>
+            <p class="pg-head__lead">If you own a home or a condo, or you rent, you need homeowners insurance. A homeowners policy gives you financial protection if your home is damaged or if someone is injured in your home or on your property.</p>
+            <div class="pg-head__actions">
+              <a class="pg-btn pg-btn--primary" href="https://figleafagency.com/crq">Get Homeowners Quote</a>
               <a class="pg-call" href="tel:+19088623447"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>Call (908) 862-3447</a>
             </div>
           </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- The live page's photo strip, lifted over the band -->
+    <div class="pg-wrap pg-strip">
+      <figure><img src="../assets/homeowners/home-strip.jpg" alt="A house at dusk, a family on their lawn, a tree fallen on a roof, and an agent checking a roof with a couple" width="1800" height="483" decoding="async"></figure>
+    </div>
+
+    <div class="pg-wrap pg-body">
+      <article class="pg-article">
+        <section class="pg-block pg-intro hs-reveal" aria-labelledby="pg-intro-title">
+          <p class="pg-block__eyebrow">Homeowners insurance</p>
+          <h2 class="pg-block__title" id="pg-intro-title">Choosing your coverage</h2>
+          <p class="pg-intro__text">The homeowners policy that you purchase determines which perils you're insured against, such as fire, wind and theft.</p>
+          <ul class="pg-perils" aria-label="Perils a policy can insure against">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-fire"></use></svg>Fire</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-wind"></use></svg>Wind</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-lock"></use></svg>Theft</li>
+            </ul>
+        </section>
+
+        <section class="pg-block" aria-labelledby="pg-covers-title">
+          <p class="pg-block__eyebrow">Keeping you protected</p>
+          <h2 class="pg-block__title" id="pg-covers-title">A homeowners policy generally covers:</h2>
+          <ol class="pg-cover-list">
+              <li class="pg-cover hs-reveal"><span class="pg-cover__num" aria-hidden="true">01</span><div><h3 class="pg-cover__title">Dwelling</h3><p>The physical structure of your home.</p></div><span class="pg-cover__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-home"></use></svg></span></li>
+              <li class="pg-cover hs-reveal"><span class="pg-cover__num" aria-hidden="true">02</span><div><h3 class="pg-cover__title">Other Structures</h3><p>Additional structures on your property, such as swimming pools and detached garages.</p></div><span class="pg-cover__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-garage"></use></svg></span></li>
+              <li class="pg-cover hs-reveal"><span class="pg-cover__num" aria-hidden="true">03</span><div><h3 class="pg-cover__title">Additional Costs</h3><p>Incurred as a result of a covered loss.</p></div><span class="pg-cover__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-receipt"></use></svg></span></li>
+              <li class="pg-cover hs-reveal"><span class="pg-cover__num" aria-hidden="true">04</span><div><h3 class="pg-cover__title">Personal Property</h3><p>Your personal belongings, including clothing, furniture and electronics.<span class="pg-cover__note">Items such as jewelry, watches and fine art may need to be covered separately.</span></p></div><span class="pg-cover__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-sofa"></use></svg></span></li>
+              <li class="pg-cover hs-reveal"><span class="pg-cover__num" aria-hidden="true">05</span><div><h3 class="pg-cover__title">Personal Liability</h3><p>Occurrences that arise from being a homeowner.</p></div><span class="pg-cover__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-liability"></use></svg></span></li>
+          </ol>
+        </section>
+      </article>
+
+      <aside class="pg-aside" aria-label="Quote and other coverage">
+        <div class="pg-quote">
+          <h2 class="pg-quote__title">Get a homeowners quote</h2>
+          <p>We compare top-rated carriers for you, then walk you through every line of the policy.</p>
+          <a class="pg-btn pg-btn--gold" href="https://figleafagency.com/crq">Start My Quote</a>
+          <a class="pg-call" href="tel:+19088623447"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>Call (908) 862-3447</a>
+        </div>
+        <nav class="pg-card" aria-label="Personal insurance">
+          <h2 class="pg-card__title">Personal insurance</h2>
+          <ul class="pg-related">
+              <li><a href="https://figleafagency.com/auto-insurance/">Auto Insurance<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a></li>
+              <li><a href="./" aria-current="page">Homeowners Insurance<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a></li>
+              <li><a href="https://figleafagency.com/boat-insurance/">Boat Insurance<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a></li>
+              <li><a href="https://figleafagency.com/personal-umbrella-insurance/">Personal Umbrella Insurance<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a></li>
+            </ul>
+        </nav>
+      </aside>
+    </div>
+
+    <!-- Closing band -->
+    <section class="pg-close" id="quote" aria-labelledby="pg-close-title">
+      <div class="pg-wrap pg-close__grid hs-reveal">
+        <figure><img src="../assets/homeowners/home-cta.jpg" alt="A laughing little boy riding in a moving box pushed by his dad" width="800" height="800" decoding="async" loading="lazy"></figure>
+        <div>
+          <h2 class="pg-close__title" id="pg-close-title">Get the home coverage you need</h2>
+          <p>For more information about homeowners insurance, condominium insurance and renters insurance, call us at <a href="tel:+19088623447">(908) 862-3447</a>. You can also start a quote with the button below.</p>
+        </div>
+        <div class="pg-close__actions">
+          <a class="pg-btn pg-btn--gold" href="https://figleafagency.com/crq">Get Homeowners Quote Now</a>
+          <a class="pg-call" href="tel:+19088623447"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>Call (908) 862-3447</a>
         </div>
       </div>
     </section>
@@ -284,4 +299,5 @@
     });
   </script>
   <script src="../home-sections.js"></script>
+  <script src="../insurance-page.js"></script>
 </body></html>
