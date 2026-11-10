@@ -12,8 +12,8 @@ each `concept-N/` folder is one page:
   Consumer Rate Quotes iframe the live page uses (we can't style inside it), framed in each concept's look.
   Styles in `quote-page.css`; the `qp--v1` / `qp--v2` / `qp--v3` class on `<main>` picks the look. The homepage's
   Get a Quote buttons link here.
-- `concept-1/crq-form/`, `concept-2/…`, `concept-3/…`: design preview of the quote form itself (the iframe's first screen)
-  rebuilt in each concept's theme, to show how it would look if it matched the site. It doesn't submit. Styles in `crq-form.css`.
+- `concept-1/crq-form/`, `concept-2/…`, `concept-3/…`: the quote form on its own, the same iframe exactly as it looks live,
+  between each concept's header and footer (no extra copy). Styles in `quote-page.css` (`.qp-plain`).
 - `concept-4/`: the photo gallery (the old `concept-7/` link redirects here, see `vercel.json`)
 
 The homepage concepts share the sections in `home-sections.css` / `home-sections.js`
