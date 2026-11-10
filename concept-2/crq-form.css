@@ -1,0 +1,347 @@
+/* ==========================================================================
+   The CRQ quote form on its own, in the new theme (/crq-form/)
+   A design preview of the Consumer Rate Quotes form's first screen
+   (the iframe on /crq/), rebuilt with each concept's fonts and colours so
+   we can show how it would look if the form matched the site. Same copy,
+   same choices, same order as the live form. It doesn't submit anything.
+   The class on <body> (qf--v1 / qf--v2 / qf--v3) picks the concept's look.
+   Identical copies live in each concept folder.
+   ========================================================================== */
+
+.qf {
+  --qf-green: #2b6240;
+  --qf-green-dark: #1f4a30;
+  --qf-forest: #173a26;
+  --qf-ink: #0f2418;
+  --qf-text: #4a524c;
+  --qf-muted: #7a837d;
+  --qf-line: #d9e2dc;
+  --qf-gold: #e8c27e;
+  --qf-gold-ink: #94702c;
+  --qf-mint: #8fdcaa;
+  --qf-mist: #f2f6f1;
+  --qf-accent: var(--qf-gold);
+  --qf-radius: 14px;
+  --qf-head: var(--font-heading, Georgia, serif);
+  --qf-label: "Montserrat", var(--font-nav, system-ui), sans-serif;
+  --qf-body: "Lato", var(--font-body, system-ui), sans-serif;
+
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--qf-body);
+  color: var(--qf-text);
+  background: #fff;
+}
+.qf *, .qf *::before, .qf *::after { box-sizing: border-box; }
+.qf .icon { width: 1.15em; height: 1.15em; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+.qf-main {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  padding: clamp(40px, 6vw, 88px) 16px clamp(48px, 6vw, 96px);
+}
+.qf-form {
+  width: 100%;
+  max-width: 1040px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* --- heading ------------------------------------------------------------ */
+
+.qf-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 18px;
+  font-family: var(--qf-label);
+  font-size: .76rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--qf-green);
+}
+.qf-eyebrow .icon { width: 16px; height: 16px; }
+.qf-title {
+  margin: 0 auto;
+  max-width: 22ch;
+  font-family: var(--qf-head);
+  font-weight: 600;
+  font-size: clamp(2rem, 1.3rem + 2.6vw, 3.3rem);
+  line-height: 1.08;
+  letter-spacing: -.015em;
+  color: var(--qf-ink);
+}
+.qf-title em { font-style: normal; color: var(--qf-green); }
+.qf-lead {
+  margin: 16px auto 0;
+  max-width: 56ch;
+  font-size: clamp(1.02rem, .96rem + .3vw, 1.18rem);
+  line-height: 1.6;
+}
+
+/* --- coverage tiles ------------------------------------------------------ */
+
+.qf-step { margin: clamp(36px, 5vw, 56px) 0 0; padding: 0; border: 0; min-width: 0; }
+.qf-step__title {
+  display: block;
+  width: 100%;
+  margin: 0 0 6px;
+  padding: 0;
+  font-family: var(--qf-label);
+  font-weight: 700;
+  font-size: 1.08rem;
+  color: var(--qf-ink);
+}
+.qf-step__hint { margin: 0 0 22px; font-size: .98rem; color: var(--qf-muted); }
+
+.qf-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 150px));
+  justify-content: center;
+  gap: clamp(10px, 1.6vw, 20px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.qf-tile {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 20px 10px 16px;
+  border: 1.5px solid var(--qf-line);
+  border-radius: var(--qf-radius);
+  background: #fff;
+  color: var(--qf-text);
+  font: 600 .95rem/1.2 var(--qf-label);
+  cursor: pointer;
+  transition: border-color .2s ease, background-color .2s ease, color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.qf-tile .icon { width: 44px; height: 44px; stroke-width: 1.3; color: var(--qf-green); transition: color .2s ease; }
+.qf-tile:hover { border-color: var(--qf-green); transform: translateY(-2px); box-shadow: 0 14px 30px -18px rgba(15, 36, 24, .45); }
+.qf-tile:focus-visible { outline: 3px solid var(--qf-accent); outline-offset: 3px; }
+/* check badge when picked */
+.qf-tile::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--qf-accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f2418' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 12.5 4 4 8-9'/%3E%3C/svg%3E") center / 14px no-repeat;
+  transform: scale(0);
+  transition: transform .2s cubic-bezier(.3, 1.6, .5, 1);
+}
+.qf-tile[aria-pressed="true"]::after { transform: scale(1); }
+.qf-tile[aria-pressed="true"] { border-color: var(--qf-forest); background: var(--qf-forest); color: #fff; }
+.qf-tile[aria-pressed="true"] .icon { color: var(--qf-accent); }
+
+/* --- address + button --------------------------------------------------- */
+
+.qf-address {
+  position: relative;
+  max-width: 760px;
+  margin: 14px auto 0;
+}
+.qf-address .icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  translate: 0 -50%;
+  color: var(--qf-green);
+  pointer-events: none;
+}
+.qf-address input {
+  width: 100%;
+  min-height: 60px;
+  padding: 14px 18px 14px 52px;
+  border: 1.5px solid var(--qf-line);
+  border-radius: var(--qf-radius);
+  background: #fff;
+  font: 400 1.08rem/1.3 var(--qf-body);
+  color: var(--qf-ink);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.qf-address input::placeholder { color: #8d968f; }
+.qf-address input:focus { outline: none; border-color: var(--qf-green); box-shadow: 0 0 0 4px rgba(43, 98, 64, .15); }
+
+.qf-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 56px;
+  margin-top: 22px;
+  padding: 14px 34px;
+  border: 2px solid var(--qf-green);
+  border-radius: 4px;
+  background: var(--qf-green);
+  color: #fff;
+  font: 600 .92rem/1.2 var(--qf-label);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease, opacity .2s ease;
+}
+.qf-submit .icon { width: 18px; height: 18px; transition: translate .2s ease; }
+.qf-submit:hover:not([aria-disabled="true"]) { background: var(--qf-green-dark); border-color: var(--qf-green-dark); }
+.qf-submit:hover:not([aria-disabled="true"]) .icon { translate: 4px 0; }
+.qf-submit[aria-disabled="true"] { opacity: .4; cursor: not-allowed; }
+.qf-submit:focus-visible { outline: 3px solid var(--qf-accent); outline-offset: 3px; }
+
+.qf-demo {
+  max-width: 560px;
+  margin: 18px auto 0;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: var(--qf-mist);
+  font-size: .95rem;
+  color: var(--qf-ink);
+}
+.qf-demo a { color: var(--qf-green); font-weight: 700; text-underline-offset: 3px; }
+
+/* --- carriers + fine print ----------------------------------------------- */
+
+.qf-carriers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px clamp(20px, 4vw, 52px);
+  margin: clamp(40px, 5vw, 60px) auto 0;
+  padding: 22px 0 0;
+  max-width: 900px;
+  border-top: 1px solid var(--qf-line);
+  list-style: none;
+  font-family: var(--qf-label);
+  font-weight: 700;
+  font-size: .92rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #9aa39d;
+}
+.qf-carriers__label { flex-basis: 100%; font-size: .72rem; font-weight: 600; letter-spacing: .16em; color: var(--qf-muted); }
+.qf-fine {
+  max-width: 900px;
+  margin: 24px auto 0;
+  font-size: .78rem;
+  line-height: 1.6;
+  color: var(--qf-muted);
+}
+.qf-fine a { color: var(--qf-green); text-underline-offset: 2px; }
+
+/* ==========================================================================
+   Concept 1: gold on ivory, dark green picks
+   ========================================================================== */
+
+.qf--v1 { background: #f6f1e4; }
+.qf--v1 .qf-main::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: clamp(280px, 34vw, 520px);
+  aspect-ratio: 520 / 567;
+  right: -8%;
+  top: -6%;
+  transform: rotate(-14deg);
+  background: var(--qf-gold);
+  -webkit-mask: url("../assets/fig-leaf-fill.svg") center / contain no-repeat;
+          mask: url("../assets/fig-leaf-fill.svg") center / contain no-repeat;
+  opacity: .16;
+  pointer-events: none;
+}
+.qf--v1 .qf-eyebrow { color: var(--qf-gold-ink); }
+.qf--v1 .qf-title em { color: var(--qf-gold-ink); }
+.qf--v1 .qf-tile { border-color: #e4dccb; }
+.qf--v1 .qf-tile .icon { color: var(--qf-gold-ink); }
+.qf--v1 .qf-tile:hover { border-color: var(--qf-gold); }
+.qf--v1 .qf-address input { border-color: #e4dccb; }
+.qf--v1 .qf-carriers { border-top-color: #e4dccb; }
+.qf--v1 .qf-submit { background: var(--qf-forest); border-color: var(--qf-forest); }
+.qf--v1 .qf-submit:hover:not([aria-disabled="true"]) { background: #0f2a1d; border-color: #0f2a1d; }
+.qf--v1 .qf-demo { background: #fff; }
+
+/* ==========================================================================
+   Concept 2: mint on mist, soft glass tiles, rounder corners
+   ========================================================================== */
+
+.qf--v2,
+.qf--v3 { --qf-accent: var(--qf-mint); --qf-head: "Montserrat", var(--font-nav, system-ui), sans-serif; }
+.qf--v2 {
+  --qf-radius: 22px;
+  background:
+    radial-gradient(ellipse 50% 45% at 90% 0%, rgba(143, 220, 170, .4), transparent 70%),
+    radial-gradient(ellipse 40% 40% at 0% 100%, rgba(43, 98, 64, .12), transparent 70%),
+    var(--qf-mist);
+}
+.qf--v2 .qf-title,
+.qf--v3 .qf-title { font-weight: 700; letter-spacing: -.025em; }
+.qf--v2 .qf-eyebrow { padding: 7px 14px; border-radius: 999px; background: rgba(43, 98, 64, .1); }
+.qf--v2 .qf-tile {
+  border-color: rgba(15, 36, 24, .06);
+  background: rgba(255, 255, 255, .8);
+  box-shadow: 0 10px 30px -20px rgba(15, 36, 24, .35);
+}
+.qf--v2 .qf-tile .icon { padding: 8px; width: 56px; height: 56px; border-radius: 16px; background: linear-gradient(160deg, #e9f4ec, #d6ebdc); }
+.qf--v2 .qf-tile[aria-pressed="true"] { background: var(--qf-ink); border-color: var(--qf-ink); }
+.qf--v2 .qf-tile[aria-pressed="true"] .icon { background: rgba(143, 220, 170, .16); color: var(--qf-mint); }
+.qf--v2 .qf-address input { border-color: transparent; box-shadow: 0 10px 30px -20px rgba(15, 36, 24, .35); }
+.qf--v2 .qf-address input:focus { border-color: var(--qf-green); }
+.qf--v2 .qf-submit,
+.qf--v3 .qf-submit { border-radius: 999px; background: var(--qf-mint); border-color: var(--qf-mint); color: var(--qf-ink); }
+.qf--v2 .qf-submit:hover:not([aria-disabled="true"]),
+.qf--v3 .qf-submit:hover:not([aria-disabled="true"]) { background: var(--qf-ink); border-color: var(--qf-ink); color: #fff; }
+.qf--v2 .qf-demo { background: #fff; }
+
+/* ==========================================================================
+   Concept 3: white page, green-to-mint rules, numbered steps
+   ========================================================================== */
+
+.qf--v3 { --qf-radius: 18px; }
+.qf--v3 .qf-main::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 auto;
+  height: 6px;
+  background: linear-gradient(90deg, var(--qf-green), var(--qf-mint));
+}
+.qf--v3 .qf-step { counter-increment: qf-step; }
+.qf--v3 .qf-form { counter-reset: qf-step; }
+.qf--v3 .qf-step__title::before {
+  content: counter(qf-step);
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background: var(--qf-mint);
+  color: var(--qf-ink);
+  font-size: .9rem;
+  vertical-align: 1px;
+}
+.qf--v3 .qf-tile { background: var(--qf-mist); border-color: transparent; }
+.qf--v3 .qf-tile:hover { border-color: var(--qf-green); }
+.qf--v3 .qf-tile[aria-pressed="true"] { background: #fff; border-color: var(--qf-green); color: var(--qf-ink); box-shadow: 0 0 0 3px rgba(143, 220, 170, .6); }
+.qf--v3 .qf-tile[aria-pressed="true"] .icon { color: var(--qf-green); }
+.qf--v3 .qf-address input { background: var(--qf-mist); border-color: transparent; }
+.qf--v3 .qf-address input:focus { background: #fff; border-color: var(--qf-green); }
+
+/* --- phones -------------------------------------------------------------- */
+
+@media (max-width: 640px) {
+  .qf-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 340px; margin-inline: auto; }
+  .qf-submit { width: 100%; }
+  .qf-carriers { gap: 8px 20px; font-size: .82rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qf-tile, .qf-tile::after, .qf-submit .icon { transition: none; }
+}

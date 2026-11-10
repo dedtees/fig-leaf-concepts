@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Concept 2 · Quote Form Preview | The Fig Leaf Agency</title>
+  <meta name="description" content="Design preview: the Fig Leaf Agency quote form in the new site theme.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="../assets/fig-leaf-fill.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&amp;family=Montserrat:wght@400;500;600;700&amp;family=Lato:wght@400;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../crq-form.css">
+</head>
+<body class="qf qf--v2">
+
+  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="M5 16H3.5v-3.2l1.9-4.6A2 2 0 0 1 7.3 7h9.4a2 2 0 0 1 1.9 1.2l1.9 4.6V16H19"></path><path d="M3.5 12.5h17"></path><path d="M9 16h6"></path><circle cx="7" cy="16.5" r="2"></circle><circle cx="17" cy="16.5" r="2"></circle></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"></path><path d="M5.5 10v10h13V10"></path><path d="M10 20v-5.5h4V20"></path></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1.5"></rect><path d="M9 7h1.5M13.5 7H15M9 11h1.5M13.5 11H15M9 15h1.5M13.5 15H15"></path><path d="M10.5 21v-2.5h3V21"></path></symbol>
+    <symbol id="i-condo" viewBox="0 0 24 24"><path d="M3 21h18"></path><path d="M4.5 21V9l6-4v16"></path><path d="M10.5 21V10h9v11"></path><path d="M7 10.5h1M7 14h1M7 17.5h1M13.5 13.5h1M16 13.5h1M13.5 17h1M16 17h1"></path></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"></path><circle cx="12" cy="10" r="2.3"></circle></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10.5" rx="2"></rect><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"></path><path d="M12 14.5v2.5"></path></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></symbol>
+  </svg>
+
+  <!-- Review bar: for comparing concepts only, not part of the site design -->
+  <nav class="review-bar" aria-label="Concepts">
+    <p class="review-bar__title"><span class="review-bar__label">Concept 2</span> <span class="review-bar__name">Quote form on its own (design preview) · <a href="../crq/" style="color:inherit">see it on the quote page</a></span></p>
+    <div class="review-bar__controls">
+      <ul class="review-bar__list">
+        <li><a class="review-bar__link" href="../../concept-1/crq-form/" data-name="Stacked leaves, dark header · Quote form"><span class="visually-hidden">Concept </span>1<span class="visually-hidden">: Stacked leaves, dark header</span></a></li><li><a class="review-bar__link" href="./" data-name="Stacked leaves, transparent header · Quote form" aria-current="page"><span class="visually-hidden">Concept </span>2<span class="visually-hidden">: Stacked leaves, transparent header</span></a></li><li><a class="review-bar__link" href="../../concept-3/crq-form/" data-name="Horizontal leaves, concept 1 reviews · Quote form"><span class="visually-hidden">Concept </span>3<span class="visually-hidden">: Horizontal leaves, concept 1 reviews</span></a></li></ul>
+      <a class="review-bar__step review-bar__step--prev" href="../../concept-1/crq-form/" rel="prev" aria-label="Previous concept"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+      <a class="review-bar__step" href="../../concept-3/crq-form/" rel="next" aria-label="Next concept"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+    </div>
+  </nav>
+
+  <!-- ====================================================================
+       The Consumer Rate Quotes form's first screen (the iframe on /crq/),
+       rebuilt in this concept's theme as a design preview. Same copy and
+       choices as the live form. Nothing is sent. Styles: crq-form.css.
+       ==================================================================== -->
+  <main class="qf-main">
+    <form class="qf-form" id="qf" novalidate>
+
+      <p class="qf-eyebrow"><svg class="icon" aria-hidden="true"><use href="#i-lock"></use></svg>Fast, free quotes</p>
+      <h1 class="qf-title">Enter your address below to get started on <em>your quote!</em></h1>
+      <p class="qf-lead">Welcome to The Fig Leaf Insurance Agency! Fast, free auto, home, renters and condo insurance estimates. Start now!</p>
+
+      <fieldset class="qf-step">
+        <legend class="qf-step__title">Select one or bundle!</legend>
+        <p class="qf-step__hint">You can select either Homeowners, Renters, or Condo Owners alone or bundle it with Auto!</p>
+        <ul class="qf-tiles">
+          <li><button class="qf-tile" type="button" aria-pressed="false" data-kind="auto"><svg class="icon" aria-hidden="true"><use href="#i-car"></use></svg>Auto</button></li>
+          <li><button class="qf-tile" type="button" aria-pressed="false" data-kind="home"><svg class="icon" aria-hidden="true"><use href="#i-home"></use></svg>Homeowners</button></li>
+          <li><button class="qf-tile" type="button" aria-pressed="false" data-kind="home"><svg class="icon" aria-hidden="true"><use href="#i-building"></use></svg>Renters</button></li>
+          <li><button class="qf-tile" type="button" aria-pressed="false" data-kind="home"><svg class="icon" aria-hidden="true"><use href="#i-condo"></use></svg>Condo Owners</button></li>
+        </ul>
+      </fieldset>
+
+      <fieldset class="qf-step">
+        <legend class="qf-step__title">Where do you live?</legend>
+        <div class="qf-address">
+          <label class="visually-hidden" for="qf-address">Your home address</label>
+          <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg>
+          <input id="qf-address" type="text" autocomplete="street-address" placeholder="Enter your home address">
+        </div>
+      </fieldset>
+
+      <button class="qf-submit" type="submit" aria-disabled="true">Start My New Quote <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+      <p class="qf-demo" id="qf-demo" role="status" hidden>This is a design preview, so nothing was sent. <a href="https://secure.consumerratequotes.com/ConsumerV2?SiteKey=3006535&amp;ref1=Website" target="_blank" rel="noopener">Open the live quote form</a></p>
+
+      <ul class="qf-carriers" aria-label="Some of the carriers we quote">
+        <li class="qf-carriers__label">Quotes from carriers like</li>
+        <li>Travelers</li><li>Providence Mutual</li><li>Bristol West</li><li>Foremost</li>
+      </ul>
+
+      <p class="qf-fine">We may use information from you and other sources, such as your driving record, claims and credit histories to provide you with an accurate quote and other important information either via this website, email, phone or text messages. By continuing, you (i) authorize us to pull your credit report, (ii) acknowledge that you have reviewed our <a href="https://figleafagency.com/privacy-policy/">Privacy Statement</a> and <a href="https://figleafagency.com/terms-conditions/">Terms of Use</a>, and (iii) consent to the use and processing of all such information.</p>
+
+    </form>
+  </main>
+
+  <script>
+    // Same rules as the live form: Auto can be added to any one of
+    // Homeowners, Renters or Condo Owners; the button wakes up once a
+    // coverage is picked and an address is typed.
+    (function () {
+      var form = document.getElementById('qf');
+      var tiles = form.querySelectorAll('.qf-tile');
+      var address = document.getElementById('qf-address');
+      var submit = form.querySelector('.qf-submit');
+      var demo = document.getElementById('qf-demo');
+      function ready() {
+        var picked = form.querySelector('.qf-tile[aria-pressed="true"]');
+        submit.setAttribute('aria-disabled', picked && address.value.trim() ? 'false' : 'true');
+      }
+      tiles.forEach(function (t) {
+        t.addEventListener('click', function () {
+          var on = t.getAttribute('aria-pressed') !== 'true';
+          if (on && t.dataset.kind === 'home') {
+            tiles.forEach(function (o) { if (o.dataset.kind === 'home') o.setAttribute('aria-pressed', 'false'); });
+          }
+          t.setAttribute('aria-pressed', on ? 'true' : 'false');
+          ready();
+        });
+      });
+      address.addEventListener('input', ready);
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (submit.getAttribute('aria-disabled') === 'true') return;
+        demo.hidden = false;
+      });
+      // Left and right arrow keys step to the previous and next concept
+      document.addEventListener('keydown', function (e) {
+        if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
+        var t = e.target;
+        if (t.closest && t.closest('input, textarea, select, button, [contenteditable]')) return;
+        var rel = e.key === 'ArrowRight' ? 'next' : e.key === 'ArrowLeft' ? 'prev' : '';
+        var link = rel && document.querySelector('.review-bar__step[rel="' + rel + '"]');
+        if (link) window.location.href = link.href;
+      });
+    })();
+  </script>
+</body></html>
