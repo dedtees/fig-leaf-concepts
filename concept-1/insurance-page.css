@@ -518,23 +518,68 @@
 .pg--v2 .pg-cover:nth-child(5) p { color: var(--pg-ink); }
 .pg--v2 .pg-cover__note { color: var(--hs-green); }
 
-/* closing: a white card with the photo */
+/* get a quote: the quote request form itself (the same Consumer Rate
+   Quotes form as figleafagency.com/crq), with a call-us card beside it */
 .pg--v2 .pg-close { padding-block: clamp(56px, 7vw, 96px); scroll-margin-top: 80px; }
-.pg--v2 .pg-close__card {
+.pg--v2 .pg-crq {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  gap: clamp(20px, 2.5vw, 32px);
+  align-items: start;
+}
+.pg--v2 .pg-crq__card {
   overflow: hidden;
-  border-radius: 32px;
+  border-radius: 28px;
+  background: #fff;
+  box-shadow: 0 30px 70px -34px rgba(15, 36, 24, .45), 0 0 0 1px rgba(15, 36, 24, .06);
+}
+.pg--v2 .pg-crq__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 20px;
+  padding: 14px clamp(18px, 2.5vw, 28px);
+  border-bottom: 1px solid var(--pg-line);
+  font-family: var(--hs-heading);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--pg-ink);
+}
+.pg--v2 .pg-crq__secure { display: inline-flex; align-items: center; gap: 8px; }
+.pg--v2 .pg-crq__secure .icon { width: 18px; height: 18px; color: var(--hs-green); }
+.pg--v2 .pg-crq__alt { font-family: var(--hs-body); font-size: .85rem; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--hs-text); }
+.pg--v2 .pg-crq__alt a { color: var(--hs-green); font-weight: 700; text-underline-offset: 3px; }
+/* the iframe, with a loading note behind it until the form paints */
+.pg--v2 .pg-crq__frame { position: relative; background: #fff; padding-top: clamp(8px, 1.5vw, 20px); }
+.pg--v2 .pg-crq__frame::before {
+  content: "Loading the quote form\2026";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--hs-heading);
+  font-size: .95rem;
+  color: #8a948d;
+}
+.pg--v2 .pg-crq__frame iframe { position: relative; display: block; width: 100%; height: 720px; border: 0; background: transparent; }
+.pg--v2 .pg-crq__aside { display: grid; gap: 16px; }
+.pg--v2 .pg-crq__note { display: flex; align-items: center; gap: 10px; margin: 0; padding: 0 6px; font-size: .95rem; color: var(--hs-text); }
+.pg--v2 .pg-crq__note .icon { flex: none; width: 20px; height: 20px; color: var(--hs-green); }
+
+.pg--v2 .pg-close__card {
+  overflow: hidden;
+  border-radius: 28px;
   background: var(--pg-ink);
   color: rgba(255, 255, 255, .78);
 }
-.pg--v2 .pg-close figure { min-height: 360px; background: var(--pg-photo-bg); }
-.pg--v2 .pg-close__body { padding: clamp(28px, 5vw, 64px); align-self: center; }
-.pg--v2 .pg-close__title { margin: 0 0 14px; font-family: var(--hs-heading); font-weight: 700; letter-spacing: -.025em; font-size: clamp(1.9rem, 1.3rem + 2vw, 2.8rem); line-height: 1.05; color: #fff; }
-.pg--v2 .pg-close p { margin: 0 0 26px; font-size: 1.1rem; line-height: 1.6; }
-.pg--v2 .pg-close p a { color: var(--pg-mint); font-weight: 700; }
-.pg--v2 .pg-close .pg-head__actions .pg-call { color: #fff; }
-.pg--v2 .pg-close .pg-call .icon { color: var(--pg-mint); }
+.pg--v2 .pg-close figure { margin: 0; aspect-ratio: 4 / 3; background: var(--pg-photo-bg); }
+.pg--v2 .pg-close__body { padding: clamp(22px, 2.5vw, 30px); }
+.pg--v2 .pg-close__title { margin: 0 0 10px; font-family: var(--hs-heading); font-weight: 700; letter-spacing: -.02em; font-size: 1.5rem; line-height: 1.15; color: #fff; }
+.pg--v2 .pg-close p { margin: 0 0 20px; font-size: 1rem; line-height: 1.6; }
+.pg--v2 .pg-close__body .pg-btn { width: 100%; }
 
 /* ==========================================================================
    Concept 3: a guide with an "On this page" rail and an accordion
@@ -717,6 +762,10 @@
   .pg--v2 .pg-cover:nth-child(1) { min-height: 360px; }
   .pg--v3 .pg-body { grid-template-columns: minmax(0, 1fr); }
   .pg--v3 .pg-rail { display: none; }
+  .pg--v2 .pg-crq { grid-template-columns: minmax(0, 1fr); }
+  .pg--v2 .pg-crq__aside { grid-template-columns: minmax(0, 1fr); max-width: 640px; }
+  .pg--v2 .pg-close__card { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); }
+  .pg--v2 .pg-close figure { aspect-ratio: auto; min-height: 220px; }
 }
 
 @media (max-width: 960px) {
@@ -724,12 +773,10 @@
   .pg--v2 .pg-head__grid,
   .pg--v3 .pg-head__grid,
   .pg--v2 .pg-overview,
-  .pg--v2 .pg-close__card,
   .pg--v3 .pg-close { grid-template-columns: minmax(0, 1fr); }
   .pg--v2 .pg-head__photo { justify-self: start; max-width: 360px; }
   .pg--v1 .pg-close__grid { grid-template-columns: 120px minmax(0, 1fr); }
   .pg--v1 .pg-close__actions { grid-column: 1 / -1; justify-items: start; }
-  .pg--v2 .pg-close figure,
   .pg--v3 .pg-close figure { min-height: 0; aspect-ratio: 16 / 9; order: -1; }
 }
 
@@ -747,6 +794,9 @@
   .pg--v1 .pg-close figure { width: 120px; }
 
   .pg--v2 .pg-head__photo { display: none; }
+  .pg--v2 .pg-close__card { grid-template-columns: minmax(0, 1fr); }
+  .pg--v2 .pg-close figure { aspect-ratio: 16 / 9; min-height: 0; }
+  .pg--v2 .pg-crq__frame iframe { height: 780px; }
   .pg--v2 .pg-tabs { margin-top: -24px; }
   .pg--v2 .pg-tabs a { padding: 9px 12px; font-size: .84rem; }
   .pg--v2 .pg-perils { grid-template-columns: minmax(0, 1fr); gap: 12px; }

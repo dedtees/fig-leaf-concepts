@@ -177,7 +177,7 @@
           <h1 class="pg-head__title" id="pg-title">Protect your home. <span>Preserve what matters.</span></h1>
           <p class="pg-head__lead">If you own a home or a condo, or you rent, you need homeowners insurance. A homeowners policy gives you financial protection if your home is damaged or if someone is injured in your home or on your property.</p>
           <div class="pg-head__actions">
-            <a class="pg-btn pg-btn--primary" href="https://figleafagency.com/crq">Get Homeowners Quote</a>
+            <a class="pg-btn pg-btn--primary" href="#quote">Get Homeowners Quote</a>
             <a class="pg-call" href="tel:+19088623447"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>Call (908) 862-3447</a>
           </div>
         </div>
@@ -231,16 +231,34 @@
 
     <section class="pg-close pg-panel" id="quote" role="tabpanel" aria-labelledby="tab-quote">
       <div class="pg-wrap">
-        <div class="pg-close__card hs-reveal">
-          <figure><img src="../assets/homeowners/home-cta.jpg" alt="A laughing little boy riding in a moving box pushed by his dad" width="800" height="800" decoding="async" loading="lazy"></figure>
-          <div class="pg-close__body">
-            <h2 class="pg-close__title" id="pg-close-title">Get the home coverage you need</h2>
-            <p>For more information about homeowners insurance, condominium insurance and renters insurance, call us at <a href="tel:+19088623447">(908) 862-3447</a>. You can also start a quote with the button below.</p>
-            <div class="pg-head__actions">
-              <a class="pg-btn pg-btn--mint" href="https://figleafagency.com/crq">Get Homeowners Quote Now</a>
-              <a class="pg-call" href="tel:+19088623447"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>Call (908) 862-3447</a>
+        <div class="pg-sec__head">
+          <h2 class="pg-sec__title" id="pg-close-title">Get your homeowners quote</h2>
+          <p class="pg-sec__kicker">Fast, free and no obligation</p>
+        </div>
+        <!-- The quote form is the same Consumer Rate Quotes form as the live
+             figleafagency.com/crq page, embedded here so it's ready the moment
+             this tab opens. We can't style inside it, so the card frames it. -->
+        <div class="pg-crq">
+          <div class="pg-crq__card">
+            <div class="pg-crq__bar">
+              <span class="pg-crq__secure"><svg class="icon" aria-hidden="true"><use href="#i-lock"></use></svg>Secure quote form</span>
+              <span class="pg-crq__alt">Form not showing? <a href="https://secure.consumerratequotes.com/ConsumerV2?SiteKey=3006535&amp;ref1=Website" target="_blank" rel="noopener">Open it in a new tab</a></span>
+            </div>
+            <div class="pg-crq__frame">
+              <iframe src="https://secure.consumerratequotes.com/ConsumerV2?SiteKey=3006535&amp;ref1=Website" title="Fig Leaf Agency quote request form" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
             </div>
           </div>
+          <aside class="pg-crq__aside" aria-label="Other ways to get a quote">
+            <div class="pg-close__card">
+              <figure><img src="../assets/homeowners/home-cta.jpg" alt="A laughing little boy riding in a moving box pushed by his dad" width="800" height="800" decoding="async" loading="lazy"></figure>
+              <div class="pg-close__body">
+                <h3 class="pg-close__title">Rather talk it through?</h3>
+                <p>For more information about homeowners insurance, condominium insurance and renters insurance, call us and an agent will run the quote with you.</p>
+                <a class="pg-btn pg-btn--mint" href="tel:+19088623447"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>(908) 862-3447</a>
+              </div>
+            </div>
+            <p class="pg-crq__note"><svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg>Quotes are free and there&rsquo;s no obligation to buy.</p>
+          </aside>
         </div>
       </div>
     </section>
