@@ -1,0 +1,395 @@
+/* ==========================================================================
+   Fig Leaf quote request page (/crq/)
+   The middle of the page is the Consumer Rate Quotes form, which loads in
+   an <iframe> from secure.consumerratequotes.com. We can't style anything
+   inside it (it's another site), so the page frames it: a short hero, then
+   the form in a white card (the form's own background is white) with a
+   "prefer to talk?" panel beside it.
+   The page sits inside the same .hs wrapper as the homepage sections, so it
+   picks up each concept's fonts, colours and buttons from home-sections.css.
+   The class beside it (qp--v1 / qp--v2 / qp--v3) picks the concept's look.
+   Identical copies live in each concept folder.
+   ========================================================================== */
+
+.qp {
+  --qp-gold: #e8c27e;
+  --qp-gold-ink: #94702c;
+  --qp-mint: #8fdcaa;
+  --qp-pine: #0e2418;
+  --qp-pine-2: #163a26;
+  --qp-mist: #f2f6f1;
+  --qp-ink: #0f2418;
+  --qp-dark: #070d0f;
+  --qp-accent: var(--qp-gold);
+  --qp-frame-h: 720px;      /* the form's height; it scrolls inside if a step runs longer */
+  --qp-overlap: clamp(56px, 7vw, 96px);
+}
+.qp--v2,
+.qp--v3 { --qp-accent: var(--qp-mint); }
+
+.qp .icon { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.qp a:focus-visible { outline: 3px solid var(--qp-accent); outline-offset: 3px; }
+
+/* --- hero ---------------------------------------------------------------- */
+
+.qp-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  color: #fff;
+  background: var(--qp-dark);
+  padding-block: clamp(36px, 5vw, 72px) calc(var(--qp-overlap) + clamp(40px, 5vw, 72px));
+}
+/* concepts 2 and 3: the header floats over the hero */
+html[data-header="b"] .qp-hero { padding-top: calc(var(--header-height) + var(--utility-height) + clamp(12px, 2vw, 32px)); }
+.qp-hero .hs-wrap { --hs-max: 1240px; }
+
+.qp-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: end;
+}
+
+.qp-crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  margin: 0 0 clamp(18px, 2.5vw, 28px);
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-nav, sans-serif);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .58);
+}
+.qp-crumbs li + li::before { content: "/"; margin-right: 10px; opacity: .5; }
+.qp-crumbs a { color: inherit; text-decoration: none; }
+.qp-crumbs a:hover { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.qp-crumbs [aria-current] { color: var(--qp-accent); }
+
+.qp-hero__title {
+  margin: 0;
+  font-family: var(--font-heading, Georgia, serif);
+  font-weight: 600;
+  font-size: clamp(2.5rem, 1.5rem + 3.2vw, 4.4rem);
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  color: #fff;
+}
+.qp-hero__title span,
+.qp-hero__title em { display: block; }
+.qp-hero__title em { font-style: normal; color: var(--qp-accent); }
+
+.qp-hero__lead {
+  margin: 22px 0 0;
+  max-width: 44ch;
+  font-size: clamp(1.08rem, 1rem + .35vw, 1.25rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, .82);
+}
+
+/* three steps: what happens in the form */
+.qp-steps {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: qp-step;
+}
+.qp-step {
+  counter-increment: qp-step;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 2px 16px;
+  align-items: center;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  background: rgba(255, 255, 255, .04);
+}
+.qp-step::before {
+  content: counter(qp-step);
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-family: var(--hs-heading);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--qp-dark);
+  background: var(--qp-accent);
+}
+.qp-step strong {
+  font-family: var(--hs-heading);
+  font-weight: 600;
+  font-size: 1.02rem;
+  color: #fff;
+  line-height: 1.3;
+}
+.qp-step span { font-size: .95rem; line-height: 1.45; color: rgba(255, 255, 255, .66); }
+
+/* --- the form -------------------------------------------------------- */
+
+.qp-form {
+  --hs-text: #4a524c;       /* body copy on the light panels (concept 1 sets it to white) */
+  position: relative;
+  color: var(--hs-text);
+  z-index: 2;
+  margin-top: calc(var(--qp-overlap) * -1);
+  padding-bottom: var(--hs-pad);
+}
+.qp-form .hs-wrap { --hs-max: 1240px; }
+.qp-form__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: clamp(20px, 2.5vw, 32px);
+  align-items: start;
+}
+
+.qp-card {
+  overflow: hidden;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 30px 70px -30px rgba(7, 13, 15, .45), 0 0 0 1px rgba(15, 36, 24, .06);
+}
+.qp-card__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 20px;
+  padding: 14px clamp(18px, 2.5vw, 28px);
+  border-bottom: 1px solid #e7ece8;
+  font-family: var(--hs-heading);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--qp-ink);
+}
+.qp-card__secure { display: inline-flex; align-items: center; gap: 8px; }
+.qp-card__secure .icon { width: 18px; height: 18px; color: var(--hs-green); }
+.qp-card__alt {
+  font-family: var(--hs-body);
+  font-size: .85rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--hs-text);
+}
+.qp-card__alt a { color: var(--hs-green); font-weight: 700; text-underline-offset: 3px; }
+
+/* the iframe, with a loading note behind it until the form paints */
+.qp-frame {
+  position: relative;
+  background: #fff;
+  padding-top: clamp(8px, 1.5vw, 20px);
+}
+.qp-frame::before {
+  content: "Loading the quote form\2026";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--hs-heading);
+  font-size: .95rem;
+  color: #8a948d;
+}
+.qp-frame iframe {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: var(--qp-frame-h);
+  border: 0;
+  background: transparent;
+}
+
+/* side panel: call us, what to have ready */
+.qp-aside { display: grid; gap: clamp(16px, 2vw, 24px); }
+.qp-panel {
+  padding: clamp(22px, 2.5vw, 28px);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 20px 50px -30px rgba(7, 13, 15, .35), 0 0 0 1px rgba(15, 36, 24, .06);
+}
+.qp-panel__title {
+  margin: 0 0 10px;
+  font-family: var(--hs-heading);
+  font-weight: 600;
+  font-size: 1.2rem;
+  line-height: 1.25;
+  color: var(--qp-ink);
+}
+.qp-panel p { margin: 0 0 16px; font-size: 1rem; line-height: 1.55; }
+.qp-panel .hs-btn { width: 100%; gap: 10px; }
+.qp-panel .hs-btn .icon { width: 18px; height: 18px; }
+.qp-contact { display: grid; gap: 10px; margin: 18px 0 0; padding: 0; list-style: none; font-size: .98rem; }
+.qp-contact a { display: inline-flex; align-items: center; gap: 10px; color: var(--qp-ink); text-decoration: none; overflow-wrap: anywhere; }
+.qp-contact a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.qp-contact .icon { flex: none; width: 18px; height: 18px; color: var(--hs-green); }
+
+.qp-ready { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.qp-ready li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; font-size: .98rem; line-height: 1.45; }
+.qp-ready .icon { width: 22px; height: 22px; color: var(--hs-green); }
+
+.qp-note { margin: 0; font-size: .9rem; line-height: 1.5; color: #7a837d; }
+.qp-note .icon { width: 16px; height: 16px; vertical-align: -3px; margin-right: 6px; color: var(--hs-green); }
+
+/* ==========================================================================
+   Concept 1: dark and gold over ivory
+   ========================================================================== */
+
+.qp--v1 .qp-hero {
+  background:
+    radial-gradient(ellipse 40% 70% at 82% 30%, rgba(74, 58, 30, .45), transparent 70%),
+    radial-gradient(ellipse 50% 80% at 0% 100%, rgba(43, 98, 64, .22), transparent 70%),
+    var(--qp-dark);
+}
+.qp--v1 .qp-hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: clamp(260px, 30vw, 460px);
+  aspect-ratio: 520 / 567;
+  right: -4%;
+  top: -8%;
+  transform: rotate(-14deg);
+  background: linear-gradient(150deg, var(--qp-gold), rgba(232, 194, 126, .2));
+  -webkit-mask: url("../assets/fig-leaf-fill.svg") center / contain no-repeat;
+          mask: url("../assets/fig-leaf-fill.svg") center / contain no-repeat;
+  opacity: .1;
+  pointer-events: none;
+}
+.qp--v1 .qp-step { border-color: rgba(232, 194, 126, .3); background: rgba(232, 194, 126, .05); }
+.qp--v1 .qp-form { background: linear-gradient(to bottom, transparent var(--qp-overlap), #f6f1e4 var(--qp-overlap)); }
+.qp--v1 .qp-card { border-top: 4px solid var(--qp-gold); }
+.qp--v1 .qp-panel--call { background: #173a26; color: rgba(255, 255, 255, .8); border-top: 4px solid var(--qp-gold); }
+.qp--v1 .qp-panel--call .qp-panel__title { color: #fff; }
+.qp--v1 .qp-panel--call .hs-btn--primary { background: var(--qp-gold); border-color: var(--qp-gold); color: #173a26; }
+.qp--v1 .qp-panel--call .hs-btn--primary:hover { background: #fff; border-color: #fff; }
+.qp--v1 .qp-panel--call .qp-contact a { color: #fff; }
+.qp--v1 .qp-panel--call .qp-contact .icon { color: var(--qp-gold); }
+.qp--v1 .qp-ready .icon { color: var(--qp-gold-ink); }
+
+/* ==========================================================================
+   Concept 2: mint on pine, glass panels, a mist sheet under the form
+   ========================================================================== */
+
+.qp--v2 .qp-hero {
+  background:
+    radial-gradient(ellipse 50% 70% at 85% 30%, rgba(43, 98, 64, .55), transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 90%, rgba(143, 220, 170, .14), transparent 70%),
+    var(--qp-dark);
+}
+.qp--v2 .qp-hero .hs-px__glow--a { width: 520px; height: 520px; left: -160px; top: 10%; background: radial-gradient(circle, rgba(43, 98, 64, .5), transparent 68%); }
+.qp--v2 .qp-hero .hs-px__leaf--d { width: clamp(150px, 16vw, 240px); right: -3%; top: 40%; background: #3f8a5a; opacity: .35; filter: blur(2px); }
+.qp--v2 .qp-hero .hs-px__leaf--e { width: clamp(80px, 8vw, 120px); left: 44%; bottom: 18%; background: var(--qp-mint); opacity: .2; }
+.qp--v2 .qp-step {
+  border-radius: 18px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .03));
+  border-color: rgba(255, 255, 255, .14);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+}
+.qp--v2 .qp-step::before { border-radius: 14px; }
+.qp--v2 .qp-form { background: linear-gradient(to bottom, transparent var(--qp-overlap), var(--qp-mist) var(--qp-overlap)); }
+.qp--v2 .qp-card,
+.qp--v2 .qp-panel { border-radius: 28px; }
+.qp--v2 .qp-card__bar { background: var(--qp-mist); border-bottom-color: rgba(15, 36, 24, .06); }
+.qp--v2 .qp-card__secure .icon { padding: 3px; width: 24px; height: 24px; border-radius: 8px; background: var(--qp-mint); color: var(--qp-ink); }
+.qp--v2 .qp-panel--call {
+  background: linear-gradient(170deg, var(--qp-pine-2), var(--qp-pine));
+  color: rgba(255, 255, 255, .78);
+}
+.qp--v2 .qp-panel--call .qp-panel__title { color: #fff; }
+.qp--v2 .qp-panel--call .qp-contact a { color: #fff; }
+.qp--v2 .qp-panel--call .qp-contact .icon { color: var(--qp-mint); }
+.qp--v2 .hs-btn--primary,
+.qp--v3 .hs-btn--primary { background: var(--qp-mint); border-color: var(--qp-mint); color: var(--qp-ink); }
+.qp--v2 .hs-btn--primary:hover,
+.qp--v3 .hs-btn--primary:hover { background: #fff; border-color: #fff; color: var(--qp-ink); }
+.qp--v2 .qp-ready .icon { padding: 3px; border-radius: 7px; background: #e3f1e7; }
+
+/* ==========================================================================
+   Concept 3: concept 2's colours, a split heading and a white page
+   ========================================================================== */
+
+.qp--v3 .qp-hero {
+  background:
+    radial-gradient(ellipse 45% 60% at 90% 20%, rgba(43, 98, 64, .5), transparent 70%),
+    var(--qp-dark);
+}
+/* steps sit in a row under the heading */
+.qp--v3 .qp-hero__grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+.qp--v3 .qp-hero__lead { margin-top: 0; padding-left: 26px; border-left: 4px solid transparent; border-image: linear-gradient(180deg, var(--hs-green), var(--qp-mint)) 1; }
+.qp--v3 .qp-steps {
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.5vw, 20px);
+  margin-top: clamp(8px, 1vw, 16px);
+}
+.qp--v3 .qp-step { border-radius: 20px; background: rgba(255, 255, 255, .05); }
+.qp--v3 .qp-form { background: linear-gradient(to bottom, transparent var(--qp-overlap), #fff var(--qp-overlap)); }
+.qp--v3 .qp-card,
+.qp--v3 .qp-panel { border-radius: 24px; }
+.qp--v3 .qp-card { border: 1px solid rgba(15, 36, 24, .08); box-shadow: 0 30px 70px -36px rgba(7, 13, 15, .45); }
+.qp--v3 .qp-card__bar { border-bottom: 4px solid transparent; border-image: linear-gradient(90deg, var(--hs-green), var(--qp-mint)) 1; }
+.qp--v3 .qp-panel { background: var(--qp-mist); box-shadow: none; }
+.qp--v3 .qp-panel--call { background: var(--qp-pine); color: rgba(255, 255, 255, .78); }
+.qp--v3 .qp-panel--call .qp-panel__title { color: #fff; }
+.qp--v3 .qp-panel--call .qp-contact a { color: #fff; }
+.qp--v3 .qp-panel--call .qp-contact .icon { color: var(--qp-mint); }
+
+/* --- smaller screens ------------------------------------------------- */
+
+@media (max-width: 1080px) {
+  .qp-form__grid { grid-template-columns: minmax(0, 1fr); }
+  .qp-aside { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .qp-aside .qp-note { grid-column: 1 / -1; }
+}
+
+@media (max-width: 860px) {
+  .qp-hero__grid,
+  .qp--v3 .qp-hero__grid { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .qp--v3 .qp-steps { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 760px) {
+  .qp { --qp-frame-h: 960px; --qp-overlap: 48px; }
+  .qp-hero__title { font-size: clamp(2.2rem, 9.5vw, 3rem); }
+  .qp-aside { grid-template-columns: minmax(0, 1fr); }
+  .qp-form .hs-wrap { padding-inline: 12px; }
+  .qp-card,
+  .qp--v2 .qp-card,
+  .qp--v3 .qp-card { border-radius: 14px; }
+  .qp-card__bar { padding: 12px 16px; }
+}
+
+/* ==========================================================================
+   The quote form on its own (/crq-form/): just the iframe, as it looks on
+   the live site, between the header and footer. White page so the form's
+   own white background runs edge to edge, like the live page.
+   ========================================================================== */
+
+.qp-plain { background: #fff; }
+/* concepts 2 and 3: the header floats over a hero, so give it a dark band */
+html[data-header="b"] .qp-plain {
+  padding-top: calc(var(--header-height) + var(--utility-height));
+  background: linear-gradient(to bottom, var(--qp-dark) calc(var(--header-height) + var(--utility-height)), #fff 0);
+}
+.qp-plain__frame {
+  max-width: 1240px;
+  margin-inline: auto;
+  padding: clamp(24px, 3vw, 48px) 16px clamp(48px, 6vw, 80px);
+}
+.qp-plain__frame iframe {
+  display: block;
+  width: 100%;
+  height: var(--qp-frame-h);
+  border: 0;
+}
