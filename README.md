@@ -12,6 +12,8 @@ each `concept-N/` folder is one page:
   class on `<main>` picks the layout. Linked from the header under Personal Insurance.
 - `concept-2/homeowners-insurance-scroll/`: concept 2's Homeowners page without tabs; the same sections stacked
   (quote first) so the page scrolls. For comparing with the tabbed version.
+- `concept-2/homeowners-insurance-fade/`: the tabbed concept 2 Homeowners page with a title band that continues the
+  header's black and fades into the light page (`pg--fade`), instead of a hard black-to-white edge.
 - `concept-4/`: the photo gallery (the old `concept-7/` link redirects here, see `vercel.json`)
 
 The homepage concepts share the sections in `home-sections.css` / `home-sections.js`
