@@ -125,8 +125,7 @@
    ========================================================================== */
 
 .pg--v1 {
-  --hs-heading: var(--font-heading, "Fraunces", Georgia, serif);
-  --hs-body: var(--font-body, "Source Sans 3", system-ui, sans-serif);
+  /* same type as concept 2: Montserrat headings, Lato text (the .hs defaults) */
   --hs-text: #4a524c;
   --hs-green: var(--pg-forest);
   font-family: var(--hs-body);
@@ -175,21 +174,21 @@
 .pg--v1 .pg-head__title {
   margin: 0;
   font-family: var(--hs-heading);
-  font-weight: 600;
-  font-size: clamp(2.6rem, 1.6rem + 3.6vw, 5rem);
-  line-height: 1;
-  letter-spacing: -.02em;
+  font-weight: 700;
+  font-size: clamp(2.4rem, 1.5rem + 3.2vw, 4.4rem);
+  line-height: 1.02;
+  letter-spacing: -.03em;
   color: var(--pg-forest);
 }
 .pg--v1 .pg-head__tagline {
   margin: 0 0 14px;
   font-family: var(--hs-heading);
-  font-style: italic;
-  font-size: clamp(1.3rem, 1.1rem + .6vw, 1.6rem);
+  font-weight: 600;
+  font-size: clamp(1.2rem, 1.05rem + .5vw, 1.45rem);
   line-height: 1.3;
   color: var(--pg-gold-ink);
 }
-.pg--v1 .pg-head__lead { margin: 0 0 26px; font-size: 1.12rem; line-height: 1.65; max-width: 48ch; }
+.pg--v1 .pg-head__lead { margin: 0; font-size: 1.12rem; line-height: 1.65; max-width: 48ch; }
 .pg--v1 .pg-head__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 26px; }
 .pg--v1 .pg-btn--primary { background: var(--pg-forest); color: var(--pg-gold); }
 .pg--v1 .pg-btn--primary:hover { background: var(--pg-dark); }
@@ -231,16 +230,18 @@
 .pg--v1 .pg-block__title {
   margin: 0 0 18px;
   font-family: var(--hs-heading);
-  font-weight: 600;
+  font-weight: 700;
   font-size: clamp(1.8rem, 1.3rem + 1.5vw, 2.5rem);
-  line-height: 1.15;
+  line-height: 1.1;
+  letter-spacing: -.025em;
   color: var(--pg-forest);
 }
 .pg--v1 .pg-intro__text {
   margin: 0 0 24px;
   font-family: var(--hs-heading);
-  font-size: clamp(1.3rem, 1.1rem + .6vw, 1.6rem);
-  line-height: 1.45;
+  font-weight: 500;
+  font-size: clamp(1.15rem, 1rem + .5vw, 1.4rem);
+  line-height: 1.5;
   color: var(--pg-forest);
 }
 .pg--v1 .pg-perils li {
@@ -267,7 +268,7 @@
 }
 .pg--v1 .pg-cover:first-child { border-top: 1px solid var(--pg-line); }
 .pg--v1 .pg-cover__num { font-family: var(--hs-heading); font-size: 2rem; font-weight: 600; line-height: 1; color: var(--pg-gold-ink); }
-.pg--v1 .pg-cover__title { margin: 0 0 4px; font-family: var(--hs-heading); font-size: 1.4rem; font-weight: 600; color: var(--pg-forest); }
+.pg--v1 .pg-cover__title { margin: 0 0 4px; font-family: var(--hs-heading); font-size: 1.4rem; font-weight: 700; color: var(--pg-forest); }
 .pg--v1 .pg-cover p { margin: 0; font-size: 1.08rem; line-height: 1.55; }
 .pg--v1 .pg-cover__icon { align-self: center; width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(148, 112, 44, .4); color: var(--pg-gold-ink); }
 .pg--v1 .pg-cover__icon .icon { width: 22px; height: 22px; }
@@ -286,7 +287,7 @@
   border: 1px solid rgba(232, 194, 126, .4);
   color: rgba(255, 255, 255, .78);
 }
-.pg--v1 .pg-quote__title { margin: 0 0 8px; font-family: var(--hs-heading); font-size: 1.6rem; font-weight: 600; line-height: 1.15; color: #fff; }
+.pg--v1 .pg-quote__title { margin: 0 0 8px; font-family: var(--hs-heading); font-size: 1.6rem; font-weight: 700; line-height: 1.15; color: #fff; }
 .pg--v1 .pg-quote p { margin: 0 0 20px; font-size: 1rem; line-height: 1.55; }
 .pg--v1 .pg-quote .pg-btn { width: 100%; }
 .pg--v1 .pg-quote .pg-call { margin-top: 16px; color: #fff; }
@@ -318,7 +319,7 @@
   align-items: center;
 }
 .pg--v1 .pg-close figure { aspect-ratio: 1; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 4px var(--pg-forest), 0 0 0 5px var(--pg-gold); background: var(--pg-photo-bg); }
-.pg--v1 .pg-close__title { margin: 0 0 10px; font-family: var(--hs-heading); font-weight: 600; font-size: clamp(1.8rem, 1.3rem + 1.4vw, 2.4rem); line-height: 1.15; color: #fff; }
+.pg--v1 .pg-close__title { margin: 0 0 10px; font-family: var(--hs-heading); font-weight: 700; font-size: clamp(1.8rem, 1.3rem + 1.4vw, 2.4rem); line-height: 1.15; color: #fff; }
 .pg--v1 .pg-close p { margin: 0; max-width: 56ch; font-size: 1.08rem; line-height: 1.6; }
 .pg--v1 .pg-close p a { color: var(--pg-gold); font-weight: 700; }
 .pg--v1 .pg-close__actions { display: grid; gap: 14px; justify-items: center; }
