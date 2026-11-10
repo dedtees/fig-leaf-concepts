@@ -185,16 +185,18 @@
       </div>
     </header>
 
-    <!-- Section tabs (insurance-page.js marks the one in view) -->
-    <nav class="pg-tabs" aria-label="On this page">
-      <ul>
-        <li><a href="#overview">Overview</a></li>
-        <li><a href="#covered">What's covered</a></li>
-        <li><a href="#quote">Get a quote</a></li>
-      </ul>
-    </nav>
+    <!-- Tabs: each one shows its panel in place (insurance-page.js).
+         Without JavaScript all three panels show, one after another. -->
+    <div class="pg-tabset" data-pg-tabs>
+    <div class="pg-tabs">
+      <div class="pg-tabs__list" role="tablist" aria-label="Homeowners insurance">
+        <a role="tab" id="tab-overview" href="#overview" aria-controls="overview">Overview</a>
+        <a role="tab" id="tab-covered" href="#covered" aria-controls="covered">What's covered</a>
+        <a role="tab" id="tab-quote" href="#quote" aria-controls="quote">Get a quote</a>
+      </div>
+    </div>
 
-    <section class="pg-sec" id="overview" aria-labelledby="pg-overview-title">
+    <section class="pg-sec pg-panel" id="overview" role="tabpanel" aria-labelledby="tab-overview">
       <div class="pg-wrap">
         <div class="pg-sec__head">
           <h2 class="pg-sec__title" id="pg-overview-title">Homeowners Insurance</h2>
@@ -211,7 +213,7 @@
       </div>
     </section>
 
-    <section class="pg-sec" id="covered" aria-labelledby="pg-covered-title">
+    <section class="pg-sec pg-panel" id="covered" role="tabpanel" aria-labelledby="tab-covered">
       <div class="pg-wrap">
         <div class="pg-sec__head">
           <h2 class="pg-sec__title" id="pg-covered-title">A homeowners policy generally covers:</h2>
@@ -227,7 +229,7 @@
       </div>
     </section>
 
-    <section class="pg-close" id="quote" aria-labelledby="pg-close-title">
+    <section class="pg-close pg-panel" id="quote" role="tabpanel" aria-labelledby="tab-quote">
       <div class="pg-wrap">
         <div class="pg-close__card hs-reveal">
           <figure><img src="../assets/homeowners/home-cta.jpg" alt="A laughing little boy riding in a moving box pushed by his dad" width="800" height="800" decoding="async" loading="lazy"></figure>
@@ -242,6 +244,7 @@
         </div>
       </div>
     </section>
+    </div>
 
   </main>
 

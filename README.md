@@ -8,7 +8,7 @@ each `concept-N/` folder is one page:
 - `concept-1/homeowners-insurance/`, `concept-2/…`, `concept-3/…`: the Homeowners Insurance page in each concept
   (content from figleafagency.com/homeowners-insurance). These are interior pages: solid dark header, a light title
   band and a document layout instead of the homepage's dark hero, in the concept's colours and type.
-  Styles in `insurance-page.css`, section highlighting in `insurance-page.js`; the `pg--v1` / `pg--v2` / `pg--v3`
+  Styles in `insurance-page.css`, concept 2's in-place tabs and concept 3's section highlighting in `insurance-page.js`; the `pg--v1` / `pg--v2` / `pg--v3`
   class on `<main>` picks the layout. Linked from the header under Personal Insurance.
 - `concept-4/`: the photo gallery (the old `concept-7/` link redirects here, see `vercel.json`)
 
