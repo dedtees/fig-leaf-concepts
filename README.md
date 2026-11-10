@@ -11,9 +11,10 @@ each `concept-N/` folder is one page:
 - `concept-1/crq/`, `concept-2/crq/`, `concept-3/crq/`: the quote request page (figleafagency.com/crq). The form is the same
   Consumer Rate Quotes iframe the live page uses (we can't style inside it), framed in each concept's look.
   Styles in `quote-page.css`; the `qp--v1` / `qp--v2` / `qp--v3` class on `<main>` picks the look. The homepage's
-  Get a Quote buttons link here.
+  hero, car and home quote buttons link here.
 - `concept-1/crq-form/`, `concept-2/…`, `concept-3/…`: the quote form on its own, the same iframe exactly as it looks live,
   between each concept's header and footer (no extra copy). Styles in `quote-page.css` (`.qp-plain`).
+  The header's Get a Quote button links here.
 - `concept-4/`: the photo gallery (the old `concept-7/` link redirects here, see `vercel.json`)
 
 The homepage concepts share the sections in `home-sections.css` / `home-sections.js`
