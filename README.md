@@ -10,6 +10,8 @@ each `concept-N/` folder is one page:
   band and a document layout instead of the homepage's dark hero, in the concept's colours and type.
   Styles in `insurance-page.css`, concept 2's in-place tabs and concept 3's section highlighting in `insurance-page.js`; the `pg--v1` / `pg--v2` / `pg--v3`
   class on `<main>` picks the layout. Linked from the header under Personal Insurance.
+- `concept-2/homeowners-insurance-scroll/`: concept 2's Homeowners page without tabs; the same sections stacked
+  (quote first) so the page scrolls. For comparing with the tabbed version.
 - `concept-4/`: the photo gallery (the old `concept-7/` link redirects here, see `vercel.json`)
 
 The homepage concepts share the sections in `home-sections.css` / `home-sections.js`

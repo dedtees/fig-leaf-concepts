@@ -569,6 +569,10 @@
 .pg--v2 .pg-crq__note { display: flex; align-items: center; gap: 10px; margin: 0; padding: 0 6px; font-size: .95rem; color: var(--hs-text); }
 .pg--v2 .pg-crq__note .icon { flex: none; width: 20px; height: 20px; color: var(--hs-green); }
 
+/* scrolling version (no tabs): the sections stack, quote first */
+.pg--v2.pg--stack .pg-close { padding-bottom: clamp(24px, 3vw, 40px); }
+.pg--v2.pg--stack .pg-sec:last-child { padding-bottom: clamp(56px, 7vw, 96px); }
+
 .pg--v2 .pg-close__card {
   display: grid;
   grid-template-columns: minmax(0, 340px) minmax(0, 1fr);

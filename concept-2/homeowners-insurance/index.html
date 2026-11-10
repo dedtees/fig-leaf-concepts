@@ -83,7 +83,7 @@
 
   <!-- Review bar: for comparing concepts only, not part of the site design -->
   <nav class="review-bar" aria-label="Concepts">
-    <p class="review-bar__title"><span class="review-bar__label">Concept 2</span> <span class="review-bar__name">Homeowners Insurance page · <a href="../" style="color:inherit">back to the homepage</a></span></p>
+    <p class="review-bar__title"><span class="review-bar__label">Concept 2</span> <span class="review-bar__name">Homeowners Insurance, tabbed version · <a href="../homeowners-insurance-scroll/" style="color:inherit">scrolling version</a> · <a href="../" style="color:inherit">back to the homepage</a></span></p>
     <div class="review-bar__controls">
       <ul class="review-bar__list">
         <li><a class="review-bar__link" href="../../concept-1/homeowners-insurance/" data-name="Stacked leaves, dark header · Homeowners"><span class="visually-hidden">Concept </span>1<span class="visually-hidden">: Stacked leaves, dark header</span></a></li><li><a class="review-bar__link" href="./" data-name="Stacked leaves, transparent header · Homeowners" aria-current="page"><span class="visually-hidden">Concept </span>2<span class="visually-hidden">: Stacked leaves, transparent header</span></a></li><li><a class="review-bar__link" href="../../concept-3/homeowners-insurance/" data-name="Horizontal leaves, concept 1 reviews · Homeowners"><span class="visually-hidden">Concept </span>3<span class="visually-hidden">: Horizontal leaves, concept 1 reviews</span></a></li><li><a class="review-bar__link" href="../../concept-4/index.html" data-name="Fig leaf photo gallery"><span class="visually-hidden">Concept </span>4<span class="visually-hidden">: Fig leaf photo gallery</span></a></li></ul>
@@ -190,11 +190,45 @@
     <div class="pg-tabset" data-pg-tabs>
     <div class="pg-tabs">
       <div class="pg-tabs__list" role="tablist" aria-label="Homeowners insurance">
+        <a role="tab" id="tab-quote" href="#quote" aria-controls="quote">Get a quote</a>
         <a role="tab" id="tab-overview" href="#overview" aria-controls="overview">Overview</a>
         <a role="tab" id="tab-covered" href="#covered" aria-controls="covered">What's covered</a>
-        <a role="tab" id="tab-quote" href="#quote" aria-controls="quote">Get a quote</a>
       </div>
     </div>
+
+    <section class="pg-close pg-panel" id="quote" role="tabpanel" aria-labelledby="tab-quote">
+      <div class="pg-wrap">
+        <div class="pg-sec__head">
+          <h2 class="pg-sec__title" id="pg-close-title">Get your homeowners quote</h2>
+          <p class="pg-sec__kicker">Fast, free and no obligation</p>
+        </div>
+        <!-- The quote form is the same Consumer Rate Quotes form as the live
+             figleafagency.com/crq page, embedded here so it's ready the moment
+             this tab opens. We can't style inside it, so the card frames it. -->
+        <div class="pg-crq">
+          <div class="pg-crq__card">
+            <div class="pg-crq__bar">
+              <span class="pg-crq__secure"><svg class="icon" aria-hidden="true"><use href="#i-lock"></use></svg>Secure quote form</span>
+              <span class="pg-crq__alt">Form not showing? <a href="https://secure.consumerratequotes.com/ConsumerV2?SiteKey=3006535&amp;ref1=Website" target="_blank" rel="noopener">Open it in a new tab</a></span>
+            </div>
+            <div class="pg-crq__frame">
+              <iframe src="https://secure.consumerratequotes.com/ConsumerV2?SiteKey=3006535&amp;ref1=Website" title="Fig Leaf Agency quote request form" loading="eager" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+          </div>
+          <aside class="pg-crq__aside" aria-label="Other ways to get a quote">
+            <div class="pg-close__card">
+              <figure><img src="../assets/homeowners/home-cta.jpg" alt="A laughing little boy riding in a moving box pushed by his dad" width="800" height="800" decoding="async" loading="lazy"></figure>
+              <div class="pg-close__body">
+                <h3 class="pg-close__title">Rather talk it through?</h3>
+                <p>For more information about homeowners insurance, condominium insurance and renters insurance, call us and an agent will run the quote with you.</p>
+                <a class="pg-btn pg-btn--mint" href="tel:+19088623447"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>(908) 862-3447</a>
+              </div>
+            </div>
+            <p class="pg-crq__note"><svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg>Quotes are free and there&rsquo;s no obligation to buy.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
 
     <section class="pg-sec pg-panel" id="overview" role="tabpanel" aria-labelledby="tab-overview">
       <div class="pg-wrap">
@@ -229,39 +263,6 @@
       </div>
     </section>
 
-    <section class="pg-close pg-panel" id="quote" role="tabpanel" aria-labelledby="tab-quote">
-      <div class="pg-wrap">
-        <div class="pg-sec__head">
-          <h2 class="pg-sec__title" id="pg-close-title">Get your homeowners quote</h2>
-          <p class="pg-sec__kicker">Fast, free and no obligation</p>
-        </div>
-        <!-- The quote form is the same Consumer Rate Quotes form as the live
-             figleafagency.com/crq page, embedded here so it's ready the moment
-             this tab opens. We can't style inside it, so the card frames it. -->
-        <div class="pg-crq">
-          <div class="pg-crq__card">
-            <div class="pg-crq__bar">
-              <span class="pg-crq__secure"><svg class="icon" aria-hidden="true"><use href="#i-lock"></use></svg>Secure quote form</span>
-              <span class="pg-crq__alt">Form not showing? <a href="https://secure.consumerratequotes.com/ConsumerV2?SiteKey=3006535&amp;ref1=Website" target="_blank" rel="noopener">Open it in a new tab</a></span>
-            </div>
-            <div class="pg-crq__frame">
-              <iframe src="https://secure.consumerratequotes.com/ConsumerV2?SiteKey=3006535&amp;ref1=Website" title="Fig Leaf Agency quote request form" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-            </div>
-          </div>
-          <aside class="pg-crq__aside" aria-label="Other ways to get a quote">
-            <div class="pg-close__card">
-              <figure><img src="../assets/homeowners/home-cta.jpg" alt="A laughing little boy riding in a moving box pushed by his dad" width="800" height="800" decoding="async" loading="lazy"></figure>
-              <div class="pg-close__body">
-                <h3 class="pg-close__title">Rather talk it through?</h3>
-                <p>For more information about homeowners insurance, condominium insurance and renters insurance, call us and an agent will run the quote with you.</p>
-                <a class="pg-btn pg-btn--mint" href="tel:+19088623447"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>(908) 862-3447</a>
-              </div>
-            </div>
-            <p class="pg-crq__note"><svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg>Quotes are free and there&rsquo;s no obligation to buy.</p>
-          </aside>
-        </div>
-      </div>
-    </section>
     </div>
 
   </main>
