@@ -5,9 +5,15 @@ each `concept-N/` folder is one page:
 
 - `concept-1/`, `concept-2/`: homepage concepts
 - `concept-3/`: concept 2 with the horizontal leaves hero (from the old concept 6) and concept 1's Google Reviews layout (`hs-reviews--split`)
-- `concept-1/homeowners-insurance/`, `concept-2/…`, `concept-3/…`: the Homeowners Insurance page in each concept's theme
-  (content from figleafagency.com/homeowners-insurance). Styles in `insurance-page.css`, layered on `home-sections.css`;
-  the `pg--v1` / `pg--v2` / `pg--v3` class on `<main>` picks the look. Linked from the header under Personal Insurance.
+- `concept-1/homeowners-insurance/`, `concept-2/…`, `concept-3/…`: the Homeowners Insurance page in each concept
+  (content from figleafagency.com/homeowners-insurance). These are interior pages: solid dark header, a light title
+  band and a document layout instead of the homepage's dark hero, in the concept's colours and type.
+  Styles in `insurance-page.css`, concept 2's in-place tabs and concept 3's section highlighting in `insurance-page.js`; the `pg--v1` / `pg--v2` / `pg--v3`
+  class on `<main>` picks the layout. Linked from the header under Personal Insurance.
+- `concept-2/homeowners-insurance-scroll/`: concept 2's Homeowners page without tabs; the same sections stacked
+  (quote first) so the page scrolls. For comparing with the tabbed version.
+- `concept-2/homeowners-insurance-fade/`: the tabbed concept 2 Homeowners page with a title band that continues the
+  header's black and fades into the light page (`pg--fade`), instead of a hard black-to-white edge.
 - `concept-1/crq/`, `concept-2/crq/`, `concept-3/crq/`: the quote request page (figleafagency.com/crq). The form is the same
   Consumer Rate Quotes iframe the live page uses (we can't style inside it), framed in each concept's look.
   Styles in `quote-page.css`; the `qp--v1` / `qp--v2` / `qp--v3` class on `<main>` picks the look. The homepage's
