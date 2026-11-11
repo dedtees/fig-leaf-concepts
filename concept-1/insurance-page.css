@@ -154,8 +154,8 @@
   rotate: 16deg;
   background: var(--pg-gold);
   opacity: .14;
-  -webkit-mask: url("assets/fig-leaf-fill.svg") center / contain no-repeat;
-          mask: url("assets/fig-leaf-fill.svg") center / contain no-repeat;
+  -webkit-mask: url("assets/fig-leaf-silhouette.png") center / contain no-repeat;
+          mask: url("assets/fig-leaf-silhouette.png") center / contain no-repeat;
 }
 .pg--v1 .pg-head__grid {
   display: grid;
@@ -499,6 +499,26 @@
   color: var(--pg-ink);
 }
 .pg--v2 .pg-perils .icon { width: 44px; height: 44px; padding: 10px; border-radius: 14px; background: linear-gradient(160deg, #e9f4ec, #d6ebdc); color: var(--hs-green); }
+/* photo cards: a photo behind each peril, the label on a dark fade */
+.pg--v2 .pg-perils li.pg-peril {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  justify-content: flex-end;
+  min-height: 260px;
+  padding: 20px;
+  border: 0;
+  background: var(--pg-ink);
+  color: #fff;
+}
+.pg--v2 .pg-peril img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.pg--v2 .pg-peril::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(15, 36, 24, 0) 35%, rgba(15, 36, 24, .85) 100%); }
+.pg--v2 .pg-peril:hover img { transform: scale(1.04); }
+.pg--v2 .pg-peril__label { display: flex; align-items: center; gap: 12px; }
+.pg--v2 .pg-peril .icon { flex: none; width: 40px; height: 40px; padding: 9px; background: rgba(255, 255, 255, .92); color: var(--hs-green); }
+@media (prefers-reduced-motion: reduce) { .pg--v2 .pg-peril img { transition: none; } }
+.pg--v2 .pg-credit { margin: 14px 0 0; font-size: .8rem; color: #7a857e; }
+.pg--v2 .pg-credit a { color: inherit; }
 
 /* covered: a bento, Dwelling large with the house photo */
 .pg--v2 .pg-bento {
@@ -826,6 +846,7 @@
   .pg--v2 .pg-tabs a { padding: 9px 12px; font-size: .84rem; }
   .pg--v2 .pg-perils { grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .pg--v2 .pg-perils li { flex-direction: row; align-items: center; justify-content: flex-start; gap: 16px; padding: 16px 18px; font-size: 1.15rem; }
+  .pg--v2 .pg-perils li.pg-peril { min-height: 170px; align-items: flex-end; justify-content: flex-start; }
   .pg--v2 .pg-bento { grid-template-columns: minmax(0, 1fr); grid-template-areas: "a" "b" "c" "d" "e"; gap: 14px; }
   .pg--v2 .pg-cover:nth-child(1) { min-height: 340px; }
   .pg--v2 .pg-cover:nth-child(1) .pg-cover__title { font-size: 1.6rem; }
