@@ -257,8 +257,8 @@
   gap: clamp(32px, 5vw, 72px);
   align-items: center;
 }
-.hs-about__media { aspect-ratio: 9 / 7; overflow: hidden; background: var(--hs-sage); }
-.hs-about__img { width: 100%; height: 100%; object-fit: cover; }
+.hs-about__media { position: relative; aspect-ratio: 9 / 7; overflow: hidden; background: var(--hs-sage); }
+.hs .hs-about__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .hs-about__body p:not(.hs-eyebrow) { margin: 0 0 16px; font-size: 1.05rem; }
 .hs-about__body .hs-btn { margin-top: 10px; }
 
