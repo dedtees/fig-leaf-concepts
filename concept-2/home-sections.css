@@ -1056,8 +1056,8 @@
   top: 50%;
   transform: translateY(-50%) rotate(-14deg);
   background: linear-gradient(150deg, var(--hs-gold), rgba(232, 194, 126, .2));
-  -webkit-mask: url("assets/fig-leaf-fill.svg") center / contain no-repeat;
-  mask: url("assets/fig-leaf-fill.svg") center / contain no-repeat;
+  -webkit-mask: url("assets/fig-leaf-silhouette.png") center / contain no-repeat;
+  mask: url("assets/fig-leaf-silhouette.png") center / contain no-repeat;
   opacity: .14;
   pointer-events: none;
 }
@@ -1163,8 +1163,8 @@
 .hs-px__blob { border-radius: 50%; filter: blur(40px); }
 .hs-px__leaf {
   aspect-ratio: 520 / 567;
-  -webkit-mask: url("assets/fig-leaf-fill.svg") center / contain no-repeat;
-          mask: url("assets/fig-leaf-fill.svg") center / contain no-repeat;
+  -webkit-mask: url("assets/fig-leaf-silhouette.png") center / contain no-repeat;
+          mask: url("assets/fig-leaf-silhouette.png") center / contain no-repeat;
 }
 
 /* --- type and buttons ---------------------------------------------------- */
@@ -1533,8 +1533,8 @@
   display: block; position: absolute; z-index: -1; pointer-events: none;
   aspect-ratio: 520 / 567; width: clamp(220px, 26vw, 360px); right: -40px; top: 50%; translate: 0 -50%; rotate: 14deg;
   background: linear-gradient(160deg, var(--hs-gold), #b88a3e); opacity: .16;
-  -webkit-mask: url("assets/fig-leaf-fill.svg") center / contain no-repeat;
-          mask: url("assets/fig-leaf-fill.svg") center / contain no-repeat;
+  -webkit-mask: url("assets/fig-leaf-silhouette.png") center / contain no-repeat;
+          mask: url("assets/fig-leaf-silhouette.png") center / contain no-repeat;
 }
 
 /* --- about --------------------------------------------------------------- */

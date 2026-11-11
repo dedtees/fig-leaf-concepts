@@ -261,8 +261,8 @@ html[data-header="b"] .qp-hero { padding-top: calc(var(--header-height) + var(--
   top: -8%;
   transform: rotate(-14deg);
   background: linear-gradient(150deg, var(--qp-gold), rgba(232, 194, 126, .2));
-  -webkit-mask: url("../assets/fig-leaf-fill.svg") center / contain no-repeat;
-          mask: url("../assets/fig-leaf-fill.svg") center / contain no-repeat;
+  -webkit-mask: url("../assets/fig-leaf-silhouette.png") center / contain no-repeat;
+          mask: url("../assets/fig-leaf-silhouette.png") center / contain no-repeat;
   opacity: .1;
   pointer-events: none;
 }
