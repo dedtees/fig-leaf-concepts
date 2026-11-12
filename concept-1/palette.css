@@ -10,8 +10,8 @@
      light green  #a9c7b4   used sparingly: icons on black, hairlines on white
 
    One shade each: no tints, no see-through colours, no gradients, no soft
-   shadows or glows. The one exception: the faint gold fig leaf silhouettes
-   in the background. Loaded last on every concept 1 page (home, Homeowners,
+   shadows or glows. The one exception: the faint fig leaf silhouettes in
+   the background, in concept 2's silhouette green (#3f8a5a). Loaded last on every concept 1 page (home, Homeowners,
    both quote pages), so it overrides the shared stylesheets for concept 1
    only and those stay identical copies.
    ========================================================================== */
@@ -22,6 +22,7 @@
   --c1-white: #ffffff;
   --c1-green: #17402b;
   --c1-green-light: #a9c7b4;
+  --c1-leaf: #3f8a5a;               /* the background leaf silhouettes, as in concept 2 */
 
   --kelly: var(--c1-green);
   --logo-green: var(--c1-green);
@@ -126,13 +127,13 @@ html[data-header] .site-nav__sub a:hover { background: var(--c1-green); }
 .hs--v1 .hs-ico { fill: var(--c1-green-light); }
 .hs--v1 .hs-ico__wave { stroke: var(--c1-green-light); }
 
-/* bundle + "More ways": solid dark green, no glow. The faint gold leaf
-   silhouettes stay (the one exception to "no see-through colours"), as
-   flat gold rather than a gold gradient */
+/* bundle + "More ways": solid dark green, no glow. The leaf silhouettes stay
+   (the one exception to "no see-through colours") in concept 2's leaf green,
+   at the strength concept 2 shows it on its green band */
 .hs--v1 .hs-bundle,
 .hs--v1 .hs-services { background: var(--c1-green); }
 .hs--v1 .hs-bundle::before,
-.hs--v1 .hs-services::before { background: var(--c1-gold); }
+.hs--v1 .hs-services::before { background: var(--c1-leaf); opacity: .5; }
 .hs--v1 .hs-bundle .hs-split { background: var(--c1-black); border-color: var(--c1-gold); }
 .hs--v1 .hs-service { background: var(--c1-black); border-color: var(--c1-black); }
 .hs--v1 .hs-service__media.is-fallback,
@@ -200,7 +201,7 @@ html[data-header] .site-nav__sub a:hover { background: var(--c1-green); }
 .pg--v1 .pg-crumbs ol { color: var(--c1-black); }
 .pg--v1 .pg-crumbs li + li::before { opacity: 1; }
 .pg--v1 .pg-head { border-top-color: var(--c1-gold); }
-.pg--v1 .pg-head::before { background: var(--c1-gold); }   /* leaf silhouette, kept */
+.pg--v1 .pg-head::before { background: var(--c1-leaf); opacity: .14; }   /* leaf silhouette, fainter on white */
 .pg--v1 .pg-head__lead,
 .pg--v1 .pg-cover p { color: var(--c1-black); }
 .pg--v1 .pg-strip figure { box-shadow: 16px 16px 0 -2px var(--c1-gold); }
@@ -233,7 +234,7 @@ html[data-header] .site-nav__sub a:hover { background: var(--c1-green); }
   --hs-text: var(--c1-black);
 }
 .qp--v1 .qp-hero { background: var(--c1-black); }
-.qp--v1 .qp-hero::after { background: var(--c1-gold); }   /* leaf silhouette, kept */
+.qp--v1 .qp-hero::after { background: var(--c1-leaf); opacity: .5; }   /* leaf silhouette */
 .qp--v1 .qp-crumbs ol,
 .qp--v1 .qp-hero__lead,
 .qp--v1 .qp-step span { color: var(--c1-white); }
@@ -257,3 +258,9 @@ html[data-header] .site-nav__sub a:hover { background: var(--c1-green); }
 .qp--v1 .qp-crumbs li + li::before { opacity: 1; }
 .qp--v1 .qp-ready span { color: var(--c1-black); }
 .hs-footer__contact span { color: var(--c1-white); }
+/* quote-page.css points the leaf mask one folder too high (../assets/), so the
+   leaf never showed on this page; point it at concept 1's own copy */
+.qp--v1 .qp-hero::after {
+  -webkit-mask: url("assets/fig-leaf-silhouette.png") center / contain no-repeat;
+          mask: url("assets/fig-leaf-silhouette.png") center / contain no-repeat;
+}
