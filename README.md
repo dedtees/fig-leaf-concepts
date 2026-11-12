@@ -37,3 +37,5 @@ The homepage concepts share the sections in `home-sections.css` / `home-sections
 picks the section layout.
 
 Vercel settings: Framework Preset "Other", no build command, output directory = repo root.
+
+**Grid background (`grid.css`).** The faint grid from concept 2's "Select One or Bundle" section is now a reusable layer, with an identical `grid.css` in concepts 1, 2 and 3. A section gets the class `fl-grid-host` and a first child `<div class="fl-grid" aria-hidden="true"><span class="fl-grid__lines" data-hs-px="0.15"></span></div>`. Add `fl-grid--light` for green lines on light sections. It's used on concept 1's Comprehensive Coverage, Select One or Bundle and More Ways We Protect You sections, on concept 3's Comprehensive Coverage and More Ways We Protect You sections, and on the title area of every Homeowners page. Concept 1's and concept 3's Homeowners pages also have it on the closing quote band.
