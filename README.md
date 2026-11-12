@@ -28,6 +28,10 @@ pages) and holds them to four colours, one shade each: gold #e8c27e, black #070d
 faint fig leaf silhouettes in the background, which use concept 2's leaf green #3f8a5a. It overrides
 the shared stylesheets for concept 1 only, so those stay identical copies.
 
+Concept 2 uses the same palette: `concept-2/palette.css` loads last on all its pages and holds them to gold, black,
+white and dark green, with light green used sparingly, and no gradients, glows or soft shadows. The exceptions are the
+leaf silhouettes, which keep their own greens, and the grid behind "Select One or Bundle!".
+
 The homepage concepts share the sections in `home-sections.css` / `home-sections.js`
 (identical copies in each folder); the `hs--v1` / `hs--v2` class on `#home-sections`
 picks the section layout.
