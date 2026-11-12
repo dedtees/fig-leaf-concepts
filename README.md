@@ -32,6 +32,8 @@ Concept 2 uses the same palette: `concept-2/palette.css` loads last on all its p
 white and dark green, with light green used sparingly, and no gradients, glows or soft shadows. The exceptions are the
 leaf silhouettes, which keep their own greens, and the grid behind "Select One or Bundle!".
 
+Concept 3 uses the same palette too: `concept-3/palette.css` loads last on all its pages (home, Homeowners, both quote pages). Its homepage shares concept 2's rules. The Homeowners guide page gets a white title band with a solid gold top stripe, flat cards with light green edges, accordion icons with no tile behind them, and a solid dark green quote panel. The gradient rules beside headings are now solid gold.
+
 The homepage concepts share the sections in `home-sections.css` / `home-sections.js`
 (identical copies in each folder); the `hs--v1` / `hs--v2` class on `#home-sections`
 picks the section layout.
