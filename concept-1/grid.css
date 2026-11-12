@@ -1,0 +1,32 @@
+/* ==========================================================================
+   The grid from concept 2's "Select One or Bundle" section, reusable.
+   Add class "fl-grid-host" to a section and put this first inside it:
+
+     <div class="fl-grid" aria-hidden="true"><span class="fl-grid__lines" data-hs-px="0.15"></span></div>
+
+   White hairlines for dark sections; add "fl-grid--light" for green
+   hairlines on light sections. The lines fade out towards the edges, and
+   drift slowly on scroll like the original (home-sections.js picks up
+   data-hs-px). Identical copy in each concept folder.
+   ========================================================================== */
+
+.fl-grid-host { position: relative; isolation: isolate; }
+
+.fl-grid {
+  position: absolute; inset: 0; z-index: -1;
+  overflow: hidden; pointer-events: none;
+  border-radius: inherit;
+  --fl-grid-line: rgba(255, 255, 255, .06);
+}
+.fl-grid--light { --fl-grid-line: rgba(23, 64, 43, .09); }
+
+.fl-grid__lines {
+  position: absolute; inset: -30% 0; display: block;
+  will-change: transform;
+  background-image:
+    linear-gradient(var(--fl-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--fl-grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask: radial-gradient(ellipse 70% 60% at 50% 50%, #000, transparent 75%);
+          mask: radial-gradient(ellipse 70% 60% at 50% 50%, #000, transparent 75%);
+}

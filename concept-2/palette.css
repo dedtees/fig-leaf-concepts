@@ -111,6 +111,12 @@ html[data-header] .site-nav__sub a:hover { background: var(--c2-green); }
 .hs--v2 .hs-statband .hs-px { -webkit-mask: none; mask: none; }
 /* this leaf took its colour from the old mint accent; keep it mint */
 .hs--v2 .hs-px__leaf--e { background: #8fdcaa; }
+/* a third leaf at the top right of Comprehensive Coverage, same tint as
+   the other two there, turned the other way */
+.hs--v2 .hs-px__leaf--h { width: 150px; right: 4%; top: 7%; background: rgba(43, 98, 64, .08); rotate: -16deg; scale: -1 1; }
+@media (max-width: 720px) {
+  .hs--v2 .hs-px__leaf--h { width: 96px; right: -4%; top: 3%; }
+}
 
 /* headings: the short underline is solid gold */
 .hs--v2 .hs-split__title::after { background: var(--c2-gold); }
