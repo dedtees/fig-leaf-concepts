@@ -1636,3 +1636,6 @@
   .hs--v2 .hs-reviews--split .hs-split__text { padding: 18px 0 0; }
 }
 .hs--v2 .hs-reviews--split .hs-px__quote { left: auto; right: 4%; margin-left: 0; }
+
+/* About painting: lighter zoom and drift so the whole roofline stays in frame. */
+.hs-px-on .hs--v2 .hs-about__img { scale: 1.1; }
