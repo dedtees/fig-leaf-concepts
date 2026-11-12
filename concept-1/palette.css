@@ -10,7 +10,8 @@
      light green  #a9c7b4   used sparingly: icons on black, hairlines on white
 
    One shade each: no tints, no see-through colours, no gradients, no soft
-   shadows or glows. Loaded last on every concept 1 page (home, Homeowners,
+   shadows or glows. The one exception: the faint gold fig leaf silhouettes
+   in the background. Loaded last on every concept 1 page (home, Homeowners,
    both quote pages), so it overrides the shared stylesheets for concept 1
    only and those stay identical copies.
    ========================================================================== */
@@ -125,11 +126,13 @@ html[data-header] .site-nav__sub a:hover { background: var(--c1-green); }
 .hs--v1 .hs-ico { fill: var(--c1-green-light); }
 .hs--v1 .hs-ico__wave { stroke: var(--c1-green-light); }
 
-/* bundle + "More ways": solid dark green, no glow, no leaf watermark */
+/* bundle + "More ways": solid dark green, no glow. The faint gold leaf
+   silhouettes stay (the one exception to "no see-through colours"), as
+   flat gold rather than a gold gradient */
 .hs--v1 .hs-bundle,
 .hs--v1 .hs-services { background: var(--c1-green); }
 .hs--v1 .hs-bundle::before,
-.hs--v1 .hs-services::before { content: none; }
+.hs--v1 .hs-services::before { background: var(--c1-gold); }
 .hs--v1 .hs-bundle .hs-split { background: var(--c1-black); border-color: var(--c1-gold); }
 .hs--v1 .hs-service { background: var(--c1-black); border-color: var(--c1-black); }
 .hs--v1 .hs-service__media.is-fallback,
@@ -197,7 +200,7 @@ html[data-header] .site-nav__sub a:hover { background: var(--c1-green); }
 .pg--v1 .pg-crumbs ol { color: var(--c1-black); }
 .pg--v1 .pg-crumbs li + li::before { opacity: 1; }
 .pg--v1 .pg-head { border-top-color: var(--c1-gold); }
-.pg--v1 .pg-head::before { content: none; }
+.pg--v1 .pg-head::before { background: var(--c1-gold); }   /* leaf silhouette, kept */
 .pg--v1 .pg-head__lead,
 .pg--v1 .pg-cover p { color: var(--c1-black); }
 .pg--v1 .pg-strip figure { box-shadow: 16px 16px 0 -2px var(--c1-gold); }
@@ -230,7 +233,7 @@ html[data-header] .site-nav__sub a:hover { background: var(--c1-green); }
   --hs-text: var(--c1-black);
 }
 .qp--v1 .qp-hero { background: var(--c1-black); }
-.qp--v1 .qp-hero::after { content: none; }
+.qp--v1 .qp-hero::after { background: var(--c1-gold); }   /* leaf silhouette, kept */
 .qp--v1 .qp-crumbs ol,
 .qp--v1 .qp-hero__lead,
 .qp--v1 .qp-step span { color: var(--c1-white); }

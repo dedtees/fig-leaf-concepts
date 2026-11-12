@@ -24,7 +24,8 @@ each `concept-N/` folder is one page:
 
 Concept 1 is the dark theme. `concept-1/palette.css` loads last on all its pages (home, Homeowners, both quote
 pages) and holds them to four colours, one shade each: gold #e8c27e, black #070d0f, white #fff and dark green
-#17402b, plus a light green #a9c7b4 used sparingly. No gradients, see-through colours or soft shadows. It overrides
+#17402b, plus a light green #a9c7b4 used sparingly. No gradients, see-through colours or soft shadows, except the
+faint gold fig leaf silhouettes in the background. It overrides
 the shared stylesheets for concept 1 only, so those stay identical copies.
 
 The homepage concepts share the sections in `home-sections.css` / `home-sections.js`
