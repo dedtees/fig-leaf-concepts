@@ -99,7 +99,7 @@ html[data-header] .site-nav__sub a:hover { background: var(--c2-green); }
   --hs-text: var(--c2-black);
   --hs-ink: var(--c2-black);
   --hs-shield: var(--c2-gold);
-  --hs-shield-ring: var(--c2-green-light);
+  --hs-shield-ring: var(--c2-white);
   --hs-shield-check: var(--c2-black);
   background: var(--c2-black);
 }
