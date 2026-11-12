@@ -1,0 +1,90 @@
+/* ==========================================================================
+   Concept 1: one green
+   Concept 1 keeps its look (black hero, deep green bands, ivory sections,
+   gold accents); this only folds its many greens into a single shade, the
+   deep green of its bands. Loaded last on every concept 1 page (home,
+   Homeowners, both quote pages), so it overrides the shared stylesheets for
+   concept 1 only and those stay identical copies.
+
+   Pale greens that can't become the deep green without disappearing on the
+   black (the coverage icons) turn ivory instead, beside their gold shields.
+   ========================================================================== */
+
+:root {
+  --c1-green: #17402b;
+  --c1-green-rgb: 23, 64, 43;
+  --c1-ivory: #f6f1e4;
+
+  --kelly: var(--c1-green);
+  --logo-green: var(--c1-green);
+  --forest: var(--c1-green);
+  --brand-green: var(--c1-green);
+  --brand-green-dark: var(--c1-green);
+}
+.skip-link { background: var(--c1-green); }
+
+/* --- homepage ------------------------------------------------------------- */
+
+.hs,
+.hs-footer {
+  --hs-green: var(--c1-green);
+  --hs-green-dark: var(--c1-green);
+  --hs-sage: #ece6d6;                  /* behind the About photo while it loads */
+  --hs-sage-mid: var(--c1-green);      /* behind the More Ways photos while they load */
+}
+
+/* the bands were a gradient between two greens; now one */
+.hs--v1 {
+  --hs-forest-1: var(--c1-green);
+  --hs-forest-2: var(--c1-green);
+}
+.hs--v1 .hs-about-section,
+.hs--v1 .hs-reviews,
+.hs--v1 .hs-carriers { --hs-line: rgba(var(--c1-green-rgb), .14); }
+
+/* coverage icons were pale sage */
+.hs--v1 .hs-ico { fill: var(--c1-ivory); }
+.hs--v1 .hs-ico__wave { stroke: var(--c1-ivory); }
+
+.hs--v1 .hs-about__media.is-fallback,
+.hs--v1 .hs-service__media.is-fallback {
+  background:
+    radial-gradient(circle at 30% 30%, rgba(232, 194, 126, .35), transparent 55%),
+    linear-gradient(160deg, var(--c1-green), var(--hs-ink-bg));
+}
+
+/* headings, buttons and names on ivory were a second, darker green */
+.hs--v1 .hs-about-section .hs-heading,
+.hs--v1 .hs-reviews .hs-split__title,
+.hs--v1 .hs-carriers .hs-split__title,
+.hs--v1 .hs-reviews .hs-review__author strong,
+.hs--v1 .hs-review__text p,
+.hs--v1 .hs-carrier__name { color: var(--c1-green); }
+.hs--v1 .hs-about-section .hs-btn--outline { border-color: var(--c1-green); color: var(--c1-green); }
+.hs--v1 .hs-about-section .hs-btn--outline:hover { background: var(--c1-green); }
+.hs--v1 .hs-review__avatar { background: var(--c1-green); }
+.hs--v1 .hs-review { box-shadow: 0 18px 40px rgba(var(--c1-green-rgb), .08); }
+
+/* --- Homeowners Insurance page ---------------------------------------------- */
+
+.pg--v1 {
+  --pg-forest: var(--c1-green);
+  --pg-forest-2: var(--c1-green);      /* the closing band was a two-green gradient */
+  --pg-line: rgba(var(--c1-green-rgb), .12);
+  --pg-photo-bg: linear-gradient(160deg, var(--c1-green), #070d0f);
+}
+.pg--v1 .pg-strip figure { box-shadow: 16px 16px 0 -2px var(--pg-gold), 0 30px 60px -30px rgba(var(--c1-green-rgb), .5); }
+
+/* --- quote pages -------------------------------------------------------------- */
+
+.qp--v1 { --qp-ink: var(--c1-green); }
+.qp--v1 .qp-hero {
+  background:
+    radial-gradient(ellipse 40% 70% at 82% 30%, rgba(74, 58, 30, .45), transparent 70%),
+    radial-gradient(ellipse 50% 80% at 0% 100%, rgba(var(--c1-green-rgb), .45), transparent 70%),
+    var(--qp-dark);
+}
+.qp--v1 .qp-panel--call { background: var(--c1-green); }
+.qp--v1 .qp-panel--call .hs-btn--primary { color: var(--c1-green); }
+.qp--v1 .qp-card,
+.qp--v1 .qp-panel { box-shadow: 0 18px 40px rgba(var(--c1-green-rgb), .08); }

@@ -22,9 +22,9 @@ each `concept-N/` folder is one page:
   Every Get a Quote / Start My Quote button links here.
 - `concept-4/`: the photo gallery (the old `concept-7/` link redirects here, see `vercel.json`)
 
-Concept 1 is the dark theme: `concept-1/dark.css` loads last on all its pages (home, Homeowners, both quote pages)
-and turns them black with gold buttons and one green (the logo's). It overrides the shared stylesheets for concept 1
-only, so those stay identical copies.
+Concept 1 is the dark theme. `concept-1/one-green.css` loads last on all its pages (home, Homeowners, both quote
+pages) and folds every green into one shade (#17402b, the green of its bands). It overrides the shared stylesheets
+for concept 1 only, so those stay identical copies.
 
 The homepage concepts share the sections in `home-sections.css` / `home-sections.js`
 (identical copies in each folder); the `hs--v1` / `hs--v2` class on `#home-sections`
