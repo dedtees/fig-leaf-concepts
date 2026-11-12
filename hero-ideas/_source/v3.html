@@ -1,0 +1,21 @@
+<!doctype html><html><head><link rel="stylesheet" href="base.css"><style>
+.wrap{position:absolute;left:150px;top:40px;width:800px;height:872px;
+ filter:drop-shadow(3px 0 0 #e8c27e) drop-shadow(-3px 0 0 #e8c27e) drop-shadow(0 3px 0 #b8914d) drop-shadow(0 -3px 0 #f3d9a4) drop-shadow(0 34px 40px rgba(0,0,0,.7))}
+.win{position:absolute;inset:0}
+.band{position:absolute;left:0;right:0;background-size:cover}
+.b1{top:0;height:42%;background-image:url(car.jpg);background-position:68% 55%;clip-path:polygon(0 0,100% 0,100% 78.5%,0 97.6%)}
+.b2{top:32%;height:39%;background-image:url(home.jpg);background-position:35% 45%;clip-path:polygon(0 23%,100% 2.5%,100% 82%,0 97.5%)}
+.b3{top:63%;height:37%;background-image:url(boat.jpg);background-position:3% 68%;background-size:160% auto;clip-path:polygon(0 18.9%,100% 2.7%,100% 100%,0 100%)}
+.seam{position:absolute;left:-5%;width:110%;height:6px;margin-top:-3px;background:linear-gradient(90deg,#9c7535,#f3d9a4 40%,#e8c27e 60%,#9c7535);box-shadow:0 0 12px rgba(232,194,126,.6)}
+.s1{top:37%;transform:rotate(-5deg)}
+.s2{top:67%;transform:rotate(-3.75deg)}
+.sheen{position:absolute;inset:0;background:linear-gradient(125deg, rgba(255,230,180,.22), rgba(255,230,180,0) 35%, rgba(0,0,0,0) 70%, rgba(0,0,0,.3))}
+.refl{position:absolute;left:250px;top:900px;width:600px;height:60px;background:radial-gradient(ellipse at center, rgba(232,194,126,.35), rgba(232,194,126,0) 70%);filter:blur(6px)}
+</style></head><body><div class="stage">
+<div class="floor"></div><div class="refl"></div>
+<div class="wrap"><div class="win leafmask">
+ <div class="band b1"></div><div class="band b2"></div><div class="band b3"></div>
+ <div class="seam s1"></div><div class="seam s2"></div><div class="sheen"></div>
+</div></div>
+<div class="dust"></div>
+</div></body></html>

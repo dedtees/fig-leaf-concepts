@@ -20,6 +20,9 @@ each `concept-N/` folder is one page:
 - `concept-1/crq-form/`, `concept-2/…`, `concept-3/…`: the quote form on its own, the same iframe exactly as it looks live,
   between each concept's header and footer (no extra copy). Styles in `quote-page.css` (`.qp-plain`).
   Every Get a Quote / Start My Quote button links here.
+- `hero-ideas/`: six replacement hero pictures with the same interactive hero, three vertical (`v1`–`v3`, on Concept 1)
+  and three horizontal (`h1`–`h3`, on Concept 3). `hero-ideas/index.html` shows them side by side; each page reuses its
+  concept's CSS, scripts and inner pages and only swaps `hero.jpg` and the hotspot positions. Sources in `hero-ideas/_source/`.
 - `concept-4/`: the photo gallery (the old `concept-7/` link redirects here, see `vercel.json`)
 
 The homepage concepts share the sections in `home-sections.css` / `home-sections.js`
