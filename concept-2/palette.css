@@ -4,11 +4,11 @@
    leaves, tabbed Homeowners page) but uses the same palette as concept 1:
 
      gold         #e8c27e   every button, accents on dark (was mint)
-     black        #070d0f   hero, header, footer, headings and text on white
+     black        #070d0f   hero, header, footer, body text on white
      white        #ffffff   light sections (were mist), text on dark
-     dark green   #17402b   the main green: dark sections and panels, green
+     dark green   #17402b   the main green: dark sections and panels,
                             headings and links on white
-     light green  #a9c7b4   used sparingly: icon tiles, hairlines on white
+     light green  #a9c7b4   used sparingly: small tiles, hairlines on white
 
    One shade each: no tints, no see-through colours, no gradients, no soft
    shadows, glows or blur. Two exceptions, as asked: the fig leaf
@@ -114,6 +114,17 @@ html[data-header] .site-nav__sub a:hover { background: var(--c2-green); }
 
 /* headings: the short underline is solid gold */
 .hs--v2 .hs-split__title::after { background: var(--c2-gold); }
+/* headings on the white sections are dark green */
+.hs--v2 .hs-coverage .hs-split__title,
+.hs--v2 .hs-line__title,
+.hs--v2 .hs-about-section .hs-heading,
+.hs--v2 .hs-reviews .hs-split__title,
+.hs--v2 .hs-carriers .hs-split__title,
+.pg--v2 .pg-head__title,
+.pg--v2 .pg-sec__title,
+.pg--v2 .pg-cover:not(:nth-child(1)):not(:nth-child(5)) .pg-cover__title,
+.qp--v2 .qp-panel:not(.qp-panel--call) .qp-panel__title { color: var(--c2-green); }
+.pg--v2.pg--fade .pg-head__title { color: var(--c2-white); }
 .hs--v2 .hs-eyebrow { background: var(--c2-green-light); color: var(--c2-green); }
 .hs--v2 .hs-more { color: var(--c2-green); }
 .hs--v2 .hs-stars { color: var(--c2-gold); }
@@ -150,11 +161,12 @@ html[data-header] .site-nav__sub a:hover { background: var(--c2-green); }
 }
 .hs--v2 .hs-line:hover,
 .hs--v2 .hs-line:hover .hs-line__icon { box-shadow: none; }
-.hs--v2 .hs-line__icon { background: var(--c2-green-light); }
 .hs--v2 .hs-line p { color: var(--c2-black); }
+/* the insurance icons sit straight on the white card, no tile behind them */
+.hs--v2 .hs-line__icon { background: none; padding: 0; border-radius: 0; }
 .hs--v2 .hs-ico { fill: var(--c2-green); }
 .hs--v2 .hs-ico__cut,
-.hs--v2 .hs-car__tread { fill: var(--c2-green-light); }
+.hs--v2 .hs-car__tread { fill: var(--c2-white); }
 .hs--v2 .hs-ico__wave { stroke: var(--c2-green); }
 @media (prefers-reduced-motion: no-preference) {
   .hs--v2 .hs-anim--home .hs-home__window { animation-name: c2-glow-gold; }
