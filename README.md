@@ -20,6 +20,9 @@ each `concept-N/` folder is one page:
 - `concept-1/crq-form/`, `concept-2/…`, `concept-3/…`: the quote form on its own, the same iframe exactly as it looks live,
   between each concept's header and footer (no extra copy). Styles in `quote-page.css` (`.qp-plain`).
   Every Get a Quote / Start My Quote button links here.
+- `hero-concepts/`: four hero directions without the fig leaf artwork, same interaction (hover, tap or focus the car,
+  home or boat). `a` opening photo panels and `c` uncover lens are horizontal; `b` stacked bands and `d` card deck are vertical.
+  Built from Concept 1's homepage by `hero-concepts/build.py`; the layouts are `shared/hero-x.css`, the behaviour `shared/hero-x.js`.
 - `hero-ideas/`: six replacement hero pictures with the same interactive hero, three vertical (`v1`–`v3`, on Concept 1)
   and three horizontal (`h1`–`h3`, on Concept 3). `hero-ideas/index.html` shows them side by side; each page reuses its
   concept's CSS, scripts and inner pages and only swaps `hero.jpg` and the hotspot positions. Sources in `hero-ideas/_source/`.
