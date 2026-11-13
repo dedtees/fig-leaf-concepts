@@ -25,8 +25,22 @@ each `concept-N/` folder is one page:
   concept's CSS, scripts and inner pages and only swaps `hero.jpg` and the hotspot positions. Sources in `hero-ideas/_source/`.
 - `concept-4/`: the photo gallery (the old `concept-7/` link redirects here, see `vercel.json`)
 
+Concept 1 is the dark theme. `concept-1/palette.css` loads last on all its pages (home, Homeowners, both quote
+pages) and holds them to four colours, one shade each: gold #e8c27e, black #070d0f, white #fff and dark green
+#17402b, plus a light green #a9c7b4 used sparingly. No gradients, see-through colours or soft shadows, except the
+faint fig leaf silhouettes in the background, which use concept 2's leaf green #3f8a5a. It overrides
+the shared stylesheets for concept 1 only, so those stay identical copies.
+
+Concept 2 uses the same palette: `concept-2/palette.css` loads last on all its pages and holds them to gold, black,
+white and dark green, with light green used sparingly, and no gradients, glows or soft shadows. The exceptions are the
+leaf silhouettes, which keep their own greens, and the grid behind "Select One or Bundle!".
+
+Concept 3 uses the same palette too: `concept-3/palette.css` loads last on all its pages (home, Homeowners, both quote pages). Its homepage shares concept 2's rules. The Homeowners guide page gets a white title band with a solid gold top stripe, flat cards with light green edges, accordion icons with no tile behind them, and a solid dark green quote panel. The gradient rules beside headings are now solid gold.
+
 The homepage concepts share the sections in `home-sections.css` / `home-sections.js`
 (identical copies in each folder); the `hs--v1` / `hs--v2` class on `#home-sections`
 picks the section layout.
 
 Vercel settings: Framework Preset "Other", no build command, output directory = repo root.
+
+**Grid background (`grid.css`).** The faint grid from concept 2's "Select One or Bundle" section is now a reusable layer, with an identical `grid.css` in concepts 1, 2 and 3. A section gets the class `fl-grid-host` and a first child `<div class="fl-grid" aria-hidden="true"><span class="fl-grid__lines" data-hs-px="0.15"></span></div>`. Add `fl-grid--light` for green lines on light sections. It's used on concept 1's Comprehensive Coverage, Select One or Bundle and More Ways We Protect You sections, on concept 3's Comprehensive Coverage and More Ways We Protect You sections, and on the title area of every Homeowners page. Concept 1's and concept 3's Homeowners pages also have it on the closing quote band.
