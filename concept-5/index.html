@@ -178,7 +178,7 @@
         <div class="d-hero__copy">
           <p class="d-hero__eyebrow"><span>Independent insurance agency <span aria-hidden="true">·</span> Hazlet, New Jersey</span></p>
           <h1 class="d-hero__title" id="hero-title">
-            We cover<br> your <span class="d-rotate" aria-hidden="true"><span class="d-rotate__word is-active">car.</span><span class="d-rotate__word">home.</span><span class="d-rotate__word">boat.</span><span class="d-rotate__word">business.</span></span><span class="visually-hidden">car, your home, your boat and your business.</span>
+            We cover<br> your <span class="d-rotate" aria-hidden="true"><span class="d-rotate__word is-active" data-key="car">car.</span><span class="d-rotate__word" data-key="home">home.</span><span class="d-rotate__word" data-key="boat">boat.</span><span class="d-rotate__word" data-key="business">business.</span></span><span class="visually-hidden">car, your home, your boat and your business.</span>
           </h1>
           <p class="d-hero__lede">We cover what matters, and uncover everything else. We shop dozens of trusted carriers for the right coverage at the best value, then walk you through every line of it.</p>
           <div class="d-hero__actions">
@@ -189,11 +189,18 @@
 
         <div class="d-hero__media">
           <span class="d-hero__ring" aria-hidden="true"></span>
-          <img class="d-hero__leaf" src="assets/leaf-studio.jpg" width="1024" height="1024" decoding="async" alt="A single green fig leaf on a white background">
-          <a class="d-tag d-tag--car" href="https://figleafagency.com/auto-insurance/"><svg class="icon" aria-hidden="true"><use href="#i-car"></use></svg>Auto</a>
-          <a class="d-tag d-tag--home" href="homeowners-insurance/"><svg class="icon" aria-hidden="true"><use href="#i-home"></use></svg>Home</a>
-          <a class="d-tag d-tag--boat" href="https://figleafagency.com/boat-insurance/"><svg class="icon" aria-hidden="true"><use href="#i-boat"></use></svg>Boat</a>
-          <a class="d-tag d-tag--biz" href="https://figleafagency.com/business-insurance/"><svg class="icon" aria-hidden="true"><use href="#i-building"></use></svg>Business</a>
+          <!-- The leaf turns toward the cursor. The photos show through it,
+               shaped like the leaf, in step with the headline (concept.js). -->
+          <div class="d-leaf" data-active="car">
+            <img class="d-hero__leaf" src="assets/leaf-studio.jpg" width="1024" height="1024" decoding="async" alt="A single green fig leaf on a white background">
+            <span class="d-leaf__win" data-key="car"><img class="d-leaf__photo" src="assets/photo-car.jpg" width="1100" height="1100" decoding="async" alt=""></span>
+            <span class="d-leaf__win" data-key="home"><img class="d-leaf__photo" src="assets/photo-home.jpg" width="1100" height="1100" decoding="async" loading="lazy" alt=""></span>
+            <span class="d-leaf__win" data-key="boat"><img class="d-leaf__photo" src="assets/photo-boat.jpg" width="1100" height="1100" decoding="async" loading="lazy" alt=""></span>
+          </div>
+          <a class="d-tag d-tag--car" data-key="car" href="https://figleafagency.com/auto-insurance/"><svg class="icon" aria-hidden="true"><use href="#i-car"></use></svg>Auto</a>
+          <a class="d-tag d-tag--home" data-key="home" href="homeowners-insurance/"><svg class="icon" aria-hidden="true"><use href="#i-home"></use></svg>Home</a>
+          <a class="d-tag d-tag--boat" data-key="boat" href="https://figleafagency.com/boat-insurance/"><svg class="icon" aria-hidden="true"><use href="#i-boat"></use></svg>Boat</a>
+          <a class="d-tag d-tag--biz" data-key="business" href="https://figleafagency.com/business-insurance/"><svg class="icon" aria-hidden="true"><use href="#i-building"></use></svg>Business</a>
         </div>
       </div>
     </section>
