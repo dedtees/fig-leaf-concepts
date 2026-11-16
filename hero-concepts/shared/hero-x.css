@@ -1,0 +1,291 @@
+/* Hero concepts A–D: shared pieces, then one block per layout.
+   The text on the left is the concepts' own hero; this replaces the picture. */
+
+.hx {
+  --gold: #e8c27e;
+  --gold-soft: rgba(232, 194, 126, 0.45);
+  --ink: #070d0f;
+  --ease: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --avail: calc(100% - var(--scene-right) * 2 - var(--text-room));
+  perspective: none;
+}
+.hx * { box-sizing: border-box; }
+
+.hx__item { position: relative; overflow: hidden; color: #fff; }
+.hx__img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform 900ms var(--ease-out), filter 600ms ease;
+}
+.hx__item[data-scene="car"] .hx__img { object-position: 70% 55%; }
+.hx__item[data-scene="home"] .hx__img { object-position: 38% 45%; }
+.hx__item[data-scene="boat"] .hx__img { object-position: 38% 62%; }
+
+/* the whole item is the button; the link in the card sits above it */
+.hx__hit {
+  position: absolute; inset: 0; z-index: 1;
+  margin: 0; padding: 0; border: 0; background: transparent; cursor: pointer;
+}
+.hx__hit:focus-visible { outline: 3px solid #fff; outline-offset: -6px; border-radius: inherit; }
+
+.hx__num {
+  font-family: var(--font-body); font-weight: 700; font-size: 0.8rem;
+  letter-spacing: 0.14em; color: var(--gold);
+}
+.hx__label {
+  font-family: var(--font-heading); font-size: 1.35rem; line-height: 1.1;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+.hx__body { position: relative; z-index: 2; pointer-events: none; }
+.hx__title { margin: 0 0 4px; font-family: var(--font-heading); font-size: 1.45rem; line-height: 1.15; }
+.hx__text { margin: 0 0 10px; font-size: 0.98rem; line-height: 1.45; color: rgba(255, 255, 255, 0.86); max-width: 34ch; }
+.hx__link {
+  pointer-events: auto; color: var(--gold); font-weight: 700; text-decoration: none;
+}
+.hx__link:hover { text-decoration: underline; }
+
+/* gold line that fills while it waits on an item (auto-play only) */
+.hx__bar {
+  position: absolute; z-index: 3; left: 0; bottom: 0; height: 3px; width: 100%;
+  background: var(--gold); transform: scaleX(0); transform-origin: left center; opacity: 0;
+}
+.hx.is-ticking .hx__item.is-active .hx__bar {
+  opacity: 1; animation: hx-fill var(--auto-ms, 3600ms) linear forwards;
+}
+@keyframes hx-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+@property --lx { syntax: '<length-percentage>'; inherits: true; initial-value: 50%; }
+@property --ly { syntax: '<length-percentage>'; inherits: true; initial-value: 50%; }
+
+/* ===================================================================== A
+   Horizontal: three tall photo panels side by side; the one in focus opens
+   wide and shows its card, the others narrow to a labelled strip. */
+.hx--panels {
+  --r: 1.32;
+  width: min(calc(var(--hero-h) * 0.8 * var(--r)), var(--avail));
+  aspect-ratio: var(--r);
+  display: flex; gap: 12px;
+}
+.hx--panels .hx__item {
+  flex: 1 1 0; min-width: 0; border-radius: 22px;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transition: flex-grow 750ms var(--ease);
+}
+.hx--panels .hx__item.is-active { flex-grow: 3.4; box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55), inset 0 0 0 1.5px var(--gold-soft); }
+.hx--panels .hx__item::after { /* shade so the text reads */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to top, rgba(5, 9, 10, 0.88) 0%, rgba(5, 9, 10, 0.25) 45%, rgba(5, 9, 10, 0.05) 70%);
+  transition: background 600ms ease;
+}
+.hx--panels .hx__item:not(.is-active)::after { background: rgba(5, 9, 10, 0.55); }
+.hx--panels .hx__item:not(.is-active) .hx__img { filter: saturate(0.6); }
+.hx--panels .hx__item.is-active .hx__img { transform: scale(1.04); }
+.hx--panels .hx__tag {
+  position: absolute; z-index: 2; left: 50%; bottom: 26px; pointer-events: none;
+  display: flex; align-items: center; gap: 14px;
+  transform: translateX(-50%) rotate(180deg); writing-mode: vertical-rl;
+  transition: opacity 400ms ease;
+}
+.hx--panels .hx__item.is-active .hx__tag { opacity: 0; }
+.hx--panels .hx__body {
+  position: absolute; left: 30px; right: 30px; bottom: 28px; width: 380px; max-width: calc(100% - 60px);
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 350ms ease, transform 450ms var(--ease-out);
+}
+.hx--panels .hx__item.is-active .hx__body { opacity: 1; transform: none; transition-delay: 320ms; }
+.hx--panels .hx__body .hx__num { display: block; margin-bottom: 8px; }
+
+/* ===================================================================== B
+   Vertical: three photo bands stacked; the band in focus grows tall and
+   shows its card. A numbered rail on the right tracks where you are. */
+.hx--bands {
+  --r: 0.98;
+  width: min(calc(var(--hero-h) * 0.84 * var(--r)), var(--avail));
+  aspect-ratio: var(--r);
+  display: grid; grid-template-columns: 1fr 54px; gap: 0 18px;
+}
+.hx--bands .hx__stack { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+.hx--bands .hx__item {
+  flex: 1 1 0; min-height: 0; border-radius: 18px;
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transition: flex-grow 750ms var(--ease);
+}
+.hx--bands .hx__item.is-active { flex-grow: 3.2; box-shadow: 0 20px 44px rgba(0, 0, 0, 0.5), inset 0 0 0 1.5px var(--gold-soft); }
+.hx--bands .hx__item::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to right, rgba(5, 9, 10, 0.85) 0%, rgba(5, 9, 10, 0.35) 48%, rgba(5, 9, 10, 0) 75%);
+}
+.hx--bands .hx__item:not(.is-active)::after { background: linear-gradient(to right, rgba(5, 9, 10, 0.8), rgba(5, 9, 10, 0.45)); }
+.hx--bands .hx__item:not(.is-active) .hx__img { filter: saturate(0.6); }
+.hx--bands .hx__tag {
+  position: absolute; z-index: 2; left: 26px; top: 50%; transform: translateY(-50%);
+  display: flex; align-items: baseline; gap: 14px; pointer-events: none; transition: opacity 300ms ease;
+}
+.hx--bands .hx__item.is-active .hx__tag { opacity: 0; }
+.hx--bands .hx__body {
+  position: absolute; left: 30px; bottom: 26px; width: 360px; max-width: calc(100% - 60px);
+  opacity: 0; transform: translateX(-12px);
+  transition: opacity 350ms ease, transform 450ms var(--ease-out);
+}
+.hx--bands .hx__item.is-active .hx__body { opacity: 1; transform: none; transition-delay: 320ms; }
+.hx--bands .hx__body .hx__num { display: block; margin-bottom: 8px; }
+.hx--bands .hx__bar { display: none; }
+/* the rail */
+.hx--bands .hx__rail { position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: 6px 0; }
+.hx--bands .hx__rail::before {
+  content: ""; position: absolute; left: 50%; top: 22px; bottom: 22px; width: 1px; background: rgba(232, 194, 126, 0.25);
+}
+.hx__dot {
+  position: relative; z-index: 1; width: 44px; height: 44px; margin: 0 auto; padding: 0;
+  border-radius: 50%; border: 1px solid rgba(232, 194, 126, 0.4); background: var(--ink);
+  color: rgba(255, 255, 255, 0.7); font: 700 0.78rem/1 var(--font-body); letter-spacing: 0.08em; cursor: pointer;
+  transition: background 300ms ease, color 300ms ease, border-color 300ms ease, transform 300ms ease;
+}
+.hx__dot.is-active { background: var(--gold); border-color: var(--gold); color: var(--ink); transform: scale(1.08); }
+.hx__dot:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+/* ===================================================================== C
+   Horizontal: one wide strip of the three photos, dimmed and in black and
+   white. A gold lens follows the cursor (or glides between them on its own)
+   and shows that part in full colour: "nothing stays hidden". */
+.hx--lens {
+  --r: 1.5;
+  width: min(calc(var(--hero-h) * 0.78 * var(--r)), var(--avail));
+  aspect-ratio: var(--r);
+  --lx: 18%; --ly: 40%;
+  --lens: clamp(150px, 19vw, 250px);
+}
+.hx--lens .hx__strip {
+  position: absolute; left: 0; right: 0; top: 0; height: 74%;
+  border-radius: 24px; overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+.hx--lens .hx__layer { position: absolute; inset: 0; display: flex; }
+.hx--lens .hx__layer > div { position: relative; flex: 1; }
+.hx--lens .hx__layer > div + div { margin-left: -6%; -webkit-mask-image: linear-gradient(to right, transparent 0, #000 18%); mask-image: linear-gradient(to right, transparent 0, #000 18%); }
+.hx--lens .hx__layer img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hx--lens .hx__layer [data-k="car"] img { object-position: 70% 55%; }
+.hx--lens .hx__layer [data-k="home"] img { object-position: 40% 45%; }
+.hx--lens .hx__layer [data-k="boat"] img { object-position: 36% 62%; }
+.hx--lens .hx__layer--base { filter: grayscale(1) brightness(0.42) contrast(1.05); }
+.hx--lens .hx__layer--color {
+  -webkit-mask-image: radial-gradient(circle calc(var(--lens) / 2) at var(--lx) var(--ly), #000 97%, transparent 100%);
+          mask-image: radial-gradient(circle calc(var(--lens) / 2) at var(--lx) var(--ly), #000 97%, transparent 100%);
+}
+.hx--lens .hx__ring {
+  position: absolute; z-index: 2; left: var(--lx); top: var(--ly); width: var(--lens); height: var(--lens);
+  margin: calc(var(--lens) / -2) 0 0 calc(var(--lens) / -2); border-radius: 50%; pointer-events: none;
+  box-shadow: 0 0 0 2px var(--gold), 0 0 0 7px rgba(232, 194, 126, 0.16), 0 0 40px rgba(232, 194, 126, 0.35);
+}
+.hx--lens:not(.is-tracking) { transition: --lx 800ms var(--ease), --ly 800ms var(--ease); }
+.hx--lens .hx__item { position: absolute; top: 0; height: 74%; width: 33.34%; overflow: visible; }
+.hx--lens .hx__item[data-scene="car"] { left: 0; }
+.hx--lens .hx__item[data-scene="home"] { left: 33.33%; }
+.hx--lens .hx__item[data-scene="boat"] { left: 66.66%; }
+.hx--lens .hx__hit { border-radius: 24px; }
+.hx--lens .hx__tag {
+  position: absolute; z-index: 2; left: 22px; top: 20px; display: flex; gap: 10px; align-items: baseline;
+  pointer-events: none; opacity: 0.75; transition: opacity 300ms ease;
+}
+.hx--lens .hx__item.is-active .hx__tag { opacity: 1; }
+.hx--lens .hx__body {
+  position: absolute; top: calc(100% + 22px); left: 50%; width: min(330px, 30vw);
+  padding: 14px 18px 16px; border-radius: 14px;
+  border: 1px solid rgba(232, 194, 126, 0.3); background: rgba(9, 13, 14, 0.85);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+  transform: translate(-50%, 8px); opacity: 0;
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+.hx--lens .hx__item[data-scene="car"] .hx__body { left: 0; transform: translate(0, 8px); }
+.hx--lens .hx__item[data-scene="boat"] .hx__body { left: auto; right: 0; transform: translate(0, 8px); }
+.hx--lens .hx__item.is-active .hx__body { opacity: 1; transform: translate(-50%, 0); }
+.hx--lens .hx__item[data-scene="car"].is-active .hx__body,
+.hx--lens .hx__item[data-scene="boat"].is-active .hx__body { transform: none; }
+.hx--lens .hx__body .hx__title { font-size: 1.2rem; }
+.hx--lens .hx__body .hx__text { font-size: 0.92rem; }
+.hx--lens .hx__bar { display: none; }
+.hx--lens .hx__hint {
+  position: absolute; z-index: 2; right: 22px; top: calc(74% - 40px); margin: 0;
+  font: italic 0.95rem var(--font-heading); color: rgba(255, 255, 255, 0.7); pointer-events: none;
+  transition: opacity 400ms ease;
+}
+.hx--lens.is-tracking .hx__hint { opacity: 0; }
+
+/* ===================================================================== D
+   Vertical: a deck of tall photo cards, fanned. The card in focus slides to
+   the front, straightens and shows its details; the others tuck behind. */
+.hx--deck {
+  --r: 1.05;
+  width: min(calc(var(--hero-h) * 0.86 * var(--r)), var(--avail));
+  aspect-ratio: var(--r);
+}
+.hx--deck .hx__item {
+  position: absolute; top: 4%; left: 50%; width: 50%; height: 86%; margin-left: -25%;
+  border-radius: 22px; overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  transition: transform 800ms var(--ease), filter 600ms ease, box-shadow 600ms ease;
+  --o: 0; /* place in the deck relative to the front card: -1, 0, 1 */
+  transform: translateX(calc(var(--o) * 46%)) translateY(calc(var(--o) * var(--o) * 5%)) rotate(calc(var(--o) * 9deg)) scale(calc(1 - var(--o) * var(--o) * 0.14));
+  filter: brightness(calc(1 - var(--o) * var(--o) * 0.5)) saturate(calc(1 - var(--o) * var(--o) * 0.35));
+  z-index: calc(3 - var(--o) * var(--o));
+}
+.hx--deck .hx__item.is-active { box-shadow: 0 34px 70px rgba(0, 0, 0, 0.7), inset 0 0 0 1.5px var(--gold-soft); }
+/* rotate the deck so the active card is in the middle */
+.hx--deck[data-active="car"] [data-scene="car"],
+.hx--deck[data-active="home"] [data-scene="home"],
+.hx--deck[data-active="boat"] [data-scene="boat"] { --o: 0; }
+.hx--deck[data-active="car"] [data-scene="home"],
+.hx--deck[data-active="home"] [data-scene="boat"],
+.hx--deck[data-active="boat"] [data-scene="car"] { --o: 1; }
+.hx--deck[data-active="car"] [data-scene="boat"],
+.hx--deck[data-active="home"] [data-scene="car"],
+.hx--deck[data-active="boat"] [data-scene="home"] { --o: -1; }
+.hx--deck .hx__item::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to top, rgba(5, 9, 10, 0.92) 0%, rgba(5, 9, 10, 0.3) 42%, rgba(5, 9, 10, 0) 62%);
+}
+.hx--deck .hx__tag { position: absolute; z-index: 2; left: 24px; top: 22px; display: flex; gap: 10px; align-items: baseline; pointer-events: none; }
+.hx--deck .hx__tag .hx__label { font-size: 1.1rem; }
+.hx--deck .hx__body {
+  position: absolute; left: 24px; right: 24px; bottom: 24px;
+  opacity: 0; transform: translateY(10px); transition: opacity 300ms ease, transform 400ms var(--ease-out);
+}
+.hx--deck .hx__item.is-active .hx__body { opacity: 1; transform: none; transition-delay: 380ms; }
+.hx--deck .hx__dots {
+  position: absolute; left: 50%; bottom: -2%; transform: translate(-50%, 50%);
+  display: flex; gap: 14px;
+}
+.hx--deck .hx__dot { width: 40px; height: 40px; }
+
+/* ---- Reduced motion ---------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .hx *, .hx { transition: none !important; animation: none !important; }
+}
+
+/* ---- Smaller screens ---------------------------------------------------- */
+@media (max-width: 1000px) {
+  .hx--lens .hx__body { width: min(300px, 44vw); }
+}
+@media (max-width: 760px) {
+  .hero .scene.hx {
+    position: relative; top: auto; right: auto; left: auto; transform: none;
+    width: auto; max-width: none; margin: 8px var(--gutter, 20px) 44px;
+  }
+  .hx--panels { aspect-ratio: auto; height: 560px; flex-direction: column; gap: 10px; }
+  .hx--panels .hx__tag { writing-mode: horizontal-tb; transform: translateX(-50%); bottom: auto; top: 50%; translate: 0 -50%; white-space: nowrap; }
+  .hx--panels .hx__body { width: auto; left: 20px; right: 20px; bottom: 18px; }
+  .hx--bands { aspect-ratio: auto; height: 600px; grid-template-columns: 1fr; }
+  .hx--bands .hx__rail { display: none; }
+  .hx--bands .hx__body { left: 20px; right: 20px; width: auto; bottom: 18px; }
+  .hx--lens { aspect-ratio: auto; height: 420px; --lens: 150px; }
+  .hx--lens .hx__strip, .hx--lens .hx__item { height: 260px; }
+  .hx--lens .hx__hint { top: 222px; }
+  .hx--lens .hx__body,
+  .hx--lens .hx__item[data-scene] .hx__body { position: absolute; top: 290px; width: calc(100vw - 40px); }
+  .hx--lens .hx__item[data-scene="home"] .hx__body { left: 50%; transform: translate(-50%, 8px); }
+  .hx--lens .hx__item[data-scene="home"].is-active .hx__body { transform: translate(-50%, 0); }
+  .hx--lens .hx__item[data-scene="boat"] .hx__body { right: 0; }
+  .hx--deck { aspect-ratio: auto; height: 520px; }
+  .hx--deck .hx__item { width: 70%; margin-left: -35%; }
+}

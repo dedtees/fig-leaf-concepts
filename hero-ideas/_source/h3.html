@@ -1,0 +1,23 @@
+<!doctype html><html><head><link rel="stylesheet" href="base.css"><style>
+.lf{position:absolute;filter:drop-shadow(0 30px 34px rgba(0,0,0,.7)) brightness(.8)}
+.lL{left:95px;top:120px;width:420px;transform:rotate(-28deg)}
+.lR{left:790px;top:110px;width:420px;transform:scaleX(-1) rotate(-24deg)}
+.strip{position:absolute;left:200px;top:225px;width:900px;height:340px;border-radius:26px;overflow:hidden;display:flex;gap:0;
+ box-shadow:0 0 0 2px rgba(232,194,126,.9),0 36px 50px rgba(0,0,0,.7)}
+.strip div{flex:1;background-size:cover;position:relative}
+.strip div+div{box-shadow:inset 3px 0 0 #e8c27e}
+.strip div::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(255,226,170,.12), rgba(0,0,0,0) 40%, rgba(0,0,0,.25))}
+.s1{background-image:url(car.jpg);background-position:72% 50%}
+.s2{background-image:url(home.jpg);background-position:40% 50%}
+.s3{background-image:url(boat.jpg);background-position:42% 60%}
+.refl{position:absolute;left:200px;top:575px;width:900px;height:340px;border-radius:26px;overflow:hidden;display:flex;transform:scaleY(-1);opacity:.22;
+ -webkit-mask-image:linear-gradient(to top, rgba(0,0,0,.9), rgba(0,0,0,0) 45%);mask-image:linear-gradient(to top, rgba(0,0,0,.9), rgba(0,0,0,0) 45%);filter:blur(2px)}
+.refl div{flex:1;background-size:cover}
+.stage>:not(.floor):not(.dust){translate:0 64px}
+</style></head><body><div class="stage">
+<div class="floor"></div>
+<img class="lf lL" src="leafcut-02.png"><img class="lf lR" src="leafcut-01.png">
+<div class="strip"><div class="s1"></div><div class="s2"></div><div class="s3"></div></div>
+<div class="refl"><div class="s1"></div><div class="s2"></div><div class="s3"></div></div>
+<div class="dust"></div>
+</div></body></html>

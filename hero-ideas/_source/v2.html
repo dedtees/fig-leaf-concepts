@@ -1,0 +1,24 @@
+<!doctype html><html><head><link rel="stylesheet" href="base.css"><style>
+.persp{position:absolute;inset:0;perspective:1600px}
+.pn{position:absolute;width:540px;height:212px;border-radius:22px;overflow:hidden;
+ box-shadow:0 0 0 2px rgba(232,194,126,.85),0 30px 40px rgba(0,0,0,.6);
+ transform:rotateY(16deg) rotateX(4deg);background-size:cover}
+.pn::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg, rgba(255,226,170,.18), rgba(255,226,170,0) 40%, rgba(0,0,0,.25))}
+.p1{left:230px;top:150px;background-image:url(car.jpg);background-position:72% 48%;background-size:150% auto}
+.p2{left:300px;top:395px;background-image:url(home.jpg);background-position:40% 42%;background-size:140% auto}
+.p3{left:230px;top:640px;background-image:url(boat.jpg);background-position:40% 68%;background-size:150% auto}
+.shade{position:absolute;inset:0;border-radius:22px}
+.leaf{position:absolute;left:170px;top:20px;width:760px;transform:rotate(-18deg);
+ filter:drop-shadow(0 40px 40px rgba(0,0,0,.7)) brightness(.78) saturate(1.05)}
+.cast{position:absolute;left:180px;top:150px;width:600px;height:260px;border-radius:50%;background:radial-gradient(ellipse at center, rgba(0,0,0,.55), rgba(0,0,0,0) 70%);filter:blur(10px)}
+.glow{position:absolute;left:330px;top:120px;width:500px;height:400px;background:radial-gradient(ellipse at center, rgba(232,194,126,.25), rgba(232,194,126,0) 65%)}
+</style></head><body><div class="stage">
+<div class="floor"></div>
+<div class="glow"></div>
+<img class="leaf" src="leafcut-02.png">
+<div class="persp">
+ <div class="pn p3"></div><div class="pn p2"></div><div class="pn p1"></div>
+</div>
+
+<div class="dust"></div>
+</div></body></html>

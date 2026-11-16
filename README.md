@@ -20,6 +20,12 @@ each `concept-N/` folder is one page:
 - `concept-1/crq-form/`, `concept-2/…`, `concept-3/…`: the quote form on its own, the same iframe exactly as it looks live,
   between each concept's header and footer (no extra copy). Styles in `quote-page.css` (`.qp-plain`).
   Every Get a Quote / Start My Quote button links here.
+- `hero-concepts/`: four hero directions without the fig leaf artwork, same interaction (hover, tap or focus the car,
+  home or boat). `a` opening photo panels and `c` uncover lens are horizontal; `b` stacked bands and `d` card deck are vertical.
+  Built from Concept 1's homepage by `hero-concepts/build.py`; the layouts are `shared/hero-x.css`, the behaviour `shared/hero-x.js`.
+- `hero-ideas/`: six replacement hero pictures with the same interactive hero, three vertical (`v1`–`v3`, on Concept 1)
+  and three horizontal (`h1`–`h3`, on Concept 3). `hero-ideas/index.html` shows them side by side; each page reuses its
+  concept's CSS, scripts and inner pages and only swaps `hero.jpg` and the hotspot positions. Sources in `hero-ideas/_source/`.
 - `concept-4/`: the photo gallery (the old `concept-7/` link redirects here, see `vercel.json`)
 - `concept-5/`: **Daylight**. A black header and hero (the client's preference) with the agency's studio fig leaf (gallery leaf 1) inside gold rings, labels for Auto, Home, Boat and Business around it, and a headline whose last word rotates through car, home, boat and business. The leaf's tip points at the cursor wherever it is, and the mouse pointer itself is a small fig leaf whose tip is the click point (`assets/leaf-cursor.png`). The car, house and boat photos show through the big leaf in its shape (`assets/leaf-mask.png`), in step with the headline; pointing at a label jumps to it. Below the hero the page is light, with sections in the rounded tile layout (`hs--v5`) and a dark green footer. Its own Homeowners and quote pages.
 - `concept-6/`: **Field guide**. Editorial and photographic with square edges: the logo on a white plate in a black header, a full-bleed photo of a real fig leaf (gallery leaf 6) behind a solid black panel, a numbered index of Auto, Home, Boat and Business under the hero, and the numbered, ruled section layout (`hs--v6`) with black reviews. Its own Homeowners and quote pages.

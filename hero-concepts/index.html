@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Hero concepts · The Fig Leaf Agency</title>
+<link rel="icon" href="../concept-1/assets/fig-leaf-fill.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap">
+<style>
+  :root { --bg: #070d0f; --gold: #e8c27e; --text: #f1ede4; --muted: #a9b0ad; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.5 "Source Sans 3", system-ui, sans-serif; }
+  main { max-width: 1240px; margin: 0 auto; padding: 48px 20px 64px; }
+  h1 { font: 600 clamp(2rem, 4vw, 2.8rem)/1.1 Fraunces, serif; margin: 0 0 12px; }
+  .lede { margin: 0 0 8px; color: var(--muted); max-width: 70ch; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 540px), 1fr)); gap: 28px; margin-top: 32px; }
+  a.card { display: block; color: inherit; text-decoration: none; border: 1px solid rgba(232,194,126,.25); border-radius: 16px; overflow: hidden; background: #0b1214; transition: border-color .2s, transform .2s; }
+  a.card:hover, a.card:focus-visible { border-color: var(--gold); transform: translateY(-2px); }
+  .card img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+  .card div { padding: 16px 20px 20px; }
+  .card h2 { margin: 0 0 6px; font: 600 1.35rem/1.2 Fraunces, serif; }
+  .card h2 b { color: var(--gold); font-weight: 600; margin-right: 8px; }
+  .card .kind { display: inline-block; margin-left: 6px; font: 700 .72rem/1 "Source Sans 3", sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); vertical-align: middle; }
+  .card p { margin: 0; color: var(--muted); }
+  footer { margin-top: 56px; font-size: .9rem; color: var(--muted); }
+  footer a { color: var(--gold); }
+</style></head>
+<body><main>
+  <h1>Hero concepts</h1>
+  <p class="lede">Four new directions for the homepage hero, without the fig leaf artwork. The headline, buttons and the interaction stay the same: hover, tap or tab to the car, home or boat and it comes forward, the headline word changes and the card for that coverage shows. Left alone, each one steps through the three by itself. Click a concept to try it on the full homepage.</p>
+
+  <div class="grid">
+    <a class="card" href="a/"><img src="shots/a.jpg" alt="Concept A screenshot" loading="lazy"><div>
+      <h2><b>A</b>Opening photo panels <span class="kind">Horizontal</span></h2>
+      <p>Three tall photos side by side. The one in focus opens wide with its card; the others fold down to labelled strips.</p></div></a>
+    <a class="card" href="b/"><img src="shots/b.jpg" alt="Concept B screenshot" loading="lazy"><div>
+      <h2><b>B</b>Stacked photo bands <span class="kind">Vertical</span></h2>
+      <p>Three photo bands stacked top to bottom. The band in focus grows tall with its card, and a numbered rail on the side shows where you are.</p></div></a>
+    <a class="card" href="c/"><img src="shots/c.jpg" alt="Concept C screenshot" loading="lazy"><div>
+      <h2><b>C</b>Uncover lens <span class="kind">Horizontal</span></h2>
+      <p>One wide strip of the three photos, dimmed to black and white. A gold lens follows the cursor and shows that part in full colour, a nod to "so nothing stays hidden".</p></div></a>
+    <a class="card" href="d/"><img src="shots/d.jpg" alt="Concept D screenshot" loading="lazy"><div>
+      <h2><b>D</b>Card deck <span class="kind">Vertical</span></h2>
+      <p>A fanned deck of tall photo cards. The card in focus slides to the front and shows its details; the others tuck in behind.</p></div></a>
+  </div>
+
+  <footer>
+    <p>All four are built in the page (HTML and CSS), not baked into one image, so the photos can be swapped for the agency's own at any time.
+      Photos from Unsplash, free for commercial use under the <a href="https://unsplash.com/license">Unsplash License</a>:
+      car <a href="https://unsplash.com/photos/xFgL8xGIGpk">xFgL8xGIGpk</a>,
+      house <a href="https://unsplash.com/photos/TiVPTYCG_3E">TiVPTYCG_3E</a>,
+      boat <a href="https://unsplash.com/photos/o9oQaOGpLz0">o9oQaOGpLz0</a>.
+      The earlier fig leaf picture ideas are still at <a href="../hero-ideas/">hero-ideas</a>.</p>
+  </footer>
+</main></body></html>
