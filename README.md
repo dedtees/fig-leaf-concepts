@@ -54,3 +54,6 @@ Vercel settings: Framework Preset "Other", no build command, output directory = 
 (after `palette.css`) and holds it to the same four colours (gold, black, white, dark green, light green sparingly), no gradients or soft shadows.
 `concept.js` drives each hero (concept 5's rotating word, concept 6's slow photo drift); `scene.js` isn't used there. Both use the current
 logo, `assets/figleaf-logo-full.png`.
+
+**All heroes together (`heroes/`).** One page that links every homepage hero idea, with a screenshot of each: concepts 5 and 6,
+the photo heroes A to D (`hero-concepts/`) and the six fig leaf pictures V1 to H3 (`hero-ideas/`).
