@@ -2,8 +2,8 @@
 // 1. The last word of the headline steps through car, home, boat and
 //    business, and the leaf shows the matching photo cut to its shape
 //    (business shows the plain leaf). Pointing at a label jumps to it.
-// 2. With a mouse, the leaf turns and tilts toward the cursor wherever it
-//    is on the page. Without one, it sways on its own (CSS).
+// 2. With a mouse, the leaf turns so its tip points at the cursor wherever
+//    it is on the page. Without one, it sways on its own (CSS).
 // Reduced motion: no stepping, no following; the car photo stays.
 (function () {
   'use strict';
@@ -51,41 +51,32 @@
     t.addEventListener('blur', leave);
   });
 
-  // ---- leaf follows the cursor ----------------------------------------------
+  // ---- the leaf's tip points at the cursor ---------------------------------
   if (reduce || !fine) return;
   media.classList.add('is-following');
-  var MAX_TURN = 32;   // most the leaf turns, in degrees
-  var MAX_TILT = 10;   // most it leans toward the cursor in 3D
-  var target = { turn: 0, tx: 0, ty: 0 }, cur = { turn: 0, tx: 0, ty: 0 };
-  var raf = null;
+  // Where the tip is at rest, measured from the point the leaf turns
+  // around (its centre of mass, the transform-origin in concept.css):
+  // down and to the right, 58.35 degrees clockwise from pointing right.
+  var PIVOT_X = 0.464, PIVOT_Y = 0.499, TIP_ANGLE = 58.35;
+  var target = 0, cur = 0, raf = null;
+
+  function wrap(a) { return ((a + 540) % 360) - 180; }
 
   window.addEventListener('mousemove', function (e) {
     var r = media.getBoundingClientRect();
-    var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-    var dx = e.clientX - cx, dy = e.clientY - cy;
-    // turn: the leaf's tip points up and to the right at rest; swing it
-    // round toward wherever the cursor is, within MAX_TURN either way
-    var ang = Math.atan2(dy, dx) * 180 / Math.PI;          // -180..180, 0 = right
-    var rel = ang - (-45);                                    // relative to the resting tip
-    rel = ((rel + 540) % 360) - 180;
-    target.turn = Math.max(-MAX_TURN, Math.min(MAX_TURN, rel * 0.4));
-    // tilt: lean toward the cursor, more when it's close to the leaf
-    var reach = Math.max(r.width, 1) * 1.5;
-    target.ty = Math.max(-1, Math.min(1, dx / reach)) * MAX_TILT;
-    target.tx = Math.max(-1, Math.min(1, -dy / reach)) * MAX_TILT;
+    // the leaf box is inset 4% inside the media box
+    var px = r.left + r.width * (0.04 + 0.92 * PIVOT_X);
+    var py = r.top + r.height * (0.04 + 0.92 * PIVOT_Y);
+    var ang = Math.atan2(e.clientY - py, e.clientX - px) * 180 / Math.PI;
+    // keep turning the short way round, so it never spins back the long way
+    target = cur + wrap(ang - TIP_ANGLE - cur);
     if (!raf) raf = requestAnimationFrame(tick);
   }, { passive: true });
 
   function tick() {
     raf = null;
-    cur.turn += (target.turn - cur.turn) * 0.08;
-    cur.tx += (target.tx - cur.tx) * 0.08;
-    cur.ty += (target.ty - cur.ty) * 0.08;
-    leaf.style.setProperty('--turn', cur.turn.toFixed(2) + 'deg');
-    leaf.style.setProperty('--tilt-x', cur.tx.toFixed(2) + 'deg');
-    leaf.style.setProperty('--tilt-y', cur.ty.toFixed(2) + 'deg');
-    if (Math.abs(target.turn - cur.turn) > 0.05 || Math.abs(target.tx - cur.tx) > 0.05 || Math.abs(target.ty - cur.ty) > 0.05) {
-      raf = requestAnimationFrame(tick);
-    }
+    cur += (target - cur) * 0.12;
+    leaf.style.setProperty('--turn', cur.toFixed(2) + 'deg');
+    if (Math.abs(target - cur) > 0.05) raf = requestAnimationFrame(tick);
   }
 })();

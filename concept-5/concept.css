@@ -1,8 +1,10 @@
 /* ==========================================================================
    Concept 5 · Daylight
-   A light take on the site: a white header that lets the full-colour logo
-   sit on white, a white hero with the agency's studio fig leaf photo, and
-   the homepage sections in the rounded "bento" tile layout (hs--v5).
+   A black header and hero (the client's preference) with the agency's
+   studio fig leaf: its tip points at the cursor, and the mouse pointer
+   itself is a small fig leaf whose tip is the click point. Below the hero
+   the page turns light, with the homepage sections in the rounded "bento"
+   tile layout (hs--v5).
 
    Same four colours as concepts 1 to 3, one shade each, no gradients,
    see-through colours or soft shadows:
@@ -182,13 +184,13 @@ body.c5 { background: var(--c5-white); color: var(--c5-black); }
   border-radius: 50%;
 }
 /* the leaf and the photos that show through it. concept.js turns the
-   whole leaf toward the cursor (--turn, --tilt-x, --tilt-y); without a
-   mouse it sways on its own. */
+   whole leaf so its tip points at the cursor (--turn); without a mouse it
+   sways on its own. */
 .d-leaf {
   position: absolute;
   inset: 4%;
-  transform: perspective(1200px) rotate(var(--turn, 0deg)) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
-  transform-origin: 50% 50%;
+  transform: rotate(var(--turn, 0deg));
+  transform-origin: 46.4% 49.9%;   /* the leaf's centre of mass, so it spins in place */
   will-change: transform;
 }
 .d-hero__leaf,
@@ -219,7 +221,8 @@ body.c5 { background: var(--c5-white); color: var(--c5-black); }
 }
 .d-leaf__photo {
   object-fit: cover;
-  transform: rotate(calc(var(--turn, 0deg) * -1)) scale(1.22);
+  transform: rotate(calc(var(--turn, 0deg) * -1)) scale(1.45);
+  transform-origin: 46.4% 49.9%;
 }
 .d-leaf[data-active="car"] .d-leaf__win[data-key="car"],
 .d-leaf[data-active="home"] .d-leaf__win[data-key="home"],
@@ -417,3 +420,68 @@ body.c5 { background: var(--c5-white); color: var(--c5-black); }
 
 /* the form on its own: white under this concept's solid header */
 .c5 .qp--v3.qp-plain { background: var(--c5-white); box-shadow: none; }
+
+
+/* ==========================================================================
+   Black header and hero (the client prefers them black). The logo sits on
+   black as it does in concepts 1 to 3.
+   ========================================================================== */
+
+.c5 .site-header { background: var(--c5-black); border-bottom: 0; }
+.c5 .utility { background: var(--c5-black); color: var(--c5-white); border-bottom: 1px solid var(--c5-gold); }
+.c5 .site-nav__link,
+.c5 .site-nav__sub-toggle { color: var(--c5-white); }
+.c5 .site-nav__link:hover,
+.c5 .site-nav__link:focus-visible { color: var(--c5-gold); }
+.c5 .site-header__cta:hover { background: var(--c5-white); color: var(--c5-black); }
+.c5 .icon-button { background: var(--c5-black); border-color: var(--c5-gold); color: var(--c5-white); }
+.c5 .site-nav__sub { background: var(--c5-black); border-color: var(--c5-gold); }
+.c5 .site-nav__sub a { color: var(--c5-white); }
+.c5 .site-header :focus-visible { outline-color: var(--c5-gold); }
+@media (max-width: 1000px) {
+  .c5 .site-nav { background: var(--c5-black); border-top-color: var(--c5-gold); }
+  .c5 .site-nav__link,
+  .c5 .site-nav__item { border-bottom-color: var(--c5-green); }
+}
+
+.d-hero { background: var(--c5-black); }
+.d-hero__eyebrow { color: var(--c5-white); }
+.d-hero__title { color: var(--c5-white); }
+.d-rotate { color: var(--c5-gold); }
+.d-hero__lede { color: var(--c5-white); }
+.d-btn--gold:hover { background: var(--c5-white); color: var(--c5-black); }
+.d-hero__call { color: var(--c5-white); }
+.d-hero__call .icon { border-color: var(--c5-gold); color: var(--c5-gold); }
+.d-hero__ring::before { border-color: var(--c5-green); }
+.d-tag { background: var(--c5-black); border-color: var(--c5-gold); color: var(--c5-white); }
+.d-tag .icon { background: var(--c5-gold); color: var(--c5-black); }
+.d-tag:hover,
+.d-tag.is-active { background: var(--c5-gold); border-color: var(--c5-gold); color: var(--c5-black); }
+.d-tag:hover .icon,
+.d-tag.is-active .icon { background: var(--c5-black); color: var(--c5-gold); }
+.d-hero :focus-visible { outline: 3px solid var(--c5-gold); outline-offset: 3px; }
+/* the stats tiles start right under the hero: give them room on white */
+.hs--v5 .hs-statband { padding-top: clamp(40px, 5vw, 64px); }
+
+/* the quote page's top band and the form-only page's header band match */
+.c5 .qp--v3 .qp-hero { background: var(--c5-black); }
+.c5 .qp--v3 .qp-form { box-shadow: inset 0 var(--qp-overlap) 0 0 var(--c5-black); }
+.c5 .qp--v3 .qp-step { background: var(--c5-black); border-color: var(--c5-green); }
+
+/* --- the mouse pointer is a small fig leaf; its tip is the click point --- */
+@media (hover: hover) and (pointer: fine) {
+  body.c5 {
+    cursor: url("assets/leaf-cursor.png") 3 3, auto;
+    cursor: image-set(url("assets/leaf-cursor.png") 1x, url("assets/leaf-cursor@2x.png") 2x) 3 3, auto;
+  }
+  body.c5 a,
+  body.c5 button,
+  body.c5 summary,
+  body.c5 label,
+  body.c5 [role="button"] {
+    cursor: url("assets/leaf-cursor.png") 3 3, pointer;
+    cursor: image-set(url("assets/leaf-cursor.png") 1x, url("assets/leaf-cursor@2x.png") 2x) 3 3, pointer;
+  }
+  body.c5 input,
+  body.c5 textarea { cursor: text; }
+}
