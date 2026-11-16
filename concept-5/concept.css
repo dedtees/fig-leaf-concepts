@@ -200,7 +200,10 @@ body.c5 { background: var(--c5-white); color: var(--c5-black); }
 }
 .d-hero__leaf {
   object-fit: contain;
-  mix-blend-mode: multiply;   /* white photo background disappears on the white page */
+  /* cut the leaf out of its white studio background, so the rings behind
+     it show even while the leaf is turned in 3D */
+  -webkit-mask: url("assets/leaf-mask.png") center / contain no-repeat;
+          mask: url("assets/leaf-mask.png") center / contain no-repeat;
 }
 /* each photo is cut to the leaf's shape. The window turns with the leaf,
    the photo inside turns back the other way so the car, house and boat
