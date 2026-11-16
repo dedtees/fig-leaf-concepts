@@ -1,0 +1,341 @@
+/* ==========================================================================
+   Concept 3: four colours, no gradients
+   Concept 3 keeps its layout (concept 2's homepage sheets with a split
+   Google Reviews heading, a guide-style Homeowners page with an "On this
+   page" rail and an accordion) but uses the same palette as concepts 1 and 2:
+
+     gold         #e8c27e   every button, accents on dark (was mint)
+     black        #070d0f   hero, header, footer, body text on white
+     white        #ffffff   light sections (were mist), text on dark
+     dark green   #17402b   the main green: dark sections and panels,
+                            headings and links on white
+     light green  #a9c7b4   used sparingly: small tiles, hairlines on white
+
+   One shade each: no tints, no see-through colours, no gradients, no soft
+   shadows, glows or blur. Two exceptions, as asked: the fig leaf
+   silhouettes keep their own greens (and soft edges), and the grid behind
+   "Select One or Bundle!" stays.
+
+   Loaded last on every concept 3 page, so it overrides the shared
+   stylesheets for concept 3 only and those stay identical copies.
+   ========================================================================== */
+
+:root {
+  --c3-gold: #e8c27e;
+  --c3-black: #070d0f;
+  --c3-white: #ffffff;
+  --c3-green: #17402b;
+  --c3-green-light: #a9c7b4;
+
+  --kelly: var(--c3-green);
+  --logo-green: var(--c3-green);
+  --forest: var(--c3-green);
+  --brand-green: var(--c3-green);
+  --brand-green-dark: var(--c3-green);
+  --ink: var(--c3-black);
+  --cream: var(--c3-white);
+  --gold: var(--c3-gold);
+  --hero-dark: var(--c3-black);
+}
+body { background: var(--c3-black); }
+.skip-link { background: var(--c3-green); color: var(--c3-white); }
+
+/* --- header ---------------------------------------------------------------- */
+
+html[data-header] .utility { color: var(--c3-white); border-bottom-color: var(--c3-gold); }
+html[data-header] .site-nav__link,
+html[data-header] .site-nav__sub-toggle,
+html[data-header] .site-nav__sub a { color: var(--c3-white); text-shadow: none; }
+html[data-header] .site-header__cta:hover { color: var(--c3-black); }
+html[data-header] .icon-button { border-color: var(--c3-gold); color: var(--c3-white); }
+html[data-header] .site-nav__sub { background: var(--c3-black); border-color: var(--c3-gold); box-shadow: none; }
+html[data-header] .site-nav__sub a:hover { background: var(--c3-green); }
+@media (max-width: 1000px) {
+  html[data-header] .site-nav { background: var(--c3-black); border-top-color: var(--c3-gold); box-shadow: none; }
+  html[data-header] .site-nav__link,
+  html[data-header] .site-nav__item { border-bottom-color: var(--c3-green); }
+}
+
+/* --- hero ------------------------------------------------------------------ */
+
+.hero { --scene-bg: var(--c3-black); background: var(--c3-black); }
+/* the moving spotlight and the sheen were gradients. The picture keeps its
+   soft edges (a mask): it's a photo with its own lit backdrop, and without
+   the mask it shows as a hard-edged box */
+.scene__spot,
+.scene__sheen { display: none; }
+.hero__content,
+.hero__content * { text-shadow: none; }
+.hero__cta { background: var(--c3-gold); color: var(--c3-black); box-shadow: none; }
+.hero__cta:hover { background: var(--c3-white); color: var(--c3-black); box-shadow: none; }
+.hero__call { color: var(--c3-white); }
+.scene__leader { background: var(--c3-gold); box-shadow: none; }
+.hotspot::before { box-shadow: 0 0 0 4px var(--c3-gold); }
+.scene__card {
+  background: var(--c3-black);
+  border-color: var(--c3-gold);
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.scene__card-text,
+.scene__hint { color: var(--c3-white); }
+
+/* --- homepage sections ------------------------------------------------------- */
+
+.hs,
+.hs-footer {
+  --hs-green: var(--c3-green);
+  --hs-green-dark: var(--c3-green);
+  --hs-gold: var(--c3-gold);
+  --hs-sage: var(--c3-white);
+  --hs-sage-mid: var(--c3-green-light);
+  --hs-dark: var(--c3-black);
+}
+.hs--v2 {
+  --hs-deep: var(--c3-black);
+  --hs-pine: var(--c3-green);
+  --hs-pine-2: var(--c3-green);
+  --hs-mint: var(--c3-gold);
+  --hs-mist: var(--c3-white);
+  --hs-text: var(--c3-black);
+  --hs-ink: var(--c3-black);
+  --hs-shield: var(--c3-gold);
+  --hs-shield-ring: var(--c3-white);
+  --hs-shield-check: var(--c3-black);
+  background: var(--c3-black);
+}
+
+/* glows and blurred blobs were gradients; the leaves and the grid stay */
+.hs--v2 .hs-px__glow,
+.hs--v2 .hs-px__blob,
+.hs--v2 .hs-px__quote { display: none; }
+.hs--v2 .hs-statband .hs-px { -webkit-mask: none; mask: none; }
+/* this leaf took its colour from the old mint accent; keep it mint */
+.hs--v2 .hs-px__leaf--e { background: #8fdcaa; }
+
+/* headings: the short underline is solid gold */
+.hs--v2 .hs-split__title::after { background: var(--c3-gold); }
+/* headings on the white sections are dark green */
+.hs--v2 .hs-coverage .hs-split__title,
+.hs--v2 .hs-line__title,
+.hs--v2 .hs-about-section .hs-heading,
+.hs--v2 .hs-reviews .hs-split__title,
+.hs--v2 .hs-carriers .hs-split__title,
+.pg--v2 .pg-head__title,
+.pg--v2 .pg-sec__title,
+.pg--v2 .pg-cover:not(:nth-child(1)):not(:nth-child(5)) .pg-cover__title,
+.qp--v2 .qp-panel:not(.qp-panel--call) .qp-panel__title { color: var(--c3-green); }
+.pg--v2.pg--fade .pg-head__title { color: var(--c3-white); }
+.hs--v2 .hs-eyebrow { background: var(--c3-green-light); color: var(--c3-green); }
+.hs--v2 .hs-more { color: var(--c3-green); }
+.hs--v2 .hs-stars { color: var(--c3-gold); }
+
+/* buttons: gold with black text everywhere */
+.hs--v2 .hs-btn--primary,
+.hs--v2 .hs-bundle .hs-btn { background: var(--c3-gold); border-color: var(--c3-gold); color: var(--c3-black); }
+.hs--v2 .hs-btn--primary:hover,
+.hs--v2 .hs-bundle .hs-btn:hover { background: var(--c3-white); border-color: var(--c3-white); color: var(--c3-black); }
+.hs--v2 .hs-btn--outline { border-color: var(--c3-green); color: var(--c3-green); }
+.hs--v2 .hs-btn--outline:hover { background: var(--c3-green); color: var(--c3-white); }
+.hs--v2 .hs-btn:hover { box-shadow: none; }
+
+/* stats: solid black cards, dark green edges */
+.hs--v2 .hs-stat {
+  background: var(--c3-black);
+  border: 1px solid var(--c3-green);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.hs--v2 .hs-stat + .hs-stat { border-left: 1px solid var(--c3-green); }
+.hs--v2 .hs-stat__label { color: var(--c3-white); }
+
+/* Select One or Bundle: solid dark green, grid and leaves kept */
+.hs--v2 .hs-bundle { background: var(--c3-green); }
+.hs--v2 .hs-bundle .hs-split__text { color: var(--c3-white); }
+
+/* coverage: white sheet, white cards with light green edges */
+.hs--v2 .hs-coverage { background: var(--c3-white); }
+.hs--v2 .hs-line {
+  background: var(--c3-white);
+  border: 1px solid var(--c3-green-light);
+  box-shadow: none;
+}
+.hs--v2 .hs-line:hover,
+.hs--v2 .hs-line:hover .hs-line__icon { box-shadow: none; }
+.hs--v2 .hs-line p { color: var(--c3-black); }
+/* the insurance icons sit straight on the white card, no tile behind them */
+.hs--v2 .hs-line__icon { background: none; padding: 0; border-radius: 0; }
+.hs--v2 .hs-ico { fill: var(--c3-green); }
+.hs--v2 .hs-ico__cut,
+.hs--v2 .hs-car__tread { fill: var(--c3-white); }
+.hs--v2 .hs-ico__wave { stroke: var(--c3-green); }
+@media (prefers-reduced-motion: no-preference) {
+  .hs--v2 .hs-anim--home .hs-home__window { animation-name: c3-glow-gold; }
+}
+@keyframes c3-glow-gold { 0%, 100% { fill: #a9c7b4; } 50% { fill: #e8c27e; } }
+
+/* the white sheets stacked on white get a light green edge */
+.hs--v2 .hs-about-section,
+.hs--v2 .hs-reviews,
+.hs--v2 .hs-carriers { box-shadow: 0 -1px 0 var(--c3-green-light); }
+
+/* about */
+.hs--v2 .hs-about-section { background: var(--c3-white); }
+.hs--v2 .hs-about-section p { color: var(--c3-black); }
+.hs--v2 .hs-px__ring { border-color: var(--c3-green-light); }
+.hs--v2 .hs-about__media { background: var(--c3-green); box-shadow: none; }
+
+/* More ways: solid dark green, solid black cards */
+.hs--v2 .hs-services { background: var(--c3-green); }
+.hs--v2 .hs-services .hs-split__text,
+.hs--v2 .hs-service__body p { color: var(--c3-white); }
+.hs--v2 .hs-service {
+  background: var(--c3-black);
+  border-color: var(--c3-black);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.hs--v2 .hs-service__media,
+.hs--v2 .hs-service__media.is-fallback { background: var(--c3-green); }
+.hs--v2 .hs-service .hs-more { color: var(--c3-gold); }
+
+/* reviews */
+.hs--v2 .hs-reviews { background: var(--c3-white); }
+.hs--v2 .hs-reviews .hs-split__text,
+.hs--v2 .hs-review__meta { color: var(--c3-black); }
+.hs--v2 .hs-review { border-color: var(--c3-green-light); box-shadow: none; }
+.hs--v2 .hs-review__avatar { background: var(--c3-green); color: var(--c3-white); }
+.hs--v2 .hs-review__more { color: var(--c3-green); }
+
+/* carriers */
+.hs--v2 .hs-carriers .hs-split__text { color: var(--c3-black); }
+.hs--v2 .hs-carrier { background: var(--c3-white); border-color: var(--c3-green-light); }
+.hs--v2 .hs-carrier:hover { background: var(--c3-white); border-color: var(--c3-green); }
+
+/* footer */
+.hs-footer { border-top-color: var(--c3-gold); background: var(--c3-black); }
+.hs-footer a,
+.hs-footer p,
+.hs-footer__col li span,
+.hs-footer__contact span { color: var(--c3-white); }
+.hs-footer a:hover { color: var(--c3-gold); }
+.hs-footer__contact a[href^="tel"] { color: var(--c3-gold); }
+.hs-footer__bottom { border-top-color: var(--c3-green); }
+
+/* Google Reviews: the rule beside the split heading was a green-to-mint
+   gradient; now solid gold */
+.hs--v2 .hs-reviews--split .hs-split__title { border-image: none; border-right-color: var(--c3-gold); }
+@media (max-width: 760px) {
+  .hs--v2 .hs-reviews--split .hs-split__title { border-image: none; border-right: 0; border-bottom-color: var(--c3-gold); }
+}
+
+/* --- Homeowners Insurance page (pg--v3: rail and accordion) ------------------ */
+
+.pg {
+  --pg-gold: var(--c3-gold);
+  --pg-gold-ink: var(--c3-green);
+  --pg-dark: var(--c3-black);
+  --pg-mint: var(--c3-gold);
+  --pg-ink: var(--c3-black);
+  --pg-pine: var(--c3-green);
+  --pg-pine-2: var(--c3-green);
+  --pg-forest: var(--c3-green);
+  --pg-forest-2: var(--c3-green);
+  --pg-ivory: var(--c3-white);
+  --pg-mist: var(--c3-white);
+  --pg-line: var(--c3-green-light);
+  --pg-photo-bg: var(--c3-green);
+}
+.pg--v3 { --hs-text: var(--c3-black); background: var(--c3-white); }
+
+/* title band: white, its top stripe solid gold (was a green-to-mint
+   gradient), the "at a glance" card flat with a light green edge */
+.pg--v3 .pg-head { background: var(--c3-white); border-bottom-color: var(--c3-green-light); }
+.pg--v3 .pg-head::before { background: var(--c3-gold); }
+.pg--v3 .pg-head__title,
+.pg--v3 .pg-sec__title,
+.pg--v3 .pg-cover__title { color: var(--c3-green); }
+.pg--v3 .pg-glance { background: var(--c3-white); border-color: var(--c3-green-light); box-shadow: none; }
+.pg--v3 .pg-glance dt { color: var(--c3-green); }
+
+/* buttons gold with black text */
+.pg--v3 .pg-btn--primary { background: var(--c3-gold); color: var(--c3-black); }
+.pg--v3 .pg-btn--primary:hover { background: var(--c3-green); color: var(--c3-white); box-shadow: none; }
+.pg--v3 .pg-call { color: var(--c3-black); }
+
+/* rail */
+.pg--v3 .pg-rail__title,
+.pg--v3 .pg-rail ol a { color: var(--c3-black); }
+.pg--v3 .pg-rail ol a.is-active { color: var(--c3-green); }
+
+/* peril chips: white with a light green edge */
+.pg--v3 .pg-perils li { background: var(--c3-white); box-shadow: inset 0 0 0 1px var(--c3-green-light); color: var(--c3-black); }
+
+/* accordion icons: no tile behind them; the open one is a dark green tile */
+.pg--v3 .pg-cover__icon { background: none; color: var(--c3-green); }
+.pg--v3 details[open] .pg-cover__icon { background: var(--c3-green); color: var(--c3-white); }
+.pg--v3 .pg-accordion p { color: var(--c3-black); }
+
+/* get a quote: solid dark green panel (was a gradient with a mint glow) */
+.pg--v3 .pg-close { background: var(--c3-green); color: var(--c3-white); }
+.pg--v3 .pg-close .pg-sec__num,
+.pg--v3 .pg-close p a,
+.pg--v3 .pg-close .pg-call .icon { color: var(--c3-gold); }
+.pg--v3 .pg-close .pg-btn--primary:hover { background: var(--c3-white); color: var(--c3-black); }
+
+/* --- quote pages (qp--v3) ---------------------------------------------------- */
+
+.qp {
+  --qp-gold: var(--c3-gold);
+  --qp-gold-ink: var(--c3-green);
+  --qp-mint: var(--c3-gold);
+  --qp-pine: var(--c3-green);
+  --qp-pine-2: var(--c3-green);
+  --qp-mist: var(--c3-white);
+  --qp-ink: var(--c3-black);
+  --qp-dark: var(--c3-black);
+}
+.qp--v3 { --qp-accent: var(--c3-gold); }
+/* hero: solid black (the green glow was a gradient); the rule beside the
+   lead is solid gold */
+.qp--v3 .qp-hero { background: var(--c3-black); }
+.qp--v3 .qp-hero .hs-px__leaf--e { background: #8fdcaa; }
+.qp--v3 .qp-hero__lead { border-image: none; border-left-color: var(--c3-gold); }
+.qp--v3 .qp-crumbs ol,
+.qp--v3 .qp-hero__lead,
+.qp--v3 .qp-step span { color: var(--c3-white); }
+.qp--v3 .qp-step {
+  background: var(--c3-black);
+  border-color: var(--c3-green);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.qp--v3 .hs-btn--primary { background: var(--c3-gold); border-color: var(--c3-gold); color: var(--c3-black); }
+.qp--v3 .hs-btn--primary:hover { background: var(--c3-white); border-color: var(--c3-white); color: var(--c3-black); }
+/* black behind the top of the card, white below: a solid inset band, not a gradient */
+.qp--v3 .qp-form { background: var(--c3-white); box-shadow: inset 0 var(--qp-overlap) 0 0 var(--c3-black); }
+.qp--v3 .qp-card { border-color: var(--c3-green-light); box-shadow: none; }
+.qp--v3 .qp-card__bar { background: var(--c3-white); border-image: none; border-bottom-color: var(--c3-gold); }
+.qp--v3 .qp-card__secure .icon { background: var(--c3-gold); color: var(--c3-black); }
+.qp--v3 .qp-card__alt,
+.qp--v3 .qp-card__alt span,
+.qp--v3 .qp-note,
+.qp--v3 .qp-ready span { color: var(--c3-black); }
+.qp--v3 .qp-panel { background: var(--c3-white); box-shadow: 0 0 0 1px var(--c3-green-light); }
+.qp--v3 .qp-panel:not(.qp-panel--call) .qp-panel__title { color: var(--c3-green); }
+.qp--v3 .qp-panel--call { background: var(--c3-green); box-shadow: none; color: var(--c3-white); }
+.qp--v3 .qp-panel--call p { color: var(--c3-white); }
+.qp--v3 .qp-panel--call .qp-contact .icon { color: var(--c3-gold); }
+.qp--v3 .qp-ready .icon { background: none; color: var(--c3-green); }
+
+/* the form on its own: a black band under the floating header, then white */
+html[data-header="b"] .qp--v3.qp-plain {
+  background: var(--c3-white);
+  box-shadow: inset 0 calc(var(--header-height) + var(--utility-height)) 0 0 var(--c3-black);
+}
+
+/* small leftovers: review quotes, breadcrumb slashes */
+.hs--v2 .hs-review__text p { color: var(--c3-black); }
+.pg-crumbs li + li::before,
+.qp-crumbs li + li::before { opacity: 1; }

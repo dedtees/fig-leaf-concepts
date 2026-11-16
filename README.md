@@ -21,6 +21,8 @@ each `concept-N/` folder is one page:
   between each concept's header and footer (no extra copy). Styles in `quote-page.css` (`.qp-plain`).
   Every Get a Quote / Start My Quote button links here.
 - `concept-4/`: the photo gallery (the old `concept-7/` link redirects here, see `vercel.json`)
+- `concept-5/`: **Daylight**. A light concept: white header with the logo in its own colours, a white hero with the agency's studio fig leaf photo (gallery leaf 1) inside gold rings, labels for Auto, Home, Boat and Business around it, and a headline whose last word rotates through car, home, boat and business. Sections use the rounded tile layout (`hs--v5`); dark green footer. Its own Homeowners and quote pages.
+- `concept-6/`: **Field guide**. Editorial and photographic with square edges: the logo on a white plate in a black header, a full-bleed photo of a real fig leaf (gallery leaf 6) behind a solid black panel, a numbered index of Auto, Home, Boat and Business under the hero, and the numbered, ruled section layout (`hs--v6`) with black reviews. Its own Homeowners and quote pages.
 
 Concept 1 is the dark theme. `concept-1/palette.css` loads last on all its pages (home, Homeowners, both quote
 pages) and holds them to four colours, one shade each: gold #e8c27e, black #070d0f, white #fff and dark green
@@ -41,3 +43,8 @@ picks the section layout.
 Vercel settings: Framework Preset "Other", no build command, output directory = repo root.
 
 **Grid background (`grid.css`).** The faint grid from concept 2's "Select One or Bundle" section is now a reusable layer, with an identical `grid.css` in concepts 1, 2 and 3. A section gets the class `fl-grid-host` and a first child `<div class="fl-grid" aria-hidden="true"><span class="fl-grid__lines" data-hs-px="0.15"></span></div>`. Add `fl-grid--light` for green lines on light sections. It's used on concept 1's Comprehensive Coverage, Select One or Bundle and More Ways We Protect You sections, on concept 3's Comprehensive Coverage and More Ways We Protect You sections, and on the title area of every Homeowners page. Concept 1's and concept 3's Homeowners pages also have it on the closing quote band.
+
+**Concepts 5 and 6.** Both start from concept 3's files and keep its content and pages. Each folder's `concept.css` loads last on all its pages
+(after `palette.css`) and holds it to the same four colours (gold, black, white, dark green, light green sparingly), no gradients or soft shadows.
+`concept.js` drives each hero (concept 5's rotating word, concept 6's slow photo drift); `scene.js` isn't used there. Both use the current
+logo, `assets/figleaf-logo-full.png`.

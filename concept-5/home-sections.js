@@ -1,0 +1,167 @@
+/* Fig Leaf homepage sections: reveal on scroll, counting stats,
+   image fallbacks and the footer year. No dependencies. */
+(function () {
+  'use strict';
+
+  var root = document.documentElement;
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var canObserve = 'IntersectionObserver' in window;
+
+  /* ---- image fallbacks -------------------------------------------------- */
+  // Carrier logos fall back to the carrier's name, footer badges to their
+  // alt text, and photos to a green placeholder, so a missing file never
+  // leaves a broken-image icon.
+  function fallback(img) {
+    if (img.dataset.failed) return;
+    img.dataset.failed = '1';
+    var carrier = img.closest('.hs-carrier');
+    if (carrier) { carrier.classList.add('is-fallback'); return; }
+    if (img.dataset.fallback === 'text') {
+      var span = document.createElement('span');
+      span.className = img.classList.contains('hs-footer__logo') ? 'hs-footer__logo-text' : 'hs-footer__badge-text';
+      span.textContent = img.alt;
+      img.replaceWith(span);
+      return;
+    }
+    var media = img.closest('.hs-service__media, .hs-about__media');
+    if (media) media.classList.add('is-fallback');
+    img.classList.add('hs-img-missing');
+  }
+
+  var imgs = document.querySelectorAll('img[data-fallback]');
+  for (var i = 0; i < imgs.length; i++) {
+    var img = imgs[i];
+    if (img.complete && img.naturalWidth === 0 && img.currentSrc) fallback(img);
+    else img.addEventListener('error', fallback.bind(null, img), { once: true });
+  }
+
+  /* ---- footer year ------------------------------------------------------ */
+  var years = document.querySelectorAll('[data-year]');
+  for (var y = 0; y < years.length; y++) years[y].textContent = String(new Date().getFullYear());
+
+  /* ---- carrier ticker (concept 6 layout) -------------------------------- */
+  // The list is doubled so the strip can loop; the copies are hidden from
+  // screen readers.
+  var ticker = document.querySelector('.hs--v6 .hs-carriers__grid');
+  if (ticker && !reduceMotion) {
+    var items = Array.prototype.slice.call(ticker.children);
+    items.forEach(function (li) {
+      var copy = li.cloneNode(true);
+      copy.setAttribute('aria-hidden', 'true');
+      copy.classList.remove('hs-reveal');
+      ticker.appendChild(copy);
+    });
+    ticker.classList.add('is-ticking');
+  }
+
+  /* ---- parallax (concept 2 layout) ----------------------------------- */
+  // Anything marked data-hs-px="speed" drifts against the scroll, measured
+  // from the middle of its section: positive speeds lag behind like a far
+  // background, negative ones rush ahead like something close. Phones get a
+  // gentler version, and reduced motion turns it off.
+  var pxEls = Array.prototype.slice.call(document.querySelectorAll('.hs [data-hs-px]'));
+  if (pxEls.length && !reduceMotion) {
+    var small = window.matchMedia('(max-width: 760px)');
+    var pxItems = pxEls.map(function (el) {
+      return { el: el, host: el.closest('.hs-about__media, .hs-service__media, section') || el.parentElement, speed: parseFloat(el.dataset.hsPx) || 0 };
+    });
+    var pxQueued = false;
+    var pxUpdate = function () {
+      pxQueued = false;
+      var vh = window.innerHeight;
+      var damp = small.matches ? 0.5 : 1;
+      for (var n = 0; n < pxItems.length; n++) {
+        var it = pxItems[n];
+        var box = it.host.getBoundingClientRect();
+        if (box.bottom < -vh * 0.5 || box.top > vh * 1.5) continue;
+        var offset = box.top + box.height / 2 - vh / 2;
+        it.el.style.transform = 'translate3d(0,' + (-offset * it.speed * damp).toFixed(1) + 'px,0)';
+      }
+    };
+    var pxQueue = function () { if (!pxQueued) { pxQueued = true; requestAnimationFrame(pxUpdate); } };
+    root.classList.add('hs-px-on');
+    window.addEventListener('scroll', pxQueue, { passive: true });
+    window.addEventListener('resize', pxQueue);
+    pxUpdate();
+  }
+
+  /* ---- reading progress beside pinned headings (concept 3 layout) ------ */
+  // Each section's --hs-p runs from 0 to 1 as the section passes the middle
+  // of the screen; the gold line beside its heading fills to match.
+  var progSections = document.querySelectorAll('.hs--v3 .hs-section');
+  if (progSections.length) {
+    var progQueued = false;
+    var progUpdate = function () {
+      progQueued = false;
+      var mid = window.innerHeight * 0.55;
+      for (var q = 0; q < progSections.length; q++) {
+        var r = progSections[q].getBoundingClientRect();
+        var pr = Math.min(1, Math.max(0, (mid - r.top) / Math.max(1, r.height)));
+        progSections[q].style.setProperty('--hs-p', pr.toFixed(3));
+      }
+    };
+    var progQueue = function () { if (!progQueued) { progQueued = true; requestAnimationFrame(progUpdate); } };
+    window.addEventListener('scroll', progQueue, { passive: true });
+    window.addEventListener('resize', progQueue);
+    progUpdate();
+  }
+
+  /* ---- counting stats --------------------------------------------------- */
+  function countUp(el) {
+    var target = parseFloat(el.dataset.count);
+    var decimals = parseInt(el.dataset.decimals || '0', 10);
+    if (isNaN(target)) return;
+    var start = null;
+    var duration = 1400;
+    function frame(t) {
+      if (start === null) start = t;
+      var p = Math.min(1, (t - start) / duration);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = format(target * eased);
+      if (p < 1) requestAnimationFrame(frame);
+    }
+    // 1000 shows as 1,000
+    function format(n) { return n.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }); }
+    el.textContent = format(0);
+    requestAnimationFrame(frame);
+  }
+
+  var counters = document.querySelectorAll('.hs [data-count]');
+  if (counters.length && canObserve && !reduceMotion) {
+    var countObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        countObserver.unobserve(entry.target);
+        countUp(entry.target);
+      });
+    }, { threshold: 0.6 });
+    for (var c = 0; c < counters.length; c++) countObserver.observe(counters[c]);
+  }
+
+  /* ---- reveal on scroll ------------------------------------------------- */
+  if (!canObserve || reduceMotion) return;
+
+  var reveals = document.querySelectorAll('.hs-reveal');
+  root.classList.add('hs-js');
+
+  var revealObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      revealObserver.unobserve(entry.target);
+      // stagger items that come into view together, like a row of cards
+      var siblings = entry.target.parentElement ? entry.target.parentElement.children : [];
+      var index = Array.prototype.indexOf.call(siblings, entry.target);
+      entry.target.style.transitionDelay = Math.min(index % 6, 5) * 70 + 'ms';
+      entry.target.classList.add('is-in');
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+
+  for (var r = 0; r < reveals.length; r++) revealObserver.observe(reveals[r]);
+
+  // anything already scrolled past (e.g. a jump to #quote) shows at once
+  window.addEventListener('load', function () {
+    for (var k = 0; k < reveals.length; k++) {
+      if (reveals[k].getBoundingClientRect().bottom < 0) reveals[k].classList.add('is-in');
+    }
+  });
+})();
