@@ -257,3 +257,7 @@
   .l-show { margin: 40px 0 0; }
   .l-show { justify-self: center; max-width: min(100%, 620px); order: 2; }
 }
+
+/* --- the quote form page (the site's landing page) ---------------------- */
+/* white body between the black header and footer, as on the archive pages */
+main.qp-plain { background: var(--c6-white); }
