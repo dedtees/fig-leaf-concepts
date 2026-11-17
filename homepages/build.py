@@ -409,6 +409,20 @@ def build_subpages(n, home):
         write(f'{out}/index.html', page)
 
 
+def landing_bars():
+    """Concept 1's quote pages are where visitors land (the root index opens
+    concept-1/crq-form/), so their bar lists concepts 1 to 10 too, each
+    number opening that concept's homepage."""
+    for sub in ('crq', 'crq-form'):
+        out = f'concept-1/{sub}'
+        page = read(f'{out}/index.html')
+        rb = re.search(r'<nav class="review-bar".*?</nav>', page, re.S)
+        name = re.search(r'review-bar__name">(.*?)</span></p>', rb.group(0), re.S).group(1)
+        bar = review_bar(1, out)
+        bar = re.sub(r'(review-bar__name">).*?(</span></p>)', lambda m: m.group(1) + name + m.group(2), bar, count=1, flags=re.S)
+        write(f'{out}/index.html', page[:rb.start()] + bar + page[rb.end():])
+
+
 def main():
     build_hero_css()
     build_subpages(1, 'concept-1')  # concept 1's Homeowners page only
@@ -416,6 +430,7 @@ def main():
         build_page(*h)
         build_subpages(h[0], h[1])
     update_concept_bars()
+    landing_bars()
     print('built', len(HEROES), 'pages')
 
 
