@@ -1,6 +1,6 @@
 // Interactive scene: move over the car, house or boat in the picture (or tap
-// a dot) to light it up. The headline's last words and the card underneath
-// follow along. With no one interacting, it steps through them on its own.
+// a dot) to light it up, and the headline's last words follow along. With
+// no one interacting, it steps through them on its own.
 // On mouse devices the picture also tilts a touch toward the cursor.
 
 const AUTO_MS = 3200;    // time on each spot while nobody is interacting

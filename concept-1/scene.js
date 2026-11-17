@@ -1,6 +1,6 @@
 // Stacked leaves: move over the car, house or boat layer in the picture (or
-// tap a dot) to light that layer up. A gold line draws out to a card beside
-// it and the headline's last words follow along. With no one interacting, it
+// tap a dot) to light that layer up, and the headline's last words follow
+// along. With no one interacting, it
 // steps down through the layers on its own. On mouse devices the picture also
 // tilts a touch toward the cursor.
 
