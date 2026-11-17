@@ -28,7 +28,7 @@ each `concept-N/` folder is one page:
   concept's CSS, scripts and inner pages and only swaps `hero.jpg` and the hotspot positions. Sources in `hero-ideas/_source/`.
 - `concept-4/`: the photo gallery (the old `concept-7/` link redirects here, see `vercel.json`)
 - `concept-5/`: **Daylight**. A black header and hero (the client's preference) with the agency's studio fig leaf (gallery leaf 1) inside gold rings, labels for Auto, Home, Boat and Business around it, and a headline whose last word rotates through car, home, boat and business. The leaf's tip points at the cursor wherever it is, and the mouse pointer itself is a small fig leaf whose tip is the click point (`assets/leaf-cursor.png`). The car, house and boat photos show through the big leaf in its shape (`assets/leaf-mask.png`), in step with the headline; pointing at a label jumps to it. Below the hero the page is light, with sections in the rounded tile layout (`hs--v5`) and a dark green footer. Its own Homeowners and quote pages.
-- `concept-6/`: **Field guide**. Editorial and photographic with square edges: the logo on a white plate in a black header, a full-bleed photo of a real fig leaf (gallery leaf 6) behind a solid black panel, a numbered index of Auto, Home, Boat and Business under the hero, and the numbered, ruled section layout (`hs--v6`) with black reviews. Its own Homeowners and quote pages.
+- `concept-6/`: **Leaf slideshow**. The hero is one big Fig Leaf (the logo's leaf, `assets/fig-leaf-fill.svg`, larger than the hero art on any other concept) used as a frame: photos of a car, a house, a boat and the team slide through it every few seconds, with a gold edge, a dark green offset leaf behind it, and the caption for each photo beside it. Arrows, dots, a pause button, swipe and the arrow keys move it by hand (`concept.js`). Header, sections (`hs--v2`), footer and the inner pages use concept 3's look. Its own Homeowners and quote pages.
 
 Concept 1 is the dark theme. `concept-1/palette.css` loads last on all its pages (home, Homeowners, both quote
 pages) and holds them to four colours, one shade each: gold #e8c27e, black #070d0f, white #fff and dark green
@@ -52,7 +52,7 @@ Vercel settings: Framework Preset "Other", no build command, output directory = 
 
 **Concepts 5 and 6.** Both start from concept 3's files and keep its content and pages. Each folder's `concept.css` loads last on all its pages
 (after `palette.css`) and holds it to the same four colours (gold, black, white, dark green, light green sparingly), no gradients or soft shadows.
-`concept.js` drives each hero (concept 5's rotating word, concept 6's slow photo drift); `scene.js` isn't used there. Both use the current
+`concept.js` drives each hero (concept 5's rotating word, concept 6's slideshow); `scene.js` isn't used there. Both use the current
 logo, `assets/figleaf-logo-full.png`.
 
 **All heroes together (`heroes/`).** One page that links every homepage hero idea, with a screenshot of each: concepts 5 and 6,
