@@ -100,10 +100,26 @@ def rel(url, src_dir, out_dir):
         return url
     path, sep, tail = _split(url)
     target = posixpath.normpath(posixpath.join(src_dir, path))
+    if KEEP_IN is not None:
+        target = keep_in(target, KEEP_IN)
     out = posixpath.relpath(target, out_dir)
     if path.endswith('/') and not out.endswith('/'):
         out += '/'
     return out + sep + tail
+
+
+# Concepts 7 to 18 get their own copies of these pages, so a visitor who
+# clicks through from concept 7 stays in concept 7.
+SUBPAGES = ('crq', 'crq-form', 'homeowners-insurance')
+KEEP_IN = None   # while building concept n: 'concept-<n>'
+
+
+def keep_in(target, folder):
+    """Point a concept's homepage or quote / Homeowners pages at folder's copy."""
+    m = re.match(r'concept-\d+(?:/(%s))?(/index\.html)?$' % '|'.join(SUBPAGES), target)
+    if m:
+        return folder + ('/' + m.group(1) if m.group(1) else '') + (m.group(2) or '')
+    return target
 
 
 def _split(url):
@@ -246,7 +262,10 @@ def build_page(n, home, src, name, css, css_pos, js):
         page = page.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n  <meta name="robots" content="noindex">', 1)
 
     # 4. everything now points from concept-<n>/ back to the homepage folder
+    global KEEP_IN
+    KEEP_IN = out_dir
     page = rebase(page, home, out_dir)
+    KEEP_IN = None
     page = page.replace('<!--REVIEW-BAR-->', review_bar(n, out_dir))
 
     # 5. the hero's stylesheet and script
@@ -269,10 +288,37 @@ def build_page(n, home, src, name, css, css_pos, js):
     write(f'{out_dir}/index.html', page)
 
 
+def build_subpages(n, home):
+    """concept-<n>/crq, crq-form and homeowners-insurance: the homepage's own
+    pages, content unchanged, with links kept inside concept n."""
+    global KEEP_IN
+    for sub in SUBPAGES:
+        src = f'{home}/{sub}'
+        out = f'concept-{n}/{sub}'
+        page = read(f'{src}/index.html')
+        rb = re.search(r'<nav class="review-bar".*?</nav>', page, re.S)
+        name = re.search(r'review-bar__name">(.*?)</span></p>', rb.group(0), re.S).group(1)
+        name = re.sub(r'Concept \d+ look(, [a-z]+(?: [a-z]+)*)?', 'Homeowners page', name)
+        bar = ('<nav class="review-bar" aria-label="Concepts">\n'
+               f'    <p class="review-bar__title"><span class="review-bar__label">Concept {n}</span> '
+               f'<span class="review-bar__name">{name}</span></p>\n'
+               # an empty "long" list: on phones the bar then shows its name
+               '    <div class="review-bar__controls"><ul class="review-bar__list review-bar__list--long"></ul></div>\n  </nav>')
+        page = page[:rb.start()] + bar + page[rb.end():]
+        page = re.sub(r'<title>Concept \d+ ·', f'<title>Concept {n} ·', page, count=1)
+        KEEP_IN = f'concept-{n}'
+        page = rebase(page, src, out)
+        KEEP_IN = None
+        page = page.replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- Built by homepages/build.py: '
+                            f'concept {n}\'s copy of {src}/. Edit that page, then re-run the script. -->', 1)
+        write(f'{out}/index.html', page)
+
+
 def main():
     build_hero_css()
     for h in HEROES:
         build_page(*h)
+        build_subpages(h[0], h[1])
     update_concept_bars()
     print('built', len(HEROES), 'pages')
 
