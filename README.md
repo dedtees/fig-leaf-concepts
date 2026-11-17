@@ -60,20 +60,22 @@ the photo heroes A to D (`hero-concepts/`) and the six fig leaf pictures V1 to H
 
 ## Numbering
 
-The main run is concepts 1 to 12 (`concept-1/` to `concept-12/`); the site's front page opens concept 1. The four earlier concepts are the archive, labelled with letters so no two pages share a number: Archive A to D (`archive-a/` to `archive-d/`). Old numbers map like this: old 5 and 6 are now 1 and 2, old 7 to 16 are now 3 to 12, and old 1 to 4 are Archive A to D. Concepts 13 and 14 (old 17 and 18, H2 and H3 on a full homepage) were dropped. Old links to `concept-15/` and `concept-16/` and to `homepages/<code>/` redirect to the new numbers; links to the dropped pages open concept 1 (`vercel.json`). H2 and H3 are still on their own at `hero-ideas/`.
+The main run is concepts 1 to 11 (`concept-1/` to `concept-11/`); the site's front page opens concept 1. The four earlier concepts are the archive, labelled with letters so no two pages share a number: Archive A to D (`archive-a/` to `archive-d/`).
+
+How the numbers have moved: old 1 to 4 became Archive A to D, old 5 and 6 became 1 and 2, and the hero homepages followed from 3. V2 on a full homepage, and H2 and H3 on full homepages, were dropped (V2, H2 and H3 are still on their own at `hero-ideas/`). `vercel.json` sends the old `homepages/<code>/` links and `concept-12/` to `concept-18/` to the page they show now, or to concept 1 for a dropped one. Links to `concept-5/` to `concept-11/` open whatever has that number now.
 
 ## Archive A to D
 
-Archives A to D are still online but out of the main run. Their review bar steps through the archive only, and the heroes page lists them at the bottom. They stay because concepts 3 to 12 use the homepages (and Homeowners and quote pages) of archives A to C.
+Archives A to D are still online but out of the main run. Their review bar steps through the archive only, and the heroes page lists them at the bottom. They stay because concepts 3 to 11 use the homepages (and Homeowners and quote pages) of archives A to C.
 
-## Concepts 3 to 12: every new hero on a full homepage
+## Concepts 3 to 11: every new hero on a full homepage
 
-`concept-3/` to `concept-12/` put each new hero on one of the archived homepages, unchanged apart from the hero, and carry on the numbering from concepts 1 and 2:
+`concept-3/` to `concept-11/` put each new hero on one of the archived homepages, unchanged apart from the hero, and carry on the numbering from concepts 1 and 2:
 
-- 3 to 6, on the archive A homepage: concept 1's pointing fig leaf hero, then V1, V2 and V3
-- 7 to 10, on the archive B homepage: photo heroes A, B, C and D
-- 11 and 12, on the archive C homepage: concept 2's leaf slideshow hero, then H1
+- 3 to 5, on the archive A homepage: concept 1's pointing fig leaf hero, then V1 and V3
+- 6 to 9, on the archive B homepage: photo heroes A, B, C and D
+- 10 and 11, on the archive C homepage: concept 2's leaf slideshow hero, then H1
 
-They link back to their homepage's folder for styles and images and to the hero's own files. Each has its own copy of the quote, quote form and Homeowners pages (content unchanged), so a visitor stays inside that concept. `homepages/build.py` builds them, keeps the review bar on concepts 1 and 2 listing 1 to 12 and the archive's bar listing A to D; re-run it after changing a homepage or a hero. `homepages/shared/` holds concept 1's and 2's hero styles on their own (`hero-5.css`, `hero-6.css`, named for their old numbers), and the rules that give the new heroes room under the see-through header on the archive B and C homepages.
+They link back to their homepage's folder for styles and images and to the hero's own files. Each has its own copy of the quote, quote form and Homeowners pages (content unchanged), so a visitor stays inside that concept. `homepages/build.py` builds them, keeps the review bar on concepts 1 and 2 listing 1 to 11 and the archive's bar listing A to D; re-run it after changing a homepage or a hero. `homepages/shared/` holds concept 1's and 2's hero styles on their own (`hero-5.css`, `hero-6.css`, named for their old numbers), and the rules that give the new heroes room under the see-through header on the archive B and C homepages, and small per-hero size and position tweaks (by the `data-hero` attribute build.py puts on `<html>`).
 
 Concept 3 alone adds a Business insurance card under "More Ways We Protect You" (three cards across), from `EXTRAS` in `homepages/build.py`. Its photo, `homepages/shared/assets/business-insurance.jpg`, is from Unsplash, [GFrBMipOd_E](https://unsplash.com/photos/two-women-near-tables-GFrBMipOd_E), under the Unsplash License.

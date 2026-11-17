@@ -1,13 +1,13 @@
-"""Builds concept-3 to concept-12: every new hero on a full homepage.
+"""Builds concept-3 to concept-11: every new hero on a full homepage.
 
-Each page (concepts 3 to 12) is one of the archived homepages (archive A, B
+Each page (concepts 3 to 11) is one of the archived homepages (archive A, B
 or C) exactly as it is, header, colours, sections and footer, with only the
 hero <section> swapped for one of the new hero concepts. Nothing is copied:
 the page links back to its homepage's folder for CSS, scripts and images,
 and to the hero's own folder for the hero's pictures, CSS and script. Each
 also gets its own copy of the quote and Homeowners pages.
 
-It also keeps the review bar on concepts 1 and 2 listing 1 to 12, and the
+It also keeps the review bar on concepts 1 and 2 listing 1 to 11, and the
 bar on archives A to D listing the archive.
 
 Re-run after changing a homepage or a hero:  python3 homepages/build.py
@@ -40,21 +40,19 @@ HEROES = [
      ['homepages/shared/hero-5.css'], 'last', ['concept-1/concept.js']),
     (4, 'archive-a', 'hero-ideas/v1/index.html', 'photos on real fig leaves, stacked (V1)',
      [], None, None),
-    (5, 'archive-a', 'hero-ideas/v2/index.html', 'photo panels on a fig leaf (V2)',
+    (5, 'archive-a', 'hero-ideas/v3/index.html', 'logo leaf window, three bands (V3)',
      [], None, None),
-    (6, 'archive-a', 'hero-ideas/v3/index.html', 'logo leaf window, three bands (V3)',
-     [], None, None),
-    (7, 'archive-b', 'hero-concepts/a/index.html', 'opening photo panels (A)',
+    (6, 'archive-b', 'hero-concepts/a/index.html', 'opening photo panels (A)',
      X_CSS, 'after-styles', X_JS),
-    (8, 'archive-b', 'hero-concepts/b/index.html', 'stacked photo bands (B)',
+    (7, 'archive-b', 'hero-concepts/b/index.html', 'stacked photo bands (B)',
      X_CSS, 'after-styles', X_JS),
-    (9, 'archive-b', 'hero-concepts/c/index.html', 'uncover lens (C)',
+    (8, 'archive-b', 'hero-concepts/c/index.html', 'uncover lens (C)',
      X_CSS, 'after-styles', X_JS),
-    (10, 'archive-b', 'hero-concepts/d/index.html', 'card deck (D)',
+    (9, 'archive-b', 'hero-concepts/d/index.html', 'card deck (D)',
      X_CSS, 'after-styles', X_JS),
-    (11, 'archive-c', 'concept-2/index.html', "concept 2's leaf slideshow hero",
+    (10, 'archive-c', 'concept-2/index.html', "concept 2's leaf slideshow hero",
      ['homepages/shared/hero-6.css'], 'last', ['concept-2/concept.js']),
-    (12, 'archive-c', 'hero-ideas/h1/index.html', 'photos on real fig leaves, in a row (H1)',
+    (11, 'archive-c', 'hero-ideas/h1/index.html', 'photos on real fig leaves, in a row (H1)',
      [], None, None),
 ]
 
@@ -115,7 +113,7 @@ def rel(url, src_dir, out_dir):
     return out + sep + tail
 
 
-# Concepts 3 to 12 get their own copies of these pages, so a visitor who
+# Concepts 3 to 11 get their own copies of these pages, so a visitor who
 # clicks through from concept 3 stays in concept 3.
 SUBPAGES = ('crq', 'crq-form', 'homeowners-insurance')
 KEEP_IN = None   # while building concept n: 'concept-<n>'
@@ -202,7 +200,7 @@ def build_hero_css():
 # --- one page per hero -----------------------------------------------------
 
 def review_bar(n, out_dir):
-    """The review bar for page n: the main run (1 to 12), or for an archived
+    """The review bar for page n: the main run (1 to 11), or for an archived
     page, the archive (A to D)."""
     seq = sequence(n)
     keys = [c for c, _ in seq]
@@ -289,6 +287,9 @@ def build_page(n, home, src, name, css, css_pos, js):
     if js:
         tags = '\n  '.join(f'<script src="{posixpath.relpath(j, out_dir)}"></script>' for j in js)
         page = re.sub(r'<script src="[^"]*/scene\.js"></script>', tags, page, count=1)
+
+    # which hero this is, for hero-specific tweaks in homepages.css
+    page = page.replace('<html ', f'<html data-hero="{posixpath.basename(src_dir)}" ', 1)
 
     if n in EXTRAS:
         page = EXTRAS[n](page, out_dir)
