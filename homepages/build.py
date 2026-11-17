@@ -65,8 +65,18 @@ def hero_title(n, home, name):
     return f'Concept {home.split("-")[1]} homepage, {name[0].lower() + name[1:]}'
 
 
+# Concepts 1 to 4 are archived: still online (7 to 18 are built on the
+# homepages of 1 to 3), but out of the main sequence and its arrows.
+ARCHIVED = {1, 2, 3, 4}
+
+
 def all_concepts():
     return CONCEPTS + [(n, hero_title(n, home, name)) for n, home, _s, name, *_ in HEROES]
+
+
+def sequence(n):
+    """The run of concepts the bar on concept n steps through."""
+    return [c for c in all_concepts() if (c[0] in ARCHIVED) == (n in ARCHIVED)]
 
 
 SKIP = ('#', 'http:', 'https:', '//', 'tel:', 'mailto:', 'data:', 'javascript:')
@@ -169,8 +179,9 @@ def build_hero_css():
 # --- one page per hero -----------------------------------------------------
 
 def review_bar(n, out_dir):
-    """The concepts review bar, 1 to 18, for the homepage of concept n."""
-    seq = all_concepts()
+    """The concepts review bar for the homepage of concept n: 5 to 18, or
+    for an archived concept, the archive (1 to 4)."""
+    seq = sequence(n)
     nums = [c for c, _ in seq]
     i = nums.index(n)
     href = lambda c: posixpath.relpath(f'concept-{c}/', out_dir) + '/'
@@ -180,11 +191,15 @@ def review_bar(n, out_dir):
         items.append(f'<li><a class="review-bar__link" href="{href(c)}" data-name="{name}"{cur}>'
                      f'<span class="visually-hidden">Concept </span>{c}'
                      f'<span class="visually-hidden">: {name}</span></a></li>')
-    return (f'<nav class="review-bar" aria-label="Concepts">\n'
-            f'    <p class="review-bar__title"><span class="review-bar__label">Concept {n}</span> '
-            f'<span class="review-bar__name">{seq[i][1]}</span></p>\n'
+    label = f'Archived concept {n}' if n in ARCHIVED else f'Concept {n}'
+    long = ' review-bar__list--long' if len(seq) > 8 else ''
+    extra = (f' · <a href="{posixpath.relpath("concept-5/", out_dir)}/" style="color:inherit">back to the current concepts</a>'
+             if n in ARCHIVED else '')
+    return (f'<nav class="review-bar" aria-label="{"Archived concepts" if n in ARCHIVED else "Concepts"}">\n'
+            f'    <p class="review-bar__title"><span class="review-bar__label">{label}</span> '
+            f'<span class="review-bar__name">{seq[i][1]}{extra}</span></p>\n'
             f'    <div class="review-bar__controls">\n'
-            f'      <ul class="review-bar__list review-bar__list--long">\n        '
+            f'      <ul class="review-bar__list{long}">\n        '
             + '\n        '.join(items) + '</ul>\n'
             f'      <a class="review-bar__step review-bar__step--prev" href="{href(nums[i - 1])}" rel="prev" aria-label="Previous concept">'
             f'<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>\n'
@@ -194,7 +209,7 @@ def review_bar(n, out_dir):
 
 
 def update_concept_bars():
-    """Concepts 1 to 6 list 7 to 18 too, so the arrows run through all of them."""
+    """Concepts 5 and 6 list 7 to 18 too, and 1 to 4 list the archive."""
     for n, _name in CONCEPTS:
         path = f'concept-{n}/index.html'
         page = read(path)

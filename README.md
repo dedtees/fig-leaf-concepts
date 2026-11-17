@@ -58,6 +58,10 @@ logo, `assets/figleaf-logo-full.png`.
 **All heroes together (`heroes/`).** One page that links every homepage hero idea, with a screenshot of each: concepts 5 and 6,
 the photo heroes A to D (`hero-concepts/`) and the six fig leaf pictures V1 to H3 (`hero-ideas/`).
 
+## Archive: concepts 1 to 4
+
+Concepts 1 to 4 are archived: still online at `concept-1/` to `concept-4/`, but out of the main run. Their review bar steps through the archive only, and the heroes page lists them at the bottom. They stay in place because concepts 7 to 18 use the homepages (and Homeowners and quote pages) of concepts 1 to 3. The main run is concepts 5 to 18, and the site's front page opens concept 5. `ARCHIVED` in `homepages/build.py` sets which concepts are archived.
+
 ## Concepts 7 to 18: every new hero on a full homepage
 
 `concept-7/` to `concept-18/` put each new hero on one of the current homepages, unchanged apart from the hero, and carry on the numbering from concepts 1 to 6:
@@ -66,4 +70,4 @@ the photo heroes A to D (`hero-concepts/`) and the six fig leaf pictures V1 to H
 - 11 to 14, on the concept 2 homepage: photo heroes A, B, C and D
 - 15 to 18, on the concept 3 homepage: concept 6's leaf slideshow hero, then H1, H2 and H3
 
-They link back to their homepage's folder (styles, images, Homeowners and quote pages) and to the hero's own files, so nothing is copied. `homepages/build.py` builds them and keeps the review bar on concepts 1 to 6 listing all eighteen; re-run it after changing a homepage or a hero. `homepages/shared/` holds concept 5's and 6's hero styles on their own, and the rules that give the new heroes room under the see-through header on the concept 2 and 3 homepages. The earlier `homepages/<code>/` links redirect to the new numbers (`vercel.json`). The old `concept-7/` link to the gallery is gone, since concept 7 is now a homepage; the gallery is `concept-4/`.
+They link back to their homepage's folder (styles, images, Homeowners and quote pages) and to the hero's own files, so nothing is copied. `homepages/build.py` builds them and keeps the review bar on concepts 5 and 6 listing 5 to 18; re-run it after changing a homepage or a hero. `homepages/shared/` holds concept 5's and 6's hero styles on their own, and the rules that give the new heroes room under the see-through header on the concept 2 and 3 homepages. The earlier `homepages/<code>/` links redirect to the new numbers (`vercel.json`). The old `concept-7/` link to the gallery is gone, since concept 7 is now a homepage; the gallery is `concept-4/`.

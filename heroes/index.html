@@ -29,6 +29,10 @@
   .card h3 b { color: var(--gold); font-weight: 600; margin-right: 8px; }
   .card p { margin: 0; color: var(--muted); font-size: .97rem; }
   .card .new { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 999px; background: var(--gold); color: var(--bg); font: 700 .68rem/1.5 "Source Sans 3", sans-serif; letter-spacing: .1em; text-transform: uppercase; vertical-align: middle; }
+  ul.archive { display: flex; flex-wrap: wrap; gap: 10px 24px; margin: 18px 0 0; padding: 0; list-style: none; }
+  ul.archive a { color: var(--text); text-decoration: none; }
+  ul.archive a:hover, ul.archive a:focus-visible { color: var(--gold); text-decoration: underline; }
+  ul.archive b { color: var(--gold); margin-right: 6px; }
   footer { margin-top: 64px; font-size: .9rem; color: var(--muted); }
   footer a { color: var(--gold); }
 </style></head>
@@ -44,7 +48,7 @@
 
   <section id="homepages" aria-labelledby="homepages-title">
     <h2 id="homepages-title">Concepts 7 to 18 <small>Every new hero on a full homepage</small></h2>
-    <p>Each new hero on one of the current homepages, with its colours, sections and footer exactly as they are; only the hero is swapped. Concepts 7 to 10 use the concept 1 homepage, 11 to 14 the concept 2 homepage, and 15 to 18 the concept 3 homepage. They follow on from concepts 1 to 6, so the arrows at the top of any concept step through all eighteen.</p>
+    <p>Each new hero on one of the current homepages, with its colours, sections and footer exactly as they are; only the hero is swapped. Concepts 7 to 10 use the concept 1 homepage, 11 to 14 the concept 2 homepage, and 15 to 18 the concept 3 homepage. They follow on from concepts 5 and 6, so the arrows at the top of any concept step through 5 to 18.</p>
     <div class="grid">
       <a class="card" href="../concept-7/"><img src="shots/concept-7.jpg" alt="Concept 7" loading="lazy"><div>
         <h3><b>7</b>Concept 5's pointing fig leaf hero</h3><p>On the concept 1 homepage</p></div></a>
@@ -118,11 +122,22 @@
     </div>
   </section>
 
+  <section id="archive" aria-labelledby="archive-title">
+    <h2 id="archive-title">Archive <small>Concepts 1 to 4</small></h2>
+    <p>The earlier concepts, out of the main run but still online. Concepts 7 to 18 use the homepages of 1, 2 and 3.</p>
+    <ul class="archive">
+      <li><a href="../concept-1/"><b>1</b> Stacked leaves, dark header</a></li>
+      <li><a href="../concept-2/"><b>2</b> Stacked leaves, transparent header</a></li>
+      <li><a href="../concept-3/"><b>3</b> Horizontal leaves, concept 1 reviews</a></li>
+      <li><a href="../concept-4/"><b>4</b> Fig leaf photo gallery</a></li>
+    </ul>
+  </section>
+
   <footer>
     <p>Car, house and boat photos from Unsplash, free for commercial use under the <a href="https://unsplash.com/license">Unsplash License</a>:
       car <a href="https://unsplash.com/photos/xFgL8xGIGpk">xFgL8xGIGpk</a>,
       house <a href="https://unsplash.com/photos/TiVPTYCG_3E">TiVPTYCG_3E</a>,
       boat <a href="https://unsplash.com/photos/o9oQaOGpLz0">o9oQaOGpLz0</a>.
-      Fig leaves are the agency's own leaf photos. <a href="../concept-1/">Back to the concepts</a>.</p>
+      Fig leaves are the agency's own leaf photos. <a href="../concept-5/">Back to the concepts</a>.</p>
   </footer>
 </main></body></html>
