@@ -1,6 +1,6 @@
 // Concept 6 hero: a slideshow inside the big Fig Leaf.
-// Photos slide through the leaf every few seconds; the caption beside it
-// follows. Arrows, dots, swipe and the arrow keys (when the slideshow has
+// Photos slide through the leaf every few seconds; the last word of the
+// headline (car, home, boat) changes to match. Arrows, dots, swipe and the arrow keys (when the slideshow has
 // focus) move it by hand; pointing at the leaf or the pause button stops
 // it. With reduced motion it doesn't advance on its own.
 (function () {
@@ -9,7 +9,7 @@
   if (!show) return;
   var slides = Array.prototype.slice.call(show.querySelectorAll('.l-slide'));
   var dots = Array.prototype.slice.call(show.querySelectorAll('.l-dot'));
-  var caps = Array.prototype.slice.call(document.querySelectorAll('.l-cap'));
+  var words = Array.prototype.slice.call(document.querySelectorAll('.l-rotate__word'));
   var pauseBtn = show.querySelector('.l-pause');
   var n = slides.length;
   if (n < 2) return;
@@ -19,6 +19,7 @@
   var i = 0, timer = null, paused = reduce, hovering = false;
 
   function go(next) {
+    var prev = i;
     i = (next + n) % n;
     slides.forEach(function (s, k) {
       s.style.setProperty('--i', i);
@@ -29,11 +30,14 @@
       d.classList.toggle('is-active', k === i);
       if (k === i) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current');
     });
-    caps.forEach(function (c, k) {
-      var on = k === i;
-      c.hidden = !on;
-      c.classList.toggle('is-active', on);
-    });
+    if (prev !== i && words[prev] && words[i]) {
+      var old = words[prev];
+      old.classList.remove('is-active');
+      old.classList.add('is-leaving');
+      setTimeout(function () { old.classList.remove('is-leaving'); }, 600);
+      words[i].classList.remove('is-leaving');
+      words[i].classList.add('is-active');
+    }
   }
   function tick() { go(i + 1); }
   function restart() {

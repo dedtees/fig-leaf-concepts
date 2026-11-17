@@ -2,8 +2,8 @@
    Concept 6 · Leaf slideshow
    The hero is one big Fig Leaf: the logo's leaf, drawn larger than the
    hero art on any other concept, is the frame, and photos of what we cover
-   slide through it. The caption for each photo sits beside it, under the
-   headline. Header, sections, footer and the inner pages use concept 3's
+   slide through it. The last word of the headline changes to match
+   the photo showing. Header, sections, footer and the inner pages use concept 3's
    look (palette.css), so this file only adds the hero.
 
    Same four colours, one shade each, no gradients or soft shadows:
@@ -56,8 +56,9 @@
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 600;
-  font-size: clamp(2.5rem, 4.2vw, 4.4rem);
-  line-height: 1.04;
+  font-size: clamp(3rem, 5.4vw, 5rem);
+  line-height: 1.02;
+  white-space: nowrap;
   letter-spacing: -0.02em;
 }
 .l-hero__title em { font-style: italic; color: var(--c6-gold); }
@@ -85,22 +86,42 @@
 .l-hero__call:hover { color: var(--c6-gold); }
 .l-hero :focus-visible { outline: 3px solid var(--c6-gold); outline-offset: 3px; }
 
-/* caption for the photo in the leaf */
-.l-cap {
-  margin-top: clamp(28px, 4vw, 48px);
-  padding-top: 22px;
-  border-top: 1px solid var(--c6-green);
-  max-width: 420px;
+/* the changing word: a clipped slot, words slide up through it in step
+   with the slideshow, as on concepts 3 and 5 */
+.l-rotate {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  height: 1.02em;           /* one line of the headline, so the lines stay close */
+  line-height: 1.02;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+  min-width: 3.4em;
+  overflow: hidden;
+  font-style: italic;
+  color: var(--c6-gold);
 }
-.l-cap[hidden] { display: none; }
-.l-cap.is-active { animation: l-cap-in 600ms var(--c6-ease) both; }
-@keyframes l-cap-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-.l-cap__num { margin: 0 0 6px; font-family: var(--font-nav); font-size: 0.8rem; letter-spacing: 0.14em; color: var(--c6-green-light); }
-.l-cap__num span { color: var(--c6-gold); font-weight: 700; }
-.l-cap__title { margin: 0 0 6px; font-family: var(--font-heading); font-size: 1.6rem; font-weight: 600; }
-.l-cap__text { margin: 0 0 12px; line-height: 1.5; }
-.l-cap__link { color: var(--c6-gold); font-weight: 700; text-decoration: none; }
-.l-cap__link:hover { text-decoration: underline; text-underline-offset: 4px; }
+.l-rotate::after {      /* a gold underline under the slot */
+  content: "";
+  position: absolute;
+  left: 0.04em; right: 0.2em; bottom: 0.04em;
+  height: 0.08em;
+  background: var(--c6-gold);
+}
+.l-rotate__word {
+  position: absolute;
+  left: 0; top: 0;
+  white-space: nowrap;
+  transform: translateY(110%);
+  transition: transform 560ms var(--c6-ease);
+}
+.l-rotate__word.is-active { transform: none; }
+.l-rotate__word.is-leaving { transform: translateY(-110%); }
+
+/* the words sit level with the upper body of the leaf, not its middle */
+@media (min-width: 901px) {
+  .l-hero__copy { align-self: start; margin-top: clamp(32px, 5.5vw, 88px); }
+}
 
 /* --- the leaf: frame for the slideshow ---------------------------------- */
 
@@ -154,7 +175,6 @@
   transition: transform 6000ms ease-out;
 }
 .l-slide.is-active img { transform: scale(1); }   /* a slow push in on the photo showing */
-.l-slide[data-key="team"] img { object-position: 50% 40%; }
 
 /* the gold edge around the leaf */
 .l-leaf__edge {
@@ -223,16 +243,11 @@
 @media (prefers-reduced-motion: reduce) {
   .l-slide, .l-slide img, .l-dot { transition: none; }
   .l-slide img { transform: none; }
-  .l-cap.is-active { animation: none; }
+  .l-rotate__word { transition: none; }
 }
 
 @media (max-width: 900px) {
   .l-hero__inner { grid-template-columns: minmax(0, 1fr); row-gap: 0; }
-  .l-hero__lede { margin-bottom: 24px; }
-  .l-show { margin: 36px 0 0; }
-  .l-hero__copy > .l-cap { margin-top: 28px; }
+  .l-show { margin: 40px 0 0; }
   .l-show { justify-self: center; max-width: min(100%, 620px); order: 2; }
-  .l-hero__copy { display: contents; }
-  .l-hero__copy > * { order: 1; }
-  .l-hero__copy > .l-cap { order: 3; }
 }
