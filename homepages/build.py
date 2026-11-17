@@ -121,7 +121,8 @@ KEEP_IN = None   # while building concept n: 'concept-<n>'
 
 def keep_in(target, folder):
     """Point a concept's homepage or quote / Homeowners pages at folder's copy."""
-    m = re.match(r'(?:concept-\d+|archive-[a-d])(?:/(%s))?(/index\.html)?$' % '|'.join(SUBPAGES), target)
+    # (archive B's Homeowners variants, -fade and -scroll, map to the one page)
+    m = re.match(r'(?:concept-\d+|archive-[a-d])(?:/(%s)(?:-fade|-scroll)?)?(/index\.html)?$' % '|'.join(SUBPAGES), target)
     if m:
         return folder + ('/' + m.group(1) if m.group(1) else '') + (m.group(2) or '')
     return target
@@ -326,27 +327,82 @@ def business_card(page, out_dir):
 EXTRAS = {2: business_card}
 
 
+# The Homeowners page layouts, shared out in threes: concepts 1 to 3 get
+# layout 1, 4 to 6 layout 2, 7 to 9 layout 3, and 10 on layout 4.
+HOMEOWNERS = [
+    ('archive-a/homeowners-insurance', 'archive A look'),
+    ('archive-b/homeowners-insurance', 'archive B look, tabs'),
+    ('archive-b/homeowners-insurance-fade', 'archive B look, header fade'),
+    ('archive-c/homeowners-insurance', 'archive C look'),
+]
+
+
+def homeowners_layout(n):
+    return min((n - 1) // 3, len(HOMEOWNERS) - 1)
+
+
+def main_run():
+    return [c for c, _ in all_concepts() if not archived(c)]
+
+
+def homeowners_bar(n, out_dir):
+    """The bar on concept n's Homeowners page: concepts 1 to 10, each number
+    opening that concept's Homeowners page, the arrows stepping through them."""
+    keys = main_run()
+    i = keys.index(n)
+    href = lambda c: posixpath.relpath(f'concept-{c}/homeowners-insurance/', out_dir) + '/'
+    items = []
+    for c in keys:
+        lay = homeowners_layout(c)
+        name = f'Concept {c} Homeowners: layout {lay + 1}, {HOMEOWNERS[lay][1]}'
+        cur = ' aria-current="page"' if c == n else ''
+        items.append(f'<li><a class="review-bar__link" href="{href(c)}" data-name="{name}"{cur}>'
+                     f'<span class="visually-hidden">Concept </span>{c}'
+                     f'<span class="visually-hidden">: {name}</span></a></li>')
+    lay = homeowners_layout(n)
+    home = posixpath.relpath(f'concept-{n}/', out_dir) + '/'
+    return ('<nav class="review-bar" aria-label="Concepts">\n'
+            f'    <p class="review-bar__title"><span class="review-bar__label">Concept {n}</span> '
+            f'<span class="review-bar__name">Homeowners layout {lay + 1} of {len(HOMEOWNERS)} · '
+            f'<a href="{home}" style="color:inherit">back to the homepage</a></span></p>\n'
+            '    <div class="review-bar__controls">\n'
+            '      <ul class="review-bar__list review-bar__list--long">\n        '
+            + '\n        '.join(items) + '</ul>\n'
+            f'      <a class="review-bar__step review-bar__step--prev" href="{href(keys[i - 1])}" rel="prev" aria-label="Previous concept">'
+            '<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>\n'
+            f'      <a class="review-bar__step" href="{href(keys[(i + 1) % len(keys)])}" rel="next" aria-label="Next concept">'
+            '<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>\n'
+            '    </div>\n  </nav>')
+
+
 def build_subpages(n, home):
-    """concept-<n>/crq, crq-form and homeowners-insurance: the homepage's own
-    pages, content unchanged, with links kept inside concept n."""
+    """concept-<n>/crq and crq-form: the homepage's own pages, and
+    concept-<n>/homeowners-insurance: its Homeowners layout, content unchanged,
+    with links kept inside concept n."""
     global KEEP_IN
     for sub in SUBPAGES:
-        src = f'{home}/{sub}'
+        src = HOMEOWNERS[homeowners_layout(n)][0] if sub == 'homeowners-insurance' else f'{home}/{sub}'
+        if sub != 'homeowners-insurance' and home.startswith('concept-'):
+            continue  # concept 1 keeps its own quote pages
         out = f'concept-{n}/{sub}'
         page = read(f'{src}/index.html')
         rb = re.search(r'<nav class="review-bar".*?</nav>', page, re.S)
-        name = re.search(r'review-bar__name">(.*?)</span></p>', rb.group(0), re.S).group(1)
-        name = re.sub(r'(Concept|Archive) \w+ look(, [a-z]+(?: [a-z]+)*)?', 'Homeowners page', name)
-        bar = ('<nav class="review-bar" aria-label="Concepts">\n'
-               f'    <p class="review-bar__title"><span class="review-bar__label">Concept {n}</span> '
-               f'<span class="review-bar__name">{name}</span></p>\n'
-               # an empty "long" list: on phones the bar then shows its name
-               '    <div class="review-bar__controls"><ul class="review-bar__list review-bar__list--long"></ul></div>\n  </nav>')
+        if sub == 'homeowners-insurance':
+            bar = '<!--REVIEW-BAR-->'
+        else:
+            name = re.search(r'review-bar__name">(.*?)</span></p>', rb.group(0), re.S).group(1)
+            name = re.sub(r'(Concept|Archive) \w+ look(, [a-z]+(?: [a-z]+)*)?', 'Homeowners page', name)
+            bar = ('<nav class="review-bar" aria-label="Concepts">\n'
+                   f'    <p class="review-bar__title"><span class="review-bar__label">Concept {n}</span> '
+                   f'<span class="review-bar__name">{name}</span></p>\n'
+                   # an empty "long" list: on phones the bar then shows its name
+                   '    <div class="review-bar__controls"><ul class="review-bar__list review-bar__list--long"></ul></div>\n  </nav>')
         page = page[:rb.start()] + bar + page[rb.end():]
         page = re.sub(r'<title>(?:Concept|Archive) \w+ ·', f'<title>Concept {n} ·', page, count=1)
         KEEP_IN = f'concept-{n}'
         page = rebase(page, src, out)
         KEEP_IN = None
+        page = page.replace('<!--REVIEW-BAR-->', homeowners_bar(n, out))
         page = page.replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- Built by homepages/build.py: '
                             f'concept {n}\'s copy of {src}/. Edit that page, then re-run the script. -->', 1)
         write(f'{out}/index.html', page)
@@ -354,6 +410,7 @@ def build_subpages(n, home):
 
 def main():
     build_hero_css()
+    build_subpages(1, 'concept-1')  # concept 1's Homeowners page only
     for h in HEROES:
         build_page(*h)
         build_subpages(h[0], h[1])
