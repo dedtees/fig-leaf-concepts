@@ -75,3 +75,5 @@ Archives A to D are still online but out of the main run. Their review bar steps
 - 11 and 12, on the archive C homepage: concept 2's leaf slideshow hero, then H1
 
 They link back to their homepage's folder for styles and images and to the hero's own files. Each has its own copy of the quote, quote form and Homeowners pages (content unchanged), so a visitor stays inside that concept. `homepages/build.py` builds them, keeps the review bar on concepts 1 and 2 listing 1 to 12 and the archive's bar listing A to D; re-run it after changing a homepage or a hero. `homepages/shared/` holds concept 1's and 2's hero styles on their own (`hero-5.css`, `hero-6.css`, named for their old numbers), and the rules that give the new heroes room under the see-through header on the archive B and C homepages.
+
+Concept 3 alone adds a Business insurance card under "More Ways We Protect You" (three cards across), from `EXTRAS` in `homepages/build.py`. Its photo, `homepages/shared/assets/business-insurance.jpg`, is from Unsplash, [GFrBMipOd_E](https://unsplash.com/photos/two-women-near-tables-GFrBMipOd_E), under the Unsplash License.

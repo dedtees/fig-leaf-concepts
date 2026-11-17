@@ -290,10 +290,39 @@ def build_page(n, home, src, name, css, css_pos, js):
         tags = '\n  '.join(f'<script src="{posixpath.relpath(j, out_dir)}"></script>' for j in js)
         page = re.sub(r'<script src="[^"]*/scene\.js"></script>', tags, page, count=1)
 
+    if n in EXTRAS:
+        page = EXTRAS[n](page, out_dir)
+
     page = page.replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- Built by homepages/build.py: '
                         f'concept {n}: {home} homepage with the hero from {src}. '
                         'Edit those, then re-run the script. -->', 1)
     write(f'{out_dir}/index.html', page)
+
+
+# --- changes for one concept only ------------------------------------------
+
+def business_card(page, out_dir):
+    """Concept 3: a Business insurance card first under "More Ways We
+    Protect You", with the cards three across."""
+    img = posixpath.relpath('homepages/shared/assets/business-insurance.jpg', out_dir)
+    card = (
+        '<article class="hs-service hs-reveal">\n'
+        f'            <div class="hs-service__media"><img class="hs-service__img" src="{img}" alt="" width="900" height="600" loading="lazy" decoding="async"></div>\n'
+        '            <div class="hs-service__body">\n'
+        '              <h3 class="hs-line__title">Business Insurance</h3>\n'
+        '              <p>Protection for New Jersey shops, offices and service businesses, from general liability and commercial auto to workers comp and employee benefits.</p>\n'
+        '              <a class="hs-more" href="https://figleafagency.com/business-insurance/">Learn more<span class="visually-hidden"> about business insurance</span></a>\n'
+        '            </div>\n'
+        '          </article>\n          ')
+    grid = '<div class="hs-services__grid">\n          '
+    assert grid in page
+    page = page.replace(grid, '<div class="hs-services__grid hs-services__grid--3">\n          ' + card, 1)
+    page = page.replace('Beyond your everyday policies, we help contractors stay covered on the job and drivers keep their records and premiums down.',
+                        'Beyond your everyday policies, we protect local businesses, help contractors stay covered on the job, and help drivers keep their records and premiums down.', 1)
+    return page
+
+
+EXTRAS = {3: business_card}
 
 
 def build_subpages(n, home):
