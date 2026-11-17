@@ -1,0 +1,29 @@
+/* Extra rules for the hero homepages.
+   The review bar on the hero homepages lists the heroes by their codes
+   (5, 6, A to D, V1 to H3), so its buttons are pills, not circles. */
+.review-bar__list--codes .review-bar__link {
+  width: auto;
+  min-width: 28px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+}
+/* on phones twelve buttons don't fit: show the hero's name and the arrows */
+@media (max-width: 760px) {
+  .review-bar { justify-content: space-between; }
+  .review-bar .review-bar__title { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; min-width: 0; }
+  .review-bar__list--codes { display: none; }
+}
+
+/* Homepages 2 and 3 use the see-through header ("b"), which sits on top of
+   the hero. Their own heroes leave room for it; the new heroes get the
+   same room here, so nothing is hidden under the menu. */
+@media (min-width: 761px) {
+  html[data-header="b"] .hero .scene.hx { top: calc(50% + var(--bar) / 2); }
+  /* that header also makes its own picture taller; keep each layout its size */
+  html[data-header="b"] .hero .scene.hx--panels { width: min(calc(var(--hero-h) * 0.8 * var(--r)), var(--avail)); }
+  html[data-header="b"] .hero .scene.hx--bands { width: min(calc(var(--hero-h) * 0.84 * var(--r)), var(--avail)); }
+  html[data-header="b"] .hero .scene.hx--lens { width: min(calc(var(--hero-h) * 0.78 * var(--r)), var(--avail)); }
+  html[data-header="b"] .hero .scene.hx--deck { width: min(calc(var(--hero-h) * 0.86 * var(--r)), var(--avail)); }
+}
+html[data-header="b"] .l-hero { padding-top: calc(var(--header-height) + var(--utility-height)); }

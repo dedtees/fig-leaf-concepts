@@ -1,0 +1,279 @@
+/* Concept 5's hero on its own (built from concept-5/concept.css by
+   homepages/build.py; edit that file, not this one). The black hero,
+   the leaf that points at the cursor and the leaf mouse pointer, here
+   kept to the hero so the rest of the homepage is unchanged. */
+
+:root {
+  --c5-gold: #e8c27e;
+  --c5-black: #070d0f;
+  --c5-white: #ffffff;
+  --c5-green: #17402b;
+  --c5-green-light: #a9c7b4;
+}
+
+/* --- hero ---------------------------------------------------------------- */
+
+.d-hero {
+  position: relative;
+  background: var(--c5-white);
+  overflow: hidden;
+}
+.d-hero__inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: clamp(40px, 6vw, 88px) var(--gutter) clamp(48px, 6vw, 96px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 80px);
+}
+.d-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 22px;
+  font-family: var(--font-nav);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c5-green);
+}
+.d-hero__eyebrow::before {
+  content: "";
+  width: 36px;
+  height: 3px;
+  background: var(--c5-gold);
+}
+.d-hero__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(3rem, 6vw, 6.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  color: var(--c5-green);
+}
+/* the changing word: a clipped slot, words slide up through it */
+.d-rotate {
+  position: relative;
+  display: inline-block;
+  vertical-align: bottom;
+  height: 1.12em;
+  min-width: 4.4em;
+  overflow: hidden;
+  font-style: italic;
+  color: var(--c5-black);
+}
+.d-rotate::after {      /* a gold underline under the slot */
+  content: "";
+  position: absolute;
+  left: 0.04em; right: 0.2em; bottom: 0.04em;
+  height: 0.09em;
+  background: var(--c5-gold);
+}
+.d-rotate__word {
+  position: absolute;
+  left: 0; top: 0;
+  white-space: nowrap;
+  transform: translateY(110%);
+  transition: transform 560ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+.d-rotate__word.is-active { transform: none; }
+.d-rotate__word.is-leaving { transform: translateY(-110%); }
+@media (prefers-reduced-motion: reduce) { .d-rotate__word { transition: none; } }
+
+.d-hero__lede {
+  max-width: 44ch;
+  margin: 28px 0 34px;
+  font-size: clamp(1.1rem, 1.35vw, 1.3rem);
+  line-height: 1.6;
+  color: var(--c5-black);
+}
+.d-hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; }
+.d-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 34px;
+  border-radius: 999px;
+  font-family: var(--font-nav);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+.d-btn--gold { background: var(--c5-gold); color: var(--c5-black); }
+.d-btn--gold:hover { background: var(--c5-green); color: var(--c5-white); }
+.d-hero__call {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--c5-green);
+  font-family: var(--font-nav);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+}
+.d-hero__call .icon {
+  width: 44px; height: 44px; padding: 11px;
+  border: 1.5px solid var(--c5-green-light);
+  border-radius: 50%;
+}
+.d-hero__call:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+
+/* the leaf: the photo's white background melts into the page */
+.d-hero__media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  max-width: 640px;
+  justify-self: center;
+}
+.d-hero__ring {
+  position: absolute;
+  inset: 6%;
+  border: 2px solid var(--c5-gold);
+  border-radius: 50%;
+}
+.d-hero__ring::before {     /* a second, finer ring, offset */
+  content: "";
+  position: absolute;
+  inset: -7%;
+  border: 1px solid var(--c5-green-light);
+  border-radius: 50%;
+}
+/* the leaf and the photos that show through it. concept.js turns the
+   whole leaf so its tip points at the cursor (--turn); without a mouse it
+   sways on its own. */
+.d-leaf {
+  position: absolute;
+  inset: 4%;
+  transform: rotate(var(--turn, 0deg));
+  transform-origin: 46.4% 49.9%;   /* the leaf's centre of mass, so it spins in place */
+  will-change: transform;
+}
+.d-hero__leaf,
+.d-leaf__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.d-hero__leaf {
+  object-fit: contain;
+  /* cut the leaf out of its white studio background, so the rings behind
+     it show even while the leaf is turned in 3D */
+  -webkit-mask: url("../../concept-5/assets/leaf-mask.png") center / contain no-repeat;
+          mask: url("../../concept-5/assets/leaf-mask.png") center / contain no-repeat;
+}
+/* each photo is cut to the leaf's shape. The window turns with the leaf,
+   the photo inside turns back the other way so the car, house and boat
+   stay upright. */
+.d-leaf__win {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  -webkit-mask: url("../../concept-5/assets/leaf-mask.png") center / contain no-repeat;
+          mask: url("../../concept-5/assets/leaf-mask.png") center / contain no-repeat;
+  opacity: 0;
+  transition: opacity 700ms ease;
+}
+.d-leaf__photo {
+  object-fit: cover;
+  transform: rotate(calc(var(--turn, 0deg) * -1)) scale(1.45);
+  transform-origin: 46.4% 49.9%;
+}
+.d-leaf[data-active="car"] .d-leaf__win[data-key="car"],
+.d-leaf[data-active="home"] .d-leaf__win[data-key="home"],
+.d-leaf[data-active="boat"] .d-leaf__win[data-key="boat"] { opacity: 1; }
+
+/* no mouse: a slow sway instead of following the cursor */
+.d-hero__media:not(.is-following) .d-leaf { animation: d-sway 9s ease-in-out infinite; }
+@keyframes d-sway {
+  0%, 100% { transform: rotate(-2deg) translateY(0); }
+  50% { transform: rotate(2deg) translateY(-1.5%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .d-hero__media .d-leaf { animation: none; }
+  .d-leaf__win { transition: none; }
+}
+
+/* the tag for what's showing is filled in */
+.d-tag.is-active { background: var(--c5-green); border-color: var(--c5-green); color: var(--c5-white); }
+.d-tag.is-active .icon { background: var(--c5-gold); color: var(--c5-black); }
+
+/* little labels around the leaf, each a link */
+.d-tag {
+  position: absolute;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px 10px 10px;
+  border: 1px solid var(--c5-green-light);
+  border-radius: 999px;
+  background: var(--c5-white);
+  color: var(--c5-green);
+  font-family: var(--font-nav);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+.d-tag .icon {
+  width: 34px; height: 34px; padding: 7px;
+  border-radius: 50%;
+  background: var(--c5-green);
+  color: var(--c5-white);
+}
+.d-tag:hover { background: var(--c5-green); border-color: var(--c5-green); color: var(--c5-white); }
+.d-tag:hover .icon { background: var(--c5-gold); color: var(--c5-black); }
+.d-tag--car  { left: -2%;  top: 16%; }
+.d-tag--home { right: -2%; top: 8%; }
+.d-tag--boat { left: 4%;   bottom: 12%; }
+.d-tag--biz  { right: 0;   bottom: 22%; }
+
+@media (max-width: 960px) {
+  .d-hero__inner { grid-template-columns: minmax(0, 1fr); }
+  .d-hero__media { max-width: 520px; width: 92%; }
+}
+@media (max-width: 560px) {
+  .d-tag { font-size: 0.85rem; padding: 6px 12px 6px 6px; }
+  .d-tag .icon { width: 28px; height: 28px; padding: 6px; }
+}
+
+/* black hero */
+.d-hero { background: var(--c5-black); }
+.d-hero__eyebrow { color: var(--c5-white); }
+.d-hero__title { color: var(--c5-white); }
+.d-rotate { color: var(--c5-gold); }
+.d-hero__lede { color: var(--c5-white); }
+.d-btn--gold:hover { background: var(--c5-white); color: var(--c5-black); }
+.d-hero__call { color: var(--c5-white); }
+.d-hero__call .icon { border-color: var(--c5-gold); color: var(--c5-gold); }
+.d-hero__ring::before { border-color: var(--c5-green); }
+.d-tag { background: var(--c5-black); border-color: var(--c5-gold); color: var(--c5-white); }
+.d-tag .icon { background: var(--c5-gold); color: var(--c5-black); }
+.d-tag:hover,
+.d-tag.is-active { background: var(--c5-gold); border-color: var(--c5-gold); color: var(--c5-black); }
+.d-tag:hover .icon,
+.d-tag.is-active .icon { background: var(--c5-black); color: var(--c5-gold); }
+.d-hero :focus-visible { outline: 3px solid var(--c5-gold); outline-offset: 3px; }
+
+/* --- the mouse pointer is a small fig leaf; its tip is the click point --- */
+@media (hover: hover) and (pointer: fine) {
+  .d-hero {
+    cursor: url("../../concept-5/assets/leaf-cursor.png") 3 3, auto;
+    cursor: image-set(url("../../concept-5/assets/leaf-cursor.png") 1x, url("../../concept-5/assets/leaf-cursor@2x.png") 2x) 3 3, auto;
+  }
+  .d-hero a,
+  .d-hero button,
+  .d-hero [role="button"] {
+    cursor: url("../../concept-5/assets/leaf-cursor.png") 3 3, pointer;
+    cursor: image-set(url("../../concept-5/assets/leaf-cursor.png") 1x, url("../../concept-5/assets/leaf-cursor@2x.png") 2x) 3 3, pointer;
+  }
+  .d-hero input { cursor: text; }
+}

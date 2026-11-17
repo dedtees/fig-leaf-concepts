@@ -57,3 +57,7 @@ logo, `assets/figleaf-logo-full.png`.
 
 **All heroes together (`heroes/`).** One page that links every homepage hero idea, with a screenshot of each: concepts 5 and 6,
 the photo heroes A to D (`hero-concepts/`) and the six fig leaf pictures V1 to H3 (`hero-ideas/`).
+
+## Every hero on a full homepage (`homepages/`)
+
+`homepages/<code>/` puts each new hero on one of the current homepages, unchanged apart from the hero: homepage 1 (`concept-1`) carries hero 5 and V1 to V3, homepage 2 (`concept-2`) carries A to D, and homepage 3 (`concept-3`) carries hero 6 and H1 to H3. The pages link back to their homepage's folder and to the hero's own files, so nothing is copied. `homepages/build.py` builds them; re-run it after changing a homepage or a hero. `homepages/shared/homepages.css` holds the review bar for the set and gives the new heroes room under the see-through header on homepages 2 and 3. The heroes page (`heroes/`) links all twelve.
