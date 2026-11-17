@@ -1,6 +1,6 @@
 /* Archive E's hero on its own (built from archive-e/concept.css by
    homepages/build.py; edit that file, not this one). The black hero,
-   the leaf that points at the cursor and the leaf mouse pointer, here
+   and the leaf that points at the cursor, here
    kept to the hero so the rest of the homepage is unchanged. */
 
 :root {
@@ -266,18 +266,3 @@
 .d-tag:hover .icon,
 .d-tag.is-active .icon { background: var(--c5-black); color: var(--c5-gold); }
 .d-hero :focus-visible { outline: 3px solid var(--c5-gold); outline-offset: 3px; }
-
-/* --- the mouse pointer is a small fig leaf; its tip is the click point --- */
-@media (hover: hover) and (pointer: fine) {
-  .d-hero {
-    cursor: url("../../archive-e/assets/leaf-cursor.png") 3 3, auto;
-    cursor: image-set(url("../../archive-e/assets/leaf-cursor.png") 1x, url("../../archive-e/assets/leaf-cursor@2x.png") 2x) 3 3, auto;
-  }
-  .d-hero a,
-  .d-hero button,
-  .d-hero [role="button"] {
-    cursor: url("../../archive-e/assets/leaf-cursor.png") 3 3, pointer;
-    cursor: image-set(url("../../archive-e/assets/leaf-cursor.png") 1x, url("../../archive-e/assets/leaf-cursor@2x.png") 2x) 3 3, pointer;
-  }
-  .d-hero input { cursor: text; }
-}

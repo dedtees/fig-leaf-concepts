@@ -187,8 +187,9 @@
             <span class="scene-word is-active" data-scene="car">your <em>car.</em></span>
             <span class="scene-word" data-scene="home">your <em>home.</em></span>
             <span class="scene-word" data-scene="boat">your <em>boat.</em></span>
+            <span class="scene-word" data-scene="business">your <em>business.</em></span>
           </span>
-          <span class="visually-hidden">your car, your home and your boat.</span>
+          <span class="visually-hidden">your car, your home, your boat and your business.</span>
         </h1>
         <span class="hero__rule" aria-hidden="true"></span>
         <p class="hero__subhead">Your car, your home, your boat, your business. We find the right coverage at the best value, then walk you through every line of it, so nothing stays hidden.</p>
@@ -199,7 +200,7 @@
       </div>
 
       <!-- The picture: hover, tap or focus the car, home or boat (shared/hero-x.js) -->
-      <div class="scene hx hx--deck" data-hx role="group" aria-label="A car on a mountain road at sunset, a house lit up at dusk and a boat on the water at sunset">
+      <div class="scene hx hx--deck" data-hx role="group" aria-label="A car on a mountain road at sunset, a house lit up at dusk, a boat on the water at sunset and a shop on a town street">
           
           <div class="hx__item" data-scene="car" data-lx="17" data-ly="40">
             <img class="hx__img" src="../hero-concepts/shared/car.jpg" alt="" decoding="async">
@@ -237,7 +238,19 @@
             </div>
             <span class="hx__bar" aria-hidden="true"></span>
           </div>
-          <div class="hx__dots"><button class="hx__dot" type="button" tabindex="-1" aria-hidden="true">01</button><button class="hx__dot" type="button" tabindex="-1" aria-hidden="true">02</button><button class="hx__dot" type="button" tabindex="-1" aria-hidden="true">03</button></div>
+          <div class="hx__item" data-scene="business" data-lx="50" data-ly="40">
+            <img class="hx__img" src="../hero-concepts/shared/business.jpg" alt="" decoding="async">
+            <span class="hx__tag" aria-hidden="true"><span class="hx__num">04</span><span class="hx__label">Business</span></span>
+            <button class="hx__hit" type="button" aria-pressed="false" aria-controls="hx-business"><span class="visually-hidden">Business insurance</span></button>
+            <div class="hx__body" id="hx-business">
+              <span class="hx__num" aria-hidden="true">04</span>
+              <p class="hx__title">Business insurance</p>
+              <p class="hx__text">Liability, property, commercial auto and workers comp for local businesses.</p>
+              <a class="hx__link" href="https://figleafagency.com/business-insurance/">See business coverage <span aria-hidden="true">&rarr;</span></a>
+            </div>
+            <span class="hx__bar" aria-hidden="true"></span>
+          </div>
+          <div class="hx__dots"><button class="hx__dot" type="button" tabindex="-1" aria-hidden="true">01</button><button class="hx__dot" type="button" tabindex="-1" aria-hidden="true">02</button><button class="hx__dot" type="button" tabindex="-1" aria-hidden="true">03</button><button class="hx__dot" type="button" tabindex="-1" aria-hidden="true">04</button></div>
       </div>
     </section>
 
@@ -541,5 +554,5 @@
 
   <script src="../archive-b/home-sections.js"></script>
   <!-- Client review ticks: review round only (review/review.js) -->
-  <script src="/review/review.js" defer></script>
+  <script src="../../../../review/review.js" defer></script>
 </body></html>

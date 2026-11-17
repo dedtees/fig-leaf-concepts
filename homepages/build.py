@@ -177,19 +177,11 @@ def build_hero_css():
     hero = css5[css5.index('/* --- hero ----'):css5.index('/* --- homepage sections')]
     black = css5[css5.index('.d-hero { background: var(--c5-black); }'):]
     black = black[:black.index('\n', black.index('.d-hero :focus-visible')) + 1]
-    cursor = css5[css5.index('/* --- the mouse pointer'):]
-    cursor = (cursor.replace('body.c5 a,', '.d-hero a,')
-                    .replace('body.c5 button,', '.d-hero button,')
-                    .replace('  body.c5 summary,\n', '')
-                    .replace('  body.c5 label,\n', '')
-                    .replace('body.c5 [role="button"]', '.d-hero [role="button"]')
-                    .replace('body.c5 input,\n  body.c5 textarea', '.d-hero input')
-                    .replace('body.c5 {', '.d-hero {'))
     out = ('/* Archive E\'s hero on its own (built from archive-e/concept.css by\n'
            '   homepages/build.py; edit that file, not this one). The black hero,\n'
-           '   the leaf that points at the cursor and the leaf mouse pointer, here\n'
+           '   and the leaf that points at the cursor, here\n'
            '   kept to the hero so the rest of the homepage is unchanged. */\n\n'
-           + root + '\n\n' + hero + '/* black hero */\n' + black + '\n' + cursor)
+           + root + '\n\n' + hero + '/* black hero */\n' + black)
     write('homepages/shared/hero-5.css', rebase(out, 'archive-e', 'homepages/shared'))
 
     css6 = read('concept-1/concept.css')

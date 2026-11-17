@@ -1,8 +1,7 @@
 /* ==========================================================================
    Archive E · Daylight
    A black header and hero (the client's preference) with the agency's
-   studio fig leaf: its tip points at the cursor, and the mouse pointer
-   itself is a small fig leaf whose tip is the click point. Below the hero
+   studio fig leaf: its tip points at the cursor. Below the hero
    the page turns light, with the homepage sections in the rounded "bento"
    tile layout (hs--v5).
 
@@ -471,21 +470,3 @@ body.c5 { background: var(--c5-white); color: var(--c5-black); }
 .c5 .qp--v3 .qp-hero { background: var(--c5-black); }
 .c5 .qp--v3 .qp-form { box-shadow: inset 0 var(--qp-overlap) 0 0 var(--c5-black); }
 .c5 .qp--v3 .qp-step { background: var(--c5-black); border-color: var(--c5-green); }
-
-/* --- the mouse pointer is a small fig leaf; its tip is the click point --- */
-@media (hover: hover) and (pointer: fine) {
-  body.c5 {
-    cursor: url("assets/leaf-cursor.png") 3 3, auto;
-    cursor: image-set(url("assets/leaf-cursor.png") 1x, url("assets/leaf-cursor@2x.png") 2x) 3 3, auto;
-  }
-  body.c5 a,
-  body.c5 button,
-  body.c5 summary,
-  body.c5 label,
-  body.c5 [role="button"] {
-    cursor: url("assets/leaf-cursor.png") 3 3, pointer;
-    cursor: image-set(url("assets/leaf-cursor.png") 1x, url("assets/leaf-cursor@2x.png") 2x) 3 3, pointer;
-  }
-  body.c5 input,
-  body.c5 textarea { cursor: text; }
-}
