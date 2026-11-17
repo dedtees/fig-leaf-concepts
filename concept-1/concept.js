@@ -1,90 +1,102 @@
-// Concept 1 hero.
-// 1. The last word of the headline steps through car, home, boat and
-//    business, and the leaf shows the matching photo cut to its shape
-//    Pointing at a label jumps to it.
-// 2. With a mouse, the leaf turns so its tip points at the cursor wherever
-//    it is on the page. Without one, it sways on its own (CSS).
-// Reduced motion: no stepping, no following; the car photo stays.
+// Concept 1 hero: a slideshow inside the big Fig Leaf.
+// Photos slide through the leaf every few seconds; the last word of the
+// headline (car, home, boat) changes to match. Arrows, dots, swipe and the arrow keys (when the slideshow has
+// focus) move it by hand; pointing at the leaf or the pause button stops
+// it. With reduced motion it doesn't advance on its own.
 (function () {
   'use strict';
-  var media = document.querySelector('.d-hero__media');
-  var leaf = document.querySelector('.d-leaf');
-  var words = Array.prototype.slice.call(document.querySelectorAll('.d-rotate__word'));
-  var tags = Array.prototype.slice.call(document.querySelectorAll('.d-tag[data-key]'));
-  if (!media || !leaf || !words.length) return;
+  var show = document.querySelector('.l-show');
+  if (!show) return;
+  var slides = Array.prototype.slice.call(show.querySelectorAll('.l-slide'));
+  var dots = Array.prototype.slice.call(show.querySelectorAll('.l-dot'));
+  var words = Array.prototype.slice.call(document.querySelectorAll('.l-rotate__word'));
+  var pauseBtn = show.querySelector('.l-pause');
+  var n = slides.length;
+  if (n < 2) return;
 
+  var STEP_MS = 4500;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  var STEP_MS = 3000, RESUME_MS = 2500;
+  var i = 0, timer = null, paused = reduce, hovering = false;
 
-  // ---- stepping through car, home, boat, business ------------------------
-  var i = 0, timer = null, resumeTimer = null;
-  function show(key) {
-    var next = -1;
-    words.forEach(function (w, k) { if (w.dataset.key === key) next = k; });
-    if (next < 0) return;
-    if (next !== i) {
-      var old = words[i];
+  function go(next) {
+    var prev = i;
+    i = (next + n) % n;
+    slides.forEach(function (s, k) {
+      s.style.setProperty('--i', i);
+      s.classList.toggle('is-active', k === i);
+      s.setAttribute('aria-hidden', k === i ? 'false' : 'true');
+    });
+    dots.forEach(function (d, k) {
+      d.classList.toggle('is-active', k === i);
+      if (k === i) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current');
+    });
+    fit();
+    if (prev !== i && words[prev] && words[i]) {
+      var old = words[prev];
       old.classList.remove('is-active');
       old.classList.add('is-leaving');
       setTimeout(function () { old.classList.remove('is-leaving'); }, 600);
-      words[next].classList.add('is-active');
-      i = next;
+      words[i].classList.remove('is-leaving');
+      words[i].classList.add('is-active');
     }
-    fit();
-    leaf.dataset.active = key;
-    tags.forEach(function (t) { t.classList.toggle('is-active', t.dataset.key === key); });
   }
-  // the underline is as long as the word showing (in em, so it scales)
-  var slot = words[0].parentNode;
+  // the underline under the changing word is as long as the word showing
+  // (in em, so it scales with the headline)
   function fit() {
-    var w = words[i], fs = parseFloat(getComputedStyle(w).fontSize);
-    if (fs) slot.style.setProperty('--uw', (w.offsetWidth / fs).toFixed(3));
+    var w = words[i]; if (!w) return;
+    var fs = parseFloat(getComputedStyle(w).fontSize);
+    if (fs) w.parentNode.style.setProperty('--uw', (w.offsetWidth / fs).toFixed(3));
   }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
-  function start() {
-    if (reduce || timer) return;
-    timer = setInterval(function () { show(words[(i + 1) % words.length].dataset.key); }, STEP_MS);
+  function tick() { go(i + 1); }
+  function restart() {
+    clearInterval(timer); timer = null;
+    if (!paused && !hovering) timer = setInterval(tick, STEP_MS);
   }
-  function stop() { clearInterval(timer); timer = null; }
-  show(words[0].dataset.key);
-  start();
 
-  tags.forEach(function (t) {
-    function enter() { clearTimeout(resumeTimer); stop(); show(t.dataset.key); }
-    function leave() { clearTimeout(resumeTimer); resumeTimer = setTimeout(start, RESUME_MS); }
-    t.addEventListener('mouseenter', enter);
-    t.addEventListener('focus', enter);
-    t.addEventListener('mouseleave', leave);
-    t.addEventListener('blur', leave);
+  show.querySelector('.l-arrow--prev').addEventListener('click', function () { go(i - 1); restart(); });
+  show.querySelector('.l-arrow:not(.l-arrow--prev)').addEventListener('click', function () { go(i + 1); restart(); });
+  dots.forEach(function (d) {
+    d.addEventListener('click', function () { go(+d.dataset.go); restart(); });
+  });
+  if (pauseBtn) {
+    if (reduce) { pauseBtn.setAttribute('aria-pressed', 'true'); pauseBtn.setAttribute('aria-label', 'Play the slideshow'); }
+    pauseBtn.addEventListener('click', function () {
+      paused = !paused;
+      pauseBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+      pauseBtn.setAttribute('aria-label', paused ? 'Play the slideshow' : 'Pause the slideshow');
+      restart();
+    });
+  }
+
+  var leaf = show.querySelector('.l-leaf');
+  leaf.addEventListener('mouseenter', function () { hovering = true; restart(); });
+  leaf.addEventListener('mouseleave', function () { hovering = false; restart(); });
+
+  show.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      e.preventDefault();   // keep the page's concept switcher from firing
+      e.stopPropagation();
+      go(i + (e.key === 'ArrowRight' ? 1 : -1));
+      restart();
+    }
   });
 
-  // ---- the leaf's tip points at the cursor ---------------------------------
-  if (reduce || !fine) return;
-  media.classList.add('is-following');
-  // Where the tip is at rest, measured from the point the leaf turns
-  // around (its centre of mass, the transform-origin in concept.css):
-  // down and to the right, 58.35 degrees clockwise from pointing right.
-  var PIVOT_X = 0.464, PIVOT_Y = 0.499, TIP_ANGLE = 58.35;
-  var target = 0, cur = 0, raf = null;
+  // swipe on touch screens
+  var x0 = null;
+  leaf.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  leaf.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) { go(i + (dx < 0 ? 1 : -1)); restart(); }
+    x0 = null;
+  });
 
-  function wrap(a) { return ((a + 540) % 360) - 180; }
+  // stop stepping while the hero is off screen or the tab is hidden
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { clearInterval(timer); timer = null; } else restart();
+  });
 
-  window.addEventListener('mousemove', function (e) {
-    var r = media.getBoundingClientRect();
-    // the leaf box is inset 4% inside the media box
-    var px = r.left + r.width * (0.04 + 0.92 * PIVOT_X);
-    var py = r.top + r.height * (0.04 + 0.92 * PIVOT_Y);
-    var ang = Math.atan2(e.clientY - py, e.clientX - px) * 180 / Math.PI;
-    // keep turning the short way round, so it never spins back the long way
-    target = cur + wrap(ang - TIP_ANGLE - cur);
-    if (!raf) raf = requestAnimationFrame(tick);
-  }, { passive: true });
-
-  function tick() {
-    raf = null;
-    cur += (target - cur) * 0.12;
-    leaf.style.setProperty('--turn', cur.toFixed(2) + 'deg');
-    if (Math.abs(target - cur) > 0.05) raf = requestAnimationFrame(tick);
-  }
+  go(0);
+  restart();
 })();

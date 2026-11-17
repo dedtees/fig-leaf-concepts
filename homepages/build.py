@@ -1,13 +1,13 @@
-"""Builds concept-3 to concept-11: every new hero on a full homepage.
+"""Builds concept-2 to concept-10: every new hero on a full homepage.
 
-Each page (concepts 3 to 11) is one of the archived homepages (archive A, B
+Each page (concepts 2 to 10) is one of the archived homepages (archive A, B
 or C) exactly as it is, header, colours, sections and footer, with only the
 hero <section> swapped for one of the new hero concepts. Nothing is copied:
 the page links back to its homepage's folder for CSS, scripts and images,
 and to the hero's own folder for the hero's pictures, CSS and script. Each
 also gets its own copy of the quote and Homeowners pages.
 
-It also keeps the review bar on concepts 1 and 2 listing 1 to 11, and the
+It also keeps the review bar on concepts 1 and 2 listing 1 to 10, and the
 bar on archives A to D listing the archive.
 
 Re-run after changing a homepage or a hero:  python3 homepages/build.py
@@ -26,33 +26,33 @@ CONCEPTS = [
     ('B', 'archive-b', 'Stacked leaves, transparent header'),
     ('C', 'archive-c', 'Horizontal leaves, archive A reviews'),
     ('D', 'archive-d', 'Fig leaf photo gallery'),
-    (1, 'concept-1', 'Daylight: black hero, pointing fig leaf'),
-    (2, 'concept-2', 'Leaf slideshow: photos slide inside a big fig leaf'),
+    ('E', 'archive-e', 'Daylight: black hero, pointing fig leaf'),
+    (1, 'concept-1', 'Leaf slideshow: photos slide inside a big fig leaf'),
 ]
 
-# The hero homepages carry on the numbering from 3, grouped by homepage:
+# The hero homepages carry on the numbering from 2, grouped by homepage:
 # (concept number, homepage, page the hero comes from, name,
 #  extra CSS (repo paths), where it goes, hero script(s) in place of scene.js)
 X_CSS = ['hero-concepts/shared/hero-x.css']
 X_JS = ['hero-concepts/shared/hero-x.js']
 HEROES = [
-    (3, 'archive-a', 'concept-1/index.html', "concept 1's pointing fig leaf hero",
-     ['homepages/shared/hero-5.css'], 'last', ['concept-1/concept.js']),
-    (4, 'archive-a', 'hero-ideas/v1/index.html', 'photos on real fig leaves, stacked (V1)',
+    (2, 'archive-a', 'archive-e/index.html', "archive E's pointing fig leaf hero",
+     ['homepages/shared/hero-5.css'], 'last', ['archive-e/concept.js']),
+    (3, 'archive-a', 'hero-ideas/v1/index.html', 'photos on real fig leaves, stacked (V1)',
      [], None, None),
-    (5, 'archive-a', 'hero-ideas/v3/index.html', 'logo leaf window, three bands (V3)',
+    (4, 'archive-a', 'hero-ideas/v3/index.html', 'logo leaf window, three bands (V3)',
      [], None, None),
-    (6, 'archive-b', 'hero-concepts/a/index.html', 'opening photo panels (A)',
+    (5, 'archive-b', 'hero-concepts/a/index.html', 'opening photo panels (A)',
      X_CSS, 'after-styles', X_JS),
-    (7, 'archive-b', 'hero-concepts/b/index.html', 'stacked photo bands (B)',
+    (6, 'archive-b', 'hero-concepts/b/index.html', 'stacked photo bands (B)',
      X_CSS, 'after-styles', X_JS),
-    (8, 'archive-b', 'hero-concepts/c/index.html', 'uncover lens (C)',
+    (7, 'archive-b', 'hero-concepts/c/index.html', 'uncover lens (C)',
      X_CSS, 'after-styles', X_JS),
-    (9, 'archive-b', 'hero-concepts/d/index.html', 'card deck (D)',
+    (8, 'archive-b', 'hero-concepts/d/index.html', 'card deck (D)',
      X_CSS, 'after-styles', X_JS),
-    (10, 'archive-c', 'concept-2/index.html', "concept 2's leaf slideshow hero",
-     ['homepages/shared/hero-6.css'], 'last', ['concept-2/concept.js']),
-    (11, 'archive-c', 'hero-ideas/h1/index.html', 'photos on real fig leaves, in a row (H1)',
+    (9, 'archive-c', 'concept-1/index.html', "concept 1's leaf slideshow hero",
+     ['homepages/shared/hero-6.css'], 'last', ['concept-1/concept.js']),
+    (10, 'archive-c', 'hero-ideas/h1/index.html', 'photos on real fig leaves, in a row (H1)',
      [], None, None),
 ]
 
@@ -113,8 +113,8 @@ def rel(url, src_dir, out_dir):
     return out + sep + tail
 
 
-# Concepts 3 to 11 get their own copies of these pages, so a visitor who
-# clicks through from concept 3 stays in concept 3.
+# Concepts 2 to 10 get their own copies of these pages, so a visitor who
+# clicks through from concept 2 stays in concept 2.
 SUBPAGES = ('crq', 'crq-form', 'homeowners-insurance')
 KEEP_IN = None   # while building concept n: 'concept-<n>'
 
@@ -168,10 +168,10 @@ def hero_section(html):
     raise ValueError('no closing </section>')
 
 
-# --- hero-only stylesheets for concepts 1 and 2 (files keep their old names) ---------------------------
+# --- hero-only stylesheets for archive E and concept 1 (files keep their old names) ---------------------------
 
 def build_hero_css():
-    css5 = read('concept-1/concept.css')
+    css5 = read('archive-e/concept.css')
     root = css5[css5.index(':root {'):css5.index('}', css5.index(':root {')) + 1]
     hero = css5[css5.index('/* --- hero ----'):css5.index('/* --- homepage sections')]
     black = css5[css5.index('.d-hero { background: var(--c5-black); }'):]
@@ -184,24 +184,24 @@ def build_hero_css():
                     .replace('body.c5 [role="button"]', '.d-hero [role="button"]')
                     .replace('body.c5 input,\n  body.c5 textarea', '.d-hero input')
                     .replace('body.c5 {', '.d-hero {'))
-    out = ('/* Concept 1\'s hero on its own (built from concept-1/concept.css by\n'
+    out = ('/* Archive E\'s hero on its own (built from archive-e/concept.css by\n'
            '   homepages/build.py; edit that file, not this one). The black hero,\n'
            '   the leaf that points at the cursor and the leaf mouse pointer, here\n'
            '   kept to the hero so the rest of the homepage is unchanged. */\n\n'
            + root + '\n\n' + hero + '/* black hero */\n' + black + '\n' + cursor)
-    write('homepages/shared/hero-5.css', rebase(out, 'concept-1', 'homepages/shared'))
+    write('homepages/shared/hero-5.css', rebase(out, 'archive-e', 'homepages/shared'))
 
-    css6 = read('concept-2/concept.css')
-    out = ('/* Concept 2\'s hero (built from concept-2/concept.css by\n'
+    css6 = read('concept-1/concept.css')
+    out = ('/* Concept 1\'s hero (built from concept-1/concept.css by\n'
            '   homepages/build.py; edit that file, not this one). */\n\n' + css6)
-    write('homepages/shared/hero-6.css', rebase(out, 'concept-2', 'homepages/shared'))
+    write('homepages/shared/hero-6.css', rebase(out, 'concept-1', 'homepages/shared'))
 
 
 # --- one page per hero -----------------------------------------------------
 
 def review_bar(n, out_dir):
-    """The review bar for page n: the main run (1 to 11), or for an archived
-    page, the archive (A to D)."""
+    """The review bar for page n: the main run (1 to 10), or for an archived
+    page, the archive (A to E)."""
     seq = sequence(n)
     keys = [c for c, _ in seq]
     i = keys.index(n)
@@ -230,7 +230,7 @@ def review_bar(n, out_dir):
 
 
 def update_concept_bars():
-    """Concepts 1 and 2 list 1 to 12, and archives A to D list the archive."""
+    """Concept 1 lists 1 to 10, and archives A to D list the archive."""
     for key, path, _name in CONCEPTS:
         page = read(f'{path}/index.html')
         rb = re.search(r'<nav class="review-bar".*?</nav>', page, re.S)
@@ -303,7 +303,7 @@ def build_page(n, home, src, name, css, css_pos, js):
 # --- changes for one concept only ------------------------------------------
 
 def business_card(page, out_dir):
-    """Concept 3: a Business insurance card first under "More Ways We
+    """Concept 2: a Business insurance card first under "More Ways We
     Protect You", with the cards three across."""
     img = posixpath.relpath('homepages/shared/assets/business-insurance.jpg', out_dir)
     card = (
@@ -323,7 +323,7 @@ def business_card(page, out_dir):
     return page
 
 
-EXTRAS = {3: business_card}
+EXTRAS = {2: business_card}
 
 
 def build_subpages(n, home):
