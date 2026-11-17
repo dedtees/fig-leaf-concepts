@@ -244,15 +244,46 @@
 
   // Keep a tick clear of anything drawn over its section, such as a header
   // that sits on top of the hero: move it down until nothing covers it.
+  // The header's tick goes in its top-right corner, at the first height where
+  // it touches none of the header's links, buttons, logo or text.
+  function placeHeader(el, box) {
+    box.style.top = '';
+    var er = el.getBoundingClientRect();
+    var bh = box.offsetHeight, bw = box.offsetWidth;
+    if (!bw) return;
+    var right = er.right - 20, left = right - bw;
+    var items = [].slice.call(el.querySelectorAll('a, button, img, svg, input, select, p, span, li'))
+      .filter(function (n) {
+        if (box.contains(n)) return false;
+        if (/^(P|SPAN|LI)$/.test(n.tagName) && !n.textContent.trim()) return false;
+        for (var a = n; a && a !== el; a = a.parentElement) {
+          var cs = getComputedStyle(a);
+          if (cs.display === 'none' || cs.visibility === 'hidden' || cs.opacity === '0') return false;
+        }
+        var r = n.getBoundingClientRect();
+        return r.width > 0 && r.height > 0;
+      })
+      .map(function (n) { return n.getBoundingClientRect(); });
+    for (var y = 8; y + bh <= er.height - 4; y += 2) {
+      var top = er.top + y, bottom = top + bh;
+      var clash = items.some(function (r) {
+        return r.left < right + 8 && r.right > left - 8 && r.top < bottom + 4 && r.bottom > top - 4;
+      });
+      if (!clash) { box.style.top = y + 'px'; return; }
+    }
+    // no free spot inside: hang it just under the header's bottom edge
+    box.style.top = (er.height - bh / 2) + 'px';
+  }
+
   function place(el, box) {
-    if (box.classList.contains('flr-tick--header')) return;
+    if (box.classList.contains('flr-tick--header')) return placeHeader(el, box);
     box.style.top = '';
     var r = box.getBoundingClientRect();
     if (!r.width) return;
     var er = el.getBoundingClientRect();
     var shift = 0;
     // a header or the concept bar drawn over the top of this section
-    document.querySelectorAll('.site-header, .review-bar').forEach(function (c) {
+    document.querySelectorAll('.site-header, .review-bar, .flr-tick--header').forEach(function (c) {
       if (el.contains(c) || c.contains(el)) return;
       var cr = c.getBoundingClientRect();
       if (cr.bottom > r.top + shift && cr.top < r.bottom + shift && cr.left < r.right && cr.right > r.left) {
@@ -434,7 +465,7 @@
     findSections().forEach(function (el, i) { ticks.push(build(el, i, used)); });
     buildPanel();
     refreshPanel();
-    function placeAll() { ticks.forEach(function (t) { t.place(); }); }
+    function placeAll() { ticks.forEach(function (t) { t.place(); }); ticks.forEach(function (t) { t.place(); }); }
     var pt;
     function placeSoon() { clearTimeout(pt); pt = setTimeout(placeAll, 150); }
     window.addEventListener('load', placeSoon);

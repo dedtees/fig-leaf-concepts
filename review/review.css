@@ -43,8 +43,7 @@ html.flr-hidden .flr-tick { display: none; }
   transition: opacity 0.15s;
 }
 .flr-tick:hover, .flr-tick:focus-within, .flr-tick.is-set { opacity: 1; }
-.flr-ui.flr-tick--header { top: auto; right: auto; left: 20px; bottom: -16px; }
-.flr-tick--header .flr-note { right: auto; left: 0; }
+.flr-ui.flr-tick--header { top: 8px; right: 20px; left: auto; bottom: auto; }
 
 .flr-btn {
   all: unset;
