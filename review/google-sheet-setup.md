@@ -19,21 +19,30 @@ button in the bottom-right corner lists all the picks across every concept, with
 **Send my feedback** opens an email with the summary already written. To fill in
 the To line, put the address in `EMAIL` at the top of `review/review.js`.
 
-## Live collection in a Google Sheet (optional, about 5 minutes)
+## Live collection in a Google Sheet
 
-Every tick then lands in a sheet as it's made, one row per reviewer, page and
-section, so you can watch the review happen and filter by concept.
+The sheet is "Fig Leaf concept review (client picks)" in Eric's Google Drive.
+`review/google-apps-script.gs` keeps four tabs up to date after every tick:
 
-1. Create a new Google Sheet, for example "Fig Leaf concept review".
-2. **Extensions → Apps Script**. Delete what's there, paste in the whole of
-   `review/google-apps-script.gs`, and save.
-3. **Deploy → New deployment**. Type: **Web app**. Execute as: **Me**.
-   Who has access: **Anyone**. Press **Deploy** and allow the permissions
-   (Google warns that the app is unverified, because it's your own script:
-   Advanced → Go to project).
-4. Copy the **Web app URL** (it ends in `/exec`).
-5. Paste it into `ENDPOINT` at the top of `review/review.js` (or send it to
-   Claude to do it), and push.
+- **Overview**: a scoreboard per concept (likes, don't likes, score, comments,
+  best liked sections), then a grid of every section (rows, grouped by page) by
+  concept (columns). Green ✓, red ✕, amber when reviewers disagree. A corner
+  mark on a cell means it has comments: hover to read them.
+- **By concept**: choose a concept in the dropdown to list just its picks.
+- **Comments**: every written comment, in concept and page order.
+- **All picks**: the raw list, one row per reviewer and section. Changing a tick
+  updates its row and taking it back removes the row, so there are no duplicates.
 
-The sheet gets a **Picks** tab with Reviewer, Concept, Page, Section, Verdict,
-Comment and Link columns. Taking a tick back clears that row's verdict.
+Installing it (once):
+
+1. Open the sheet, then **Extensions → Apps Script**. Delete what's there, paste
+   in the whole of `review/google-apps-script.gs`, and save.
+2. **Deploy → New deployment**, type **Web app**, Execute as **Me**, Who has
+   access **Anyone**. Press **Deploy** and allow the permissions (Google warns the
+   app is unverified because it's your own script: Advanced → Go to project).
+3. Copy the **Web app URL** (ends in `/exec`) into `ENDPOINT` at the top of
+   `review/review.js` and push.
+
+Optional: in the Apps Script editor, run `addSampleData` once to see the layout
+with three sample picks, then delete those rows from All picks and choose
+**Review → Rebuild the overview**.

@@ -130,6 +130,7 @@
       verdict: p.verdict === 'like' ? 'Like' : p.verdict === 'dislike' ? "Don't like" : '',
       comment: p.note || '',
       url: p.url,
+      order: p.order || 0,
       key: key,
       at: p.at
     };
@@ -149,8 +150,10 @@
     pending[key] = true;
     clearTimeout(timer);
     timer = setTimeout(function () {
-      var rows = Object.keys(pending).map(function (k) { return rowFor(k, state.picks[k] || {}); })
-        .filter(function (r) { return r.concept; });
+      // a pick that was taken back is sent as a delete, so its row goes too
+      var rows = Object.keys(pending).map(function (k) {
+        return state.picks[k] ? rowFor(k, state.picks[k]) : { reviewerId: state.rid, key: k, deleted: true };
+      });
       pending = {};
       post(rows);
     }, 800);
