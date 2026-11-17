@@ -1,10 +1,12 @@
-"""Builds homepages/<hero>/index.html: every new hero on a full homepage.
+"""Builds concept-7 to concept-18: every new hero on a full homepage.
 
-Each page is one of the current homepages (concept 1, 2 or 3) exactly as it
+Each page (concepts 7 to 18) is one of the current homepages (concept 1, 2 or 3) exactly as it
 is, header, colours, sections and footer, with only the hero <section>
 swapped for one of the new hero concepts. Nothing is copied: the page links
 back to its homepage's folder for CSS, scripts, images and inner pages, and
 to the hero's own folder for the hero's pictures, CSS and script.
+
+It also keeps the concepts review bar on concepts 1 to 6 listing 1 to 18.
 
 Re-run after changing a homepage or a hero:  python3 homepages/build.py
 """
@@ -15,42 +17,57 @@ import re
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 
-HOMEPAGE_NAMES = {
-    'concept-1': 'Homepage 1',
-    'concept-2': 'Homepage 2',
-    'concept-3': 'Homepage 3',
-}
+# The concepts that already have their own folder, for the review bar.
+CONCEPTS = [
+    (1, 'Stacked leaves, dark header'),
+    (2, 'Stacked leaves, transparent header'),
+    (3, 'Horizontal leaves, concept 1 reviews'),
+    (4, 'Fig leaf photo gallery'),
+    (5, 'Daylight: black hero, pointing fig leaf'),
+    (6, 'Leaf slideshow: photos slide inside a big fig leaf'),
+]
 
-# (code, homepage, page the hero comes from, hero name,
+# The hero homepages carry on the numbering from 7, grouped by homepage:
+# (concept number, homepage, page the hero comes from, name,
 #  extra CSS (repo paths), where it goes, hero script(s) in place of scene.js)
 X_CSS = ['hero-concepts/shared/hero-x.css']
 X_JS = ['hero-concepts/shared/hero-x.js']
 HEROES = [
-    ('5', 'concept-1', 'concept-5/index.html', 'Pointing fig leaf, black hero',
+    (7, 'concept-1', 'concept-5/index.html', "concept 5's pointing fig leaf hero",
      ['homepages/shared/hero-5.css'], 'last', ['concept-5/concept.js']),
-    ('6', 'concept-3', 'concept-6/index.html', 'Leaf slideshow',
+    (8, 'concept-1', 'hero-ideas/v1/index.html', 'photos on real fig leaves, stacked (V1)',
+     [], None, None),
+    (9, 'concept-1', 'hero-ideas/v2/index.html', 'photo panels on a fig leaf (V2)',
+     [], None, None),
+    (10, 'concept-1', 'hero-ideas/v3/index.html', 'logo leaf window, three bands (V3)',
+     [], None, None),
+    (11, 'concept-2', 'hero-concepts/a/index.html', 'opening photo panels (A)',
+     X_CSS, 'after-styles', X_JS),
+    (12, 'concept-2', 'hero-concepts/b/index.html', 'stacked photo bands (B)',
+     X_CSS, 'after-styles', X_JS),
+    (13, 'concept-2', 'hero-concepts/c/index.html', 'uncover lens (C)',
+     X_CSS, 'after-styles', X_JS),
+    (14, 'concept-2', 'hero-concepts/d/index.html', 'card deck (D)',
+     X_CSS, 'after-styles', X_JS),
+    (15, 'concept-3', 'concept-6/index.html', "concept 6's leaf slideshow hero",
      ['homepages/shared/hero-6.css'], 'last', ['concept-6/concept.js']),
-    ('a', 'concept-2', 'hero-concepts/a/index.html', 'Opening photo panels',
-     X_CSS, 'after-styles', X_JS),
-    ('b', 'concept-2', 'hero-concepts/b/index.html', 'Stacked photo bands',
-     X_CSS, 'after-styles', X_JS),
-    ('c', 'concept-2', 'hero-concepts/c/index.html', 'Uncover lens',
-     X_CSS, 'after-styles', X_JS),
-    ('d', 'concept-2', 'hero-concepts/d/index.html', 'Card deck',
-     X_CSS, 'after-styles', X_JS),
-    ('v1', 'concept-1', 'hero-ideas/v1/index.html', 'Photos on real fig leaves, stacked',
+    (16, 'concept-3', 'hero-ideas/h1/index.html', 'photos on real fig leaves, in a row (H1)',
      [], None, None),
-    ('v2', 'concept-1', 'hero-ideas/v2/index.html', 'Photo panels on a fig leaf',
+    (17, 'concept-3', 'hero-ideas/h2/index.html', 'arched photos on a fig leaf (H2)',
      [], None, None),
-    ('v3', 'concept-1', 'hero-ideas/v3/index.html', 'Logo leaf window, three bands',
-     [], None, None),
-    ('h1', 'concept-3', 'hero-ideas/h1/index.html', 'Photos on real fig leaves, in a row',
-     [], None, None),
-    ('h2', 'concept-3', 'hero-ideas/h2/index.html', 'Arched photos on a fig leaf',
-     [], None, None),
-    ('h3', 'concept-3', 'hero-ideas/h3/index.html', 'Panorama between two leaves',
+    (18, 'concept-3', 'hero-ideas/h3/index.html', 'panorama between two leaves (H3)',
      [], None, None),
 ]
+
+
+def hero_title(n, home, name):
+    """Concept 7: 'Concept 1 homepage, concept 5's pointing fig leaf hero'."""
+    return f'Concept {home.split("-")[1]} homepage, {name[0].lower() + name[1:]}'
+
+
+def all_concepts():
+    return CONCEPTS + [(n, hero_title(n, home, name)) for n, home, _s, name, *_ in HEROES]
+
 
 SKIP = ('#', 'http:', 'https:', '//', 'tel:', 'mailto:', 'data:', 'javascript:')
 
@@ -151,37 +168,42 @@ def build_hero_css():
 
 # --- one page per hero -----------------------------------------------------
 
-def review_bar(code, current_out):
-    names = []
-    for c, home, _src, name, *_ in HEROES:
-        names.append((c, home, name))
-    i = [c for c, *_ in names].index(code)
-    prev_c, next_c = names[i - 1][0], names[(i + 1) % len(names)][0]
-    home = names[i][1]
-    label = f'Hero {code.upper()}'
-    title = f'{names[i][2]}, on {HOMEPAGE_NAMES[home].lower()}'
+def review_bar(n, out_dir):
+    """The concepts review bar, 1 to 18, for the homepage of concept n."""
+    seq = all_concepts()
+    nums = [c for c, _ in seq]
+    i = nums.index(n)
+    href = lambda c: posixpath.relpath(f'concept-{c}/', out_dir) + '/'
     items = []
-    for c, h, n in names:
-        cur = ' aria-current="page"' if c == code else ''
-        data = f'{n}, on {HOMEPAGE_NAMES[h].lower()}'
-        items.append(f'<li><a class="review-bar__link" href="../{c}/" data-name="{data}"{cur}>'
-                     f'<span class="visually-hidden">Hero </span>{c.upper()}'
-                     f'<span class="visually-hidden">: {data}</span></a></li>')
-    return (f'<nav class="review-bar" aria-label="Hero concepts on full homepages">\n'
-            f'    <p class="review-bar__title"><span class="review-bar__label">{label}</span> '
-            f'<span class="review-bar__name">{title}</span></p>\n'
+    for c, name in seq:
+        cur = ' aria-current="page"' if c == n else ''
+        items.append(f'<li><a class="review-bar__link" href="{href(c)}" data-name="{name}"{cur}>'
+                     f'<span class="visually-hidden">Concept </span>{c}'
+                     f'<span class="visually-hidden">: {name}</span></a></li>')
+    return (f'<nav class="review-bar" aria-label="Concepts">\n'
+            f'    <p class="review-bar__title"><span class="review-bar__label">Concept {n}</span> '
+            f'<span class="review-bar__name">{seq[i][1]}</span></p>\n'
             f'    <div class="review-bar__controls">\n'
-            f'      <ul class="review-bar__list review-bar__list--codes">\n        '
+            f'      <ul class="review-bar__list review-bar__list--long">\n        '
             + '\n        '.join(items) + '</ul>\n'
-            f'      <a class="review-bar__step review-bar__step--prev" href="../{prev_c}/" rel="prev" aria-label="Previous hero">'
+            f'      <a class="review-bar__step review-bar__step--prev" href="{href(nums[i - 1])}" rel="prev" aria-label="Previous concept">'
             f'<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>\n'
-            f'      <a class="review-bar__step" href="../{next_c}/" rel="next" aria-label="Next hero">'
+            f'      <a class="review-bar__step" href="{href(nums[(i + 1) % len(nums)])}" rel="next" aria-label="Next concept">'
             f'<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>\n'
             f'    </div>\n  </nav>')
 
 
-def build_page(code, home, src, name, css, css_pos, js):
-    out_dir = f'homepages/{code}'
+def update_concept_bars():
+    """Concepts 1 to 6 list 7 to 18 too, so the arrows run through all of them."""
+    for n, _name in CONCEPTS:
+        path = f'concept-{n}/index.html'
+        page = read(path)
+        rb = re.search(r'<nav class="review-bar".*?</nav>', page, re.S)
+        write(path, page[:rb.start()] + review_bar(n, f'concept-{n}') + page[rb.end():])
+
+
+def build_page(n, home, src, name, css, css_pos, js):
+    out_dir = f'concept-{n}'
     page = read(f'{home}/index.html')
     hero_src = read(src)
     src_dir = posixpath.dirname(src)
@@ -204,15 +226,13 @@ def build_page(code, home, src, name, css, css_pos, js):
     # 3. the review bar steps through the heroes instead of the concepts
     rb = re.search(r'<nav class="review-bar".*?</nav>', page, re.S)
     page = page[:rb.start()] + '<!--REVIEW-BAR-->' + page[rb.end():]
-    page = re.sub(r'<title>[^<]*</title>',
-                  f'<title>Hero {code.upper()} on {HOMEPAGE_NAMES[home].lower()} · The Fig Leaf Agency</title>',
-                  page, count=1)
+    page = re.sub(r'<title>Concept \d+ ·', f'<title>Concept {n} ·', page, count=1)
     if 'name="robots"' not in page:
         page = page.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n  <meta name="robots" content="noindex">', 1)
 
-    # 4. everything now points from homepages/<code>/ back to the homepage folder
+    # 4. everything now points from concept-<n>/ back to the homepage folder
     page = rebase(page, home, out_dir)
-    page = page.replace('<!--REVIEW-BAR-->', review_bar(code, out_dir))
+    page = page.replace('<!--REVIEW-BAR-->', review_bar(n, out_dir))
 
     # 5. the hero's stylesheet and script
     links = ''.join(f'\n  <link rel="stylesheet" href="{posixpath.relpath(c, out_dir)}">' for c in css)
@@ -229,7 +249,7 @@ def build_page(code, home, src, name, css, css_pos, js):
         page = re.sub(r'<script src="[^"]*/scene\.js"></script>', tags, page, count=1)
 
     page = page.replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- Built by homepages/build.py: '
-                        f'{HOMEPAGE_NAMES[home].lower()} ({home}) with hero {code.upper()} from {src}. '
+                        f'concept {n}: {home} homepage with the hero from {src}. '
                         'Edit those, then re-run the script. -->', 1)
     write(f'{out_dir}/index.html', page)
 
@@ -238,6 +258,7 @@ def main():
     build_hero_css()
     for h in HEROES:
         build_page(*h)
+    update_concept_bars()
     print('built', len(HEROES), 'pages')
 
 

@@ -1438,3 +1438,11 @@ html[data-header] .site-nav__sub-toggle:hover { color: #fff; }
   .site-nav__sub a { padding: 10px 12px; font-size: 15px; white-space: normal; }
   html[data-header] .site-nav__item { border-bottom-color: rgba(255, 255, 255, 0.08); }
 }
+
+/* The concepts list runs 1 to 18: on phones it doesn't fit, so the bar
+   shows the concept's name and the arrows instead. */
+@media (max-width: 760px) {
+  .review-bar:has(.review-bar__list--long) { justify-content: space-between; }
+  .review-bar:has(.review-bar__list--long) .review-bar__title { display: block; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .review-bar__list--long { display: none; }
+}

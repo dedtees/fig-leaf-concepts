@@ -26,7 +26,7 @@ each `concept-N/` folder is one page:
 - `hero-ideas/`: six replacement hero pictures with the same interactive hero, three vertical (`v1`–`v3`, on Concept 1)
   and three horizontal (`h1`–`h3`, on Concept 3). `hero-ideas/index.html` shows them side by side; each page reuses its
   concept's CSS, scripts and inner pages and only swaps `hero.jpg` and the hotspot positions. Sources in `hero-ideas/_source/`.
-- `concept-4/`: the photo gallery (the old `concept-7/` link redirects here, see `vercel.json`)
+- `concept-4/`: the photo gallery
 - `concept-5/`: **Daylight**. A black header and hero (the client's preference) with the agency's studio fig leaf (gallery leaf 1) inside gold rings, labels for Auto, Home, Boat and Business around it, and a headline whose last word rotates through car, home, boat and business. The leaf's tip points at the cursor wherever it is, and the mouse pointer itself is a small fig leaf whose tip is the click point (`assets/leaf-cursor.png`). The car, house and boat photos show through the big leaf in its shape (`assets/leaf-mask.png`), in step with the headline; pointing at a label jumps to it. Below the hero the page is light, with sections in the rounded tile layout (`hs--v5`) and a dark green footer. Its own Homeowners and quote pages.
 - `concept-6/`: **Leaf slideshow**. The hero is one big Fig Leaf (the logo's leaf, `assets/fig-leaf-fill.svg`, larger than the hero art on any other concept) used as a frame: photos of a car, a house and a boat slide through it every few seconds, with a gold edge and a dark green offset leaf behind it. The headline matches the other concepts, "We cover your car.", and its last word changes in step with the photo (car, home, boat). Arrows, dots, a pause button, swipe and the arrow keys move it by hand (`concept.js`). Header, sections (`hs--v2`), footer and the inner pages use concept 3's look. Its own Homeowners and quote pages.
 
@@ -58,6 +58,12 @@ logo, `assets/figleaf-logo-full.png`.
 **All heroes together (`heroes/`).** One page that links every homepage hero idea, with a screenshot of each: concepts 5 and 6,
 the photo heroes A to D (`hero-concepts/`) and the six fig leaf pictures V1 to H3 (`hero-ideas/`).
 
-## Every hero on a full homepage (`homepages/`)
+## Concepts 7 to 18: every new hero on a full homepage
 
-`homepages/<code>/` puts each new hero on one of the current homepages, unchanged apart from the hero: homepage 1 (`concept-1`) carries hero 5 and V1 to V3, homepage 2 (`concept-2`) carries A to D, and homepage 3 (`concept-3`) carries hero 6 and H1 to H3. The pages link back to their homepage's folder and to the hero's own files, so nothing is copied. `homepages/build.py` builds them; re-run it after changing a homepage or a hero. `homepages/shared/homepages.css` holds the review bar for the set and gives the new heroes room under the see-through header on homepages 2 and 3. The heroes page (`heroes/`) links all twelve.
+`concept-7/` to `concept-18/` put each new hero on one of the current homepages, unchanged apart from the hero, and carry on the numbering from concepts 1 to 6:
+
+- 7 to 10, on the concept 1 homepage: concept 5's pointing fig leaf hero, then V1, V2 and V3
+- 11 to 14, on the concept 2 homepage: photo heroes A, B, C and D
+- 15 to 18, on the concept 3 homepage: concept 6's leaf slideshow hero, then H1, H2 and H3
+
+They link back to their homepage's folder (styles, images, Homeowners and quote pages) and to the hero's own files, so nothing is copied. `homepages/build.py` builds them and keeps the review bar on concepts 1 to 6 listing all eighteen; re-run it after changing a homepage or a hero. `homepages/shared/` holds concept 5's and 6's hero styles on their own, and the rules that give the new heroes room under the see-through header on the concept 2 and 3 homepages. The earlier `homepages/<code>/` links redirect to the new numbers (`vercel.json`). The old `concept-7/` link to the gallery is gone, since concept 7 is now a homepage; the gallery is `concept-4/`.

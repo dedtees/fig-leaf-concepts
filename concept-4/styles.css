@@ -1323,3 +1323,11 @@ html[data-header="c"] .site-header { top: var(--review-h); }
   .review-bar { justify-content: center; }
   .review-bar__title { display: none; }
 }
+
+/* The concepts list runs 1 to 18: on phones it doesn't fit, so the bar
+   shows the concept's name and the arrows instead. */
+@media (max-width: 760px) {
+  .review-bar:has(.review-bar__list--long) { justify-content: space-between; }
+  .review-bar:has(.review-bar__list--long) .review-bar__title { display: block; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .review-bar__list--long { display: none; }
+}
