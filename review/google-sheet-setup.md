@@ -35,8 +35,11 @@ The sheet is "Fig Leaf concept review (client picks)" in Eric's Google Drive.
 
 Installing it (once):
 
-1. Open the sheet, then **Extensions → Apps Script**. Delete what's there, paste
-   in the whole of `review/google-apps-script.gs`, and save.
+1. Either open the sheet and choose **Extensions → Apps Script**, or (if that
+   won't open) go to **script.google.com → New project**. The script works both
+   ways: on its own it opens the review sheet by its ID (`SHEET_ID`). Delete
+   what's in the editor, paste in the whole of `review/google-apps-script.gs`,
+   and save.
 2. **Deploy → New deployment**, type **Web app**, Execute as **Me**, Who has
    access **Anyone**. Press **Deploy** and allow the permissions (Google warns the
    app is unverified because it's your own script: Advanced → Go to project).

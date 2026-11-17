@@ -11,10 +11,19 @@
  *                 change wins (changing a tick updates its row; taking it
  *                 back removes the row). Filters are on.
  *
- * Setup: Extensions > Apps Script, paste this file, Deploy > New deployment >
+ * Works either way: from the sheet's Extensions > Apps Script, or as its own
+ * project at script.google.com (it then opens the sheet by SHEET_ID).
+ * Setup: paste this file, Deploy > New deployment >
  * Web app, Execute as Me, Who has access Anyone. Put the /exec URL into
  * ENDPOINT in review/review.js.
  */
+// The review sheet in Eric's Drive. Used when this script is its own project
+// (script.google.com) rather than opened from the sheet's Extensions menu.
+var SHEET_ID = '1is5B-6Jnior9RbfMrlroH1Fyn5Xtb5x0_m4lmdIx6hI';
+function ss_() {
+  return SpreadsheetApp.getActiveSpreadsheet() || SpreadsheetApp.openById(SHEET_ID);
+}
+
 var TAB_OVERVIEW = 'Overview';
 var TAB_CONCEPT = 'By concept';
 var TAB_COMMENTS = 'Comments';
@@ -51,6 +60,7 @@ function json_(o) {
 
 /* ---- menu --------------------------------------------------------------- */
 function onOpen() {
+  if (!SpreadsheetApp.getActiveSpreadsheet()) return;
   SpreadsheetApp.getUi().createMenu('Review')
     .addItem('Rebuild the overview', 'rebuild')
     .addToUi();
@@ -58,7 +68,7 @@ function onOpen() {
 
 /* ---- the raw list ------------------------------------------------------- */
 function picksSheet_() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = ss_();
   var sh = ss.getSheetByName(TAB_PICKS);
   if (!sh) {
     sh = ss.insertSheet(TAB_PICKS);
@@ -137,7 +147,7 @@ function colourVerdicts_(range) {
 
 /* ---- the derived tabs ---------------------------------------------------- */
 function rebuild() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = ss_();
   var picks = picksSheet_();
   var n = picks.getLastRow() - 1;
   var data = n > 0 ? picks.getRange(2, 1, n, PICK_HEADERS.length).getValues() : [];
