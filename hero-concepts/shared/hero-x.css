@@ -235,6 +235,22 @@
 .hx--deck[data-active="car"] [data-scene="car"],
 .hx--deck[data-active="home"] [data-scene="home"],
 .hx--deck[data-active="boat"] [data-scene="boat"] { --o: 0; }
+/* a fourth card (business, on concept 8): it sits between boat and car, and
+   the card opposite the front one tucks out of sight behind it */
+.hx--deck[data-active="business"] [data-scene="business"] { --o: 0; }
+.hx--deck[data-active="boat"] [data-scene="business"],
+.hx--deck[data-active="business"] [data-scene="car"] { --o: 1; }
+.hx--deck[data-active="car"] [data-scene="business"],
+.hx--deck[data-active="business"] [data-scene="boat"] { --o: -1; }
+.hx--deck[data-active="business"] [data-scene="home"],
+.hx--deck[data-active="car"]:has([data-scene="business"]) [data-scene="boat"],
+.hx--deck[data-active="home"]:has([data-scene="business"]) [data-scene="business"],
+.hx--deck[data-active="boat"]:has([data-scene="business"]) [data-scene="car"] {
+  --o: 0; z-index: 0; opacity: 0; transform: scale(0.8);
+}
+.hx--deck:has([data-scene="business"]) .hx__item {
+  transition: transform 800ms var(--ease), filter 600ms ease, box-shadow 600ms ease, opacity 500ms ease;
+}
 .hx--deck[data-active="car"] [data-scene="home"],
 .hx--deck[data-active="home"] [data-scene="boat"],
 .hx--deck[data-active="boat"] [data-scene="car"] { --o: 1; }
