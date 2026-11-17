@@ -327,18 +327,19 @@ def business_card(page, out_dir):
 EXTRAS = {2: business_card}
 
 
-# The Homeowners page layouts, shared out in threes: concepts 1 to 3 get
-# layout 1, 4 to 6 layout 2, 7 to 9 layout 3, and 10 on layout 4.
+# The five Homeowners page layouts, in turn: concept 1 gets layout 1, 2 gets
+# layout 2 and so on to 5, then 6 starts again on layout 1.
 HOMEOWNERS = [
     ('archive-a/homeowners-insurance', 'archive A look'),
     ('archive-b/homeowners-insurance', 'archive B look, tabs'),
+    ('archive-b/homeowners-insurance-scroll', 'archive B look, scrolling'),
     ('archive-b/homeowners-insurance-fade', 'archive B look, header fade'),
     ('archive-c/homeowners-insurance', 'archive C look'),
 ]
 
 
 def homeowners_layout(n):
-    return min((n - 1) // 3, len(HOMEOWNERS) - 1)
+    return (n - 1) % len(HOMEOWNERS)
 
 
 def main_run():
