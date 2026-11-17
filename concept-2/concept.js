@@ -30,6 +30,7 @@
       d.classList.toggle('is-active', k === i);
       if (k === i) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current');
     });
+    fit();
     if (prev !== i && words[prev] && words[i]) {
       var old = words[prev];
       old.classList.remove('is-active');
@@ -39,6 +40,14 @@
       words[i].classList.add('is-active');
     }
   }
+  // the underline under the changing word is as long as the word showing
+  // (in em, so it scales with the headline)
+  function fit() {
+    var w = words[i]; if (!w) return;
+    var fs = parseFloat(getComputedStyle(w).fontSize);
+    if (fs) w.parentNode.style.setProperty('--uw', (w.offsetWidth / fs).toFixed(3));
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
   function tick() { go(i + 1); }
   function restart() {
     clearInterval(timer); timer = null;

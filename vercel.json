@@ -10,11 +10,11 @@
     { "source": "/homepages/d", "destination": "/concept-10/", "permanent": false },
     { "source": "/homepages/6", "destination": "/concept-11/", "permanent": false },
     { "source": "/homepages/h1", "destination": "/concept-12/", "permanent": false },
-    { "source": "/homepages/h2", "destination": "/concept-13/", "permanent": false },
-    { "source": "/homepages/h3", "destination": "/concept-14/", "permanent": false },
     { "source": "/concept-15/:path*", "destination": "/concept-11/:path*", "permanent": false },
     { "source": "/concept-16/:path*", "destination": "/concept-12/:path*", "permanent": false },
-    { "source": "/concept-17/:path*", "destination": "/concept-13/:path*", "permanent": false },
-    { "source": "/concept-18/:path*", "destination": "/concept-14/:path*", "permanent": false }
+    { "source": "/concept-13/:path*", "destination": "/concept-1/", "permanent": false },
+    { "source": "/concept-14/:path*", "destination": "/concept-1/", "permanent": false },
+    { "source": "/concept-17/:path*", "destination": "/concept-1/", "permanent": false },
+    { "source": "/concept-18/:path*", "destination": "/concept-1/", "permanent": false }
   ]
 }

@@ -101,12 +101,15 @@
   font-style: italic;
   color: var(--c6-gold);
 }
-.l-rotate::after {      /* a gold underline under the slot */
+.l-rotate::after {      /* a gold underline as long as the word showing */
   content: "";
   position: absolute;
-  left: 0.04em; right: 0.2em; bottom: 0.04em;
+  left: 0.04em; bottom: 0.04em;
+  /* --uw: the word's width in em, set by concept.js */
+  width: calc(var(--uw, 3.2) * 1em - 0.1em);
   height: 0.08em;
   background: var(--c6-gold);
+  transition: width 560ms var(--c6-ease);
 }
 .l-rotate__word {
   position: absolute;
@@ -243,7 +246,7 @@
 @media (prefers-reduced-motion: reduce) {
   .l-slide, .l-slide img, .l-dot { transition: none; }
   .l-slide img { transform: none; }
-  .l-rotate__word { transition: none; }
+  .l-rotate__word, .l-rotate::after { transition: none; }
 }
 
 @media (max-width: 900px) {

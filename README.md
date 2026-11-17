@@ -53,25 +53,25 @@ Vercel settings: Framework Preset "Other", no build command, output directory = 
 **Concepts 1 and 2.** Both start from archive C's files and keep its content and pages. Each folder's `concept.css` loads last on all its pages
 (after `palette.css`) and holds it to the same four colours (gold, black, white, dark green, light green sparingly), no gradients or soft shadows.
 `concept.js` drives each hero (concept 1's rotating word, concept 2's slideshow); `scene.js` isn't used there. Both use the current
-logo, `assets/figleaf-logo-full.png`.
+logo, `assets/figleaf-logo-full.png`. Concept 1's business photo (`assets/photo-business.jpg`) is from Unsplash, [ZmzH-M7B6Vk](https://unsplash.com/photos/red-building-ZmzH-M7B6Vk), under the Unsplash License. The gold line under the changing headline word is as long as the word showing (`--uw`, set by each `concept.js`).
 
 **All heroes together (`heroes/`).** One page that links every homepage hero idea, with a screenshot of each: concepts 1 and 2,
 the photo heroes A to D (`hero-concepts/`) and the six fig leaf pictures V1 to H3 (`hero-ideas/`).
 
 ## Numbering
 
-The main run is concepts 1 to 14 (`concept-1/` to `concept-14/`); the site's front page opens concept 1. The four earlier concepts are the archive, labelled with letters so no two pages share a number: Archive A to D (`archive-a/` to `archive-d/`). Old numbers map like this: old 5 and 6 are now 1 and 2, old 7 to 18 are now 3 to 14, and old 1 to 4 are Archive A to D. Old links to `concept-15/` to `concept-18/` and to `homepages/<code>/` redirect to the new numbers (`vercel.json`).
+The main run is concepts 1 to 12 (`concept-1/` to `concept-12/`); the site's front page opens concept 1. The four earlier concepts are the archive, labelled with letters so no two pages share a number: Archive A to D (`archive-a/` to `archive-d/`). Old numbers map like this: old 5 and 6 are now 1 and 2, old 7 to 16 are now 3 to 12, and old 1 to 4 are Archive A to D. Concepts 13 and 14 (old 17 and 18, H2 and H3 on a full homepage) were dropped. Old links to `concept-15/` and `concept-16/` and to `homepages/<code>/` redirect to the new numbers; links to the dropped pages open concept 1 (`vercel.json`). H2 and H3 are still on their own at `hero-ideas/`.
 
 ## Archive A to D
 
-Archives A to D are still online but out of the main run. Their review bar steps through the archive only, and the heroes page lists them at the bottom. They stay because concepts 3 to 14 use the homepages (and Homeowners and quote pages) of archives A to C.
+Archives A to D are still online but out of the main run. Their review bar steps through the archive only, and the heroes page lists them at the bottom. They stay because concepts 3 to 12 use the homepages (and Homeowners and quote pages) of archives A to C.
 
-## Concepts 3 to 14: every new hero on a full homepage
+## Concepts 3 to 12: every new hero on a full homepage
 
-`concept-3/` to `concept-14/` put each new hero on one of the archived homepages, unchanged apart from the hero, and carry on the numbering from concepts 1 and 2:
+`concept-3/` to `concept-12/` put each new hero on one of the archived homepages, unchanged apart from the hero, and carry on the numbering from concepts 1 and 2:
 
 - 3 to 6, on the archive A homepage: concept 1's pointing fig leaf hero, then V1, V2 and V3
 - 7 to 10, on the archive B homepage: photo heroes A, B, C and D
-- 11 to 14, on the archive C homepage: concept 2's leaf slideshow hero, then H1, H2 and H3
+- 11 and 12, on the archive C homepage: concept 2's leaf slideshow hero, then H1
 
-They link back to their homepage's folder for styles and images and to the hero's own files. Each has its own copy of the quote, quote form and Homeowners pages (content unchanged), so a visitor stays inside that concept. `homepages/build.py` builds them, keeps the review bar on concepts 1 and 2 listing 1 to 14 and the archive's bar listing A to D; re-run it after changing a homepage or a hero. `homepages/shared/` holds concept 1's and 2's hero styles on their own (`hero-5.css`, `hero-6.css`, named for their old numbers), and the rules that give the new heroes room under the see-through header on the archive B and C homepages.
+They link back to their homepage's folder for styles and images and to the hero's own files. Each has its own copy of the quote, quote form and Homeowners pages (content unchanged), so a visitor stays inside that concept. `homepages/build.py` builds them, keeps the review bar on concepts 1 and 2 listing 1 to 12 and the archive's bar listing A to D; re-run it after changing a homepage or a hero. `homepages/shared/` holds concept 1's and 2's hero styles on their own (`hero-5.css`, `hero-6.css`, named for their old numbers), and the rules that give the new heroes room under the see-through header on the archive B and C homepages.

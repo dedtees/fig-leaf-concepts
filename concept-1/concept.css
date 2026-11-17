@@ -103,12 +103,15 @@ body.c5 { background: var(--c5-white); color: var(--c5-black); }
   font-style: italic;
   color: var(--c5-black);
 }
-.d-rotate::after {      /* a gold underline under the slot */
+.d-rotate::after {      /* a gold underline as long as the word showing */
   content: "";
   position: absolute;
-  left: 0.04em; right: 0.2em; bottom: 0.04em;
+  left: 0.04em; bottom: 0.04em;
+  /* --uw: the word's width in em, set by concept.js */
+  width: calc(var(--uw, 4.2) * 1em - 0.1em);
   height: 0.09em;
   background: var(--c5-gold);
+  transition: width 560ms cubic-bezier(0.65, 0, 0.35, 1);
 }
 .d-rotate__word {
   position: absolute;
@@ -119,7 +122,7 @@ body.c5 { background: var(--c5-white); color: var(--c5-black); }
 }
 .d-rotate__word.is-active { transform: none; }
 .d-rotate__word.is-leaving { transform: translateY(-110%); }
-@media (prefers-reduced-motion: reduce) { .d-rotate__word { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .d-rotate__word, .d-rotate::after { transition: none; } }
 
 .d-hero__lede {
   max-width: 44ch;
@@ -226,7 +229,8 @@ body.c5 { background: var(--c5-white); color: var(--c5-black); }
 }
 .d-leaf[data-active="car"] .d-leaf__win[data-key="car"],
 .d-leaf[data-active="home"] .d-leaf__win[data-key="home"],
-.d-leaf[data-active="boat"] .d-leaf__win[data-key="boat"] { opacity: 1; }
+.d-leaf[data-active="boat"] .d-leaf__win[data-key="boat"],
+.d-leaf[data-active="business"] .d-leaf__win[data-key="business"] { opacity: 1; }
 
 /* no mouse: a slow sway instead of following the cursor */
 .d-hero__media:not(.is-following) .d-leaf { animation: d-sway 9s ease-in-out infinite; }

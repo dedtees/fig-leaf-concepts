@@ -1,7 +1,7 @@
 // Concept 1 hero.
 // 1. The last word of the headline steps through car, home, boat and
 //    business, and the leaf shows the matching photo cut to its shape
-//    (business shows the plain leaf). Pointing at a label jumps to it.
+//    Pointing at a label jumps to it.
 // 2. With a mouse, the leaf turns so its tip points at the cursor wherever
 //    it is on the page. Without one, it sways on its own (CSS).
 // Reduced motion: no stepping, no following; the car photo stays.
@@ -31,9 +31,17 @@
       words[next].classList.add('is-active');
       i = next;
     }
+    fit();
     leaf.dataset.active = key;
     tags.forEach(function (t) { t.classList.toggle('is-active', t.dataset.key === key); });
   }
+  // the underline is as long as the word showing (in em, so it scales)
+  var slot = words[0].parentNode;
+  function fit() {
+    var w = words[i], fs = parseFloat(getComputedStyle(w).fontSize);
+    if (fs) slot.style.setProperty('--uw', (w.offsetWidth / fs).toFixed(3));
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
   function start() {
     if (reduce || timer) return;
     timer = setInterval(function () { show(words[(i + 1) % words.length].dataset.key); }, STEP_MS);

@@ -1,13 +1,13 @@
-"""Builds concept-3 to concept-14: every new hero on a full homepage.
+"""Builds concept-3 to concept-12: every new hero on a full homepage.
 
-Each page (concepts 3 to 14) is one of the archived homepages (archive A, B
+Each page (concepts 3 to 12) is one of the archived homepages (archive A, B
 or C) exactly as it is, header, colours, sections and footer, with only the
 hero <section> swapped for one of the new hero concepts. Nothing is copied:
 the page links back to its homepage's folder for CSS, scripts and images,
 and to the hero's own folder for the hero's pictures, CSS and script. Each
 also gets its own copy of the quote and Homeowners pages.
 
-It also keeps the review bar on concepts 1 and 2 listing 1 to 14, and the
+It also keeps the review bar on concepts 1 and 2 listing 1 to 12, and the
 bar on archives A to D listing the archive.
 
 Re-run after changing a homepage or a hero:  python3 homepages/build.py
@@ -55,10 +55,6 @@ HEROES = [
     (11, 'archive-c', 'concept-2/index.html', "concept 2's leaf slideshow hero",
      ['homepages/shared/hero-6.css'], 'last', ['concept-2/concept.js']),
     (12, 'archive-c', 'hero-ideas/h1/index.html', 'photos on real fig leaves, in a row (H1)',
-     [], None, None),
-    (13, 'archive-c', 'hero-ideas/h2/index.html', 'arched photos on a fig leaf (H2)',
-     [], None, None),
-    (14, 'archive-c', 'hero-ideas/h3/index.html', 'panorama between two leaves (H3)',
      [], None, None),
 ]
 
@@ -119,7 +115,7 @@ def rel(url, src_dir, out_dir):
     return out + sep + tail
 
 
-# Concepts 3 to 14 get their own copies of these pages, so a visitor who
+# Concepts 3 to 12 get their own copies of these pages, so a visitor who
 # clicks through from concept 3 stays in concept 3.
 SUBPAGES = ('crq', 'crq-form', 'homeowners-insurance')
 KEEP_IN = None   # while building concept n: 'concept-<n>'
@@ -206,7 +202,7 @@ def build_hero_css():
 # --- one page per hero -----------------------------------------------------
 
 def review_bar(n, out_dir):
-    """The review bar for page n: the main run (1 to 14), or for an archived
+    """The review bar for page n: the main run (1 to 12), or for an archived
     page, the archive (A to D)."""
     seq = sequence(n)
     keys = [c for c, _ in seq]
@@ -236,7 +232,7 @@ def review_bar(n, out_dir):
 
 
 def update_concept_bars():
-    """Concepts 1 and 2 list 1 to 14, and archives A to D list the archive."""
+    """Concepts 1 and 2 list 1 to 12, and archives A to D list the archive."""
     for key, path, _name in CONCEPTS:
         page = read(f'{path}/index.html')
         rb = re.search(r'<nav class="review-bar".*?</nav>', page, re.S)
