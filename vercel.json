@@ -1,6 +1,22 @@
 {
   "redirects": [
-    { "source": "/concept-7", "destination": "/concept-4/", "permanent": true },
-    { "source": "/concept-7/:path*", "destination": "/concept-4/:path*", "permanent": true }
+    { "source": "/homepages/5", "destination": "/concept-2/", "permanent": false },
+    { "source": "/homepages/v1", "destination": "/concept-3/", "permanent": false },
+    { "source": "/homepages/v2", "destination": "/concept-1/", "permanent": false },
+    { "source": "/homepages/v3", "destination": "/concept-4/", "permanent": false },
+    { "source": "/homepages/a", "destination": "/concept-5/", "permanent": false },
+    { "source": "/homepages/b", "destination": "/concept-6/", "permanent": false },
+    { "source": "/homepages/c", "destination": "/concept-7/", "permanent": false },
+    { "source": "/homepages/d", "destination": "/concept-8/", "permanent": false },
+    { "source": "/homepages/6", "destination": "/concept-9/", "permanent": false },
+    { "source": "/homepages/h1", "destination": "/concept-10/", "permanent": false },
+    { "source": "/concept-12/:path*", "destination": "/concept-10/:path*", "permanent": false },
+    { "source": "/concept-13/:path*", "destination": "/concept-1/", "permanent": false },
+    { "source": "/concept-14/:path*", "destination": "/concept-1/", "permanent": false },
+    { "source": "/concept-15/:path*", "destination": "/concept-9/:path*", "permanent": false },
+    { "source": "/concept-16/:path*", "destination": "/concept-10/:path*", "permanent": false },
+    { "source": "/concept-17/:path*", "destination": "/concept-1/", "permanent": false },
+    { "source": "/concept-18/:path*", "destination": "/concept-1/", "permanent": false },
+    { "source": "/concept-11/:path*", "destination": "/concept-10/:path*", "permanent": false }
   ]
 }

@@ -484,7 +484,7 @@
 
 /* ==========================================================================
    Layout variants, one per concept. The markup is the same everywhere; the
-   class on #home-sections (hs--v2 … hs--v6) picks the layout. Concept 1 uses
+   class on #home-sections (hs--v2 … hs--v6) picks the layout. Archive A uses
    the base layout above, closest to the home-rebuild page.
    ========================================================================== */
 
@@ -843,8 +843,8 @@
   .hs--v6 .hs-line::before { font-size: 2rem; }
 }
 
-/* --- concept 1: moving coverage icons ------------------------------------
-   Only concept 1's markup has the moving parts (.hs-anim icons with
+/* --- archive A: moving coverage icons ------------------------------------
+   Only archive A's markup has the moving parts (.hs-anim icons with
    rolling tyre treads, chimney smoke, rolling waves and rain). The loops run
    only when motion is welcome; otherwise the icons stay still. */
 
@@ -897,7 +897,7 @@
   100% { opacity: 0; translate: 0 20px; }
 }
 
-/* --- concept 1: dark and gold, continuing the hero -----------------------
+/* --- archive A: dark and gold, continuing the hero -----------------------
    The sections pick up the hero's backdrop (#070d0f), its gold accent and
    its Fraunces headings, so the page carries on from the hero without a
    break. One long gradient runs behind all the sections; each section is
@@ -1014,7 +1014,7 @@
   .hs--v1 .hs-split__title { border-bottom-color: var(--hs-gold); }
 }
 
-/* --- concept 1: rhythm down the page --------------------------------------
+/* --- archive A: rhythm down the page --------------------------------------
    Dark straight out of the hero, then deep green, warm ivory, green, ivory.
    Each dark section fades into the green below it so only the ivory bands
    have an edge, and that edge is a gold hairline. Gold leaf watermarks
@@ -1111,7 +1111,7 @@
 .hs--v1 .hs-carrier__name { color: #173a26; }
 
 /* ==========================================================================
-   Concept 2: modern theme with parallax
+   Archive B: modern theme with parallax
    Dark stats carry on from the hero, then sections stack like sheets with
    rounded tops. Soft glows, leaf shapes and a fine grid sit in a .hs-px
    layer behind each section and drift at their own speed as you scroll
@@ -1353,7 +1353,7 @@
 }
 .hs--v2 .hs-carrier:hover { background: #fff; border-color: rgba(43, 98, 64, .2); transform: translateY(-2px); }
 
-/* --- concept 2 responsive ------------------------------------------------ */
+/* --- archive B responsive ------------------------------------------------ */
 
 @media (max-width: 960px) {
   .hs--v2 .hs-service .hs-service__media { min-height: 0; aspect-ratio: 16 / 10; }
@@ -1371,8 +1371,8 @@
   .hs--v2 .hs-carriers__grid { gap: 8px; }
 }
 
-/* --- concept 2: moving coverage icons ------------------------------------
-   Same loops as concept 1, tinted for the mint icon tiles; the tile lifts
+/* --- archive B: moving coverage icons ------------------------------------
+   Same loops as archive A, tinted for the mint icon tiles; the tile lifts
    a little while you hover a card. */
 .hs--v2 .hs-car__tread { fill: #e4f1e7; opacity: 1; }
 .hs--v2 .hs-line__icon { transition: transform .35s cubic-bezier(.2, .7, .2, 1), box-shadow .35s ease; }
@@ -1382,7 +1382,7 @@
 }
 @keyframes hs-glow-mint { 0%, 100% { fill: #e4f1e7; } 50% { fill: #f6d77a; } }
 
-/* --- concept 2: compact Additional Services -------------------------------
+/* --- archive B: compact Additional Services -------------------------------
    The two services sit side by side as short cards (photo strip on the
    left, copy on the right) instead of two tall full-width rows. */
 .hs--v2 .hs-services { padding-top: calc(clamp(56px, 6vw, 80px) + 8px); padding-bottom: calc(clamp(56px, 6vw, 80px) + var(--hs-sheet)); }
@@ -1406,7 +1406,7 @@
 }
 
 /* ==========================================================================
-   Concept 3: editorial sidebar, dressed to match the hero
+   Archive C: editorial sidebar, dressed to match the hero
    The stats carry the hero's dark straight on and fade into forest green,
    then the page alternates warm ivory and forest bands with gold accents.
    Each pinned heading gets a section number and a gold progress line that
@@ -1603,9 +1603,9 @@
   .hs--v3 .hs-service .hs-service__media { height: auto; aspect-ratio: 16 / 6; }
 }
 
-/* --- concept 3: concept 2 with concept 1's Google Reviews layout ---------
+/* --- archive C: archive B with archive A's Google Reviews layout ---------
    .hs-reviews--split brings back the split heading (title, a rule, then the
-   score and links beside it) and left-aligned review cards, in concept 2's
+   score and links beside it) and left-aligned review cards, in archive B's
    colours and type. */
 .hs--v2 .hs-reviews--split .hs-split {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);

@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="../home-sections.css">
   <link rel="stylesheet" href="../quote-page.css">
   <link rel="stylesheet" href="../palette.css">
+  <link rel="stylesheet" href="../concept.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -32,7 +33,7 @@
   }
   </script>
 </head>
-<body>
+<body class="c6">
 
   <!-- Line icons, reused below with <use href="#i-..."> -->
   <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
@@ -68,12 +69,7 @@
   <!-- Review bar: for comparing concepts only, not part of the site design -->
   <nav class="review-bar" aria-label="Concepts">
     <p class="review-bar__title"><span class="review-bar__label">Concept 1</span> <span class="review-bar__name">Quote form page · <a href="../" style="color:inherit">back to the homepage</a> · <a href="../crq/" style="color:inherit">the framed quote page</a></span></p>
-    <div class="review-bar__controls">
-      <ul class="review-bar__list">
-        <li><a class="review-bar__link" href="./" data-name="Stacked leaves, dark header · Quote form" aria-current="page"><span class="visually-hidden">Concept </span>1<span class="visually-hidden">: Stacked leaves, dark header</span></a></li><li><a class="review-bar__link" href="../../concept-2/crq-form/" data-name="Stacked leaves, transparent header · Quote form"><span class="visually-hidden">Concept </span>2<span class="visually-hidden">: Stacked leaves, transparent header</span></a></li><li><a class="review-bar__link" href="../../concept-3/crq-form/" data-name="Horizontal leaves, concept 1 reviews · Quote form"><span class="visually-hidden">Concept </span>3<span class="visually-hidden">: Horizontal leaves, concept 1 reviews</span></a></li><li><a class="review-bar__link" href="../../concept-4/index.html" data-name="Fig leaf photo gallery"><span class="visually-hidden">Concept </span>4<span class="visually-hidden">: Fig leaf photo gallery</span></a></li></ul>
-      <a class="review-bar__step review-bar__step--prev" href="../../concept-4/index.html" rel="prev" aria-label="Previous concept"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
-      <a class="review-bar__step" href="../../concept-2/crq-form/" rel="next" aria-label="Next concept"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
-    </div>
+    <div class="review-bar__controls"><ul class="review-bar__list review-bar__list--long"></ul></div>
   </nav>
 
   <!-- ====================================================================
@@ -152,7 +148,7 @@
        it looks on figleafagency.com/crq (we can't style inside it), shown
        between the new header and footer. Styles: quote-page.css (.qp-plain).
        ==================================================================== -->
-  <main id="main" class="hs hs--v1 qp qp--v1 qp-plain">
+  <main id="main" class="hs hs--v2 qp qp--v3 qp-plain">
     <h1 class="visually-hidden">Get a free insurance quote</h1>
     <div class="qp-plain__frame">
       <iframe src="https://secure.consumerratequotes.com/ConsumerV2?SiteKey=3006535&amp;ref1=Website" title="Fig Leaf Agency quote request form" loading="eager" referrerpolicy="strict-origin-when-cross-origin"></iframe>

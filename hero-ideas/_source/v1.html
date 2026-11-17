@@ -1,0 +1,21 @@
+<!doctype html><html><head><link rel="stylesheet" href="base.css"><style>
+.lf{position:absolute;filter:drop-shadow(0 28px 26px rgba(0,0,0,.6)) drop-shadow(0 0 1px rgba(0,0,0,.6))}
+.lf img.leaf{position:absolute;inset:0;width:100%;height:100%}
+.lf .ph{position:absolute;inset:0;background-size:cover;-webkit-mask-size:100% 100%;mask-size:100% 100%}
+.lf .hp{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:overlay;opacity:.3}
+.a .ph{-webkit-mask-image:url(leafin-02.png);mask-image:url(leafin-02.png)}
+.b .ph{-webkit-mask-image:url(leafin-01.png);mask-image:url(leafin-01.png)}
+.l1{left:150px;top:-40px;width:480px;height:530px;transform:rotate(-10deg)}
+.l2{left:470px;top:225px;width:470px;height:508px;transform:scaleX(-1) rotate(-12deg)}
+.l3{left:160px;top:505px;width:470px;height:519px;transform:rotate(-2deg)}
+.l1 .ph{background-image:url(car.jpg);background-position:70% 55%;background-size:auto 115%}
+.l2 .ph{background-image:url(home.jpg);background-position:38% 40%;background-size:auto 105%;transform:scaleX(-1)}
+.l2 .ph{-webkit-mask-image:url(leafin-01.png);mask-image:url(leafin-01.png);transform:none}
+.l3 .ph{background-image:url(boat.jpg);background-position:40% 72%;background-size:auto 120%}
+</style></head><body><div class="stage">
+<div class="floor"></div>
+<div class="lf a l3"><img class="leaf" src="leafcut-02.png"><div class="ph"></div><img class="hp" src="leafhp-02.png"></div>
+<div class="lf b l2"><img class="leaf" src="leafcut-01.png"><div class="ph"></div><img class="hp" src="leafhp-01.png"></div>
+<div class="lf a l1"><img class="leaf" src="leafcut-02.png"><div class="ph"></div><img class="hp" src="leafhp-02.png"></div>
+<div class="dust"></div>
+</div></body></html>

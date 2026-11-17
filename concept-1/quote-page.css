@@ -40,7 +40,7 @@
   background: var(--qp-dark);
   padding-block: clamp(36px, 5vw, 72px) calc(var(--qp-overlap) + clamp(40px, 5vw, 72px));
 }
-/* concepts 2 and 3: the header floats over the hero */
+/* archives B and C: the header floats over the hero */
 html[data-header="b"] .qp-hero { padding-top: calc(var(--header-height) + var(--utility-height) + clamp(12px, 2vw, 32px)); }
 .qp-hero .hs-wrap { --hs-max: 1240px; }
 
@@ -137,7 +137,7 @@ html[data-header="b"] .qp-hero { padding-top: calc(var(--header-height) + var(--
 /* --- the form -------------------------------------------------------- */
 
 .qp-form {
-  --hs-text: #4a524c;       /* body copy on the light panels (concept 1 sets it to white) */
+  --hs-text: #4a524c;       /* body copy on the light panels (archive A sets it to white) */
   position: relative;
   color: var(--hs-text);
   z-index: 2;
@@ -242,7 +242,7 @@ html[data-header="b"] .qp-hero { padding-top: calc(var(--header-height) + var(--
 .qp-note .icon { width: 16px; height: 16px; vertical-align: -3px; margin-right: 6px; color: var(--hs-green); }
 
 /* ==========================================================================
-   Concept 1: dark and gold over ivory
+   Archive A: dark and gold over ivory
    ========================================================================== */
 
 .qp--v1 .qp-hero {
@@ -278,7 +278,7 @@ html[data-header="b"] .qp-hero { padding-top: calc(var(--header-height) + var(--
 .qp--v1 .qp-ready .icon { color: var(--qp-gold-ink); }
 
 /* ==========================================================================
-   Concept 2: mint on pine, glass panels, a mist sheet under the form
+   Archive B: mint on pine, glass panels, a mist sheet under the form
    ========================================================================== */
 
 .qp--v2 .qp-hero {
@@ -316,7 +316,7 @@ html[data-header="b"] .qp-hero { padding-top: calc(var(--header-height) + var(--
 .qp--v2 .qp-ready .icon { padding: 3px; border-radius: 7px; background: #e3f1e7; }
 
 /* ==========================================================================
-   Concept 3: concept 2's colours, a split heading and a white page
+   Archive C: archive B's colours, a split heading and a white page
    ========================================================================== */
 
 .qp--v3 .qp-hero {
@@ -377,7 +377,7 @@ html[data-header="b"] .qp-hero { padding-top: calc(var(--header-height) + var(--
    ========================================================================== */
 
 .qp-plain { background: #fff; }
-/* concepts 2 and 3: the header floats over a hero, so give it a dark band */
+/* archives B and C: the header floats over a hero, so give it a dark band */
 html[data-header="b"] .qp-plain {
   padding-top: calc(var(--header-height) + var(--utility-height));
   background: linear-gradient(to bottom, var(--qp-dark) calc(var(--header-height) + var(--utility-height)), #fff 0);

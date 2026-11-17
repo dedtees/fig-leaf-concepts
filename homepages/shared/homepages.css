@@ -1,0 +1,41 @@
+/* Extra rules for concepts 3 to 11 (the hero homepages).
+
+   Homepages 2 and 3 use the see-through header ("b"), which sits on top of
+   the hero. Their own heroes leave room for it; the new heroes get the
+   same room here, so nothing is hidden under the menu. */
+@media (min-width: 761px) {
+  html[data-header="b"] .hero .scene.hx { top: calc(50% + var(--bar) / 2); }
+  /* that header also makes its own picture taller; keep each layout its size */
+  html[data-header="b"] .hero .scene.hx--panels { width: min(calc(var(--hero-h) * 0.8 * var(--r)), var(--avail)); }
+  html[data-header="b"] .hero .scene.hx--bands { width: min(calc(var(--hero-h) * 0.84 * var(--r)), var(--avail)); }
+  html[data-header="b"] .hero .scene.hx--lens { width: min(calc(var(--hero-h) * 0.78 * var(--r)), var(--avail)); }
+  html[data-header="b"] .hero .scene.hx--deck { width: min(calc(var(--hero-h) * 0.86 * var(--r)), var(--avail)); }
+}
+html[data-header="b"] .l-hero { padding-top: calc(var(--header-height) + var(--utility-height)); }
+
+/* concept 2: three cards under "More Ways We Protect You" */
+@media (min-width: 961px) {
+  .hs-services__grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Hero tweaks, by hero (data-hero on <html>, set by build.py), on desktop:
+   opening panels (A) sit a little further left; the uncover lens (C) and
+   the card deck (D) are bigger and further left; the fig leaf row (H1)
+   sits a little lower. Each keeps clear of the headline. Only on wide
+   screens: below 1200px the pictures already fill the space beside the text. */
+@media (min-width: 1200px) {
+  html[data-hero="a"] .hero .scene.hx--panels {
+    right: calc(var(--scene-right) + 56px);
+    width: min(calc(var(--hero-h) * 0.8 * var(--r)), calc(var(--avail) - 56px));
+  }
+  html[data-hero="c"] .hero .scene.hx--lens {
+    top: calc(50% + var(--bar) / 2 - 36px);   /* room for its caption card */
+    right: calc(var(--scene-right) + 48px);
+    width: min(calc(var(--hero-h) * 0.88 * var(--r)), calc(var(--avail) - 48px));
+  }
+  html[data-hero="d"] .hero .scene.hx--deck {
+    right: calc(var(--scene-right) + 72px);
+    width: min(calc(var(--hero-h) * 0.95 * var(--r)), calc(var(--avail) - 72px));
+  }
+  html[data-hero="h1"] .hero .scene { top: calc(50% + 48px); }
+}

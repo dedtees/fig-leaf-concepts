@@ -39,7 +39,7 @@
   var years = document.querySelectorAll('[data-year]');
   for (var y = 0; y < years.length; y++) years[y].textContent = String(new Date().getFullYear());
 
-  /* ---- carrier ticker (concept 6 layout) -------------------------------- */
+  /* ---- carrier ticker (concept 2 layout) -------------------------------- */
   // The list is doubled so the strip can loop; the copies are hidden from
   // screen readers.
   var ticker = document.querySelector('.hs--v6 .hs-carriers__grid');
@@ -54,7 +54,7 @@
     ticker.classList.add('is-ticking');
   }
 
-  /* ---- parallax (concept 2 layout) ----------------------------------- */
+  /* ---- parallax (archive B layout) ----------------------------------- */
   // Anything marked data-hs-px="speed" drifts against the scroll, measured
   // from the middle of its section: positive speeds lag behind like a far
   // background, negative ones rush ahead like something close. Phones get a
@@ -85,7 +85,7 @@
     pxUpdate();
   }
 
-  /* ---- reading progress beside pinned headings (concept 3 layout) ------ */
+  /* ---- reading progress beside pinned headings (archive C layout) ------ */
   // Each section's --hs-p runs from 0 to 1 as the section passes the middle
   // of the screen; the gold line beside its heading fills to match.
   var progSections = document.querySelectorAll('.hs--v3 .hs-section');
