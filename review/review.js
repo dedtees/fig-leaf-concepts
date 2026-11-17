@@ -18,7 +18,7 @@
 
   var CONFIG = {
     // Google Apps Script web app URL (ends in /exec). Empty = no live collection.
-    ENDPOINT: '',
+    ENDPOINT: 'https://script.google.com/macros/s/AKfycbxhR85z71EIh1GCcazCWNsgTBIpHDseSJRehvXUt2VI1PVWvlwKM5IR-z283Xid4DCBaQ/exec',
     // Who the "Send my feedback" email goes to when there is no ENDPOINT.
     EMAIL: '',
     EMAIL_SUBJECT: 'Fig Leaf website concepts: my feedback'
