@@ -1,4 +1,4 @@
-/* Concept 5's hero on its own (built from concept-5/concept.css by
+/* Concept 1's hero on its own (built from concept-1/concept.css by
    homepages/build.py; edit that file, not this one). The black hero,
    the leaf that points at the cursor and the leaf mouse pointer, here
    kept to the hero so the rest of the homepage is unchanged. */
@@ -166,8 +166,8 @@
   object-fit: contain;
   /* cut the leaf out of its white studio background, so the rings behind
      it show even while the leaf is turned in 3D */
-  -webkit-mask: url("../../concept-5/assets/leaf-mask.png") center / contain no-repeat;
-          mask: url("../../concept-5/assets/leaf-mask.png") center / contain no-repeat;
+  -webkit-mask: url("../../concept-1/assets/leaf-mask.png") center / contain no-repeat;
+          mask: url("../../concept-1/assets/leaf-mask.png") center / contain no-repeat;
 }
 /* each photo is cut to the leaf's shape. The window turns with the leaf,
    the photo inside turns back the other way so the car, house and boat
@@ -176,8 +176,8 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
-  -webkit-mask: url("../../concept-5/assets/leaf-mask.png") center / contain no-repeat;
-          mask: url("../../concept-5/assets/leaf-mask.png") center / contain no-repeat;
+  -webkit-mask: url("../../concept-1/assets/leaf-mask.png") center / contain no-repeat;
+          mask: url("../../concept-1/assets/leaf-mask.png") center / contain no-repeat;
   opacity: 0;
   transition: opacity 700ms ease;
 }
@@ -266,14 +266,14 @@
 /* --- the mouse pointer is a small fig leaf; its tip is the click point --- */
 @media (hover: hover) and (pointer: fine) {
   .d-hero {
-    cursor: url("../../concept-5/assets/leaf-cursor.png") 3 3, auto;
-    cursor: image-set(url("../../concept-5/assets/leaf-cursor.png") 1x, url("../../concept-5/assets/leaf-cursor@2x.png") 2x) 3 3, auto;
+    cursor: url("../../concept-1/assets/leaf-cursor.png") 3 3, auto;
+    cursor: image-set(url("../../concept-1/assets/leaf-cursor.png") 1x, url("../../concept-1/assets/leaf-cursor@2x.png") 2x) 3 3, auto;
   }
   .d-hero a,
   .d-hero button,
   .d-hero [role="button"] {
-    cursor: url("../../concept-5/assets/leaf-cursor.png") 3 3, pointer;
-    cursor: image-set(url("../../concept-5/assets/leaf-cursor.png") 1x, url("../../concept-5/assets/leaf-cursor@2x.png") 2x) 3 3, pointer;
+    cursor: url("../../concept-1/assets/leaf-cursor.png") 3 3, pointer;
+    cursor: image-set(url("../../concept-1/assets/leaf-cursor.png") 1x, url("../../concept-1/assets/leaf-cursor@2x.png") 2x) 3 3, pointer;
   }
   .d-hero input { cursor: text; }
 }

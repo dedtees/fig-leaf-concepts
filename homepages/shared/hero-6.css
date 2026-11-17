@@ -1,19 +1,19 @@
-/* Concept 6's hero (built from concept-6/concept.css by
+/* Concept 2's hero (built from concept-2/concept.css by
    homepages/build.py; edit that file, not this one). */
 
 /* ==========================================================================
-   Concept 6 · Leaf slideshow
+   Concept 2 · Leaf slideshow
    The hero is one big Fig Leaf: the logo's leaf, drawn larger than the
    hero art on any other concept, is the frame, and photos of what we cover
    slide through it. The last word of the headline changes to match
-   the photo showing. Header, sections, footer and the inner pages use concept 3's
+   the photo showing. Header, sections, footer and the inner pages use archive C's
    look (palette.css), so this file only adds the hero.
 
    Same four colours, one shade each, no gradients or soft shadows:
      gold #e8c27e · black #070d0f · white #ffffff · dark green #17402b
      (light green #a9c7b4 used sparingly)
 
-   Loaded last on every concept 6 page.
+   Loaded last on every concept 2 page.
    ========================================================================== */
 
 :root {
@@ -90,7 +90,7 @@
 .l-hero :focus-visible { outline: 3px solid var(--c6-gold); outline-offset: 3px; }
 
 /* the changing word: a clipped slot, words slide up through it in step
-   with the slideshow, as on concepts 3 and 5 */
+   with the slideshow, as on archive C and concept 1 */
 .l-rotate {
   position: relative;
   display: inline-block;
@@ -147,8 +147,8 @@
   position: absolute;
   inset: 0;
   background: var(--c6-green);
-  -webkit-mask: url("../../concept-6/assets/fig-leaf-fill.svg") center / contain no-repeat;
-          mask: url("../../concept-6/assets/fig-leaf-fill.svg") center / contain no-repeat;
+  -webkit-mask: url("../../concept-2/assets/fig-leaf-fill.svg") center / contain no-repeat;
+          mask: url("../../concept-2/assets/fig-leaf-fill.svg") center / contain no-repeat;
   transform: translate(2.2%, 2.2%);
 }
 .l-track {
@@ -159,8 +159,8 @@
   padding: 0;
   list-style: none;
   overflow: hidden;
-  -webkit-mask: url("../../concept-6/assets/fig-leaf-fill.svg") center / contain no-repeat;
-          mask: url("../../concept-6/assets/fig-leaf-fill.svg") center / contain no-repeat;
+  -webkit-mask: url("../../concept-2/assets/fig-leaf-fill.svg") center / contain no-repeat;
+          mask: url("../../concept-2/assets/fig-leaf-fill.svg") center / contain no-repeat;
 }
 .l-slide {
   flex: 0 0 100%;

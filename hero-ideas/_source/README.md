@@ -7,7 +7,7 @@ To re-render, put these next to the source images and screenshot each page:
 - `car.jpg`, `home.jpg`, `boat.jpg`: the Unsplash photos credited on `hero-ideas/index.html`, downloaded at 2400 px wide
 - `leafcut-01/02.png`: gallery leaves 1 and 2 cut out from their white background; `leafin-*.png` is the same
   shape shrunk ~40 px and feathered (where the photo shows), `leafhp-*.png` a high-pass of the leaf (vein texture)
-- `fig-leaf-fill.svg`: `concept-1/assets/fig-leaf-fill.svg` with the fill set to white
+- `fig-leaf-fill.svg`: `archive-a/assets/fig-leaf-fill.svg` with the fill set to white
 
-`build.py` makes each `hero-ideas/<id>/index.html` from Concept 1 (vertical) or Concept 3 (horizontal):
+`build.py` makes each `hero-ideas/<id>/index.html` from Archive A (vertical) or Archive C (horizontal):
 it points every link and asset back at that concept, swaps in `hero.jpg`, and sets the hotspot positions.

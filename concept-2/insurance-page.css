@@ -8,9 +8,9 @@
 
    Content follows figleafagency.com/homeowners-insurance. The class on
    <main> picks the concept's layout:
-     pg--v1  concept 1: ivory editorial page, gold rules, sticky quote card
-     pg--v2  concept 2: mist page, section tabs, a bento of what's covered
-     pg--v3  concept 3: guide with an "On this page" rail and an accordion
+     pg--v1  archive A: ivory editorial page, gold rules, sticky quote card
+     pg--v2  archive B: mist page, section tabs, a bento of what's covered
+     pg--v3  archive C: guide with an "On this page" rail and an accordion
    Identical copies live in each concept folder.
    ========================================================================== */
 
@@ -121,11 +121,11 @@
 .pg-related a[aria-current] { color: var(--hs-green); }
 
 /* ==========================================================================
-   Concept 1: ivory editorial page
+   Archive A: ivory editorial page
    ========================================================================== */
 
 .pg--v1 {
-  /* same type as concept 2: Montserrat headings, Lato text (the .hs defaults) */
+  /* same type as archive B: Montserrat headings, Lato text (the .hs defaults) */
   --hs-text: #4a524c;
   --hs-green: var(--pg-forest);
   font-family: var(--hs-body);
@@ -328,7 +328,7 @@
 .pg--v1 a:focus-visible { outline-color: var(--pg-gold-ink); }
 
 /* ==========================================================================
-   Concept 2: mist page, section tabs and a bento of what's covered
+   Archive B: mist page, section tabs and a bento of what's covered
    ========================================================================== */
 
 .pg--v2 { --hs-text: #4f5a53; background: var(--pg-mist); }
@@ -630,7 +630,7 @@
 .pg--v2 .pg-close p { margin: 0 0 20px; max-width: 58ch; font-size: 1.05rem; line-height: 1.6; }
 
 /* ==========================================================================
-   Concept 3: a guide with an "On this page" rail and an accordion
+   Archive C: a guide with an "On this page" rail and an accordion
    ========================================================================== */
 
 .pg--v3 { --hs-text: #4f5a53; background: #fff; }

@@ -1,9 +1,9 @@
 /* Fig Leaf interior pages. No dependencies; identical copies live in each
    concept folder.
-   1. Tabs (concept 2): each tab shows its panel in place, in the same
+   1. Tabs (archive B): each tab shows its panel in place, in the same
       section, instead of scrolling the page. A link to #overview, #covered
       or #quote (like the header's "Get a Quote") opens that tab.
-   2. "On this page" rail (concept 3): marks the section you're reading. */
+   2. "On this page" rail (archive C): marks the section you're reading. */
 (function () {
   'use strict';
 

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   The grid from concept 2's "Select One or Bundle" section, reusable.
+   The grid from archive B's "Select One or Bundle" section, reusable.
    Add class "fl-grid-host" to a section and put this first inside it:
 
      <div class="fl-grid" aria-hidden="true"><span class="fl-grid__lines" data-hs-px="0.15"></span></div>
