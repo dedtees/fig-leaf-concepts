@@ -16,7 +16,6 @@
     { "source": "/concept-15/:path*", "destination": "/concept-9/:path*", "permanent": false },
     { "source": "/concept-16/:path*", "destination": "/concept-10/:path*", "permanent": false },
     { "source": "/concept-17/:path*", "destination": "/concept-1/", "permanent": false },
-    { "source": "/concept-18/:path*", "destination": "/concept-1/", "permanent": false },
-    { "source": "/concept-11/:path*", "destination": "/concept-10/:path*", "permanent": false }
+    { "source": "/concept-18/:path*", "destination": "/concept-1/", "permanent": false }
   ]
 }

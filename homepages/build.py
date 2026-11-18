@@ -7,7 +7,7 @@ the page links back to its homepage's folder for CSS, scripts and images,
 and to the hero's own folder for the hero's pictures, CSS and script. Each
 also gets its own copy of the quote and Homeowners pages.
 
-It also keeps the review bar on concepts 1 and 2 listing 1 to 10, and the
+It also keeps the review bar on concepts 1 and 2 listing 1 to 11, and the
 bar on archives A to D listing the archive.
 
 Re-run after changing a homepage or a hero:  python3 homepages/build.py
@@ -54,11 +54,19 @@ HEROES = [
      ['homepages/shared/hero-6.css'], 'last', ['concept-1/concept.js']),
     (10, 'archive-c', 'hero-ideas/h1/index.html', 'photos on real fig leaves, in a row (H1)',
      [], None, None),
+    # concept 11: built from the client review (see concept_11 below)
+    (11, 'archive-a', 'hero-concepts/a/index.html', "Client picks: concept 5's photo panels with Business, on concept 2's page",
+     X_CSS, 'after-styles', X_JS + ['homepages/shared/concept-11.js']),
 ]
+
+
+OWN_TITLE = {11}   # named in full, not 'Archive X homepage, ...'
 
 
 def hero_title(n, home, name):
     """Concept 3: 'Archive A homepage, concept 1's pointing fig leaf hero'."""
+    if n in OWN_TITLE:
+        return name
     return f'Archive {home[-1].upper()} homepage, {name[0].lower() + name[1:]}'
 
 
@@ -193,7 +201,7 @@ def build_hero_css():
 # --- one page per hero -----------------------------------------------------
 
 def review_bar(n, out_dir):
-    """The review bar for page n: the main run (1 to 10), or for an archived
+    """The review bar for page n: the main run (1 to 11), or for an archived
     page, the archive (A to E)."""
     seq = sequence(n)
     keys = [c for c, _ in seq]
@@ -207,8 +215,8 @@ def review_bar(n, out_dir):
                      f'<span class="visually-hidden">{word}</span>{c}'
                      f'<span class="visually-hidden">: {name}</span></a></li>')
     long = ' review-bar__list--long' if len(seq) > 8 else ''
-    extra = (f' · <a href="{posixpath.relpath("concept-1/", out_dir)}/" style="color:inherit">back to the current concepts</a>'
-             if archived(n) else '')
+    # everything on this bar is archived now: the current build is build-1 to build-5
+    extra = f' · archived · <a href="{posixpath.relpath("build-1/", out_dir)}/" style="color:inherit">see the current build</a>'
     return (f'<nav class="review-bar" aria-label="{"Archived concepts" if archived(n) else "Concepts"}">\n'
             f'    <p class="review-bar__title"><span class="review-bar__label">{label(n)}</span> '
             f'<span class="review-bar__name">{seq[i][1]}{extra}</span></p>\n'
@@ -223,7 +231,7 @@ def review_bar(n, out_dir):
 
 
 def update_concept_bars():
-    """Concept 1 lists 1 to 10, and archives A to D list the archive."""
+    """Concept 1 lists 1 to 11, and archives A to D list the archive."""
     for key, path, _name in CONCEPTS:
         page = read(f'{path}/index.html')
         rb = re.search(r'<nav class="review-bar".*?</nav>', page, re.S)
@@ -232,8 +240,8 @@ def update_concept_bars():
         write(f'{path}/index.html', page)
 
 
-def build_page(n, home, src, name, css, css_pos, js):
-    out_dir = f'concept-{n}'
+def build_page(n, home, src, name, css, css_pos, js, out_dir=None):
+    out_dir = out_dir or f'concept-{n}'
     page = read(f'{home}/index.html')
     hero_src = read(src)
     src_dir = posixpath.dirname(src)
@@ -316,7 +324,76 @@ def business_card(page, out_dir):
     return page
 
 
-EXTRAS = {2: business_card}
+def concept_11(page, out_dir):
+    """Concept 11, from the client review of concepts 1 to 10: concept 2's
+    page (the archive A homepage, header, sections and footer) with concept
+    5's opening photo panels hero plus a fourth panel, Business; concept 2's
+    three cards under "More Ways We Protect You"; concept 5's movement in the
+    dark Comprehensive Coverage section (concept-11.css); and an About picture
+    that starts on the old building, its sign now reading Fig Leaf, and fades
+    to the team photo (concept-11.js)."""
+    page = business_card(page, out_dir)
+    up = lambda p: posixpath.relpath(p, out_dir)
+    # its own rules load last, after homepages.css
+    last = list(re.finditer(r'<link rel="stylesheet"[^>]*>', page))[-1]
+    page = page[:last.end()] + f'\n  <link rel="stylesheet" href="{up("homepages/shared/concept-11.css")}">' + page[last.end():]
+
+    # hero: "your business." in the headline and a fourth panel
+    boat_word = '<span class="scene-word" data-scene="boat">your <em>boat.</em></span>'
+    assert boat_word in page
+    page = page.replace(boat_word, boat_word + '\n            <span class="scene-word" data-scene="business">your <em>business.</em></span>', 1)
+    page = page.replace('<span class="visually-hidden">your car, your home and your boat.</span>',
+                        '<span class="visually-hidden">your car, your home, your boat and your business.</span>', 1)
+    page = page.replace('class="scene hx hx--panels" data-hx role="group" aria-label="A car on a mountain road at sunset, a house lit up at dusk and a boat on the water at sunset"',
+                        'class="scene hx hx--panels" data-hx data-count="4" role="group" aria-label="A car on a mountain road at sunset, a house lit up at dusk, a boat on the water at sunset and a brick shopfront"', 1)
+    panel = (
+        '\n          <div class="hx__item" data-scene="business" data-lx="50" data-ly="40">\n'
+        f'            <img class="hx__img" src="{up("hero-concepts/shared/business.jpg")}" alt="" decoding="async">\n'
+        '            <span class="hx__tag" aria-hidden="true"><span class="hx__num">04</span><span class="hx__label">Business</span></span>\n'
+        '            <button class="hx__hit" type="button" aria-pressed="false" aria-controls="hx-business"><span class="visually-hidden">Business insurance</span></button>\n'
+        '            <div class="hx__body" id="hx-business">\n'
+        '              <span class="hx__num" aria-hidden="true">04</span>\n'
+        '              <p class="hx__title">Business insurance</p>\n'
+        '              <p class="hx__text">Liability, property, commercial auto and workers comp for local businesses.</p>\n'
+        '              <a class="hx__link" href="https://figleafagency.com/business-insurance/">See business coverage <span aria-hidden="true">&rarr;</span></a>\n'
+        '            </div>\n'
+        '            <span class="hx__bar" aria-hidden="true"></span>\n'
+        '          </div>')
+    m = re.search(r'<div class="hx__item" data-scene="boat".*?<span class="hx__bar" aria-hidden="true"></span>\n\s*</div>', page, re.S)
+    page = page[:m.end()] + panel + page[m.end():]
+
+    # Comprehensive Coverage: fig leaves drifting with the scroll
+    cov = '<section class="fl-grid-host hs-section hs-coverage" aria-labelledby="hs-coverage-title">'
+    assert cov in page
+    page = page.replace(cov, cov + '\n      <div class="c11-leaves" aria-hidden="true">'
+                        '<span class="c11-leaf c11-leaf--a" data-hs-px="0.35"></span>'
+                        '<span class="c11-leaf c11-leaf--b" data-hs-px="-0.2"></span>'
+                        '<span class="c11-leaf c11-leaf--c" data-hs-px="0.25"></span>'
+                        '<span class="c11-leaf c11-leaf--d" data-hs-px="-0.35"></span></div>', 1)
+
+    # the stats card straddles the hero and Comprehensive Coverage: it moves
+    # to the top of the coverage section and reaches up into the hero
+    # (concept-11.css), so the coverage section grows to hold it
+    m = re.search(r'\n[ \t]*<section class="hs-statband".*?</section>\n', page, re.S)
+    band = m.group(0)
+    page = page[:m.start()] + '\n' + page[m.end():]
+    leaves_end = page.index('</div>', page.index('<div class="c11-leaves"')) + len('</div>')
+    page = page[:leaves_end] + band.replace('<section class="hs-statband"', '<div class="hs-statband c11-statband" role="group"', 1).replace('</section>', '</div>').rstrip('\n') + page[leaves_end:]
+
+    # About: the old building (sign repainted to read Fig Leaf), then the team
+    m = re.search(r'<div class="hs-about__media"><img class="hs-about__img"[^>]*></div>', page)
+    team = re.search(r'<img [^>]*>', m.group(0)).group(0).replace('class="hs-about__img"', 'class="hs-about__img c11-fade__team"')
+    b = 'homepages/shared/assets/old-building-figleaf'
+    building = (f'<img class="hs-about__img c11-fade__building" src="{up(b + ".jpg")}" '
+                f'srcset="{up(b + "-900.jpg")} 900w, {up(b + ".jpg")} 1800w" sizes="(max-width: 820px) 100vw, 50vw" '
+                'alt="Painting of the agency\'s original office, its sign reading Fig Leaf Agency" width="1800" height="1396" loading="lazy" decoding="async">')
+    tag = ('<span class="c11-fade__tag" aria-hidden="true"><span class="c11-fade__then">Where we started</span>'
+           '<span class="c11-fade__now">Our team today</span></span>')
+    page = page[:m.start()] + f'<div class="hs-about__media c11-fade">{building}{team}{tag}</div>' + page[m.end():]
+    return page
+
+
+EXTRAS = {2: business_card, 11: concept_11}
 
 
 # The five Homeowners page layouts, in turn: concept 1 gets layout 1, 2 gets
@@ -330,8 +407,12 @@ HOMEOWNERS = [
 ]
 
 
+# concepts that don't take their turn: concept 11 uses concept 2's layout
+HOMEOWNERS_PICK = {11: 1}
+
+
 def homeowners_layout(n):
-    return (n - 1) % len(HOMEOWNERS)
+    return HOMEOWNERS_PICK.get(n, (n - 1) % len(HOMEOWNERS))
 
 
 def main_run():
@@ -339,7 +420,7 @@ def main_run():
 
 
 def homeowners_bar(n, out_dir):
-    """The bar on concept n's Homeowners page: concepts 1 to 10, each number
+    """The bar on concept n's Homeowners page: concepts 1 to 11, each number
     opening that concept's Homeowners page, the arrows stepping through them."""
     keys = main_run()
     i = keys.index(n)
@@ -403,7 +484,7 @@ def build_subpages(n, home):
 
 def landing_bars():
     """Concept 1's quote pages are where visitors land (the root index opens
-    concept-1/crq-form/), so their bar lists concepts 1 to 10 too, each
+    concept-1/crq-form/), so their bar lists concepts 1 to 11 too, each
     number opening that concept's homepage."""
     for sub in ('crq', 'crq-form'):
         out = f'concept-1/{sub}'
@@ -415,6 +496,107 @@ def landing_bars():
         write(f'{out}/index.html', page[:rb.start()] + bar + page[rb.end():])
 
 
+# --- the current build: concept 11, five ways ------------------------------
+# The client kept concept 11. The main bar is now AC (the fig leaf photo
+# gallery, archive D, which is also the landing page), GC (the get a quote
+# page) and builds 1 to 5: concept 11's homepage, each with one of the five
+# Homeowners layouts. Concepts 1 to 11 and archives A to E stay online as
+# the archive.
+BUILDS = [1, 2, 3, 4, 5]
+GALLERY = 'archive-d'
+
+
+def build_dir(k):
+    return f'build-{k}'
+
+
+def main_bar(cur, out_dir, page='home', build=1):
+    """The bar on the current build's pages. cur is 'AC', 'GC' or a build
+    number. On Homeowners pages the numbers open each build's Homeowners
+    page, so the five layouts can be compared side by side."""
+    rel_ = lambda target: posixpath.relpath(target, out_dir) + '/'
+    gc_build = cur if isinstance(cur, int) else build  # GC stays inside the build you came from
+    entries = [('AC', 'AC', 'Fig leaf photo gallery', rel_(GALLERY)),
+               ('GC', 'GC', 'Get a quote', rel_(f'{build_dir(gc_build)}/crq-form'))]
+    for k in BUILDS:
+        lay = HOMEOWNERS[k - 1][1]
+        sub = '/homeowners-insurance' if page == 'homeowners' else ''
+        entries.append((k, str(k), f'Concept 11 with Homeowners layout {k} ({lay})', rel_(build_dir(k) + sub)))
+    keys = [e[0] for e in entries]
+    i = keys.index(cur)
+    items = []
+    for key, text, name, href in entries:
+        here = ' aria-current="page"' if key == cur else ''
+        items.append(f'<li><a class="review-bar__link" href="{href}" data-name="{name}"{here}>'
+                     f'{text}<span class="visually-hidden">: {name}</span></a></li>')
+    if cur == 'AC':
+        label, title = 'Gallery', 'Fig leaf photo gallery'
+    elif cur == 'GC':
+        label, title = 'Get a quote', 'Get a quote'
+    else:
+        label = f'Build {cur}'
+        title = (f'Homeowners layout {cur} of {len(BUILDS)}, {HOMEOWNERS[cur - 1][1]}'
+                 f' · <a href="{rel_(build_dir(cur))}" style="color:inherit">back to the homepage</a>'
+                 if page == 'homeowners' else f'Concept 11 with Homeowners layout {cur}')
+    return ('<nav class="review-bar" aria-label="Current build">\n'
+            f'    <p class="review-bar__title"><span class="review-bar__label">{label}</span> '
+            f'<span class="review-bar__name">{title}</span></p>\n'
+            '    <div class="review-bar__controls">\n'
+            '      <ul class="review-bar__list review-bar__list--long">\n        '
+            + '\n        '.join(items) + '</ul>\n'
+            f'      <a class="review-bar__step review-bar__step--prev" href="{entries[i - 1][3]}" rel="prev" aria-label="Previous">'
+            '<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>\n'
+            f'      <a class="review-bar__step" href="{entries[(i + 1) % len(entries)][3]}" rel="next" aria-label="Next">'
+            '<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>\n'
+            '    </div>\n  </nav>')
+
+
+def swap_bar(page, bar):
+    rb = re.search(r'<nav class="review-bar".*?</nav>', page, re.S)
+    return page[:rb.start()] + bar + page[rb.end():]
+
+
+def build_builds():
+    """build-1 to build-5: concept 11's homepage, quote pages and one
+    Homeowners layout each (build k gets layout k)."""
+    global KEEP_IN
+    c11 = next(h for h in HEROES if h[0] == 11)
+    for k in BUILDS:
+        out_dir = build_dir(k)
+        build_page(*c11, out_dir=out_dir)
+        page = read(f'{out_dir}/index.html')
+        page = swap_bar(page, main_bar(k, out_dir))
+        page = re.sub(r'<title>Concept 11 ·', f'<title>Build {k} ·', page, count=1)
+        page = page.replace('<!-- Built by homepages/build.py: concept 11:',
+                            f'<!-- Built by homepages/build.py: build {k} (concept 11, Homeowners layout {k}):', 1)
+        write(f'{out_dir}/index.html', page)
+        for sub in SUBPAGES:
+            src = HOMEOWNERS[k - 1][0] if sub == 'homeowners-insurance' else f'{c11[1]}/{sub}'
+            out = f'{out_dir}/{sub}'
+            page = read(f'{src}/index.html')
+            page = swap_bar(page, '<!--REVIEW-BAR-->')
+            title = f'Build {k}' if sub == 'homeowners-insurance' else 'Get a quote'
+            page = re.sub(r'<title>(?:Concept|Archive) \w+ ·', f'<title>{title} ·', page, count=1)
+            if 'name="robots"' not in page:
+                page = page.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n  <meta name="robots" content="noindex">', 1)
+            KEEP_IN = out_dir
+            page = rebase(page, src, out)
+            KEEP_IN = None
+            if sub == 'homeowners-insurance':
+                bar = main_bar(k, out, 'homeowners')
+            else:
+                bar = main_bar('GC', out, build=k)
+                if sub == 'crq':
+                    bar = bar.replace('review-bar__name">Get a quote<', 'review-bar__name">Get a quote · quote request page<', 1)
+            page = page.replace('<!--REVIEW-BAR-->', bar)
+            page = page.replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- Built by homepages/build.py: '
+                                f'build {k}\'s copy of {src}/. Edit that page, then re-run the script. -->', 1)
+            write(f'{out}/index.html', page)
+    # the gallery (archive D) is AC: the landing page, with the current bar
+    page = read(f'{GALLERY}/index.html')
+    write(f'{GALLERY}/index.html', swap_bar(page, main_bar('AC', GALLERY)))
+
+
 def main():
     build_hero_css()
     build_subpages(1, 'concept-1')  # concept 1's Homeowners page only
@@ -423,7 +605,8 @@ def main():
         build_subpages(h[0], h[1])
     update_concept_bars()
     landing_bars()
-    print('built', len(HEROES), 'pages')
+    build_builds()
+    print('built', len(HEROES), 'concept pages and builds', BUILDS)
 
 
 if __name__ == '__main__':
