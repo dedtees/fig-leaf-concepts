@@ -77,7 +77,7 @@ It's built by `homepages/build.py` like concepts 2 to 10 (the `concept_11` funct
 - **Comprehensive Coverage**: concept 2's dark section with concept 5's movement ("likes movement, but not white background"): fig leaf silhouettes drifting with the scroll, each line lifting with a gold edge on hover, the lines coming in one after another, and the moving icons.
 - **More Ways We Protect You**: three cards, with concept 2's Business insurance card.
 - **About**: photo on the left, text on the right. The picture starts on the painting of the agency's old building and fades to the team photo, then they take turns while the section is on screen (`homepages/shared/concept-11.js`). The painting's sign now reads "Fig Leaf agency, Personal / Business Insurance" instead of "Walgert's agency, Real Estate / Insurance" (`homepages/shared/assets/old-building-figleaf.jpg`, edited from `archive-b/assets/old-building.jpg`).
-- **Stats card**: sits clear below the hero (about 90px under the photo panels on desktop) instead of overlapping it.
+- **Stats card**: straddles the hero and Comprehensive Coverage. `build.py` moves it to the top of the coverage section and it reaches 90px up into the hero (64px on phones); the hero and the coverage section are taller to make room, so it never covers the photo panels or the heading.
 - **Homeowners page**: concept 2's layout (archive B look, tabs), set in `HOMEOWNERS_PICK` in `build.py`.
 
 Its own rules are in `homepages/shared/concept-11.css`, which loads last on concept 11's homepage only.

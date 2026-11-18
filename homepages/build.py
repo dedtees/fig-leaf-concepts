@@ -371,6 +371,15 @@ def concept_11(page, out_dir):
                         '<span class="c11-leaf c11-leaf--c" data-hs-px="0.25"></span>'
                         '<span class="c11-leaf c11-leaf--d" data-hs-px="-0.35"></span></div>', 1)
 
+    # the stats card straddles the hero and Comprehensive Coverage: it moves
+    # to the top of the coverage section and reaches up into the hero
+    # (concept-11.css), so the coverage section grows to hold it
+    m = re.search(r'\n[ \t]*<section class="hs-statband".*?</section>\n', page, re.S)
+    band = m.group(0)
+    page = page[:m.start()] + '\n' + page[m.end():]
+    leaves_end = page.index('</div>', page.index('<div class="c11-leaves"')) + len('</div>')
+    page = page[:leaves_end] + band.replace('<section class="hs-statband"', '<div class="hs-statband c11-statband" role="group"', 1).replace('</section>', '</div>').rstrip('\n') + page[leaves_end:]
+
     # About: the old building (sign repainted to read Fig Leaf), then the team
     m = re.search(r'<div class="hs-about__media"><img class="hs-about__img"[^>]*></div>', page)
     team = re.search(r'<img [^>]*>', m.group(0)).group(0).replace('class="hs-about__img"', 'class="hs-about__img c11-fade__team"')

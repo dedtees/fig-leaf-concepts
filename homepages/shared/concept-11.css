@@ -97,6 +97,19 @@
 .hero .hero__cta { background: #e8c27e; border-color: #e8c27e; color: #070d0f; }
 .hero .hero__cta:hover, .hero .hero__cta:focus-visible { background: #fff; border-color: #fff; color: #070d0f; }
 
-/* the stats card no longer tucks up into the hero: it sits clear below the
-   photo panels, with room to breathe */
-.hs-statband { margin-top: 0; padding-top: clamp(28px, 4vw, 56px); }
+/* --- the stats card straddles the hero and Comprehensive Coverage -------
+   build.py moves the card to the top of the coverage section; it reaches
+   --c11-lap up into the hero. The hero grows by the same amount (the photo
+   panels stay where they were) and the coverage section grows to hold the
+   rest of the card. */
+:root { --c11-lap: 90px; }
+.hero.hero--stack { height: calc(var(--hero-h) + var(--c11-lap)); }
+.hero .scene.hx--panels { top: calc(50% - var(--c11-lap) / 2); }
+.hs-coverage.fl-grid-host { padding-top: 0; z-index: 3; overflow: visible; }
+.c11-statband { margin-top: calc(var(--c11-lap) * -1); margin-bottom: clamp(56px, 7vw, 96px); background: none; z-index: 2; }
+.c11-statband .hs-stats { background: #070d0f; }
+@media (max-width: 760px) {
+  :root { --c11-lap: 64px; }
+  .hero.hero--stack { height: auto; padding-bottom: var(--c11-lap); }
+  .hero .scene.hx--panels { top: auto; }
+}
