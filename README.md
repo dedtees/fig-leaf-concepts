@@ -1,7 +1,7 @@
 # Fig Leaf Agency: homepage concepts
 
-Plain HTML, CSS and JavaScript, no build step. `index.html` opens archive E;
-each `concept-N/` or `archive-X/` folder is one page:
+Plain HTML, CSS and JavaScript, no build step. `index.html` opens the photo gallery (`archive-d/`);
+each `build-N/`, `concept-N/` or `archive-X/` folder is one page:
 
 - `archive-a/`, `archive-b/`: homepage concepts
 - `archive-c/`: archive B with the horizontal leaves hero (from the old concept 1) and archive A's Google Reviews layout (`hs-reviews--split`)
@@ -62,7 +62,20 @@ logo, `assets/figleaf-logo-full.png`. Archive E's business photo (`assets/photo-
 **All heroes together (`heroes/`).** One page that links every homepage hero idea, with a screenshot of each: concepts 2 to 10, concept 1 and archive E,
 the photo heroes A to D (`hero-concepts/`) and the six fig leaf pictures V1 to H3 (`hero-ideas/`).
 
-## Numbering
+## The current build: AC, GC and 1 to 5
+
+The client kept concept 11. The review bar now runs AC, GC, 1, 2, 3, 4, 5:
+
+- **AC**: the Fig Leaf photo gallery (`archive-d/`), which is also the landing page (`index.html` redirects there).
+- **GC**: the Get a Quote page (`build-N/crq-form/`). It stays inside the build you came from.
+- **1 to 5**: concept 11's homepage in `build-1/` to `build-5/`. They differ only in the Homeowners page:
+  1 archive A's layout, 2 archive B with tabs, 3 archive B scrolling, 4 archive B with the header fade, 5 archive C's layout.
+  On a Homeowners page the numbers step between the five Homeowners layouts.
+
+`homepages/build.py` makes them (`build_builds`, `main_bar`). Review labels are "Gallery", "Get a quote" and "Build N".
+Everything else (concepts 1 to 11, archives A to E) is archived: still online so old links work, with "archived · see the current build" in its bar.
+
+## Numbering (archived concepts)
 
 The main run is concepts 1 to 11 (`concept-1/` to `concept-11/`). The site's front page opens concept 1's Get a Quote page (`concept-1/crq-form/`); the review bar and the logo lead on to the concepts. Earlier concepts are the archive, labelled with letters so no two pages share a number: Archive A to E (`archive-a/` to `archive-e/`).
 

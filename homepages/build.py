@@ -215,8 +215,8 @@ def review_bar(n, out_dir):
                      f'<span class="visually-hidden">{word}</span>{c}'
                      f'<span class="visually-hidden">: {name}</span></a></li>')
     long = ' review-bar__list--long' if len(seq) > 8 else ''
-    extra = (f' · <a href="{posixpath.relpath("concept-1/", out_dir)}/" style="color:inherit">back to the current concepts</a>'
-             if archived(n) else '')
+    # everything on this bar is archived now: the current build is build-1 to build-5
+    extra = f' · archived · <a href="{posixpath.relpath("build-1/", out_dir)}/" style="color:inherit">see the current build</a>'
     return (f'<nav class="review-bar" aria-label="{"Archived concepts" if archived(n) else "Concepts"}">\n'
             f'    <p class="review-bar__title"><span class="review-bar__label">{label(n)}</span> '
             f'<span class="review-bar__name">{seq[i][1]}{extra}</span></p>\n'
@@ -240,8 +240,8 @@ def update_concept_bars():
         write(f'{path}/index.html', page)
 
 
-def build_page(n, home, src, name, css, css_pos, js):
-    out_dir = f'concept-{n}'
+def build_page(n, home, src, name, css, css_pos, js, out_dir=None):
+    out_dir = out_dir or f'concept-{n}'
     page = read(f'{home}/index.html')
     hero_src = read(src)
     src_dir = posixpath.dirname(src)
@@ -496,6 +496,107 @@ def landing_bars():
         write(f'{out}/index.html', page[:rb.start()] + bar + page[rb.end():])
 
 
+# --- the current build: concept 11, five ways ------------------------------
+# The client kept concept 11. The main bar is now AC (the fig leaf photo
+# gallery, archive D, which is also the landing page), GC (the get a quote
+# page) and builds 1 to 5: concept 11's homepage, each with one of the five
+# Homeowners layouts. Concepts 1 to 11 and archives A to E stay online as
+# the archive.
+BUILDS = [1, 2, 3, 4, 5]
+GALLERY = 'archive-d'
+
+
+def build_dir(k):
+    return f'build-{k}'
+
+
+def main_bar(cur, out_dir, page='home', build=1):
+    """The bar on the current build's pages. cur is 'AC', 'GC' or a build
+    number. On Homeowners pages the numbers open each build's Homeowners
+    page, so the five layouts can be compared side by side."""
+    rel_ = lambda target: posixpath.relpath(target, out_dir) + '/'
+    gc_build = cur if isinstance(cur, int) else build  # GC stays inside the build you came from
+    entries = [('AC', 'AC', 'Fig leaf photo gallery', rel_(GALLERY)),
+               ('GC', 'GC', 'Get a quote', rel_(f'{build_dir(gc_build)}/crq-form'))]
+    for k in BUILDS:
+        lay = HOMEOWNERS[k - 1][1]
+        sub = '/homeowners-insurance' if page == 'homeowners' else ''
+        entries.append((k, str(k), f'Concept 11 with Homeowners layout {k} ({lay})', rel_(build_dir(k) + sub)))
+    keys = [e[0] for e in entries]
+    i = keys.index(cur)
+    items = []
+    for key, text, name, href in entries:
+        here = ' aria-current="page"' if key == cur else ''
+        items.append(f'<li><a class="review-bar__link" href="{href}" data-name="{name}"{here}>'
+                     f'{text}<span class="visually-hidden">: {name}</span></a></li>')
+    if cur == 'AC':
+        label, title = 'Gallery', 'Fig leaf photo gallery'
+    elif cur == 'GC':
+        label, title = 'Get a quote', 'Get a quote'
+    else:
+        label = f'Build {cur}'
+        title = (f'Homeowners layout {cur} of {len(BUILDS)}, {HOMEOWNERS[cur - 1][1]}'
+                 f' · <a href="{rel_(build_dir(cur))}" style="color:inherit">back to the homepage</a>'
+                 if page == 'homeowners' else f'Concept 11 with Homeowners layout {cur}')
+    return ('<nav class="review-bar" aria-label="Current build">\n'
+            f'    <p class="review-bar__title"><span class="review-bar__label">{label}</span> '
+            f'<span class="review-bar__name">{title}</span></p>\n'
+            '    <div class="review-bar__controls">\n'
+            '      <ul class="review-bar__list review-bar__list--long">\n        '
+            + '\n        '.join(items) + '</ul>\n'
+            f'      <a class="review-bar__step review-bar__step--prev" href="{entries[i - 1][3]}" rel="prev" aria-label="Previous">'
+            '<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>\n'
+            f'      <a class="review-bar__step" href="{entries[(i + 1) % len(entries)][3]}" rel="next" aria-label="Next">'
+            '<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>\n'
+            '    </div>\n  </nav>')
+
+
+def swap_bar(page, bar):
+    rb = re.search(r'<nav class="review-bar".*?</nav>', page, re.S)
+    return page[:rb.start()] + bar + page[rb.end():]
+
+
+def build_builds():
+    """build-1 to build-5: concept 11's homepage, quote pages and one
+    Homeowners layout each (build k gets layout k)."""
+    global KEEP_IN
+    c11 = next(h for h in HEROES if h[0] == 11)
+    for k in BUILDS:
+        out_dir = build_dir(k)
+        build_page(*c11, out_dir=out_dir)
+        page = read(f'{out_dir}/index.html')
+        page = swap_bar(page, main_bar(k, out_dir))
+        page = re.sub(r'<title>Concept 11 ·', f'<title>Build {k} ·', page, count=1)
+        page = page.replace('<!-- Built by homepages/build.py: concept 11:',
+                            f'<!-- Built by homepages/build.py: build {k} (concept 11, Homeowners layout {k}):', 1)
+        write(f'{out_dir}/index.html', page)
+        for sub in SUBPAGES:
+            src = HOMEOWNERS[k - 1][0] if sub == 'homeowners-insurance' else f'{c11[1]}/{sub}'
+            out = f'{out_dir}/{sub}'
+            page = read(f'{src}/index.html')
+            page = swap_bar(page, '<!--REVIEW-BAR-->')
+            title = f'Build {k}' if sub == 'homeowners-insurance' else 'Get a quote'
+            page = re.sub(r'<title>(?:Concept|Archive) \w+ ·', f'<title>{title} ·', page, count=1)
+            if 'name="robots"' not in page:
+                page = page.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n  <meta name="robots" content="noindex">', 1)
+            KEEP_IN = out_dir
+            page = rebase(page, src, out)
+            KEEP_IN = None
+            if sub == 'homeowners-insurance':
+                bar = main_bar(k, out, 'homeowners')
+            else:
+                bar = main_bar('GC', out, build=k)
+                if sub == 'crq':
+                    bar = bar.replace('review-bar__name">Get a quote<', 'review-bar__name">Get a quote · quote request page<', 1)
+            page = page.replace('<!--REVIEW-BAR-->', bar)
+            page = page.replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- Built by homepages/build.py: '
+                                f'build {k}\'s copy of {src}/. Edit that page, then re-run the script. -->', 1)
+            write(f'{out}/index.html', page)
+    # the gallery (archive D) is AC: the landing page, with the current bar
+    page = read(f'{GALLERY}/index.html')
+    write(f'{GALLERY}/index.html', swap_bar(page, main_bar('AC', GALLERY)))
+
+
 def main():
     build_hero_css()
     build_subpages(1, 'concept-1')  # concept 1's Homeowners page only
@@ -504,7 +605,8 @@ def main():
         build_subpages(h[0], h[1])
     update_concept_bars()
     landing_bars()
-    print('built', len(HEROES), 'pages')
+    build_builds()
+    print('built', len(HEROES), 'concept pages and builds', BUILDS)
 
 
 if __name__ == '__main__':
