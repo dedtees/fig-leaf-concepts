@@ -64,9 +64,22 @@ the photo heroes A to D (`hero-concepts/`) and the six fig leaf pictures V1 to H
 
 ## Numbering
 
-The main run is concepts 1 to 10 (`concept-1/` to `concept-10/`). The site's front page opens concept 1's Get a Quote page (`concept-1/crq-form/`); the review bar and the logo lead on to the concepts. Earlier concepts are the archive, labelled with letters so no two pages share a number: Archive A to E (`archive-a/` to `archive-e/`).
+The main run is concepts 1 to 11 (`concept-1/` to `concept-11/`). The site's front page opens concept 1's Get a Quote page (`concept-1/crq-form/`); the review bar and the logo lead on to the concepts. Earlier concepts are the archive, labelled with letters so no two pages share a number: Archive A to E (`archive-a/` to `archive-e/`).
 
-How the numbers have moved, in order: old 1 to 4 became Archive A to D and old 5 and 6 became 1 and 2, with the hero homepages following from 3; then V2, H2 and H3 on full homepages were dropped (they are still on their own at `hero-ideas/`); then concept 1 (Daylight) moved to Archive E and everything after it moved down one. `vercel.json` sends the old `homepages/<code>/` links and `concept-11/` to `concept-18/` to the page they show now, or to concept 1 for a dropped one. Links to `concept-1/` to `concept-10/` open whatever has that number now.
+How the numbers have moved, in order: old 1 to 4 became Archive A to D and old 5 and 6 became 1 and 2, with the hero homepages following from 3; then V2, H2 and H3 on full homepages were dropped (they are still on their own at `hero-ideas/`); then concept 1 (Daylight) moved to Archive E and everything after it moved down one. `vercel.json` sends the old `homepages/<code>/` links and `concept-12/` to `concept-18/` to the page they show now, or to concept 1 for a dropped one. Links to `concept-1/` to `concept-11/` open whatever has that number now. (`concept-11/` used to redirect to concept 10; it is now the new concept 11.)
+
+## Concept 11: built from the client review
+
+`concept-11/` puts together what the client liked in the review sheet (Fig Leaf concept review, mostly reviewer prp9's comments).
+It's built by `homepages/build.py` like concepts 2 to 10 (the `concept_11` function there), on the archive A homepage, so it has concept 2's header, sections and footer:
+
+- **Hero**: concept 5's opening photo panels (hero A) with a fourth panel, Business ("add business here"), and "your business." in the rotating headline. The quote button is gold, as on concept 5.
+- **Comprehensive Coverage**: concept 2's dark section with concept 5's movement ("likes movement, but not white background"): fig leaf silhouettes drifting with the scroll, each line lifting with a gold edge on hover, the lines coming in one after another, and the moving icons.
+- **More Ways We Protect You**: three cards, with concept 2's Business insurance card.
+- **About**: photo on the left, text on the right. The picture starts on the painting of the agency's old building and fades to the team photo, then they take turns while the section is on screen (`homepages/shared/concept-11.js`). The painting's sign now reads "Fig Leaf agency, Personal / Business Insurance" instead of "Walgert's agency, Real Estate / Insurance" (`homepages/shared/assets/old-building-figleaf.jpg`, edited from `archive-b/assets/old-building.jpg`).
+- **Homeowners page**: concept 2's layout (archive B look, tabs), set in `HOMEOWNERS_PICK` in `build.py`.
+
+Its own rules are in `homepages/shared/concept-11.css`, which loads last on concept 11's homepage only.
 
 ## Archive A to E
 

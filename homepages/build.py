@@ -7,7 +7,7 @@ the page links back to its homepage's folder for CSS, scripts and images,
 and to the hero's own folder for the hero's pictures, CSS and script. Each
 also gets its own copy of the quote and Homeowners pages.
 
-It also keeps the review bar on concepts 1 and 2 listing 1 to 10, and the
+It also keeps the review bar on concepts 1 and 2 listing 1 to 11, and the
 bar on archives A to D listing the archive.
 
 Re-run after changing a homepage or a hero:  python3 homepages/build.py
@@ -54,11 +54,19 @@ HEROES = [
      ['homepages/shared/hero-6.css'], 'last', ['concept-1/concept.js']),
     (10, 'archive-c', 'hero-ideas/h1/index.html', 'photos on real fig leaves, in a row (H1)',
      [], None, None),
+    # concept 11: built from the client review (see concept_11 below)
+    (11, 'archive-a', 'hero-concepts/a/index.html', "Client picks: concept 5's photo panels with Business, on concept 2's page",
+     X_CSS, 'after-styles', X_JS + ['homepages/shared/concept-11.js']),
 ]
+
+
+OWN_TITLE = {11}   # named in full, not 'Archive X homepage, ...'
 
 
 def hero_title(n, home, name):
     """Concept 3: 'Archive A homepage, concept 1's pointing fig leaf hero'."""
+    if n in OWN_TITLE:
+        return name
     return f'Archive {home[-1].upper()} homepage, {name[0].lower() + name[1:]}'
 
 
@@ -193,7 +201,7 @@ def build_hero_css():
 # --- one page per hero -----------------------------------------------------
 
 def review_bar(n, out_dir):
-    """The review bar for page n: the main run (1 to 10), or for an archived
+    """The review bar for page n: the main run (1 to 11), or for an archived
     page, the archive (A to E)."""
     seq = sequence(n)
     keys = [c for c, _ in seq]
@@ -223,7 +231,7 @@ def review_bar(n, out_dir):
 
 
 def update_concept_bars():
-    """Concept 1 lists 1 to 10, and archives A to D list the archive."""
+    """Concept 1 lists 1 to 11, and archives A to D list the archive."""
     for key, path, _name in CONCEPTS:
         page = read(f'{path}/index.html')
         rb = re.search(r'<nav class="review-bar".*?</nav>', page, re.S)
@@ -316,7 +324,67 @@ def business_card(page, out_dir):
     return page
 
 
-EXTRAS = {2: business_card}
+def concept_11(page, out_dir):
+    """Concept 11, from the client review of concepts 1 to 10: concept 2's
+    page (the archive A homepage, header, sections and footer) with concept
+    5's opening photo panels hero plus a fourth panel, Business; concept 2's
+    three cards under "More Ways We Protect You"; concept 5's movement in the
+    dark Comprehensive Coverage section (concept-11.css); and an About picture
+    that starts on the old building, its sign now reading Fig Leaf, and fades
+    to the team photo (concept-11.js)."""
+    page = business_card(page, out_dir)
+    up = lambda p: posixpath.relpath(p, out_dir)
+    # its own rules load last, after homepages.css
+    last = list(re.finditer(r'<link rel="stylesheet"[^>]*>', page))[-1]
+    page = page[:last.end()] + f'\n  <link rel="stylesheet" href="{up("homepages/shared/concept-11.css")}">' + page[last.end():]
+
+    # hero: "your business." in the headline and a fourth panel
+    boat_word = '<span class="scene-word" data-scene="boat">your <em>boat.</em></span>'
+    assert boat_word in page
+    page = page.replace(boat_word, boat_word + '\n            <span class="scene-word" data-scene="business">your <em>business.</em></span>', 1)
+    page = page.replace('<span class="visually-hidden">your car, your home and your boat.</span>',
+                        '<span class="visually-hidden">your car, your home, your boat and your business.</span>', 1)
+    page = page.replace('class="scene hx hx--panels" data-hx role="group" aria-label="A car on a mountain road at sunset, a house lit up at dusk and a boat on the water at sunset"',
+                        'class="scene hx hx--panels" data-hx data-count="4" role="group" aria-label="A car on a mountain road at sunset, a house lit up at dusk, a boat on the water at sunset and a brick shopfront"', 1)
+    panel = (
+        '\n          <div class="hx__item" data-scene="business" data-lx="50" data-ly="40">\n'
+        f'            <img class="hx__img" src="{up("hero-concepts/shared/business.jpg")}" alt="" decoding="async">\n'
+        '            <span class="hx__tag" aria-hidden="true"><span class="hx__num">04</span><span class="hx__label">Business</span></span>\n'
+        '            <button class="hx__hit" type="button" aria-pressed="false" aria-controls="hx-business"><span class="visually-hidden">Business insurance</span></button>\n'
+        '            <div class="hx__body" id="hx-business">\n'
+        '              <span class="hx__num" aria-hidden="true">04</span>\n'
+        '              <p class="hx__title">Business insurance</p>\n'
+        '              <p class="hx__text">Liability, property, commercial auto and workers comp for local businesses.</p>\n'
+        '              <a class="hx__link" href="https://figleafagency.com/business-insurance/">See business coverage <span aria-hidden="true">&rarr;</span></a>\n'
+        '            </div>\n'
+        '            <span class="hx__bar" aria-hidden="true"></span>\n'
+        '          </div>')
+    m = re.search(r'<div class="hx__item" data-scene="boat".*?<span class="hx__bar" aria-hidden="true"></span>\n\s*</div>', page, re.S)
+    page = page[:m.end()] + panel + page[m.end():]
+
+    # Comprehensive Coverage: fig leaves drifting with the scroll
+    cov = '<section class="fl-grid-host hs-section hs-coverage" aria-labelledby="hs-coverage-title">'
+    assert cov in page
+    page = page.replace(cov, cov + '\n      <div class="c11-leaves" aria-hidden="true">'
+                        '<span class="c11-leaf c11-leaf--a" data-hs-px="0.35"></span>'
+                        '<span class="c11-leaf c11-leaf--b" data-hs-px="-0.2"></span>'
+                        '<span class="c11-leaf c11-leaf--c" data-hs-px="0.25"></span>'
+                        '<span class="c11-leaf c11-leaf--d" data-hs-px="-0.35"></span></div>', 1)
+
+    # About: the old building (sign repainted to read Fig Leaf), then the team
+    m = re.search(r'<div class="hs-about__media"><img class="hs-about__img"[^>]*></div>', page)
+    team = re.search(r'<img [^>]*>', m.group(0)).group(0).replace('class="hs-about__img"', 'class="hs-about__img c11-fade__team"')
+    b = 'homepages/shared/assets/old-building-figleaf'
+    building = (f'<img class="hs-about__img c11-fade__building" src="{up(b + ".jpg")}" '
+                f'srcset="{up(b + "-900.jpg")} 900w, {up(b + ".jpg")} 1800w" sizes="(max-width: 820px) 100vw, 50vw" '
+                'alt="Painting of the agency\'s original office, its sign reading Fig Leaf Agency" width="1800" height="1396" loading="lazy" decoding="async">')
+    tag = ('<span class="c11-fade__tag" aria-hidden="true"><span class="c11-fade__then">Where we started</span>'
+           '<span class="c11-fade__now">Our team today</span></span>')
+    page = page[:m.start()] + f'<div class="hs-about__media c11-fade">{building}{team}{tag}</div>' + page[m.end():]
+    return page
+
+
+EXTRAS = {2: business_card, 11: concept_11}
 
 
 # The five Homeowners page layouts, in turn: concept 1 gets layout 1, 2 gets
@@ -330,8 +398,12 @@ HOMEOWNERS = [
 ]
 
 
+# concepts that don't take their turn: concept 11 uses concept 2's layout
+HOMEOWNERS_PICK = {11: 1}
+
+
 def homeowners_layout(n):
-    return (n - 1) % len(HOMEOWNERS)
+    return HOMEOWNERS_PICK.get(n, (n - 1) % len(HOMEOWNERS))
 
 
 def main_run():
@@ -339,7 +411,7 @@ def main_run():
 
 
 def homeowners_bar(n, out_dir):
-    """The bar on concept n's Homeowners page: concepts 1 to 10, each number
+    """The bar on concept n's Homeowners page: concepts 1 to 11, each number
     opening that concept's Homeowners page, the arrows stepping through them."""
     keys = main_run()
     i = keys.index(n)
@@ -403,7 +475,7 @@ def build_subpages(n, home):
 
 def landing_bars():
     """Concept 1's quote pages are where visitors land (the root index opens
-    concept-1/crq-form/), so their bar lists concepts 1 to 10 too, each
+    concept-1/crq-form/), so their bar lists concepts 1 to 11 too, each
     number opening that concept's homepage."""
     for sub in ('crq', 'crq-form'):
         out = f'concept-1/{sub}'
