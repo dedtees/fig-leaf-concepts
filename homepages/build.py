@@ -540,7 +540,7 @@ def main_bar(cur, out_dir, page='home', build=1):
             title = f'Homeowners layout {cur} of {len(BUILDS)}, {HOMEOWNERS[cur - 1][1]}' + back
         elif page in BIOS or page == 'about':
             a, b = ABOUT_CONCEPTS[cur]
-            title = (f'About concept {cur}: {a}' if page == 'about' else f'{BIOS[page]} bio, concept {cur}: {b}') + back
+            title = (f'About concept {cur}: {a}' if page == 'about' else f'{BIOS[page][0]} bio, concept {cur}: {b}') + back
         else:
             title = f'Concept 11 with Homeowners layout {cur}'
     return ('<nav class="review-bar" aria-label="Current build">\n'
@@ -557,7 +557,11 @@ def main_bar(cur, out_dir, page='home', build=1):
 
 
 # Pages each build has, as paths under build-N/ (for the bar's numbers)
-BIOS = {'chris-oliveira': 'Chris Oliveira'}   # team bio pages under about/
+# team bio pages under about/: slug -> (name, title). Burke has no bio sheet
+# yet, so his About card has no link and he has no page.
+BIOS = {'chris-oliveira': ('Chris Oliveira', 'Account Executive'),
+        'danielle-mohr': ('Danielle Mohr', 'Business Development Manager'),
+        'jarihana-abreu': ('Jarihana Abreu', 'Licensed Insurance Agent')}
 # Each build has its own About and bio design (homepages/about/about-v<k>.html,
 # <bio>-v<k>.html; styles about.css plus about-<k>.css)
 ABOUT_CONCEPTS = {1: ('Story and values', 'Photo and details'),
@@ -608,9 +612,9 @@ def build_about(k):
     pages = [('about', 'about', 'About Us | The Fig Leaf Agency',
               'The Fig Leaf Agency is an independent insurance agency in Hazlet, NJ. Our story, our values and the team behind your policy.',
               'https://figleafagency.com/about/')]
-    pages += [(slug, f'about/{slug}', f'{name}, Account Executive | The Fig Leaf Agency',
+    pages += [(slug, f'about/{slug}', f'{name}, {role} | The Fig Leaf Agency',
                f'Meet {name} of The Fig Leaf Agency in Hazlet, NJ.', f'https://figleafagency.com/about/{slug}/')
-              for slug, name in BIOS.items()]
+              for slug, (name, role) in BIOS.items()]
     for key, sub, title, desc, canon in pages:
         out = f'{out_dir}/{sub}'
         up = lambda p: posixpath.relpath(p, out)

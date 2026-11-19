@@ -1,0 +1,70 @@
+  <!-- Bio, concept 2: "Contact card". A dark green band with a white card
+       across it, like a business card: round photo, name, title, every way
+       to reach them and a Save contact button (a vCard). Below it, the bio
+       in one column with what she helps with.
+       Paths are from the repo root; {B} is the build folder. Styles: about-2.css -->
+  <main id="main" class="hs hs--v1 ab ab--v2 ab--bio">
+
+    <header class="fl-grid-host b2-band" data-review-skip>
+      <div class="fl-grid" aria-hidden="true"><span class="fl-grid__lines" data-hs-px="0.15"></span></div>
+      <div class="hs-wrap">
+        <nav class="ab-crumbs" aria-label="Breadcrumb">
+          <ol><li><a href="{B}/">Home</a></li><li><a href="{B}/about/">About</a></li><li><span aria-current="page">Danielle Mohr</span></li></ol>
+        </nav>
+      </div>
+    </header>
+
+    <div class="hs-wrap b2-card-wrap">
+      <section class="b2-card" aria-labelledby="ab-title">
+        <img class="b2-card__photo" src="homepages/shared/assets/team/danielle-mohr-600.jpg" srcset="homepages/shared/assets/team/danielle-mohr-600.jpg 600w, homepages/shared/assets/team/danielle-mohr.jpg 1200w" sizes="240px" alt="Danielle Mohr" width="600" height="900" decoding="async">
+        <div class="b2-card__who">
+          <p class="ab-eyebrow ab-eyebrow--ink">Business Development Manager</p>
+          <h1 class="b2-card__name" id="ab-title">Danielle Mohr</h1>
+          <p class="b2-card__org">The Fig Leaf Agency · Hazlet, NJ</p>
+        </div>
+        <ul class="b2-card__lines">
+          <li><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg><a href="tel:+19088623447,109">(908) 862-3447 <span>ext. 109</span></a></li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-mail"></use></svg><a href="mailto:danielle@figleafagency.com">danielle@figleafagency.com</a></li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-id"></use></svg><span>License #3004180934</span></li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-calendar"></use></svg><span>2.5 years with Fig Leaf</span></li>
+        </ul>
+        <div class="b2-card__actions">
+          <a class="hs-btn hs-btn--primary" href="mailto:danielle@figleafagency.com"><svg class="icon" aria-hidden="true"><use href="#i-mail"></use></svg>Email Danielle</a>
+          <a class="hs-btn b2-btn-line" download="danielle-mohr.vcf" href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0D%0AVERSION%3A3.0%0D%0AN%3AMohr%3BDanielle%3B%3B%3B%0D%0AFN%3ADanielle%20Mohr%0D%0AORG%3AThe%20Fig%20Leaf%20Agency%0D%0ATITLE%3ABusiness%20Development%20Manager%0D%0ATEL%3BTYPE%3DWORK%2CVOICE%3A%2B19088623447%20ext.%20109%0D%0AEMAIL%3BTYPE%3DWORK%3Adanielle%40figleafagency.com%0D%0AADR%3BTYPE%3DWORK%3A%3B%3B1338%20State%20Route%2036%3BHazlet%3BNJ%3B07730%3BUSA%0D%0AEND%3AVCARD%0D%0A"><svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>Save contact</a>
+        </div>
+      </section>
+    </div>
+
+    <section class="b2-bio" aria-labelledby="b2-bio-title">
+      <div class="hs-wrap a2-narrow">
+        <h2 class="a2-title hs-reveal" id="b2-bio-title">About Danielle</h2>
+        <p class="a2-lead hs-reveal">Danielle is our Business Development Manager and a Licensed Property &amp; Casualty Insurance Agent who is passionate about helping clients find the right coverage while making sure they understand what they're paying for and, most importantly, what their coverage actually provides.</p>
+        <ul class="b2-chips hs-reveal" aria-label="What Danielle helps with">
+          <li><svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg>The right coverage</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>What you're paying for</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-building"></use></svg>Commercial insurance</li>
+        </ul>
+        <figure class="a2-quote a2-quote--small hs-reveal">
+          <blockquote><p>Becoming a client means becoming a friend.</p></blockquote>
+          <figcaption>In Danielle's words. She believes insurance should come with someone you know and trust.</figcaption>
+        </figure>
+        <p class="b2-offclock hs-reveal"><svg class="icon" aria-hidden="true"><use href="#i-heart"></use></svg><span><b>Off the clock:</b> walking her dog, or spending time with her daughter, who is her best friend.</span></p>
+        <p class="ab-backlink"><a href="{B}/about/#team"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>Back to the team</a></p>
+      </div>
+    </section>
+
+    <section class="fl-grid-host ab-cta" aria-labelledby="ab-cta-title">
+      <div class="fl-grid" aria-hidden="true"><span class="fl-grid__lines" data-hs-px="0.15"></span></div>
+      <div class="hs-wrap ab-cta__grid hs-reveal">
+        <div>
+          <p class="ab-eyebrow">Work with Danielle</p>
+          <h2 class="ab-cta__title" id="ab-cta-title">Have a question about your coverage?</h2>
+          <p>Start a quote, or call Danielle directly at extension 109.</p>
+        </div>
+        <div class="ab-cta__actions">
+          <a class="hs-btn hs-btn--primary" href="{B}/crq-form/">Get a Quote</a>
+          <a class="ab-call" href="tel:+19088623447,109"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>(908) 862-3447 ext. 109</a>
+        </div>
+      </div>
+    </section>
+  </main>
