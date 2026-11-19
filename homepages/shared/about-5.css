@@ -135,3 +135,17 @@
 }
 @media (max-width: 1000px) { .a5-team__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 480px) { .a5-team__cards { gap: 28px 14px; } .a5-person { gap: 12px; } .a5-person__name { font-size: 1.1rem; } .a5-person__role { font-size: .68rem; letter-spacing: .08em; } .a5-person__meta { font-size: .85rem; } }
+
+/* At a glance (client review round 2): build 3's Where / What / How facts
+   on the green band, in place of the three numbers */
+.a5-glance .a5-stats__list > div { display: grid; gap: 8px; align-content: start; padding: clamp(28px, 4vw, 44px) clamp(16px, 3vw, 36px); }
+.a5-glance .a5-stats__list > div:first-child { padding-left: 0; }
+.a5-glance .a5-stats__list > div + div { border-left: 1px solid var(--ab-gold); }
+.a5-glance__term { font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ab-gold); }
+.a5-glance__value { margin: 0; font-family: var(--ab-serif); font-weight: 600; font-size: clamp(1.3rem, 1.05rem + .8vw, 1.75rem); line-height: 1.25; color: #fff; }
+@media (max-width: 760px) {
+  .a5-glance .a5-stats__list > div { padding-inline: 0; }
+  .a5-glance .a5-stats__list > div + div { border-left: 0; border-top: 1px solid var(--ab-gold); }
+}
+/* build 3's longer headline in the half-width hero */
+.ab--v5 .a5-head .ab-head__title { font-size: clamp(2.3rem, 1.5rem + 2.4vw, 3.6rem); line-height: 1.05; }

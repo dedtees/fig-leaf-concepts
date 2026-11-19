@@ -705,6 +705,111 @@ def keep_links_in(page, out, build):
     return re.sub(r'<a\b[^>]*?\shref=(["\'])(.*?)\1[^>]*>', fix, page)
 
 
+# --- client review round 2 (Reviewer a9lh, 19 Nov): builds only ------------
+# Concept 11 itself stays as it was (archived); these run on build-1 to
+# build-5 after the page is made.
+
+def round2_home(page, out_dir):
+    """Every build's homepage: Business before Boat in the hero, and a fourth
+    card, Life Insurance, under "More Ways We Protect You"."""
+    # hero: car, home, business, boat
+    words = ('<span class="scene-word" data-scene="boat">your <em>boat.</em></span>\n'
+             '            <span class="scene-word" data-scene="business">your <em>business.</em></span>')
+    assert words in page
+    page = page.replace(words, '<span class="scene-word" data-scene="business">your <em>business.</em></span>\n'
+                        '            <span class="scene-word" data-scene="boat">your <em>boat.</em></span>', 1)
+    page = page.replace('your car, your home, your boat and your business.</span>',
+                        'your car, your home, your business and your boat.</span>', 1)
+    page = page.replace('Your car, your home, your boat, your business.', 'Your car, your home, your business, your boat.', 1)
+    page = page.replace('a boat on the water at sunset and a brick shopfront"', 'a brick shopfront and a boat on the water at sunset"', 1)
+    boat = re.search(r'\n[ \t]*<div class="hx__item" data-scene="boat".*?<span class="hx__bar" aria-hidden="true"></span>\n\s*</div>', page, re.S)
+    biz = re.search(r'\n[ \t]*<div class="hx__item" data-scene="business".*?<span class="hx__bar" aria-hidden="true"></span>\n\s*</div>', page, re.S)
+    assert boat and biz and boat.end() <= biz.start()
+    b_html = boat.group(0).replace('<span class="hx__num">03</span>', '<span class="hx__num">04</span>') \
+                          .replace('<span class="hx__num" aria-hidden="true">03</span>', '<span class="hx__num" aria-hidden="true">04</span>')
+    z_html = biz.group(0).replace('<span class="hx__num">04</span>', '<span class="hx__num">03</span>') \
+                         .replace('<span class="hx__num" aria-hidden="true">04</span>', '<span class="hx__num" aria-hidden="true">03</span>')
+    page = page[:boat.start()] + z_html + page[boat.end():biz.start()] + b_html + page[biz.end():]
+
+    # More Ways We Protect You: four cards
+    img = posixpath.relpath('homepages/shared/assets/life-insurance.jpg', out_dir)
+    card = (
+        '          <article class="hs-service hs-reveal">\n'
+        f'            <div class="hs-service__media"><img class="hs-service__img" src="{img}" alt="" width="900" height="600" loading="lazy" decoding="async"></div>\n'
+        '            <div class="hs-service__body">\n'
+        '              <h3 class="hs-line__title">Life Insurance</h3>\n'
+        '              <p>Term and whole life policies that keep your family secure, compared across our carriers and explained before you sign.</p>\n'
+        '              <a class="hs-more" href="https://figleafagency.com/life-insurance/">Learn more<span class="visually-hidden"> about life insurance</span></a>\n'
+        '            </div>\n'
+        '          </article>\n')
+    m = re.search(r'(<div class="hs-services__grid) hs-services__grid--3(">.*?)(        </div>\n      </div>\n    </section>)', page, re.S)
+    assert m
+    page = page[:m.start()] + m.group(1) + ' hs-services__grid--4' + m.group(2) + card + m.group(3) + page[m.end():]
+    page = page.replace('we protect local businesses, help contractors stay covered on the job, and help drivers keep their records and premiums down.',
+                        'we protect local businesses and families, help contractors stay covered on the job, and help drivers keep their records and premiums down.', 1)
+    return page
+
+
+R2_COVERS = [('01', 'i-home', 'Dwelling', 'The physical structure of your home.'),
+             ('02', 'i-garage', 'Other Structures', 'Additional structures on your property, such as swimming pools and detached garages.'),
+             ('03', 'i-receipt', 'Additional Costs', 'Incurred as a result of a covered loss.'),
+             ('04', 'i-sofa', 'Personal Property', 'Your personal belongings, including clothing, furniture and electronics.'
+              '<span class="r2-covers__note">Items such as jewelry, watches and fine art may need to be covered separately.</span>'),
+             ('05', 'i-liability', 'Personal Liability', 'Occurrences that arise from being a homeowner.')]
+
+
+def round2_homeowners(k, page, out):
+    """Build 1: no "A homeowners policy generally covers" section. Build 3:
+    that section merged with build 1's black quote card and its Personal
+    insurance links, as one full-width black band (round-2.css)."""
+    if k == 1:
+        m = re.search(r'\n\n[ \t]*<section class="pg-block" aria-labelledby="pg-covers-title">.*?</section>', page, re.S)
+        assert m
+        page = page[:m.start()] + page[m.end():]
+    if k == 3:
+        m = re.search(r'[ \t]*<section class="pg-sec" id="covered".*?</section>\n', page, re.S)
+        assert m
+        items = '\n'.join(
+            f'            <li class="hs-reveal"><span class="r2-covers__num" aria-hidden="true">{n}</span>'
+            f'<span class="r2-covers__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#{i}"></use></svg></span>'
+            f'<div><h3 class="r2-covers__title">{t}</h3><p>{d}</p></div></li>' for n, i, t, d in R2_COVERS)
+        links = '\n'.join(
+            f'              <li><a href="{h}">{name}<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a></li>'
+            for name, h in [('Auto Insurance', 'https://figleafagency.com/auto-insurance/'),
+                            ('Homeowners Insurance', './'),
+                            ('Boat Insurance', 'https://figleafagency.com/boat-insurance/'),
+                            ('Personal Umbrella Insurance', 'https://figleafagency.com/personal-umbrella-insurance/')])
+        links = links.replace('<a href="./">', '<a href="./" aria-current="page">', 1)
+        band = (
+            '    <!-- Client review round 2: "A homeowners policy generally covers" merged\n'
+            "         with build 1's black quote card, full width (homepages/shared/round-2.css) -->\n"
+            '    <section class="pg-sec r2-covered" id="covered" aria-labelledby="pg-covered-title">\n'
+            '      <div class="pg-wrap r2-covered__grid">\n'
+            '        <div class="r2-covered__main">\n'
+            '          <p class="r2-covered__eyebrow">Keeping you protected</p>\n'
+            '          <h2 class="r2-covered__title" id="pg-covered-title">A homeowners policy generally covers:</h2>\n'
+            '          <ol class="r2-covers">\n' + items + '\n          </ol>\n'
+            '        </div>\n'
+            '        <aside class="r2-quote" aria-label="Quote and other coverage">\n'
+            '          <div class="r2-quote__card">\n'
+            '            <h3 class="r2-quote__title">Get a homeowners quote</h3>\n'
+            '            <p>We compare top-rated carriers for you, then walk you through every line of the policy.</p>\n'
+            '            <a class="pg-btn pg-btn--primary" href="#quote">Start My Quote</a>\n'
+            '            <a class="r2-quote__call" href="tel:+19088623447"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>Call (908) 862-3447</a>\n'
+            '          </div>\n'
+            '          <nav class="r2-quote__links" aria-label="Personal insurance">\n'
+            '            <h3 class="r2-quote__head">Personal insurance</h3>\n'
+            '            <ul>\n' + links + '\n            </ul>\n'
+            '          </nav>\n'
+            '        </aside>\n'
+            '      </div>\n'
+            '    </section>\n')
+        page = page[:m.start()] + band + page[m.end():]
+        last = list(re.finditer(r'<link rel="stylesheet"[^>]*>', page))[-1]
+        page = page[:last.end()] + f'\n  <link rel="stylesheet" href="{posixpath.relpath("homepages/shared/round-2.css", out)}">' + page[last.end():]
+    return page
+
+
 def build_builds():
     """build-1 to build-5: concept 11's homepage, quote pages and one
     Homeowners layout each (build k gets layout k)."""
@@ -715,6 +820,7 @@ def build_builds():
         build_page(*c11, out_dir=out_dir)
         page = read(f'{out_dir}/index.html')
         page = swap_bar(page, main_bar(k, out_dir))
+        page = round2_home(page, out_dir)
         page = re.sub(r'<title>Concept 11 ·', f'<title>Build {k} ·', page, count=1)
         page = about_links(page, out_dir, out_dir)
         page = keep_links_in(page, out_dir, out_dir)
@@ -740,6 +846,8 @@ def build_builds():
                 if sub == 'crq':
                     bar = bar.replace('review-bar__name">Get a quote<', 'review-bar__name">Get a quote · quote request page<', 1)
             page = page.replace('<!--REVIEW-BAR-->', bar)
+            if sub == 'homeowners-insurance':
+                page = round2_homeowners(k, page, out)
             page = about_links(page, out, out_dir)
             page = keep_links_in(page, out, out_dir)
             page = page.replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- Built by homepages/build.py: '

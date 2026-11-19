@@ -94,6 +94,19 @@ repo root, `{B}` for the build folder; `_icons.html` is the extra icons every pa
 "Learn More About Our Values" link to these pages on every build page. To add a bio: write
 `homepages/about/<slug>-v1.html` to `-v5.html`, add it to `BIOS` in `build.py`, add a card to the team section of each
 `about-v<N>.html`, and re-run the script. Screenshots are in `screenshots/about/`.
+**Client review round 2 (Reviewer a9lh, 19 Nov).** Applied to the builds only (concept 11 itself is unchanged), by
+`round2_home` and `round2_homeowners` in `build.py`:
+
+- **Homepage, every build**: the hero panels run Car, Home, Business, Boat (Business and Boat swapped, headline words
+  and numbers to match), and "More Ways We Protect You" has four cards: Business, Special Contractor Policies, Defensive
+  Driving Course and a new Life Insurance card (`homepages/shared/assets/life-insurance.jpg`, from Unsplash,
+  photo-1511895426328-dc8714191300, Unsplash License). Four across from 1200px, two by two below that (`concept-11.css`).
+- **Build 1 Homeowners**: the "A homeowners policy generally covers" section is gone.
+- **Build 3 Homeowners**: "A homeowners policy generally covers" is merged with build 1's quote card and its Personal
+  insurance links in one full-width black band (`homepages/shared/round-2.css`).
+- **Build 5 About**: the hero uses build 3's headline and intro ("Insurance, explained by people who keep their word."),
+  and the agency-in-numbers band now shows build 3's "at a glance" facts (Where, What, How) instead (`about-v5.html`, `about-5.css`).
+
 **Links stay inside the build.** `keep_links_in` in `build.py` runs on every build page and the gallery. A link to a
 figleafagency.com page the build has (About, Meet Our Team, Homeowners, the quote form) opens the build's copy; every other
 link that leaves the build (the live site's other pages, Google Maps and reviews, Facebook, Drive Safe Today, carriers,

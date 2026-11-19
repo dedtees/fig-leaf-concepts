@@ -144,8 +144,9 @@
 
   
 <!-- About, concept 5: "By the numbers". A split black hero with the team
-       photo filling the right half, the homepage's three numbers counting up
-       (home-sections.js), then the story as a three-step path from the first
+       photo filling the right half and build 3's headline, then build 3's
+       "at a glance" facts on the green band (in place of the three numbers,
+       client review round 2), then the story as a three-step path from the first
        office to today, values on the dark green band and the team.
        Paths are from the repo root; build-5 is the build folder. Styles: about-5.css -->
   <main id="main" class="hs hs--v1 ab ab--v5">
@@ -171,8 +172,8 @@
           <ol><li><a href="../">Home</a></li><li><span aria-current="page">About</span></li></ol>
         </nav>
         <p class="ab-eyebrow">About The Fig Leaf Agency</p>
-        <h1 class="ab-head__title" id="ab-title">New Jersey's better alternative.</h1>
-        <p class="a5-head__lead">Lower insurance costs and personal service, from an independent agency that keeps its word.</p>
+        <h1 class="ab-head__title" id="ab-title">Insurance, explained by people who keep their&nbsp;word.</h1>
+        <p class="a5-head__lead">An independent agency in Hazlet, New Jersey, finding the best coverage and price for families and businesses, and making sure they understand it.</p>
         <div class="ab-head__actions">
           <a class="hs-btn hs-btn--primary" href="../crq-form/">Get a Quote</a>
           <a class="ab-call" href="tel:+19088623447"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>(908) 862-3447</a>
@@ -183,13 +184,13 @@
       </div>
     </header>
 
-    <!-- The numbers come from the agency's original brief, as on the homepage -->
-    <section class="a5-stats" aria-label="The agency in numbers">
-      <div class="hs-wrap"><ul class="a5-stats__list">
-        <li class="hs-reveal"><span class="a5-stat__value"><span data-count="20">20</span>+</span><span class="a5-stat__label">Years serving New Jersey families and businesses</span></li>
-        <li class="hs-reveal"><span class="a5-stat__value"><span data-count="1000">1,000</span>s</span><span class="a5-stat__label">Happy clients across personal and commercial lines</span></li>
-        <li class="hs-reveal"><span class="a5-stat__value">140+ <span class="a5-stars" role="img" aria-label="5 out of 5 stars"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg></span></span><span class="a5-stat__label">Five star Google reviews</span></li>
-      </ul></div>
+    <!-- At a glance, from build 3's About page (in place of the numbers) -->
+    <section class="a5-stats a5-glance" aria-label="At a glance">
+      <div class="hs-wrap"><dl class="a5-stats__list">
+        <div class="hs-reveal"><dt class="a5-glance__term">Where</dt><dd class="a5-glance__value">1338 State Route 36, Hazlet, NJ</dd></div>
+        <div class="hs-reveal"><dt class="a5-glance__term">What</dt><dd class="a5-glance__value">Personal and business insurance</dd></div>
+        <div class="hs-reveal"><dt class="a5-glance__term">How</dt><dd class="a5-glance__value">Independent: we compare carriers for you</dd></div>
+      </dl></div>
     </section>
 
     <section class="a5-path" aria-labelledby="a5-path-title">
