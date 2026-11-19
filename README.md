@@ -73,6 +73,16 @@ The client kept concept 11. The review bar now runs AC, GC, 1, 2, 3, 4, 5:
   On a Homeowners page the numbers step between the five Homeowners layouts.
 
 `homepages/build.py` makes them (`build_builds`, `main_bar`). Review labels are "Gallery", "Get a quote" and "Build N".
+
+**About and bio pages.** Each build has an About page (`build-N/about/`) and a bio page for each team member under it
+(`build-N/about/chris-oliveira/`), in concept 11's header, footer, colours and type (Fraunces headings, Source Sans body).
+The content is in `homepages/about/` (`about.html`, `chris-oliveira.html`: main content only, paths from the repo root,
+`{B}` for the build folder) and the styles in `homepages/shared/about.css`; `build_about` in `build.py` wraps them in the
+build's header and footer. The About page reuses the homepage's About picture (the old building fading to the team), then
+values, the team cards and a closing quote band. Team photos are in `homepages/shared/assets/team/`. The header's About,
+the footer's About Us and Meet Our Team and the homepage's "Learn More About Our Values" link to these pages on every build page.
+To add a bio: write `homepages/about/<slug>.html`, add it to `BIOS` in `build.py`, add a card to the team grid in
+`about.html`, and re-run the script.
 Everything else (concepts 1 to 11, archives A to E) is archived: still online so old links work, with "archived · see the current build" in its bar.
 
 ## Numbering (archived concepts)

@@ -520,7 +520,7 @@ def main_bar(cur, out_dir, page='home', build=1):
                ('GC', 'GC', 'Get a quote', rel_(f'{build_dir(gc_build)}/crq-form'))]
     for k in BUILDS:
         lay = HOMEOWNERS[k - 1][1]
-        sub = '/homeowners-insurance' if page == 'homeowners' else ''
+        sub = PAGE_PATH[page]
         entries.append((k, str(k), f'Concept 11 with Homeowners layout {k} ({lay})', rel_(build_dir(k) + sub)))
     keys = [e[0] for e in entries]
     i = keys.index(cur)
@@ -535,9 +535,13 @@ def main_bar(cur, out_dir, page='home', build=1):
         label, title = 'Get a quote', 'Get a quote'
     else:
         label = f'Build {cur}'
-        title = (f'Homeowners layout {cur} of {len(BUILDS)}, {HOMEOWNERS[cur - 1][1]}'
-                 f' · <a href="{rel_(build_dir(cur))}" style="color:inherit">back to the homepage</a>'
-                 if page == 'homeowners' else f'Concept 11 with Homeowners layout {cur}')
+        back = f' · <a href="{rel_(build_dir(cur))}" style="color:inherit">back to the homepage</a>'
+        if page == 'homeowners':
+            title = f'Homeowners layout {cur} of {len(BUILDS)}, {HOMEOWNERS[cur - 1][1]}' + back
+        elif page in BIOS or page == 'about':
+            title = ('About page' if page == 'about' else f'Bio page: {BIOS[page]}') + back
+        else:
+            title = f'Concept 11 with Homeowners layout {cur}'
     return ('<nav class="review-bar" aria-label="Current build">\n'
             f'    <p class="review-bar__title"><span class="review-bar__label">{label}</span> '
             f'<span class="review-bar__name">{title}</span></p>\n'
@@ -549,6 +553,73 @@ def main_bar(cur, out_dir, page='home', build=1):
             f'      <a class="review-bar__step" href="{entries[(i + 1) % len(entries)][3]}" rel="next" aria-label="Next">'
             '<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>\n'
             '    </div>\n  </nav>')
+
+
+# Pages each build has, as paths under build-N/ (for the bar's numbers)
+BIOS = {'chris-oliveira': 'Chris Oliveira'}   # team bio pages under about/
+PAGE_PATH = {'home': '', 'homeowners': '/homeowners-insurance', 'about': '/about',
+             **{slug: f'/about/{slug}' for slug in BIOS}}
+
+
+def about_links(page, out, build):
+    """Point About links at the build's own About page: the header's About
+    (which pointed at a folder that doesn't exist), the footer's About Us and
+    Meet Our Team, and the homepage About section's values button."""
+    to = lambda target: posixpath.relpath(f'{build}/about', out) + '/' + target
+    page = re.sub(r'href="(?:\.\./)*archive-[a-e]/about/"', f'href="{to("")}"', page)
+    page = page.replace('href="https://figleafagency.com/about/"', f'href="{to("")}"')
+    page = page.replace('href="https://figleafagency.com/meet-our-team/"', f'href="{to("#team")}"')
+    page = page.replace('<a class="hs-btn hs-btn--outline" href="' + to("") + '">Learn More About Our Values</a>',
+                        '<a class="hs-btn hs-btn--outline" href="' + to("#values") + '">Learn More About Our Values</a>')
+    return page
+
+
+def build_about(k):
+    """build-N/about/ and build-N/about/<bio>/: concept 11's header and
+    footer (from the build's homepage) around the About page and the team
+    bios in homepages/about/. Styles: homepages/shared/about.css."""
+    out_dir = build_dir(k)
+    home = read(f'{out_dir}/index.html')
+    body = home[home.index('<body>'):home.index('<main id="main">')]
+    tail = home[home.index('</main>') + len('</main>'):]
+    body = body[:body.index('<nav class="review-bar"')] + '<!--REVIEW-BAR-->' + body[body.index('</nav>', body.index('<nav class="review-bar"')) + len('</nav>'):]
+    tail = re.sub(r'\s*<script src="[^"]*hero-x\.js"></script>', '', tail)
+    pages = [('about', 'about', 'About Us | The Fig Leaf Agency',
+              'The Fig Leaf Agency is an independent insurance agency in Hazlet, NJ. Our story, our values and the team behind your policy.',
+              'https://figleafagency.com/about/')]
+    pages += [(slug, f'about/{slug}', f'{name}, Account Executive | The Fig Leaf Agency',
+               f'Meet {name} of The Fig Leaf Agency in Hazlet, NJ.', f'https://figleafagency.com/about/{slug}/')
+              for slug, name in BIOS.items()]
+    for key, sub, title, desc, canon in pages:
+        out = f'{out_dir}/{sub}'
+        up = lambda p: posixpath.relpath(p, out)
+        css = ''.join(f'\n  <link rel="stylesheet" href="{up(c)}">' for c in (
+            'archive-a/styles.css', 'archive-a/home-sections.css', 'archive-a/grid.css', 'archive-a/palette.css',
+            'homepages/shared/concept-11.css', 'homepages/shared/about.css'))
+        head = ('<!DOCTYPE html>\n<!-- Built by homepages/build.py: build ' + str(k) + "'s " + sub +
+                f' page, from homepages/about/{"about" if key == "about" else key}.html in concept 11\'s header and footer. '
+                'Edit that file, then re-run the script. -->\n'
+                '<html lang="en" data-header="a"><head><meta charset="utf-8">\n'
+                '  <meta name="robots" content="noindex">\n'
+                '  <meta name="viewport" content="width=device-width, initial-scale=1">\n'
+                f'  <title>Build {k} · {title}</title>\n'
+                f'  <meta name="description" content="{desc}">\n'
+                f'  <link rel="canonical" href="{canon}">\n'
+                f'  <link rel="icon" href="{up("archive-a/assets/fig-leaf-fill.svg")}" type="image/svg+xml">\n'
+                '  <link rel="preconnect" href="https://fonts.googleapis.com/">\n'
+                '  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">\n'
+                '  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&amp;family=Montserrat:wght@400;500;600;700&amp;family=Lato:wght@400;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap">'
+                + css + '\n</head>\n')
+        main = read(f'homepages/about/{"about" if key == "about" else key}.html').replace('{B}', out_dir)
+        main = rebase(main, '', out)
+        shell = rebase(body + '<!--MAIN-->' + tail, out_dir, out)
+        page = head + shell.replace('<!--MAIN-->', '\n' + main.strip('\n').lstrip() + '\n', 1)
+        page = about_links(page, out, out_dir)
+        here = posixpath.relpath(f'{out_dir}/about', out) + '/'
+        page = page.replace(f'<a class="site-nav__link" href="{here}">About</a>',
+                            f'<a class="site-nav__link" href="{here}" aria-current="page">About</a>', 1)
+        page = page.replace('<!--REVIEW-BAR-->', main_bar(k, out, key))
+        write(f'{out}/index.html', page)
 
 
 def swap_bar(page, bar):
@@ -567,6 +638,7 @@ def build_builds():
         page = read(f'{out_dir}/index.html')
         page = swap_bar(page, main_bar(k, out_dir))
         page = re.sub(r'<title>Concept 11 ·', f'<title>Build {k} ·', page, count=1)
+        page = about_links(page, out_dir, out_dir)
         page = page.replace('<!-- Built by homepages/build.py: concept 11:',
                             f'<!-- Built by homepages/build.py: build {k} (concept 11, Homeowners layout {k}):', 1)
         write(f'{out_dir}/index.html', page)
@@ -589,9 +661,11 @@ def build_builds():
                 if sub == 'crq':
                     bar = bar.replace('review-bar__name">Get a quote<', 'review-bar__name">Get a quote · quote request page<', 1)
             page = page.replace('<!--REVIEW-BAR-->', bar)
+            page = about_links(page, out, out_dir)
             page = page.replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- Built by homepages/build.py: '
                                 f'build {k}\'s copy of {src}/. Edit that page, then re-run the script. -->', 1)
             write(f'{out}/index.html', page)
+        build_about(k)
     # the gallery (archive D) is AC: the landing page, with the current bar
     page = read(f'{GALLERY}/index.html')
     write(f'{GALLERY}/index.html', swap_bar(page, main_bar('AC', GALLERY)))
