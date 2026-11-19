@@ -68,13 +68,18 @@
 .a5-team__cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 2vw, 24px); }
 .a5-team .ab-section-head__title { color: var(--ab-green); }
 .a5-team__text { margin: 16px 0 0; font-size: 1.1rem; line-height: 1.6; }
-.a5-person { position: relative; display: block; overflow: hidden; border-radius: 18px; aspect-ratio: 3 / 4; color: #fff; text-decoration: none; background: var(--ab-green); }
-.a5-person img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 14%; transition: transform .6s cubic-bezier(.2, .7, .2, 1); }
-.a5-person:hover img { transform: scale(1.04); }
-.a5-person__body { position: absolute; left: 12px; right: 12px; bottom: 12px; display: grid; gap: 4px; padding: 14px 16px; border-radius: 14px; background: var(--ab-black); border-top: 3px solid var(--ab-gold); }
-.a5-person__name { font-family: var(--ab-serif); font-weight: 600; font-size: 1.3rem; }
-.a5-person__role { font-size: .85rem; color: var(--ab-green-light); }
-.a5-person__more { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--ab-gold); }
+/* each person: a clean photo with the name and role set below it */
+.a5-person { display: grid; align-content: start; gap: 18px; color: var(--ab-black); text-decoration: none; }
+.a5-person__photo { position: relative; display: block; overflow: hidden; aspect-ratio: 4 / 5; border-radius: 16px; background: var(--ab-green); border-bottom: 4px solid var(--ab-gold); }
+.a5-person__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; transition: transform .6s cubic-bezier(.2, .7, .2, 1); }
+.a5-person:hover .a5-person__photo img { transform: scale(1.04); }
+.a5-person__body { display: grid; gap: 4px; }
+.a5-person__name { font-family: var(--ab-serif); font-weight: 600; font-size: 1.35rem; line-height: 1.2; color: var(--ab-green); }
+.a5-person__role { font-weight: 700; font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ab-black); }
+.a5-person__meta { font-size: .95rem; color: var(--ab-black); opacity: .75; }
+.a5-person__more { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; padding-top: 12px; border-top: 1px solid var(--ab-green-light); font-weight: 700; color: var(--ab-green); }
+.a5-person__more .icon { width: 18px; height: 18px; color: var(--ab-gold); transition: transform .3s; }
+.a5-person:hover .a5-person__more .icon { transform: translateX(4px); }
 
 /* --- Bio: the fig leaf portrait --------------------------------------------------- */
 .b5-head { overflow: clip; padding: clamp(28px, 4vw, 44px) 0 clamp(48px, 6vw, 80px); background: var(--ab-green); border-top: 1px solid var(--ab-gold); color: #fff; }
@@ -126,7 +131,7 @@
   .b5-leaf__gold { transform: translate(10px, 8px); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .a5-values__list li, .a5-person img { transition: none; }
+  .a5-values__list li, .a5-person__photo img, .a5-person__more .icon { transition: none; }
 }
 @media (max-width: 1000px) { .a5-team__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 480px) { .a5-team__cards { grid-template-columns: minmax(0, 1fr); } .a5-person { aspect-ratio: 4 / 4.4; } }
+@media (max-width: 480px) { .a5-team__cards { gap: 28px 14px; } .a5-person { gap: 12px; } .a5-person__name { font-size: 1.1rem; } .a5-person__role { font-size: .68rem; letter-spacing: .08em; } .a5-person__meta { font-size: .85rem; } }
