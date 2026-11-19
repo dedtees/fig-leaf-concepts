@@ -577,6 +577,19 @@ def about_links(page, out, build):
     page = re.sub(r'href="(?:\.\./)*archive-[a-e]/about/"', f'href="{to("")}"', page)
     page = page.replace('href="https://figleafagency.com/about/"', f'href="{to("")}"')
     page = page.replace('href="https://figleafagency.com/meet-our-team/"', f'href="{to("#team")}"')
+    # the header's About gets a sub-menu, built like Personal Insurance's
+    page = page.replace(f'<li><a class="site-nav__link" href="{to("")}">About</a></li>',
+        '<li class="site-nav__item">\n'
+        f'            <a class="site-nav__link" href="{to("")}">About</a>\n'
+        '            <button class="site-nav__sub-toggle" type="button" aria-expanded="false" aria-controls="sub-about">\n'
+        '              <svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg>\n'
+        '              <span class="visually-hidden">About pages</span>\n'
+        '            </button>\n'
+        '            <ul class="site-nav__sub" id="sub-about">\n'
+        f'              <li><a href="{to("")}">About The Fig Leaf</a></li>\n'
+        f'              <li><a href="{to("#team")}">Meet the Team</a></li>\n'
+        '            </ul>\n'
+        '          </li>', 1)
     page = page.replace('<a class="hs-btn hs-btn--outline" href="' + to("") + '">Learn More About Our Values</a>',
                         '<a class="hs-btn hs-btn--outline" href="' + to("#values") + '">Learn More About Our Values</a>')
     return page
@@ -630,6 +643,9 @@ def build_about(k):
         here = posixpath.relpath(f'{out_dir}/about', out) + '/'
         page = page.replace(f'<a class="site-nav__link" href="{here}">About</a>',
                             f'<a class="site-nav__link" href="{here}" aria-current="page">About</a>', 1)
+        if key == 'about':
+            page = page.replace(f'<li><a href="{here}">About The Fig Leaf</a></li>',
+                                f'<li><a href="{here}" aria-current="page">About The Fig Leaf</a></li>', 1)
         page = page.replace('<!--REVIEW-BAR-->', main_bar(k, out, key))
         page = page.replace('</body>', f'  <script src="{up("homepages/shared/about.js")}"></script>\n</body>', 1)
         write(f'{out}/index.html', page)
