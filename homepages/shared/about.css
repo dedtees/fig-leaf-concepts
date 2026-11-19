@@ -142,7 +142,7 @@
 .ab-team { padding-block: clamp(64px, 8vw, 112px); background: #fff; color: var(--ab-black); border-top: 1px solid var(--ab-gold); }
 .ab-team .ab-section-head__title { color: var(--ab-green); }
 .ab-team__grid {
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: clamp(20px, 3vw, 32px);
   margin: 0; padding: 0; list-style: none;
 }
@@ -159,7 +159,7 @@
 .ab-person__link:hover .ab-person__photo img { transform: scale(1.04); }
 .ab-person__body { display: grid; gap: 4px; padding: 22px 24px 24px; border-top: 3px solid var(--ab-gold); }
 .ab-person__role { font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ab-green); }
-.ab-person__name { font-family: var(--ab-serif); font-weight: 600; font-size: 1.6rem; line-height: 1.2; color: var(--ab-black); }
+.ab-person__name { font-family: var(--ab-serif); font-weight: 600; font-size: 1.45rem; line-height: 1.2; color: var(--ab-black); }
 .ab-person__more { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; font-weight: 700; color: var(--ab-green); }
 .ab-person__more .icon { transition: transform .2s ease; }
 .ab-person__link:hover .ab-person__more .icon { transform: translateX(4px); }

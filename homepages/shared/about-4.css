@@ -124,3 +124,17 @@ a.b4-reach__item:hover { color: var(--ab-gold); }
 }
 .ab .a4-visit .hs-btn--outline { border-color: var(--ab-green); color: var(--ab-green); }
 .ab .a4-visit .hs-btn--outline:hover { background: var(--ab-green); color: #fff; }
+
+/* four people: a 2 by 2 grid of portrait cards */
+.a4-team { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.a4-team .a4-person { grid-template-columns: 150px minmax(0, 1fr); max-width: none; }
+.a4-team .a4-person img { min-height: 220px; }
+.a4-team .a4-person__body { padding: 20px 22px; }
+.a4-team .a4-person__name { font-size: 1.4rem; }
+.a4-team .a4-person__text { font-size: .95rem; }
+@media (max-width: 1200px) { .a4-team { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 560px) {
+  .a4-team .a4-person { grid-template-columns: 110px minmax(0, 1fr); }
+  .a4-team .a4-person img { aspect-ratio: auto; min-height: 100%; }
+  .a4-team .a4-person__text { display: none; }
+}

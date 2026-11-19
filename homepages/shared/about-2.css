@@ -73,7 +73,7 @@
 .a2-team { padding-block: clamp(64px, 8vw, 112px); background: var(--ab-green); border-top: 1px solid var(--ab-gold); color: #fff; text-align: center; }
 .a2-team .a2-title { color: #fff; }
 .a2-team .ab-eyebrow { justify-content: center; }
-.a2-team__row { display: flex; flex-wrap: wrap; justify-content: center; gap: 32px clamp(32px, 5vw, 64px); margin: 36px 0 0; padding: 0; list-style: none; }
+.a2-team__row { display: flex; flex-wrap: wrap; justify-content: center; gap: 36px clamp(20px, 3vw, 48px); margin: 36px 0 0; padding: 0; list-style: none; }
 .a2-person { display: grid; justify-items: center; gap: 6px; width: 220px; color: #fff; text-decoration: none; }
 .a2-person img, .a2-person__ring {
   width: 180px; height: 180px; margin-bottom: 12px; border-radius: 50%;
@@ -145,4 +145,10 @@ a.a2-person:hover img { transform: scale(1.05); }
 }
 @media (prefers-reduced-motion: reduce) {
   .a2-values__list li, .a2-person img { transition: none; }
+}
+@media (max-width: 760px) {
+  .a2-team__row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 16px; }
+  .a2-person img { width: 130px; height: 130px; }
+  .a2-person__name { font-size: 1.15rem; }
+  .a2-person__role { font-size: .72rem; }
 }
