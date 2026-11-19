@@ -280,3 +280,6 @@
 .ab-backlink .icon { transform: scaleX(-1); }
 .ab-call--ink { color: var(--ab-green); }
 .ab-call--ink .icon { color: var(--ab-green); }
+
+/* a team member without a bio page yet: the card is not a link */
+.ab .is-soon { cursor: default; }

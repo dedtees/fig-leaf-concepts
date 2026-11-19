@@ -1,0 +1,70 @@
+  <!-- Bio, concept 2: "Contact card". A dark green band with a white card
+       across it, like a business card: round photo, name, title, every way
+       to reach them and a Save contact button (a vCard). Below it, the bio
+       in one column with what she helps with.
+       Paths are from the repo root; {B} is the build folder. Styles: about-2.css -->
+  <main id="main" class="hs hs--v1 ab ab--v2 ab--bio">
+
+    <header class="fl-grid-host b2-band" data-review-skip>
+      <div class="fl-grid" aria-hidden="true"><span class="fl-grid__lines" data-hs-px="0.15"></span></div>
+      <div class="hs-wrap">
+        <nav class="ab-crumbs" aria-label="Breadcrumb">
+          <ol><li><a href="{B}/">Home</a></li><li><a href="{B}/about/">About</a></li><li><span aria-current="page">Jarihana Abreu</span></li></ol>
+        </nav>
+      </div>
+    </header>
+
+    <div class="hs-wrap b2-card-wrap">
+      <section class="b2-card" aria-labelledby="ab-title">
+        <img class="b2-card__photo" src="homepages/shared/assets/team/jarihana-abreu-600.jpg" srcset="homepages/shared/assets/team/jarihana-abreu-600.jpg 600w, homepages/shared/assets/team/jarihana-abreu.jpg 1200w" sizes="240px" alt="Jarihana Abreu" width="600" height="900" decoding="async">
+        <div class="b2-card__who">
+          <p class="ab-eyebrow ab-eyebrow--ink">Licensed Insurance Agent</p>
+          <h1 class="b2-card__name" id="ab-title">Jarihana Abreu</h1>
+          <p class="b2-card__org">The Fig Leaf Agency · Hazlet, NJ</p>
+        </div>
+        <ul class="b2-card__lines">
+          <li><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg><a href="tel:+19088623447,112">(908) 862-3447 <span>ext. 112</span></a></li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-mail"></use></svg><a href="mailto:jabreu@figleafagency.com">jabreu@figleafagency.com</a></li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-id"></use></svg><span>License #3003770853</span></li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-calendar"></use></svg><span>1 year with Fig Leaf</span></li>
+        </ul>
+        <div class="b2-card__actions">
+          <a class="hs-btn hs-btn--primary" href="mailto:jabreu@figleafagency.com"><svg class="icon" aria-hidden="true"><use href="#i-mail"></use></svg>Email Jarihana</a>
+          <a class="hs-btn b2-btn-line" download="jarihana-abreu.vcf" href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0D%0AVERSION%3A3.0%0D%0AN%3AAbreu%3BJarihana%3B%3B%3B%0D%0AFN%3AJarihana%20Abreu%0D%0AORG%3AThe%20Fig%20Leaf%20Agency%0D%0ATITLE%3ALicensed%20Insurance%20Agent%0D%0ATEL%3BTYPE%3DWORK%2CVOICE%3A%2B19088623447%20ext.%20112%0D%0AEMAIL%3BTYPE%3DWORK%3Ajabreu%40figleafagency.com%0D%0AADR%3BTYPE%3DWORK%3A%3B%3B1338%20State%20Route%2036%3BHazlet%3BNJ%3B07730%3BUSA%0D%0AEND%3AVCARD%0D%0A"><svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>Save contact</a>
+        </div>
+      </section>
+    </div>
+
+    <section class="b2-bio" aria-labelledby="b2-bio-title">
+      <div class="hs-wrap a2-narrow">
+        <h2 class="a2-title hs-reveal" id="b2-bio-title">About Jarihana</h2>
+        <p class="a2-lead hs-reveal">Jarihana is a Licensed Insurance Agent with experience helping individuals and families find the right coverage for their needs and budget. She specializes in home, auto and personal insurance, with a focus on personalized service and clear guidance.</p>
+        <ul class="b2-chips hs-reveal" aria-label="What Jarihana helps with">
+          <li><svg class="icon" aria-hidden="true"><use href="#i-home"></use></svg>Home insurance</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-car"></use></svg>Auto insurance</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg>Personal insurance</li>
+        </ul>
+        <figure class="a2-quote a2-quote--small hs-reveal">
+          <blockquote><p>Helping people protect what matters most.</p></blockquote>
+          <figcaption>Why Jarihana works in insurance: it lets her build lasting relationships with her clients.</figcaption>
+        </figure>
+        <p class="b2-offclock hs-reveal"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span><b>How she works:</b> detail-oriented and dependable, making the insurance process simple and stress-free.</span></p>
+        <p class="ab-backlink"><a href="{B}/about/#team"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>Back to the team</a></p>
+      </div>
+    </section>
+
+    <section class="fl-grid-host ab-cta" aria-labelledby="ab-cta-title">
+      <div class="fl-grid" aria-hidden="true"><span class="fl-grid__lines" data-hs-px="0.15"></span></div>
+      <div class="hs-wrap ab-cta__grid hs-reveal">
+        <div>
+          <p class="ab-eyebrow">Work with Jarihana</p>
+          <h2 class="ab-cta__title" id="ab-cta-title">Have a question about your coverage?</h2>
+          <p>Start a quote, or call Jarihana directly at extension 112.</p>
+        </div>
+        <div class="ab-cta__actions">
+          <a class="hs-btn hs-btn--primary" href="{B}/crq-form/">Get a Quote</a>
+          <a class="ab-call" href="tel:+19088623447,112"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>(908) 862-3447 ext. 112</a>
+        </div>
+      </div>
+    </section>
+  </main>
