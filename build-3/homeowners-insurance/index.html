@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="../../archive-b/grid.css">
   <link rel="stylesheet" href="../../archive-b/insurance-page.css">
   <link rel="stylesheet" href="../../archive-b/palette.css">
+  <link rel="stylesheet" href="../../homepages/shared/round-2.css">
 
   <script type="application/ld+json">
   {
@@ -258,19 +259,38 @@
       </div>
     </section>
 
-    <section class="pg-sec" id="covered" aria-labelledby="pg-covered-title">
-      <div class="pg-wrap">
-        <div class="pg-sec__head">
-          <h2 class="pg-sec__title" id="pg-covered-title">A homeowners policy generally covers:</h2>
-          <p class="pg-sec__kicker">Keeping you protected</p>
+    <!-- Client review round 2: "A homeowners policy generally covers" merged
+         with build 1's black quote card, full width (homepages/shared/round-2.css) -->
+    <section class="pg-sec r2-covered" id="covered" aria-labelledby="pg-covered-title">
+      <div class="pg-wrap r2-covered__grid">
+        <div class="r2-covered__main">
+          <p class="r2-covered__eyebrow">Keeping you protected</p>
+          <h2 class="r2-covered__title" id="pg-covered-title">A homeowners policy generally covers:</h2>
+          <ol class="r2-covers">
+            <li class="hs-reveal"><span class="r2-covers__num" aria-hidden="true">01</span><span class="r2-covers__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-home"></use></svg></span><div><h3 class="r2-covers__title">Dwelling</h3><p>The physical structure of your home.</p></div></li>
+            <li class="hs-reveal"><span class="r2-covers__num" aria-hidden="true">02</span><span class="r2-covers__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-garage"></use></svg></span><div><h3 class="r2-covers__title">Other Structures</h3><p>Additional structures on your property, such as swimming pools and detached garages.</p></div></li>
+            <li class="hs-reveal"><span class="r2-covers__num" aria-hidden="true">03</span><span class="r2-covers__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-receipt"></use></svg></span><div><h3 class="r2-covers__title">Additional Costs</h3><p>Incurred as a result of a covered loss.</p></div></li>
+            <li class="hs-reveal"><span class="r2-covers__num" aria-hidden="true">04</span><span class="r2-covers__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-sofa"></use></svg></span><div><h3 class="r2-covers__title">Personal Property</h3><p>Your personal belongings, including clothing, furniture and electronics.<span class="r2-covers__note">Items such as jewelry, watches and fine art may need to be covered separately.</span></p></div></li>
+            <li class="hs-reveal"><span class="r2-covers__num" aria-hidden="true">05</span><span class="r2-covers__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-liability"></use></svg></span><div><h3 class="r2-covers__title">Personal Liability</h3><p>Occurrences that arise from being a homeowner.</p></div></li>
+          </ol>
         </div>
-        <ol class="pg-bento">
-          <li class="pg-cover hs-reveal"><figure class="pg-cover__photo"><img src="../../archive-b/assets/homeowners/home-1.jpg" alt="" width="430" height="483" decoding="async" loading="lazy"></figure><span class="pg-cover__num" aria-hidden="true">01</span><span class="pg-cover__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-home"></use></svg></span><h3 class="pg-cover__title">Dwelling</h3><p>The physical structure of your home.</p></li>
-          <li class="pg-cover hs-reveal"><span class="pg-cover__num" aria-hidden="true">02</span><span class="pg-cover__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-garage"></use></svg></span><h3 class="pg-cover__title">Other Structures</h3><p>Additional structures on your property, such as swimming pools and detached garages.</p></li>
-          <li class="pg-cover hs-reveal"><span class="pg-cover__num" aria-hidden="true">03</span><span class="pg-cover__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-receipt"></use></svg></span><h3 class="pg-cover__title">Additional Costs</h3><p>Incurred as a result of a covered loss.</p></li>
-          <li class="pg-cover hs-reveal"><span class="pg-cover__num" aria-hidden="true">04</span><span class="pg-cover__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-sofa"></use></svg></span><h3 class="pg-cover__title">Personal Property</h3><p>Your personal belongings, including clothing, furniture and electronics.<span class="pg-cover__note">Items such as jewelry, watches and fine art may need to be covered separately.</span></p></li>
-          <li class="pg-cover hs-reveal"><span class="pg-cover__num" aria-hidden="true">05</span><span class="pg-cover__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-liability"></use></svg></span><h3 class="pg-cover__title">Personal Liability</h3><p>Occurrences that arise from being a homeowner.</p></li>
-        </ol>
+        <aside class="r2-quote" aria-label="Quote and other coverage">
+          <div class="r2-quote__card">
+            <h3 class="r2-quote__title">Get a homeowners quote</h3>
+            <p>We compare top-rated carriers for you, then walk you through every line of the policy.</p>
+            <a class="pg-btn pg-btn--primary" href="#quote">Start My Quote</a>
+            <a class="r2-quote__call" href="tel:+19088623447"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>Call (908) 862-3447</a>
+          </div>
+          <nav class="r2-quote__links" aria-label="Personal insurance">
+            <h3 class="r2-quote__head">Personal insurance</h3>
+            <ul>
+              <li><a href="#" onclick="return false" data-offsite>Auto Insurance<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a></li>
+              <li><a href="./" aria-current="page">Homeowners Insurance<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a></li>
+              <li><a href="#" onclick="return false" data-offsite>Boat Insurance<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a></li>
+              <li><a href="#" onclick="return false" data-offsite>Personal Umbrella Insurance<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a></li>
+            </ul>
+          </nav>
+        </aside>
       </div>
     </section>
 

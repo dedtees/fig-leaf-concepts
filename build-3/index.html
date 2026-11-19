@@ -195,13 +195,13 @@
             <!-- One line per spot in the picture, matched by data-scene -->
             <span class="scene-word is-active" data-scene="car">your <em>car.</em></span>
             <span class="scene-word" data-scene="home">your <em>home.</em></span>
-            <span class="scene-word" data-scene="boat">your <em>boat.</em></span>
             <span class="scene-word" data-scene="business">your <em>business.</em></span>
+            <span class="scene-word" data-scene="boat">your <em>boat.</em></span>
           </span>
-          <span class="visually-hidden">your car, your home, your boat and your business.</span>
+          <span class="visually-hidden">your car, your home, your business and your boat.</span>
         </h1>
         <span class="hero__rule" aria-hidden="true"></span>
-        <p class="hero__subhead">Your car, your home, your boat, your business. We find the right coverage at the best value, then walk you through every line of it, so nothing stays hidden.</p>
+        <p class="hero__subhead">Your car, your home, your business, your boat. We find the right coverage at the best value, then walk you through every line of it, so nothing stays hidden.</p>
         <div class="hero__actions">
           <a class="hero__cta" href="crq-form/">Start My New Quote</a>
           <a class="hero__call" href="tel:+19088623447">Call (908) 862-3447</a>
@@ -209,7 +209,7 @@
       </div>
 
       <!-- The picture: hover, tap or focus the car, home or boat (shared/hero-x.js) -->
-      <div class="scene hx hx--panels" data-hx data-count="4" role="group" aria-label="A car on a mountain road at sunset, a house lit up at dusk, a boat on the water at sunset and a brick shopfront">
+      <div class="scene hx hx--panels" data-hx data-count="4" role="group" aria-label="A car on a mountain road at sunset, a house lit up at dusk, a brick shopfront and a boat on the water at sunset">
           
           <div class="hx__item" data-scene="car" data-lx="17" data-ly="40">
             <img class="hx__img" src="../hero-concepts/shared/car.jpg" alt="" decoding="async">
@@ -235,27 +235,27 @@
             </div>
             <span class="hx__bar" aria-hidden="true"></span>
           </div>
-          <div class="hx__item" data-scene="boat" data-lx="83" data-ly="44">
-            <img class="hx__img" src="../hero-concepts/shared/boat.jpg" alt="" decoding="async">
-            <span class="hx__tag" aria-hidden="true"><span class="hx__num">03</span><span class="hx__label">Boat</span></span>
-            <button class="hx__hit" type="button" aria-pressed="false" aria-controls="hx-boat"><span class="visually-hidden">Boat insurance</span></button>
-            <div class="hx__body" id="hx-boat">
-              <span class="hx__num" aria-hidden="true">03</span>
-              <p class="hx__title">Boat insurance</p>
-              <p class="hx__text">Hull, liability and on-the-water coverage for weekends on the bay.</p>
-              <a class="hx__link" href="#quote">Ask about boat coverage <span aria-hidden="true">&rarr;</span></a>
-            </div>
-            <span class="hx__bar" aria-hidden="true"></span>
-          </div>
           <div class="hx__item" data-scene="business" data-lx="50" data-ly="40">
             <img class="hx__img" src="../hero-concepts/shared/business.jpg" alt="" decoding="async">
-            <span class="hx__tag" aria-hidden="true"><span class="hx__num">04</span><span class="hx__label">Business</span></span>
+            <span class="hx__tag" aria-hidden="true"><span class="hx__num">03</span><span class="hx__label">Business</span></span>
             <button class="hx__hit" type="button" aria-pressed="false" aria-controls="hx-business"><span class="visually-hidden">Business insurance</span></button>
             <div class="hx__body" id="hx-business">
-              <span class="hx__num" aria-hidden="true">04</span>
+              <span class="hx__num" aria-hidden="true">03</span>
               <p class="hx__title">Business insurance</p>
               <p class="hx__text">Liability, property, commercial auto and workers comp for local businesses.</p>
               <a class="hx__link" href="#" onclick="return false" data-offsite>See business coverage <span aria-hidden="true">&rarr;</span></a>
+            </div>
+            <span class="hx__bar" aria-hidden="true"></span>
+          </div>
+          <div class="hx__item" data-scene="boat" data-lx="83" data-ly="44">
+            <img class="hx__img" src="../hero-concepts/shared/boat.jpg" alt="" decoding="async">
+            <span class="hx__tag" aria-hidden="true"><span class="hx__num">04</span><span class="hx__label">Boat</span></span>
+            <button class="hx__hit" type="button" aria-pressed="false" aria-controls="hx-boat"><span class="visually-hidden">Boat insurance</span></button>
+            <div class="hx__body" id="hx-boat">
+              <span class="hx__num" aria-hidden="true">04</span>
+              <p class="hx__title">Boat insurance</p>
+              <p class="hx__text">Hull, liability and on-the-water coverage for weekends on the bay.</p>
+              <a class="hx__link" href="#quote">Ask about boat coverage <span aria-hidden="true">&rarr;</span></a>
             </div>
             <span class="hx__bar" aria-hidden="true"></span>
           </div>
@@ -395,9 +395,9 @@
       <div class="hs-wrap">
         <header class="hs-split hs-reveal">
           <h2 class="hs-split__title" id="hs-services-title">More Ways We Protect You</h2>
-          <p class="hs-split__text">Beyond your everyday policies, we protect local businesses, help contractors stay covered on the job, and help drivers keep their records and premiums down.</p>
+          <p class="hs-split__text">Beyond your everyday policies, we protect local businesses and families, help contractors stay covered on the job, and help drivers keep their records and premiums down.</p>
         </header>
-        <div class="hs-services__grid hs-services__grid--3">
+        <div class="hs-services__grid hs-services__grid--4">
           <article class="hs-service hs-reveal">
             <div class="hs-service__media"><img class="hs-service__img" src="../homepages/shared/assets/business-insurance.jpg" alt="" width="900" height="600" loading="lazy" decoding="async"></div>
             <div class="hs-service__body">
@@ -421,6 +421,14 @@
               <h3 class="hs-line__title">Defensive Driving Course</h3>
               <p>Remove points from your license and earn a discount on your car insurance while taking the course on your own schedule.</p>
               <a class="hs-more" href="#" onclick="return false" data-offsite>Start the course</a>
+            </div>
+          </article>
+          <article class="hs-service hs-reveal">
+            <div class="hs-service__media"><img class="hs-service__img" src="../homepages/shared/assets/life-insurance.jpg" alt="" width="900" height="600" loading="lazy" decoding="async"></div>
+            <div class="hs-service__body">
+              <h3 class="hs-line__title">Life Insurance</h3>
+              <p>Term and whole life policies that keep your family secure, compared across our carriers and explained before you sign.</p>
+              <a class="hs-more" href="#" onclick="return false" data-offsite>Learn more<span class="visually-hidden"> about life insurance</span></a>
             </div>
           </article>
         </div>
