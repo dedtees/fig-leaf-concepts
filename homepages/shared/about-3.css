@@ -1,0 +1,132 @@
+/* About and bio, concept 3 (build 3): "Editorial" and "Split screen".
+   A light, magazine-like look. Loads after about.css. */
+
+/* --- About: white title band ------------------------------------------------ */
+.a3-head { padding: clamp(28px, 4vw, 44px) 0 clamp(48px, 6vw, 80px); background: #fff; border-top: 1px solid var(--ab-gold); color: var(--ab-black); }
+.a3-head__title {
+  max-width: 15ch; margin: 0;
+  font-family: var(--ab-serif); font-weight: 600;
+  font-size: clamp(2.6rem, 1.5rem + 4.4vw, 5.4rem); line-height: 1.02; letter-spacing: -.025em;
+  color: var(--ab-green);
+}
+.a3-head__dek { max-width: 40em; margin: 24px 0 0; padding-top: 22px; border-top: 2px solid var(--ab-gold); font-size: clamp(1.1rem, 1rem + .35vw, 1.3rem); line-height: 1.6; color: var(--ab-black); }
+
+/* --- About: the long read --------------------------------------------------- */
+.a3-read { padding-block: clamp(40px, 5vw, 72px) clamp(64px, 8vw, 112px); background: #fff; color: var(--ab-black); }
+.a3-read__grid { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 32px clamp(40px, 6vw, 88px); align-items: start; }
+.a3-read__meta { position: sticky; top: 24px; }
+.a3-read__meta dl { margin: 0; }
+.a3-read__meta div { padding: 16px 0; border-top: 1px solid var(--ab-green-light); }
+.a3-read__meta div:first-child { border-top: 3px solid var(--ab-green); }
+.a3-read__meta dt { margin-bottom: 4px; font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ab-green); }
+.a3-read__meta dd { margin: 0; line-height: 1.5; }
+.a3-read__body { max-width: 720px; }
+.a3-read__body p, .b3-text p { margin: 0 0 20px; font-size: 1.15rem; line-height: 1.75; }
+.a3-drop::first-letter {
+  float: left; margin: 6px 12px 0 0;
+  font-family: var(--ab-serif); font-weight: 600; font-size: 4.6rem; line-height: .82;
+  color: var(--ab-green);
+}
+.a3-read__body .a3-pull, .b3-text .a3-pull {
+  margin: 32px 0; padding: 22px 0;
+  border-top: 2px solid var(--ab-gold); border-bottom: 2px solid var(--ab-gold);
+  font-family: var(--ab-serif); font-weight: 600; font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem); line-height: 1.2;
+  color: var(--ab-green);
+}
+.a3-inset { float: right; width: min(46%, 340px); margin: 6px 0 20px 32px; }
+.a3-inset img, .a3-wide img { display: block; width: 100%; height: auto; border-radius: 14px; }
+.a3-inset figcaption, .a3-wide figcaption { margin-top: 10px; font-size: .92rem; color: var(--ab-green); }
+.a3-wide { margin: clamp(40px, 5vw, 64px) auto 0; }
+.a3-wide img { aspect-ratio: 21 / 9; object-fit: cover; object-position: 50% 40%; }
+
+/* section titles: a rule with the title on it */
+.a3-section-title { display: flex; align-items: center; gap: 20px; margin: 0 0 clamp(28px, 4vw, 44px); font-family: var(--ab-serif); font-weight: 600; font-size: clamp(1.7rem, 1.3rem + 1.4vw, 2.4rem); color: var(--ab-green); }
+.a3-section-title::after { content: ""; flex: 1; height: 2px; background: var(--ab-gold); }
+
+/* --- About: values as icon tiles -------------------------------------------- */
+.a3-values { padding-block: clamp(56px, 7vw, 96px); background: #fff; border-top: 1px solid var(--ab-green-light); color: var(--ab-black); }
+.a3-values__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 3vw, 36px); margin: 0; padding: 0; list-style: none; }
+.a3-values__grid h3 { margin: 18px 0 8px; font-family: var(--ab-serif); font-weight: 600; font-size: 1.3rem; color: var(--ab-green); }
+.a3-values__grid p { margin: 0; line-height: 1.6; }
+.a3-tile { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 16px; background: var(--ab-green); color: var(--ab-gold); transition: transform .35s cubic-bezier(.2, .7, .2, 1); }
+.a3-tile .icon { width: 30px; height: 30px; }
+.a3-values__grid li:hover .a3-tile { transform: rotate(-6deg) scale(1.06); }
+
+/* --- About: team as a list -------------------------------------------------- */
+.a3-team { padding-block: clamp(56px, 7vw, 96px); background: #fff; border-top: 1px solid var(--ab-green-light); color: var(--ab-black); }
+.a3-team__list { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--ab-green); }
+.a3-row {
+  display: grid; grid-template-columns: 72px minmax(0, 1fr) minmax(0, 1fr) auto; gap: 24px; align-items: center;
+  padding: 18px 8px; border-bottom: 1px solid var(--ab-green-light);
+  color: var(--ab-black); text-decoration: none;
+  transition: background-color .25s;
+}
+a.a3-row:hover { background: var(--ab-green); }
+a.a3-row:hover .a3-row__name, a.a3-row:hover .a3-row__role, a.a3-row:hover .a3-row__go { color: #fff; }
+.a3-row img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; object-position: 50% 14%; border: 2px solid var(--ab-gold); }
+.a3-row__name { font-family: var(--ab-serif); font-weight: 600; font-size: 1.5rem; color: var(--ab-green); }
+.a3-row__role { font-size: .85rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ab-black); }
+.a3-row__go { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--ab-green); }
+.a3-row--soon { grid-template-columns: 72px minmax(0, 1fr); }
+.a3-row--soon .a3-row__name { font-size: 1.15rem; color: var(--ab-green); opacity: 1; }
+.a3-row__dot { width: 72px; height: 72px; border-radius: 50%; border: 2px dashed var(--ab-green-light); }
+
+/* --- About: the closing line ------------------------------------------------ */
+.a3-cta { padding-block: clamp(48px, 6vw, 80px); background: var(--ab-green); border-top: 1px solid var(--ab-gold); color: #fff; }
+.a3-cta__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 40px; }
+.a3-cta__title { margin: 0; font-family: var(--ab-serif); font-weight: 600; font-size: clamp(2rem, 1.4rem + 2.4vw, 3.4rem); line-height: 1.05; color: #fff; }
+.a3-cta__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; }
+
+/* --- Bio: split screen ------------------------------------------------------- */
+.b3-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: #fff; border-top: 1px solid var(--ab-gold); }
+.b3-photo { position: relative; background: var(--ab-green); }
+.b3-photo img { position: sticky; top: 0; display: block; width: 100%; height: 100vh; min-height: 560px; object-fit: cover; object-position: 50% 20%; }
+.b3-photo__tag {
+  position: absolute; left: 20px; bottom: 20px;
+  padding: 8px 14px; border-radius: 999px; background: var(--ab-black); color: var(--ab-gold);
+  font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+}
+.b3-content { padding: clamp(28px, 4vw, 48px) clamp(24px, 5vw, 80px) clamp(56px, 7vw, 96px); color: var(--ab-black); }
+.b3-name { margin-bottom: 28px; }
+.b3-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0 0 36px; border-top: 2px solid var(--ab-green); border-bottom: 1px solid var(--ab-green-light); }
+.b3-facts div { padding: 16px 16px 16px 0; }
+.b3-facts div + div { padding-left: 16px; border-left: 1px solid var(--ab-green-light); }
+.b3-facts dt { font-size: .76rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ab-green); }
+.b3-facts dd { margin: 6px 0 0; font-family: var(--ab-serif); font-weight: 600; font-size: 1.35rem; color: var(--ab-black); }
+.b3-facts a { color: inherit; text-decoration: none; }
+.b3-facts a:hover { color: var(--ab-green); text-decoration: underline; }
+.b3-text { max-width: 620px; }
+.b3-sub { margin-top: 40px; font-size: 1.5rem; }
+.b3-help { display: grid; gap: 14px; margin: 0 0 40px; padding: 0; list-style: none; }
+.b3-help li { display: flex; align-items: center; gap: 14px; font-size: 1.08rem; }
+.b3-help .icon { flex: none; width: 40px; height: 40px; padding: 9px; border-radius: 12px; background: var(--ab-green); color: var(--ab-gold); }
+.b3-contact { display: grid; justify-items: start; gap: 14px; padding: 28px; border-radius: 18px; background: var(--ab-black); border-top: 3px solid var(--ab-gold); }
+.b3-contact__title { margin: 0 0 4px; font-family: var(--ab-serif); font-weight: 600; font-size: 1.5rem; color: #fff; }
+.b3-contact__line { display: inline-flex; align-items: center; gap: 12px; color: #fff; font-weight: 600; text-decoration: none; }
+.b3-contact__line .icon { color: var(--ab-gold); }
+.b3-contact__line:hover { color: var(--ab-gold); }
+.b3-contact .hs-btn { margin-top: 8px; }
+
+/* --- tablets and phones ----------------------------------------------------- */
+@media (max-width: 1000px) {
+  .a3-values__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 900px) {
+  .b3-split { grid-template-columns: minmax(0, 1fr); }
+  .b3-photo img { position: static; height: auto; min-height: 0; aspect-ratio: 4 / 5; max-height: 80vh; }
+}
+@media (max-width: 760px) {
+  .a3-read__grid { grid-template-columns: minmax(0, 1fr); }
+  .a3-read__meta { position: static; }
+  .a3-inset { float: none; width: 100%; margin: 0 0 24px; }
+  .a3-wide img { aspect-ratio: 4 / 3; }
+  .a3-row { grid-template-columns: 56px minmax(0, 1fr); gap: 6px 16px; }
+  .a3-row img, .a3-row__dot { width: 56px; height: 56px; grid-row: span 3; }
+  .a3-row--soon .a3-row__dot { grid-row: auto; }
+  .b3-facts { grid-template-columns: minmax(0, 1fr); }
+  .b3-facts div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--ab-green-light); }
+}
+@media (max-width: 560px) {
+  .a3-values__grid { grid-template-columns: minmax(0, 1fr); }
+  .a3-cta__actions .hs-btn { width: 100%; }
+}

@@ -29,7 +29,7 @@ var TAB_CONCEPT = 'By concept';
 var TAB_COMMENTS = 'Comments';
 var TAB_PICKS = 'All picks';
 var PICK_HEADERS = ['Updated', 'Concept', 'Page', 'Section', 'Verdict', 'Comment', 'Reviewer', 'Link', 'Order', 'Key'];
-var PAGE_ORDER = ['Homepage', 'Homeowners', 'Homeowners (scrolling)', 'Homeowners (fade)', 'Quote page', 'Quote form'];
+var PAGE_ORDER = ['Homepage', 'Homeowners', 'Homeowners (scrolling)', 'Homeowners (fade)', 'Quote page', 'Quote form', 'About'];
 
 var GREEN = '#d9f2e3', GREEN_INK = '#14532d';
 var RED = '#fbdcd8', RED_INK = '#8a1c12';
@@ -133,6 +133,7 @@ function conceptRank_(c) {
 }
 function pageRank_(p) {
   var i = PAGE_ORDER.indexOf(p);
+  if (i < 0 && /^Bio: /.test(p)) return PAGE_ORDER.length;   // team bios follow About
   return i < 0 ? 50 : i;
 }
 function comparePicks_(a, b) {

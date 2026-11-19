@@ -1,0 +1,128 @@
+  <!-- About, concept 5: "By the numbers". A split black hero with the team
+       photo filling the right half, the homepage's three numbers counting up
+       (home-sections.js), then the story as a three-step path from the first
+       office to today, values on the dark green band and the team.
+       Paths are from the repo root; {B} is the build folder. Styles: about-5.css -->
+  <main id="main" class="hs hs--v1 ab ab--v5">
+
+    <header class="a5-head" aria-labelledby="ab-title">
+      <div class="a5-head__text">
+        <nav class="ab-crumbs" aria-label="Breadcrumb">
+          <ol><li><a href="{B}/">Home</a></li><li><span aria-current="page">About</span></li></ol>
+        </nav>
+        <p class="ab-eyebrow">About The Fig Leaf Agency</p>
+        <h1 class="ab-head__title" id="ab-title">New Jersey's better alternative.</h1>
+        <p class="a5-head__lead">Lower insurance costs and personal service, from an independent agency that keeps its word.</p>
+        <div class="ab-head__actions">
+          <a class="hs-btn hs-btn--primary" href="{B}/crq-form/">Get a Quote</a>
+          <a class="ab-call" href="tel:+19088623447"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>(908) 862-3447</a>
+        </div>
+      </div>
+      <div class="a5-head__photo">
+        <img src="archive-a/assets/team-photo.jpg" srcset="archive-a/assets/team-photo-900.jpg 900w, archive-a/assets/team-photo.jpg 1800w" sizes="(max-width: 900px) 100vw, 50vw" alt="The Fig Leaf Insurance Agency team in their office" width="1800" height="1199" decoding="async">
+      </div>
+    </header>
+
+    <!-- The numbers come from the agency's original brief, as on the homepage -->
+    <section class="a5-stats" aria-label="The agency in numbers">
+      <div class="hs-wrap"><ul class="a5-stats__list">
+        <li class="hs-reveal"><span class="a5-stat__value"><span data-count="20">20</span>+</span><span class="a5-stat__label">Years serving New Jersey families and businesses</span></li>
+        <li class="hs-reveal"><span class="a5-stat__value"><span data-count="1000">1,000</span>s</span><span class="a5-stat__label">Happy clients across personal and commercial lines</span></li>
+        <li class="hs-reveal"><span class="a5-stat__value">140+ <span class="a5-stars" role="img" aria-label="5 out of 5 stars"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg></span></span><span class="a5-stat__label">Five star Google reviews</span></li>
+      </ul></div>
+    </section>
+
+    <section class="a5-path" aria-labelledby="a5-path-title">
+      <div class="hs-wrap">
+        <div class="ab-section-head hs-reveal">
+          <p class="ab-eyebrow ab-eyebrow--ink">Our story</p>
+          <h2 class="ab-section-head__title" id="a5-path-title">How we got here</h2>
+        </div>
+        <ol class="a5-path__steps">
+          <li class="a5-step hs-reveal">
+            <img src="homepages/shared/assets/old-building-figleaf-900.jpg" alt="Painting of the agency's original office, its sign reading Fig Leaf Agency" width="900" height="698" loading="lazy" decoding="async">
+            <span class="a5-step__num">01</span>
+            <h3>Where we started</h3>
+            <p>Fig Leaf was founded to give New Jersey a better alternative to high insurance costs and impersonal service.</p>
+          </li>
+          <li class="a5-step hs-reveal">
+            <span class="a5-step__quote" aria-hidden="true">&ldquo;Your word is your bond.&rdquo;</span>
+            <span class="a5-step__num">02</span>
+            <h3>What we learned</h3>
+            <p>Our leadership learned it while working on the NYSE, and it applies to every industry, insurance included.</p>
+          </li>
+          <li class="a5-step hs-reveal">
+            <img src="archive-a/assets/team-photo-900.jpg" alt="The Fig Leaf team today" width="900" height="600" loading="lazy" decoding="async">
+            <span class="a5-step__num">03</span>
+            <h3>Where we are today</h3>
+            <p>A team in Hazlet that finds the best coverage and price, and makes sure every client understands it.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="fl-grid-host a5-values" id="values" aria-labelledby="a5-values-title">
+      <div class="fl-grid" aria-hidden="true"><span class="fl-grid__lines" data-hs-px="0.15"></span></div>
+      <div class="hs-wrap a5-values__grid">
+        <div class="hs-reveal">
+          <p class="ab-eyebrow">Our values</p>
+          <h2 class="ab-section-head__title" id="a5-values-title">What we stand for</h2>
+          <p class="a5-values__intro">Four promises we make to every client, whether you're insuring a car or a company.</p>
+        </div>
+        <ul class="a5-values__list">
+          <li class="hs-reveal"><svg class="icon" aria-hidden="true"><use href="#i-handshake"></use></svg><div><h3>Your word is your bond</h3><p>When we tell you something about your policy, you can count on it.</p></div></li>
+          <li class="hs-reveal"><svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg><div><h3>Coverage you understand</h3><p>We explain what you're buying and how it protects you.</p></div></li>
+          <li class="hs-reveal"><svg class="icon" aria-hidden="true"><use href="#i-tag"></use></svg><div><h3>The best coverage and price</h3><p>We compare carriers for you so you don't overpay.</p></div></li>
+          <li class="hs-reveal"><svg class="icon" aria-hidden="true"><use href="#i-bolt"></use></svg><div><h3>Service and hustle</h3><p>Customer service we believe you'll find unparalleled in our field.</p></div></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="a5-team" id="team" aria-labelledby="a5-team-title">
+      <div class="hs-wrap a5-team__grid">
+        <div class="hs-reveal">
+          <p class="ab-eyebrow ab-eyebrow--ink">Meet our team</p>
+          <h2 class="ab-section-head__title" id="a5-team-title">The people behind your policy</h2>
+          <p class="a5-team__text">The people who answer your calls, review your coverage and shop your quotes.</p>
+        </div>
+      </div>
+      <div class="hs-wrap a5-team__cards">
+        <a class="a5-person hs-reveal" href="{B}/about/chris-oliveira/">
+          <span class="a5-person__photo"><img src="homepages/shared/assets/team/chris-oliveira-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
+          <span class="a5-person__body">
+            <span class="a5-person__name">Chris Oliveira</span>
+            <span class="a5-person__role">Account Executive</span>
+            <span class="a5-person__meta">2 years with Fig Leaf</span>
+            <span class="a5-person__more">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+          </span>
+        </a>
+        <a class="a5-person hs-reveal" href="{B}/about/chris-oliveira/">
+          <span class="a5-person__photo"><img src="homepages/shared/assets/team/chris-oliveira-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
+          <span class="a5-person__body">
+            <span class="a5-person__name">Chris Oliveira</span>
+            <span class="a5-person__role">Account Executive</span>
+            <span class="a5-person__meta">2 years with Fig Leaf</span>
+            <span class="a5-person__more">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+          </span>
+        </a>
+        <a class="a5-person hs-reveal" href="{B}/about/chris-oliveira/">
+          <span class="a5-person__photo"><img src="homepages/shared/assets/team/chris-oliveira-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
+          <span class="a5-person__body">
+            <span class="a5-person__name">Chris Oliveira</span>
+            <span class="a5-person__role">Account Executive</span>
+            <span class="a5-person__meta">2 years with Fig Leaf</span>
+            <span class="a5-person__more">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+          </span>
+        </a>
+        <a class="a5-person hs-reveal" href="{B}/about/chris-oliveira/">
+          <span class="a5-person__photo"><img src="homepages/shared/assets/team/chris-oliveira-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
+          <span class="a5-person__body">
+            <span class="a5-person__name">Chris Oliveira</span>
+            <span class="a5-person__role">Account Executive</span>
+            <span class="a5-person__meta">2 years with Fig Leaf</span>
+            <span class="a5-person__more">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+          </span>
+        </a>
+      </div>
+    </section>
+  </main>

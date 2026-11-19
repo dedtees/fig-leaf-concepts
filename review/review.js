@@ -52,7 +52,8 @@
     'homeowners-insurance-scroll': 'Homeowners (scrolling)',
     'homeowners-insurance-fade': 'Homeowners (fade)',
     'crq': 'Quote page',
-    'crq-form': 'Quote form'
+    'crq-form': 'Quote form',
+    'about': 'About'
   };
   function titleCase(s) { return s.replace(/-/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); }); }
   var conceptLabel = (function () {
@@ -63,6 +64,8 @@
   conceptLabel = conceptLabel.charAt(0).toUpperCase() + conceptLabel.slice(1).toLowerCase();
   var tail = parts.length > 1 ? parts[parts.length - 1] : '';
   var pageLabel = PAGE_NAMES.hasOwnProperty(tail) ? PAGE_NAMES[tail] : titleCase(tail);
+  // a team bio sits under about/: label it as that person's bio
+  if (parts.length > 2 && parts[parts.length - 2] === 'about') pageLabel = 'Bio: ' + titleCase(tail);
 
   /* ---- styles ---------------------------------------------------------- */
   var me = document.currentScript;
@@ -103,9 +106,10 @@
   function findSections() {
     var main = document.querySelector('main') || document.body;
     var list = [].slice.call(document.querySelectorAll(
-      '.site-header, main section, main > header, main > .pg-strip, main > .pg-body > aside, footer.hs-footer, body > footer'));
+      '.site-header, main section, main.ab > article, main > header, main > .pg-strip, main > .pg-body > aside, footer.hs-footer, body > footer'));
     list = list.filter(function (el) {
       if (el.closest('.flr-ui')) return false;
+      if (el.hasAttribute('data-review-skip')) return false;   // e.g. a breadcrumb-only band
       if (el.offsetHeight < 50) return false;
       // keep only the outermost: skip anything inside another candidate
       for (var p = el.parentElement; p; p = p.parentElement) if (list.indexOf(p) > -1) return false;
