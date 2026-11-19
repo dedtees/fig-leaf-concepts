@@ -652,12 +652,57 @@ def build_about(k):
                                 f'<li><a href="{here}" aria-current="page">About The Fig Leaf</a></li>', 1)
         page = page.replace('<!--REVIEW-BAR-->', main_bar(k, out, key))
         page = page.replace('</body>', f'  <script src="{up("homepages/shared/about.js")}"></script>\n</body>', 1)
+        page = keep_links_in(page, out, out_dir)
         write(f'{out}/index.html', page)
 
 
 def swap_bar(page, bar):
     rb = re.search(r'<nav class="review-bar".*?</nav>', page, re.S)
     return page[:rb.start()] + bar + page[rb.end():]
+
+
+# Links on the current build stay inside it: reviewers shouldn't land on the
+# live figleafagency.com site or anywhere else. A figleafagency.com page the
+# build has its own copy of opens that copy; every other link that leaves the
+# build (other sites, the live site, pages that don't exist here) becomes a
+# dead link: href="#", no new tab, and a click does nothing. The button or
+# menu item stays where it is. tel:, mailto: and data: links are left alone.
+IN_BUILD = {  # figleafagency.com path -> the same page under build-N/
+    '': '', 'about/': 'about/', 'meet-our-team/': 'about/#team',
+    'homeowners-insurance/': 'homeowners-insurance/',
+    'crq/': 'crq-form/', 'get-a-quote/': 'crq-form/',
+}
+LIVE = re.compile(r'(?:https?:)?//(?:www\.)?figleafagency\.com/(.*)$')
+QUOTE_FORM = 'secure.consumerratequotes.com/'   # the quote form, which the build frames on crq-form/
+STAY_IN = tuple(build_dir(k) for k in BUILDS) + (GALLERY,)
+
+
+def keep_links_in(page, out, build):
+    """Make every <a> on a current-build page (out) point inside the build."""
+    def fix(m):
+        tag, href = m.group(0), m.group(2)
+        if href.startswith(('#', 'tel:', 'mailto:', 'data:', 'javascript:')):
+            return tag
+        target = None
+        live = LIVE.match(href)
+        if live and live.group(1).split('#')[0] in IN_BUILD:
+            target = f'{build}/{IN_BUILD[live.group(1).split("#")[0]]}'
+        elif QUOTE_FORM in href:
+            target = f'{build}/crq-form/'
+        elif not re.match(r'(?:https?:)?//', href):
+            path = href.split('#')[0].split('?')[0]
+            t = posixpath.normpath(posixpath.join(out, path)) if path else out
+            if t.split('/')[0] in STAY_IN and os.path.exists(os.path.join(REPO, t, 'index.html') if not t.endswith('.html') else os.path.join(REPO, t)):
+                return tag   # already inside the build
+            sub = t.split('/', 1)[1] + '/' if '/' in t else ''
+            if sub in IN_BUILD and sub:   # e.g. the gallery's about/, which it doesn't have
+                target = f'{build}/{IN_BUILD[sub]}' + ('#' + href.split('#')[1] if '#' in href else '')
+        if target:
+            new = posixpath.relpath(target.split('#')[0], out) + '/' + ('#' + target.split('#')[1] if '#' in target else '')
+            return tag.replace(f'href="{href}"', f'href="{new}"', 1)
+        tag = re.sub(r'\s(?:target|rel)="[^"]*"', '', tag)
+        return tag.replace(f'href="{href}"', 'href="#" onclick="return false" data-offsite', 1)
+    return re.sub(r'<a\b[^>]*?\shref=(["\'])(.*?)\1[^>]*>', fix, page)
 
 
 def build_builds():
@@ -672,6 +717,7 @@ def build_builds():
         page = swap_bar(page, main_bar(k, out_dir))
         page = re.sub(r'<title>Concept 11 ·', f'<title>Build {k} ·', page, count=1)
         page = about_links(page, out_dir, out_dir)
+        page = keep_links_in(page, out_dir, out_dir)
         page = page.replace('<!-- Built by homepages/build.py: concept 11:',
                             f'<!-- Built by homepages/build.py: build {k} (concept 11, Homeowners layout {k}):', 1)
         write(f'{out_dir}/index.html', page)
@@ -695,13 +741,15 @@ def build_builds():
                     bar = bar.replace('review-bar__name">Get a quote<', 'review-bar__name">Get a quote · quote request page<', 1)
             page = page.replace('<!--REVIEW-BAR-->', bar)
             page = about_links(page, out, out_dir)
+            page = keep_links_in(page, out, out_dir)
             page = page.replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- Built by homepages/build.py: '
                                 f'build {k}\'s copy of {src}/. Edit that page, then re-run the script. -->', 1)
             write(f'{out}/index.html', page)
         build_about(k)
     # the gallery (archive D) is AC: the landing page, with the current bar
     page = read(f'{GALLERY}/index.html')
-    write(f'{GALLERY}/index.html', swap_bar(page, main_bar('AC', GALLERY)))
+    page = keep_links_in(swap_bar(page, main_bar('AC', GALLERY)), GALLERY, build_dir(1))
+    write(f'{GALLERY}/index.html', page)
 
 
 def main():
