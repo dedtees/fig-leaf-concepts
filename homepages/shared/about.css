@@ -267,3 +267,16 @@
   .ab-value, .ab-person__link, .ab-person__photo img { transition: none; }
   .ab-value:hover, .ab-person__link:hover, .ab-person__link:hover .ab-person__photo img { transform: none; }
 }
+
+/* --- shared by the other concepts ------------------------------------------ */
+.ab-crumbs--light ol { color: var(--ab-green); }
+.ab-crumbs--light li + li::before { color: var(--ab-green-light); }
+.ab-crumbs--light a { color: var(--ab-black); }
+.ab-crumbs--light a:hover { color: var(--ab-green); }
+.ab-crumbs--light [aria-current] { color: var(--ab-green); font-weight: 700; }
+.ab-backlink { margin: 32px 0 0; }
+.ab-backlink a { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; color: var(--ab-green); text-decoration: none; }
+.ab-backlink a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.ab-backlink .icon { transform: scaleX(-1); }
+.ab-call--ink { color: var(--ab-green); }
+.ab-call--ink .icon { color: var(--ab-green); }

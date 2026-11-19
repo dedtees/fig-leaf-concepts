@@ -539,7 +539,8 @@ def main_bar(cur, out_dir, page='home', build=1):
         if page == 'homeowners':
             title = f'Homeowners layout {cur} of {len(BUILDS)}, {HOMEOWNERS[cur - 1][1]}' + back
         elif page in BIOS or page == 'about':
-            title = ('About page' if page == 'about' else f'Bio page: {BIOS[page]}') + back
+            a, b = ABOUT_CONCEPTS[cur]
+            title = (f'About concept {cur}: {a}' if page == 'about' else f'{BIOS[page]} bio, concept {cur}: {b}') + back
         else:
             title = f'Concept 11 with Homeowners layout {cur}'
     return ('<nav class="review-bar" aria-label="Current build">\n'
@@ -557,6 +558,13 @@ def main_bar(cur, out_dir, page='home', build=1):
 
 # Pages each build has, as paths under build-N/ (for the bar's numbers)
 BIOS = {'chris-oliveira': 'Chris Oliveira'}   # team bio pages under about/
+# Each build has its own About and bio design (homepages/about/about-v<k>.html,
+# <bio>-v<k>.html; styles about.css plus about-<k>.css)
+ABOUT_CONCEPTS = {1: ('Story and values', 'Photo and details'),
+                  2: ('Then and now', 'Contact card'),
+                  3: ('Editorial', 'Split screen'),
+                  4: ('Chapters', 'Q and A'),
+                  5: ('By the numbers', 'Fig leaf portrait')}
 PAGE_PATH = {'home': '', 'homeowners': '/homeowners-insurance', 'about': '/about',
              **{slug: f'/about/{slug}' for slug in BIOS}}
 
@@ -593,11 +601,13 @@ def build_about(k):
     for key, sub, title, desc, canon in pages:
         out = f'{out_dir}/{sub}'
         up = lambda p: posixpath.relpath(p, out)
-        css = ''.join(f'\n  <link rel="stylesheet" href="{up(c)}">' for c in (
-            'archive-a/styles.css', 'archive-a/home-sections.css', 'archive-a/grid.css', 'archive-a/palette.css',
-            'homepages/shared/concept-11.css', 'homepages/shared/about.css'))
+        sheets = ['archive-a/styles.css', 'archive-a/home-sections.css', 'archive-a/grid.css', 'archive-a/palette.css',
+                  'homepages/shared/concept-11.css', 'homepages/shared/about.css']
+        if k != 1:
+            sheets.append(f'homepages/shared/about-{k}.css')
+        css = ''.join(f'\n  <link rel="stylesheet" href="{up(c)}">' for c in sheets)
         head = ('<!DOCTYPE html>\n<!-- Built by homepages/build.py: build ' + str(k) + "'s " + sub +
-                f' page, from homepages/about/{"about" if key == "about" else key}.html in concept 11\'s header and footer. '
+                f' page, from homepages/about/{key}-v{k}.html in concept 11\'s header and footer. '
                 'Edit that file, then re-run the script. -->\n'
                 '<html lang="en" data-header="a"><head><meta charset="utf-8">\n'
                 '  <meta name="robots" content="noindex">\n'
@@ -610,7 +620,9 @@ def build_about(k):
                 '  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">\n'
                 '  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&amp;family=Montserrat:wght@400;500;600;700&amp;family=Lato:wght@400;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap">'
                 + css + '\n</head>\n')
-        main = read(f'homepages/about/{"about" if key == "about" else key}.html').replace('{B}', out_dir)
+        main = read(f'homepages/about/{key}-v{k}.html').replace('{B}', out_dir)
+        icons = read('homepages/about/_icons.html')
+        main = re.sub(r'(<main [^>]*>\n)', lambda m: m.group(1) + icons, main, count=1)
         main = rebase(main, '', out)
         shell = rebase(body + '<!--MAIN-->' + tail, out_dir, out)
         page = head + shell.replace('<!--MAIN-->', '\n' + main.strip('\n').lstrip() + '\n', 1)
@@ -619,6 +631,7 @@ def build_about(k):
         page = page.replace(f'<a class="site-nav__link" href="{here}">About</a>',
                             f'<a class="site-nav__link" href="{here}" aria-current="page">About</a>', 1)
         page = page.replace('<!--REVIEW-BAR-->', main_bar(k, out, key))
+        page = page.replace('</body>', f'  <script src="{up("homepages/shared/about.js")}"></script>\n</body>', 1)
         write(f'{out}/index.html', page)
 
 

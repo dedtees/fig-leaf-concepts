@@ -1,0 +1,94 @@
+  <!-- About, concept 2: "Then and now". The painting of the first office and
+       today's team photo share one frame, with a handle to slide between
+       them (about.js). Then the story in one column, the NYSE line as a big
+       quote, values as a ruled list and the team in a row.
+       Paths are from the repo root; {B} is the build folder. Styles: about-2.css -->
+  <main id="main" class="hs hs--v1 ab ab--v2">
+
+    <header class="a2-head" aria-labelledby="ab-title">
+      <div class="hs-wrap">
+        <nav class="ab-crumbs" aria-label="Breadcrumb">
+          <ol><li><a href="{B}/">Home</a></li><li><span aria-current="page">About</span></li></ol>
+        </nav>
+        <div class="a2-head__text">
+          <p class="ab-eyebrow">About The Fig Leaf Agency</p>
+          <h1 class="ab-head__title" id="ab-title">Then and now, the same promise.</h1>
+        </div>
+      </div>
+      <div class="hs-wrap">
+        <div class="a2-compare" data-compare style="--pos: 50%">
+          <img class="a2-compare__img" src="archive-a/assets/team-photo.jpg" srcset="archive-a/assets/team-photo-900.jpg 900w, archive-a/assets/team-photo.jpg 1800w" sizes="(max-width: 1200px) 100vw, 1120px" alt="Today: the Fig Leaf team in their office" width="1800" height="1199" decoding="async">
+          <div class="a2-compare__then">
+            <img class="a2-compare__img" src="homepages/shared/assets/old-building-figleaf.jpg" srcset="homepages/shared/assets/old-building-figleaf-900.jpg 900w, homepages/shared/assets/old-building-figleaf.jpg 1800w" sizes="(max-width: 1200px) 100vw, 1120px" alt="Then: a painting of the agency's first office, its sign reading Fig Leaf Agency" width="1800" height="1396" decoding="async">
+          </div>
+          <span class="a2-compare__label a2-compare__label--then" aria-hidden="true">Then</span>
+          <span class="a2-compare__label a2-compare__label--now" aria-hidden="true">Now</span>
+          <span class="a2-compare__handle" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+          <input class="a2-compare__range" type="range" min="0" max="100" value="50" aria-label="Slide between the first office and today's team">
+        </div>
+      </div>
+    </header>
+
+    <section class="a2-story" aria-labelledby="a2-story-title">
+      <div class="hs-wrap a2-narrow hs-reveal">
+        <p class="ab-eyebrow ab-eyebrow--ink">Our story</p>
+        <h2 class="a2-title" id="a2-story-title">A better alternative for New Jersey</h2>
+        <p class="a2-lead">Fig Leaf Insurance Agency was founded to give New Jersey a better alternative to high insurance costs and impersonal service.</p>
+        <p>We take the time to find the best possible coverage and price while making sure every client understands what they're buying and how they're protected. From our office on Route 36 in Hazlet, we look after families and businesses across the state.</p>
+      </div>
+      <figure class="hs-wrap a2-quote hs-reveal">
+        <blockquote><p>Your word is your bond.</p></blockquote>
+        <figcaption>The lesson our leadership learned working on the NYSE, and the one we run the agency on.</figcaption>
+      </figure>
+    </section>
+
+    <section class="a2-values" id="values" aria-labelledby="a2-values-title">
+      <div class="hs-wrap">
+        <div class="a2-values__head hs-reveal">
+          <p class="ab-eyebrow ab-eyebrow--ink">Our values</p>
+          <h2 class="a2-title" id="a2-values-title">What we stand for</h2>
+        </div>
+        <ol class="a2-values__list">
+          <li class="hs-reveal"><span class="a2-num">01</span><h3>Your word is your bond</h3><p>When we tell you something about your policy, you can count on it.</p></li>
+          <li class="hs-reveal"><span class="a2-num">02</span><h3>Coverage you understand</h3><p>We walk you through what you're buying and how it protects you, so there are no surprises later.</p></li>
+          <li class="hs-reveal"><span class="a2-num">03</span><h3>The best coverage and price</h3><p>As an independent agency we compare carriers for you and find the right protection at the right price.</p></li>
+          <li class="hs-reveal"><span class="a2-num">04</span><h3>Service and hustle</h3><p>A level of customer service and hustle we believe you'll find unparalleled in our field.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="a2-team" id="team" aria-labelledby="a2-team-title">
+      <div class="hs-wrap">
+        <div class="a2-team__head hs-reveal">
+          <p class="ab-eyebrow">Meet our team</p>
+          <h2 class="a2-title" id="a2-team-title">Say hello</h2>
+        </div>
+        <ul class="a2-team__row">
+          <li class="hs-reveal">
+            <a class="a2-person" href="{B}/about/chris-oliveira/">
+              <img src="homepages/shared/assets/team/chris-oliveira-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async">
+              <span class="a2-person__name">Chris Oliveira</span>
+              <span class="a2-person__role">Account Executive</span>
+              <span class="a2-person__more">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+            </a>
+          </li>
+          <li class="a2-person a2-person--soon hs-reveal"><span class="a2-person__ring" aria-hidden="true"></span><span class="a2-person__name">More bios soon</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="fl-grid-host ab-cta" aria-labelledby="ab-cta-title">
+      <div class="fl-grid" aria-hidden="true"><span class="fl-grid__lines" data-hs-px="0.15"></span></div>
+      <div class="hs-wrap ab-cta__grid hs-reveal">
+        <div>
+          <p class="ab-eyebrow">Let's talk</p>
+          <h2 class="ab-cta__title" id="ab-cta-title">See what working with us is like</h2>
+          <p>Tell us what you'd like to protect. We'll shop it and explain your options in plain English.</p>
+        </div>
+        <div class="ab-cta__actions">
+          <a class="hs-btn hs-btn--primary" href="{B}/crq-form/">Get a Quote</a>
+          <a class="ab-call" href="tel:+19088623447"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>Call (908) 862-3447</a>
+        </div>
+      </div>
+    </section>
+  </main>

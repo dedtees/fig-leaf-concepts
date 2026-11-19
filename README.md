@@ -76,13 +76,24 @@ The client kept concept 11. The review bar now runs AC, GC, 1, 2, 3, 4, 5:
 
 **About and bio pages.** Each build has an About page (`build-N/about/`) and a bio page for each team member under it
 (`build-N/about/chris-oliveira/`), in concept 11's header, footer, colours and type (Fraunces headings, Source Sans body).
-The content is in `homepages/about/` (`about.html`, `chris-oliveira.html`: main content only, paths from the repo root,
-`{B}` for the build folder) and the styles in `homepages/shared/about.css`; `build_about` in `build.py` wraps them in the
-build's header and footer. The About page reuses the homepage's About picture (the old building fading to the team), then
-values, the team cards and a closing quote band. Team photos are in `homepages/shared/assets/team/`. The header's About,
-the footer's About Us and Meet Our Team and the homepage's "Learn More About Our Values" link to these pages on every build page.
-To add a bio: write `homepages/about/<slug>.html`, add it to `BIOS` in `build.py`, add a card to the team grid in
-`about.html`, and re-run the script.
+Each build shows a different design, so there are five About concepts and five bio concepts (`ABOUT_CONCEPTS` in `build.py`):
+
+| Build | About | Bio |
+|---|---|---|
+| 1 | Story and values: black title band, the homepage's About picture, green values cards, team cards | Photo and details: portrait beside name, facts and contact; bio with a "Chris can help you" card |
+| 2 | Then and now: drag a handle across one frame from the painting of the first office to today's team; big NYSE quote; ruled values list; round team photos | Contact card: a business card across a green band with every way to reach him and a Save contact (vCard) button |
+| 3 | Editorial: light magazine layout, drop cap, painting set into the text, team photo across the page, icon tiles, team as a list | Split screen: photo fills the left half and stays put while the right half scrolls |
+| 4 | Chapters: four numbered chapters beside a sticky chapter list that marks where you are, ending with Visit us | Q and A: name set huge behind an arched photo, then his bio sheet as four questions |
+| 5 | By the numbers: split hero with the team photo, the homepage's three numbers, a three-step story path, values on black | Fig leaf portrait: photo cut into the fig leaf (archive E's leaf mask) on green, with number tiles |
+
+The content is in `homepages/about/` (`about-v<N>.html`, `chris-oliveira-v<N>.html`: main content only, paths from the
+repo root, `{B}` for the build folder; `_icons.html` is the extra icons every page gets). Styles: `homepages/shared/about.css`
+(shared, and concept 1) plus `about-<N>.css` for builds 2 to 5; behaviour (the then/now handle, the chapter list) in
+`about.js`. `build_about` in `build.py` wraps them in the build's header and footer. Team photos are in
+`homepages/shared/assets/team/`. The header's About, the footer's About Us and Meet Our Team and the homepage's
+"Learn More About Our Values" link to these pages on every build page. To add a bio: write
+`homepages/about/<slug>-v1.html` to `-v5.html`, add it to `BIOS` in `build.py`, add a card to the team section of each
+`about-v<N>.html`, and re-run the script. Screenshots are in `screenshots/about/`.
 Everything else (concepts 1 to 11, archives A to E) is archived: still online so old links work, with "archived · see the current build" in its bar.
 
 ## Numbering (archived concepts)
