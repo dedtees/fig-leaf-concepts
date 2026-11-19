@@ -94,6 +94,12 @@ repo root, `{B}` for the build folder; `_icons.html` is the extra icons every pa
 "Learn More About Our Values" link to these pages on every build page. To add a bio: write
 `homepages/about/<slug>-v1.html` to `-v5.html`, add it to `BIOS` in `build.py`, add a card to the team section of each
 `about-v<N>.html`, and re-run the script. Screenshots are in `screenshots/about/`.
+**Links stay inside the build.** `keep_links_in` in `build.py` runs on every build page and the gallery. A link to a
+figleafagency.com page the build has (About, Meet Our Team, Homeowners, the quote form) opens the build's copy; every other
+link that leaves the build (the live site's other pages, Google Maps and reviews, Facebook, Drive Safe Today, carriers,
+folders that don't exist here) becomes `href="#"` with `onclick="return false"` and `data-offsite`, so the button or menu
+item stays put but does nothing. `tel:`, `mailto:` and the review sheet are untouched. To link a new in-build page, add it to `IN_BUILD`.
+
 Everything else (concepts 1 to 11, archives A to E) is archived: still online so old links work, with "archived · see the current build" in its bar.
 
 ## Numbering (archived concepts)
