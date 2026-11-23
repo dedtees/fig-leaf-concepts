@@ -15,6 +15,24 @@
 /* ... and the same flat edges: a square, full-width hero with no rounded
    corners, edge line or soft green blob */
 .pg--v2:not(.pg--fade) .pg-head { border-radius: 0; box-shadow: none; }
+/* the faint Fig Leaf outline in the top right corner, exactly as on main's
+   build 1 Homeowners page (archive A's .pg--v1 .pg-head::before with its
+   palette colour): the same image, size, position, angle and opacity */
+.pg--v2:not(.pg--fade) .pg-head::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: clamp(240px, 30vw, 440px);
+  aspect-ratio: 520 / 567;
+  right: -4%;
+  top: -10%;
+  rotate: 16deg;
+  background: #3f8a5a;
+  opacity: .14;
+  -webkit-mask: url("../../archive-b/assets/fig-leaf-silhouette.png") center / contain no-repeat;
+          mask: url("../../archive-b/assets/fig-leaf-silhouette.png") center / contain no-repeat;
+  pointer-events: none;
+}
 .pg--v2:not(.pg--fade) .pg-head .hs-px { display: none; }
 
 /* version 1's quote section is build 1's closing band from main: full width,
