@@ -540,9 +540,11 @@ QUOTE_BAND = '''
       </div>
     </section>
 '''
-LEAF_OUTLINE = ('<svg class="pg-head__leaf" viewBox="0 0 400 460" aria-hidden="true" focusable="false">'
-                '<path d="M200 96C168 34 86 22 46 66 2 116 22 206 92 274c48 46 90 84 108 136 18-52 60-90 108-136 '
-                '70-68 90-158 46-208-40-44-122-32-154 30zM200 410c4 18 18 30 40 30"/></svg>')
+# the Fig Leaf logo's leaf (the path in archive-b/assets/fig-leaf-fill.svg),
+# drawn as a thin outline
+LEAF_PATH = re.search(r' d="([^"]+)"', read('archive-b/assets/fig-leaf-fill.svg')).group(1)
+LEAF_OUTLINE = ('<svg class="pg-head__leaf" viewBox="0 0 520.06 567.04" aria-hidden="true" focusable="false">'
+                f'<path d="{LEAF_PATH}"/></svg>')
 
 
 def build_homeowners_versions():
@@ -569,8 +571,8 @@ def build_homeowners_versions():
     talk_only = talk_only.replace('id="quote" aria-labelledby="pg-close-title"', 'id="talk" aria-label="Rather talk it through?"', 1)
     talk_only = re.sub(r'\s*<div class="pg-sec__head">.*?</div>\n', '\n', talk_only, count=1, flags=re.S)
     talk_only = re.sub(r'\s*<!-- The quote form is.*?-->', '', talk_only, count=1, flags=re.S)
+    hero = hero.replace('<div class="pg-wrap pg-head__grid">', LEAF_OUTLINE + '\n      <div class="pg-wrap pg-head__grid">', 1)
     dark = hero.replace('fl-grid fl-grid--light', 'fl-grid', 1)
-    dark = dark.replace('<div class="pg-wrap pg-head__grid">', LEAF_OUTLINE + '\n      <div class="pg-wrap pg-head__grid">', 1)
     versions = [
         ('pg--stack', hero, [overview, covered, quote]),
         ('pg--stack pg--fade', dark, [overview, covered, quote]),

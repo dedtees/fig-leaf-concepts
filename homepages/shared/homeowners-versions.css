@@ -7,22 +7,24 @@
    without the tabs that used to sit on its lower edge */
 .pg--v2.pg--fade .pg-head { padding-bottom: clamp(48px, 6vw, 80px); }
 
-/* the thin leaf outline behind the black hero's photo */
+/* the Fig Leaf outline behind the hero's photo (Eric's sketch): grey on
+   the black hero, light green on the white one */
 .pg-head__leaf {
   position: absolute;
   z-index: -1;
-  right: 0;
-  top: -1%;
-  width: clamp(300px, 35vw, 540px);
+  right: max(-10px, calc(50% - 670px));
+  top: 3%;
+  width: clamp(320px, 41vw, 590px);
   height: auto;
-  rotate: -10deg;
+  rotate: -4deg;
   fill: none;
-  stroke: #353c3f;
-  stroke-width: 3;
+  stroke: #3d4548;
+  stroke-width: 2.5;
   stroke-linecap: round;
   stroke-linejoin: round;
   pointer-events: none;
 }
+.pg--v2:not(.pg--fade) .pg-head__leaf { stroke: var(--c2-green-light, #a9c7b4); }
 
 /* the black "Get a homeowners quote" band (versions 3 and 4): build 1's
    quote card laid out full width */

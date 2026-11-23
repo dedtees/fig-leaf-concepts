@@ -79,12 +79,12 @@ versions 1 to 4 and build 5 shows version 1. On a Homeowners page the bar's numb
 
 | Version | Hero | Then |
 |---|---|---|
-| 1 | white | perils, what a policy covers, the quote form with "Rather talk it through?" |
-| 2 | black, gold "Preserve what matters.", thin leaf outline behind the photo | same as 1 |
+| 1 | white, light green Fig Leaf outline behind the photo | perils, what a policy covers, the quote form with "Rather talk it through?" |
+| 2 | black, gold "Preserve what matters." | same as 1 |
 | 3 | black, as 2 | perils, what a policy covers, black "Get a homeowners quote" band (Start My Quote + call), "Rather talk it through?" |
 | 4 | black, as 2 | perils, the black quote band, what a policy covers, the quote form with "Rather talk it through?" |
 
-The black band is build 1's quote card laid out full width. The old layouts are still in `archive-a/b/c` for the archive.
+The black band is build 1's quote card laid out full width. Every hero has a thin outline of the logo's fig leaf (the path from `fig-leaf-fill.svg`) behind the photo, from Eric's sketch: grey on black, light green on white. The old layouts are still in `archive-a/b/c` for the archive.
 
 `homepages/build.py` makes them (`build_builds`, `main_bar`). Review labels are "Gallery", "Get a quote" and "Build N".
 
