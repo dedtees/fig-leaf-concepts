@@ -1,0 +1,42 @@
+  <!-- Bio, concept 3: "Split screen". On a wide screen the photo
+       (placeholder until his headshot comes in) fills the left half and
+       stays put while the right half scrolls: name, facts, bio and how to
+       reach him, on white. On a phone the photo comes first.
+       Paths are from the repo root; {B} is the build folder. Styles: about-3.css -->
+  <main id="main" class="hs hs--v1 ab ab--v3 ab--bio">
+    <section class="b3-split" aria-labelledby="ab-title">
+      <div class="b3-photo">
+        <img src="homepages/shared/assets/team/placeholder.svg" alt="Photo of Les Silverman coming soon" width="600" height="900" decoding="async">
+        <span class="b3-photo__tag" aria-hidden="true">The Fig Leaf Agency · Hazlet, NJ</span>
+      </div>
+
+      <div class="b3-content">
+        <nav class="ab-crumbs ab-crumbs--light" aria-label="Breadcrumb">
+          <ol><li><a href="{B}/">Home</a></li><li><a href="{B}/about/">About</a></li><li><span aria-current="page">Les Silverman</span></li></ol>
+        </nav>
+        <p class="ab-eyebrow ab-eyebrow--ink">Sr. Account Executive</p>
+        <h1 class="a3-head__title b3-name" id="ab-title">Les Silverman</h1>
+
+        <dl class="b3-facts">
+          <div><dt>With Fig Leaf</dt><dd>16 years</dd></div>
+          <div><dt>Direct line</dt><dd><a href="tel:+19082759266">908&#8209;275&#8209;9266</a></dd></div>
+          <div><dt>License</dt><dd>#1298396</dd></div>
+        </dl>
+
+        <div class="b3-text">
+          <p class="a3-drop">Les has been with The Fig Leaf Agency for 16 years. He enjoys the challenges the insurance world offers him on a daily basis.</p>
+          <p class="a3-pull">Your word is your bond.</p>
+          <p>Les appreciates that Bryan Tomko has kept the same mantra with The Fig Leaf Agency from his experience as a member of the NY Stock Exchange: your word is your bond.</p>
+        </div>
+
+        <div class="b3-contact">
+          <h2 class="b3-contact__title">Get in touch with Les</h2>
+          <a class="b3-contact__line" href="mailto:lsilverman@figleafagency.com"><svg class="icon" aria-hidden="true"><use href="#i-mail"></use></svg>lsilverman@figleafagency.com</a>
+          <a class="b3-contact__line" href="tel:+19082759266"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>(908) 275-9266</a>
+          <a class="hs-btn hs-btn--primary" href="{B}/crq-form/">Get a Quote</a>
+        </div>
+
+        <p class="ab-backlink b3-back"><a href="{B}/about/#team"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>Back to the team</a></p>
+      </div>
+    </section>
+  </main>
