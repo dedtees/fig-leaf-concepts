@@ -824,6 +824,7 @@ def main_bar(cur, out_dir, page='home', build=1):
 BIOS = {'chris-oliveira': ('Chris Oliveira', 'Account Executive'),
         'danielle-mohr': ('Danielle Mohr', 'Business Development Manager'),
         'jarihana-abreu': ('Jarihana Abreu', 'Licensed Insurance Agent'),
+        'les-silverman': ('Les Silverman', 'Sr. Account Executive'),
         'burke': ('Burke', 'The Insurance Guy')}
 # Each build has its own About and bio design (homepages/about/about-v<k>.html,
 # <bio>-v<k>.html; styles about.css plus about-<k>.css)
