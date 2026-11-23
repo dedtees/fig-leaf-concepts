@@ -12,6 +12,28 @@
    heroes (versions 2 to 4) have no Fig Leaf outline either. */
 .pg--v2:not(.pg--fade) .pg-head { border-top: 1px solid var(--c2-gold); }
 
+/* ... and the same flat edges: a square, full-width hero with no rounded
+   corners, edge line or soft green blob */
+.pg--v2:not(.pg--fade) .pg-head { border-radius: 0; box-shadow: none; }
+.pg--v2:not(.pg--fade) .pg-head .hs-px { display: none; }
+
+/* version 1's quote section is build 1's closing band from main: full width,
+   dark green with the faint white grid and a gold line along the top. The
+   heading sits on the band itself, the form card stays white and the
+   "Rather talk it through?" card turns black so it stands off the green. */
+.pg--v2:not(.pg--fade) #quote.pg-close {
+  padding-block: clamp(56px, 7vw, 96px);
+  background: var(--c2-green);
+  border-top: 1px solid var(--c2-gold);
+  color: var(--c2-white);
+}
+.pg--v2:not(.pg--fade) #covered { padding-bottom: clamp(56px, 7vw, 96px); }
+.pg--v2:not(.pg--fade) #quote .pg-sec__head { padding: 0; margin-bottom: clamp(24px, 3vw, 36px); border-radius: 0; background: none; }
+.pg--v2:not(.pg--fade) #quote .pg-crq__card { border-radius: 28px; box-shadow: none; }
+.pg--v2:not(.pg--fade) #quote .pg-close__card { background: var(--c2-black); }
+.pg--v2:not(.pg--fade) #quote .pg-crq__note { color: var(--c2-white); }
+.pg--v2:not(.pg--fade) #quote .pg-crq__note .icon { color: var(--c2-gold); }
+
 /* no numbers on the coverage cards (Dwelling, Other Structures ...) */
 .pg--v2 .pg-cover__num { display: none; }
 
