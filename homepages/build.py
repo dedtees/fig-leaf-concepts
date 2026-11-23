@@ -505,6 +505,92 @@ def landing_bars():
 BUILDS = [1, 2, 3, 4, 5]
 GALLERY = 'archive-d'
 
+# The four Homeowners versions from Eric's mockups (23 Nov), cut from the
+# existing sections of archive B's scrolling page. Builds 1 to 4 show
+# versions 1 to 4; build 5 shows version 1. The sources are made by
+# build_homeowners_versions() below, from archive-b/homeowners-insurance-scroll.
+HOMEOWNERS_VERSIONS = [
+    ('archive-b/homeowners-insurance-v1', 'white hero, perils, what it covers, quote form'),
+    ('archive-b/homeowners-insurance-v2', 'black hero, perils, what it covers, quote form'),
+    ('archive-b/homeowners-insurance-v3', 'black hero, perils, what it covers, quote banner'),
+    ('archive-b/homeowners-insurance-v4', 'black hero, perils, quote banner, what it covers, quote form'),
+]
+
+
+def homeowners_version(k):
+    """The Homeowners version (1 to 4) build k shows."""
+    return k if k <= len(HOMEOWNERS_VERSIONS) else 1
+
+
+# The black "Get a homeowners quote" band (build 1's quote card, laid out
+# full width) and the faint leaf outline behind the black hero's photo.
+QUOTE_BAND = '''
+    <section class="pg-band" id="{id}" aria-labelledby="pg-band-title">
+      <div class="pg-wrap">
+        <div class="pg-band__box">
+          <div class="pg-band__text">
+            <h2 class="pg-band__title" id="pg-band-title">Get a homeowners quote</h2>
+            <p>We compare top-rated carriers for you, then walk you through every line of the policy.</p>
+          </div>
+          <div class="pg-band__actions">
+            <a class="pg-btn pg-btn--gold" href="{href}">Start My Quote</a>
+            <a class="pg-call" href="tel:+19088623447"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>Call (908) 862-3447</a>
+          </div>
+        </div>
+      </div>
+    </section>
+'''
+# the Fig Leaf logo's leaf (the path in archive-b/assets/fig-leaf-fill.svg),
+# drawn as a thin outline
+LEAF_PATH = re.search(r' d="([^"]+)"', read('archive-b/assets/fig-leaf-fill.svg')).group(1)
+LEAF_OUTLINE = ('<svg class="pg-head__leaf" viewBox="0 0 520.06 567.04" aria-hidden="true" focusable="false">'
+                f'<path d="{LEAF_PATH}"/></svg>')
+
+
+def build_homeowners_versions():
+    """archive-b/homeowners-insurance-v1 to -v4 from the scrolling page.
+    Its sections: title band (hero), #quote (the form with the "Rather talk
+    it through?" card), #overview (perils) and #covered (what it covers)."""
+    src = 'archive-b/homeowners-insurance-scroll'
+    page = read(f'{src}/index.html')
+    main_start = page.index('<main id="main"')
+    main_end = page.index('</main>')
+    main = page[main_start:main_end]
+    head_end = main.index('</header>') + len('</header>')
+    hero = main[main.index('<!-- Title band -->'):head_end]
+    q0 = main.index('<!-- Scrolling version')
+    o0 = main.index('<section class="pg-sec" id="overview"')
+    c0 = main.index('<section class="pg-sec" id="covered"')
+    quote = main[main.index('<section class="pg-close"', q0):o0].rstrip() + '\n'
+    overview = main[o0:c0].rstrip() + '\n'
+    covered = main[c0:].rstrip() + '\n'
+    # the call-us card on its own, for the version with no form
+    a0 = quote.index('<div class="pg-crq__card">')
+    a1 = quote.index('<aside class="pg-crq__aside"')
+    talk_only = quote[:a0] + quote[a1:]
+    talk_only = talk_only.replace('id="quote" aria-labelledby="pg-close-title"', 'id="talk" aria-label="Rather talk it through?"', 1)
+    talk_only = re.sub(r'\s*<div class="pg-sec__head">.*?</div>\n', '\n', talk_only, count=1, flags=re.S)
+    talk_only = re.sub(r'\s*<!-- The quote form is.*?-->', '', talk_only, count=1, flags=re.S)
+    hero = hero.replace('<div class="pg-wrap pg-head__grid">', LEAF_OUTLINE + '\n      <div class="pg-wrap pg-head__grid">', 1)
+    dark = hero.replace('fl-grid fl-grid--light', 'fl-grid', 1)
+    versions = [
+        ('pg--stack', hero, [overview, covered, quote]),
+        ('pg--stack pg--fade', dark, [overview, covered, quote]),
+        ('pg--stack pg--fade', dark, [overview, covered, QUOTE_BAND.format(id='quote', href='../crq-form/'), talk_only]),
+        ('pg--stack pg--fade', dark, [overview, QUOTE_BAND.format(id='quote-band', href='#quote'), covered, quote]),
+    ]
+    for n, (cls, top, secs) in enumerate(versions, 1):
+        out = HOMEOWNERS_VERSIONS[n - 1][0]
+        body = ('<main id="main" class="hs pg pg--v2 ' + cls + '">\n\n    ' + top.strip() + '\n\n    '
+                + '\n    '.join(s.strip() + '\n' for s in secs) + '\n  ')
+        new = page[:main_start] + body + page[main_end:]
+        new = new.replace('<link rel="stylesheet" href="../palette.css">',
+                          '<link rel="stylesheet" href="../palette.css">\n'
+                          '  <link rel="stylesheet" href="../../homepages/shared/homeowners-versions.css">', 1)
+        new = new.replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- Built by homepages/build.py (build_homeowners_versions): '
+                          f'Homeowners version {n}, from {src}/. Edit that page or the script, then re-run it. -->', 1)
+        write(f'{out}/index.html', new)
+
 
 def build_dir(k):
     return f'build-{k}'
@@ -518,12 +604,15 @@ def main_bar(cur, out_dir, page='home', build=1):
     gc_build = cur if isinstance(cur, int) else build  # GC stays inside the build you came from
     entries = [('AC', 'AC', 'Fig leaf photo gallery', rel_(GALLERY)),
                ('GC', 'GC', 'Get a quote', rel_(f'{build_dir(gc_build)}/crq-form'))]
-    for k in BUILDS:
-        lay = HOMEOWNERS[k - 1][1]
-        sub = PAGE_PATH[page]
-        entries.append((k, str(k), f'Concept 11 with Homeowners layout {k} ({lay})', rel_(build_dir(k) + sub)))
+    sub = PAGE_PATH[page]
+    if page == 'homeowners':   # the numbers are the four Homeowners versions
+        for v, (_, name) in enumerate(HOMEOWNERS_VERSIONS, 1):
+            entries.append((v, str(v), f'Homeowners version {v}: {name}', rel_(build_dir(v) + sub)))
+    else:
+        for k in BUILDS:
+            entries.append((k, str(k), f'Concept 11 with Homeowners version {homeowners_version(k)}', rel_(build_dir(k) + sub)))
     keys = [e[0] for e in entries]
-    i = keys.index(cur)
+    i = keys.index(cur) if cur in keys else keys.index(homeowners_version(cur))
     items = []
     for key, text, name, href in entries:
         here = ' aria-current="page"' if key == cur else ''
@@ -537,12 +626,13 @@ def main_bar(cur, out_dir, page='home', build=1):
         label = f'Build {cur}'
         back = f' · <a href="{rel_(build_dir(cur))}" style="color:inherit">back to the homepage</a>'
         if page == 'homeowners':
-            title = f'Homeowners layout {cur} of {len(BUILDS)}, {HOMEOWNERS[cur - 1][1]}' + back
+            v = homeowners_version(cur)
+            title = f'Homeowners version {v} of {len(HOMEOWNERS_VERSIONS)}: {HOMEOWNERS_VERSIONS[v - 1][1]}' + back
         elif page in BIOS or page == 'about':
             a, b = ABOUT_CONCEPTS[cur]
             title = (f'About concept {cur}: {a}' if page == 'about' else f'{BIOS[page][0]} bio, concept {cur}: {b}') + back
         else:
-            title = f'Concept 11 with Homeowners layout {cur}'
+            title = f'Concept 11 with Homeowners version {homeowners_version(cur)}'
     return ('<nav class="review-bar" aria-label="Current build">\n'
             f'    <p class="review-bar__title"><span class="review-bar__label">{label}</span> '
             f'<span class="review-bar__name">{title}</span></p>\n'
@@ -812,7 +902,7 @@ def round2_homeowners(k, page, out):
 
 def build_builds():
     """build-1 to build-5: concept 11's homepage, quote pages and one
-    Homeowners layout each (build k gets layout k)."""
+    Homeowners version each (build k gets version k, build 5 version 1)."""
     global KEEP_IN
     c11 = next(h for h in HEROES if h[0] == 11)
     for k in BUILDS:
@@ -825,10 +915,10 @@ def build_builds():
         page = about_links(page, out_dir, out_dir)
         page = keep_links_in(page, out_dir, out_dir)
         page = page.replace('<!-- Built by homepages/build.py: concept 11:',
-                            f'<!-- Built by homepages/build.py: build {k} (concept 11, Homeowners layout {k}):', 1)
+                            f'<!-- Built by homepages/build.py: build {k} (concept 11, Homeowners version {homeowners_version(k)}):', 1)
         write(f'{out_dir}/index.html', page)
         for sub in SUBPAGES:
-            src = HOMEOWNERS[k - 1][0] if sub == 'homeowners-insurance' else f'{c11[1]}/{sub}'
+            src = HOMEOWNERS_VERSIONS[homeowners_version(k) - 1][0] if sub == 'homeowners-insurance' else f'{c11[1]}/{sub}'
             out = f'{out_dir}/{sub}'
             page = read(f'{src}/index.html')
             page = swap_bar(page, '<!--REVIEW-BAR-->')
@@ -868,6 +958,7 @@ def main():
         build_subpages(h[0], h[1])
     update_concept_bars()
     landing_bars()
+    build_homeowners_versions()
     build_builds()
     print('built', len(HEROES), 'concept pages and builds', BUILDS)
 
