@@ -1,0 +1,80 @@
+/* Concept 5 (build 5's homepage): the Google reviews split in two. The
+   written reviews take the left two thirds, a video testimonial the right
+   third. Made by video_reviews() in homepages/build.py. */
+
+.vr-split {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: clamp(20px, 2.5vw, 32px);
+  align-items: stretch;
+}
+
+/* written reviews: the first one across the top, the other two below it */
+.hs-reviews__list.vr-list { grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; }
+.vr-list .hs-review:first-child { grid-column: 1 / -1; }
+.vr-list .hs-review:first-child .hs-review__text p { font-size: 1.3rem; line-height: 1.5; }
+
+/* video testimonial */
+.vr-video {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 18px;   /* as the review cards */
+  background: var(--hs-green);
+  color: #fff;
+}
+.vr-video__frame {
+  position: relative;
+  flex: 1;
+  min-height: 320px;
+  overflow: hidden;
+  background: #12301f;
+}
+.hs .vr-video__poster {   /* .hs img sets height: auto */
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: 50% 35%;
+  opacity: .55;
+}
+.vr-video__play {
+  position: absolute; top: 50%; left: 50%;
+  display: grid; place-items: center;
+  width: 84px; height: 84px;
+  transform: translate(-50%, -50%);
+  border: 0; border-radius: 50%;
+  background: var(--hs-gold);
+  color: #12301f;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+  cursor: default;
+}
+.vr-video__play svg { width: 34px; height: 34px; margin-left: 4px; }
+.vr-video__play::after {   /* a soft ring around the button */
+  content: ""; position: absolute; inset: -12px;
+  border: 2px solid rgba(232, 194, 126, .55); border-radius: 50%;
+}
+.vr-video__tag {
+  position: absolute; top: 16px; left: 16px;
+  padding: 6px 12px;
+  border: 1px dashed var(--hs-gold); border-radius: 999px;
+  font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--hs-gold);
+  background: rgba(18, 48, 31, .6);
+}
+.vr-video__cap {
+  display: grid; gap: 4px;
+  padding: clamp(20px, 2.2vw, 28px);
+  line-height: 1.4;
+}
+.vr-video__kicker { font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--hs-gold); }
+.vr-video__cap strong { font-family: var(--hs-heading); font-size: 1.25rem; font-weight: 600; }
+.vr-video__cap span:last-child { opacity: .85; }
+
+@media (max-width: 900px) {
+  .vr-split { grid-template-columns: minmax(0, 1fr); }
+  .vr-video__frame { min-height: 0; aspect-ratio: 16 / 10; flex: none; }
+}
+@media (max-width: 640px) {
+  .hs-reviews__list.vr-list { grid-template-columns: minmax(0, 1fr); }
+  .vr-list .hs-review:first-child .hs-review__text p { font-size: 1.12rem; }
+}

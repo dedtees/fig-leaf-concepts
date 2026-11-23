@@ -660,6 +660,51 @@ def mark_current(page):
     return re.sub(r'<a href="\./">', '<a href="./" aria-current="page">', page)
 
 
+# Build 5's homepage is concept 5 (Eric, 23 Nov): build 1's homepage with a
+# video testimonial beside the written Google reviews.
+VIDEO_BUILD = 5
+
+
+def home_name(k):
+    """The bar's name for build k's homepage."""
+    if k == VIDEO_BUILD:
+        return 'Concept 5: build 1\'s homepage with a video testimonial beside the Google reviews'
+    return f'Concept 11 with Homeowners version {homeowners_version(k)}'
+
+
+def video_reviews(page, out_dir):
+    """Concept 5: the Google reviews section split in two, the written
+    reviews on the left two thirds and a video testimonial on the right
+    third (homepages/shared/video-reviews.css). No video yet, so the card
+    is a placeholder: a poster with a play button, ready for the video."""
+    head = '<link rel="stylesheet" href="' + posixpath.relpath('homepages/shared/concept-11.css', out_dir) + '">'
+    assert head in page
+    css = posixpath.relpath('homepages/shared/video-reviews.css', out_dir)
+    page = page.replace(head, head + f'\n  <link rel="stylesheet" href="{css}">', 1)
+    m = re.search(r'(        <ul class="hs-reviews__list">.*?        </ul>\n)', page, re.S)
+    assert m
+    poster = posixpath.relpath('archive-a/assets/team-photo-900.jpg', out_dir)
+    video = (
+        '          <!-- Video testimonial: a placeholder until the client sends the video.\n'
+        '               Swap the poster and the button for a <video> or an embed. -->\n'
+        '          <figure class="vr-video hs-reveal">\n'
+        '            <div class="vr-video__frame">\n'
+        f'              <img class="vr-video__poster" src="{poster}" alt="" width="900" height="600" loading="lazy" decoding="async">\n'
+        '              <button class="vr-video__play" type="button" aria-label="Play the video testimonial (video to come)" disabled>'
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button>\n'
+        '              <span class="vr-video__tag">Video to come</span>\n'
+        '            </div>\n'
+        '            <figcaption class="vr-video__cap">\n'
+        '              <span class="vr-video__kicker">Video testimonial</span>\n'
+        '              <strong>Hear it from our clients</strong>\n'
+        '              <span>A client tells their story in their own words.</span>\n'
+        '            </figcaption>\n'
+        '          </figure>\n')
+    split = ('        <div class="vr-split">\n' + m.group(1).replace('<ul class="hs-reviews__list">', '<ul class="hs-reviews__list vr-list">', 1)
+             + video + '        </div>\n')
+    return page[:m.start()] + split + page[m.end():]
+
+
 def build_dir(k):
     return f'build-{k}'
 
@@ -678,7 +723,7 @@ def main_bar(cur, out_dir, page='home', build=1):
             entries.append((v, str(v), f'Homeowners version {v}: {name}', rel_(build_dir(v) + sub)))
     else:
         for k in BUILDS:
-            entries.append((k, str(k), f'Concept 11 with Homeowners version {homeowners_version(k)}', rel_(build_dir(k) + sub)))
+            entries.append((k, str(k), home_name(k) if page == 'home' else f'Concept 11 with Homeowners version {homeowners_version(k)}', rel_(build_dir(k) + sub)))
     keys = [e[0] for e in entries]
     i = keys.index(cur) if cur in keys else keys.index(homeowners_version(cur))
     items = []
@@ -704,7 +749,7 @@ def main_bar(cur, out_dir, page='home', build=1):
             a, b = ABOUT_CONCEPTS[cur]
             title = (f'About concept {cur}: {a}' if page == 'about' else f'{BIOS[page][0]} bio, concept {cur}: {b}') + back
         else:
-            title = f'Concept 11 with Homeowners version {homeowners_version(cur)}'
+            title = home_name(cur)
     return ('<nav class="review-bar" aria-label="Current build">\n'
             f'    <p class="review-bar__title"><span class="review-bar__label">{label}</span> '
             f'<span class="review-bar__name">{title}</span></p>\n'
@@ -990,6 +1035,9 @@ def build_builds():
         page = re.sub(r'<title>Concept 11 ·', f'<title>Build {k} ·', page, count=1)
         page = about_links(page, out_dir, out_dir)
         page = keep_links_in(link_service_names(page), out_dir, out_dir)
+        if k == VIDEO_BUILD:
+            page = video_reviews(page, out_dir)
+            page = re.sub(r'<title>Build 5 ·', '<title>Concept 5 ·', page, count=1)
         page = page.replace('<!-- Built by homepages/build.py: concept 11:',
                             f'<!-- Built by homepages/build.py: build {k} (concept 11, Homeowners version {homeowners_version(k)}):', 1)
         write(f'{out_dir}/index.html', page)
