@@ -660,24 +660,19 @@ def mark_current(page):
     return re.sub(r'<a href="\./">', '<a href="./" aria-current="page">', page)
 
 
-# Homepage concepts with a video testimonial in the Google reviews (Eric,
-# 23 Nov). Build 5's homepage is concept 5: build 1's homepage with a portrait
-# video card beside the written reviews. The video turned out to be
-# landscape, so concepts 6 and 7 try landscape layouts. 6 and 7 are
-# homepages only (build-6/, build-7/); their links go to build 1's pages.
+# Build 5's homepage is concept 5 (Eric, 23 Nov): build 1's homepage with a
+# video testimonial (landscape, 16:9) beside the written Google reviews, two
+# reviews at a time with arrows. (A portrait video card and a full-width
+# video were tried as concepts 5 and 7 and dropped.)
 VIDEO_BUILD = 5
-HOME_ONLY = [6, 7]
+HOME_ONLY = []
 HOME_NAMES = {
-    5: "Concept 5: build 1's homepage with a video testimonial beside the Google reviews",
-    6: "Concept 6: build 1's homepage with a video beside the Google reviews, two at a time",
-    7: "Concept 7: build 1's homepage with a full-width video above the Google reviews",
+    5: "Concept 5: build 1's homepage with a video beside the Google reviews, two at a time",
 }
 
 
 def home_name(k):
     """The bar's name for build k's homepage."""
-    if k == 1:
-        return 'Concept 11 with Homeowners version 1, and concept 6\'s video beside the Google reviews'
     return HOME_NAMES.get(k, f'Concept 11 with Homeowners version {homeowners_version(k)}')
 
 
@@ -709,7 +704,7 @@ def video_card(out_dir, cls, poster=POSTER):
 
 CAROUSEL_JS = """
   <script>
-    /* concept 6: the written reviews, two at a time (one on phones); the
+    /* concept 5: the written reviews, two at a time (one on phones); the
        arrows step one review at a time */
     document.querySelectorAll('[data-vr-carousel]').forEach(function (box) {
       var slides = box.querySelectorAll('.vr-slide'), count = box.querySelector('.vr-carousel__count'), i = 0,
@@ -736,47 +731,32 @@ CAROUSEL_JS = """
 """
 
 
-def video_reviews(page, out_dir, k):
-    """The Google reviews section of homepage concept k (5, 6 or 7) with a
-    video testimonial (homepages/shared/video-reviews.css).
-    5: the written reviews on the left two thirds, a portrait video card on
-       the right third.
-    6: a 16:9 video on the left, the written reviews two at a time in a
-       carousel on the right.
-    7: a full-width 16:9 video, the three written reviews below it."""
+def video_reviews(page, out_dir):
+    """Concept 5's Google reviews section (homepages/shared/video-reviews.css):
+    a 16:9 video testimonial on the left, the written reviews two at a time
+    on the right (one on phones), with arrows to step through them."""
     head = '<link rel="stylesheet" href="' + posixpath.relpath('homepages/shared/concept-11.css', out_dir) + '">'
     assert head in page
     css = posixpath.relpath('homepages/shared/video-reviews.css', out_dir)
     page = page.replace(head, head + f'\n  <link rel="stylesheet" href="{css}">', 1)
     m = re.search(r'(        <ul class="hs-reviews__list">.*?        </ul>\n)', page, re.S)
     assert m
-    reviews = m.group(1)
-    if k == 5:
-        team = ('archive-a/assets/team-photo.jpg', 'archive-a/assets/team-photo-900.jpg', 1800, 1199)
-        new = ('        <div class="vr-split">\n'
-               + reviews.replace('<ul class="hs-reviews__list">', '<ul class="hs-reviews__list vr-list">', 1)
-               + video_card(out_dir, 'vr-video--tall', team)
-               + '        </div>\n')
-    elif k == 6:
-        slides = reviews.replace('<ul class="hs-reviews__list">', '<ul class="vr-carousel__list">', 1) \
-                        .replace('<li class="hs-review hs-reveal">', '<li class="hs-review vr-slide" aria-roledescription="slide">')
-        slides = slides.replace('<li class="hs-review vr-slide"', '<li class="hs-review vr-slide is-active"', 2)
-        slides = re.sub(r'(?m)^', '  ', slides)
-        new = ('        <div class="vr-wide">\n'
-               + video_card(out_dir, 'vr-video--wide')
-               + '          <div class="vr-carousel hs-reveal" data-vr-carousel aria-roledescription="carousel" aria-label="Google reviews">\n'
-               + slides
-               + '            <div class="vr-carousel__nav">\n'
-               '              <button class="vr-carousel__prev" type="button" aria-label="Previous review"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></button>\n'
-               '              <span class="vr-carousel__count" aria-live="polite">1\u20132 of 3</span>\n'
-               '              <button class="vr-carousel__next" type="button" aria-label="Next review"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></button>\n'
-               '            </div>\n'
-               '          </div>\n'
-               '        </div>\n')
-        page = page.replace('</body>', CAROUSEL_JS + '</body>', 1)
-    else:
-        new = (video_card(out_dir, 'vr-video--full')
-               + reviews.replace('<ul class="hs-reviews__list">', '<ul class="hs-reviews__list vr-below">', 1))
+    slides = m.group(1).replace('<ul class="hs-reviews__list">', '<ul class="vr-carousel__list">', 1) \
+                       .replace('<li class="hs-review hs-reveal">', '<li class="hs-review vr-slide" aria-roledescription="slide">')
+    slides = slides.replace('<li class="hs-review vr-slide"', '<li class="hs-review vr-slide is-active"', 2)
+    slides = re.sub(r'(?m)^', '  ', slides)
+    new = ('        <div class="vr-wide">\n'
+           + video_card(out_dir, 'vr-video--wide')
+           + '          <div class="vr-carousel hs-reveal" data-vr-carousel aria-roledescription="carousel" aria-label="Google reviews">\n'
+           + slides
+           + '            <div class="vr-carousel__nav">\n'
+           '              <button class="vr-carousel__prev" type="button" aria-label="Previous review"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></button>\n'
+           '              <span class="vr-carousel__count" aria-live="polite">1\u20132 of 3</span>\n'
+           '              <button class="vr-carousel__next" type="button" aria-label="Next review"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></button>\n'
+           '            </div>\n'
+           '          </div>\n'
+           '        </div>\n')
+    page = page.replace('</body>', CAROUSEL_JS + '</body>', 1)
     return page[:m.start()] + new + page[m.end():]
 
 
@@ -1112,9 +1092,7 @@ def build_builds():
         page = about_links(page, out_dir, links)
         page = keep_links_in(link_service_names(page), out_dir, links)
         if k in HOME_NAMES:
-            page = video_reviews(page, out_dir, k)
-        elif k == 1:   # Eric, 23 Nov: concept 6's reviews on build 1's homepage
-            page = video_reviews(page, out_dir, 6)
+            page = video_reviews(page, out_dir)
             page = re.sub(rf'<title>Build {k} ·', f'<title>Concept {k} ·', page, count=1)
         page = page.replace('<!-- Built by homepages/build.py: concept 11:',
                             f'<!-- Built by homepages/build.py: build {k} (concept 11, Homeowners version {homeowners_version(k)}):'
