@@ -16,6 +16,8 @@ import os
 import posixpath
 import re
 
+import service_pages as SP
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 
@@ -529,7 +531,7 @@ QUOTE_BAND = '''
       <div class="pg-wrap">
         <div class="pg-band__box">
           <div class="pg-band__text">
-            <h2 class="pg-band__title" id="pg-band-title">Get a homeowners quote</h2>
+            <h2 class="pg-band__title" id="pg-band-title">{title}</h2>
             <p>We compare top-rated carriers for you, then walk you through every line of the policy.</p>
           </div>
           <div class="pg-band__actions">
@@ -540,19 +542,11 @@ QUOTE_BAND = '''
       </div>
     </section>
 '''
-# the Fig Leaf outline used on the other pages (the leaf-outline symbol in
-# archive B's homepage, the same art as fig-leaf-outline.svg): a filled
-# brush-stroke outline, not a thin stroke round the logo's leaf
-LEAF_PATHS = re.findall(r'<path d="([^"]+)"', re.search(r'<symbol id="leaf-outline".*?</symbol>',
-                        read('archive-b/index.html'), re.S).group(0))
-LEAF_OUTLINE = ('<svg class="pg-head__leaf" viewBox="0 0 520.06 567.04" aria-hidden="true" focusable="false">'
-                + ''.join(f'<path d="{d}"/>' for d in LEAF_PATHS) + '</svg>')
-
-
-def build_homeowners_versions():
-    """archive-b/homeowners-insurance-v1 to -v4 from the scrolling page.
-    Its sections: title band (hero), #quote (the form with the "Rather talk
-    it through?" card), #overview (perils) and #covered (what it covers)."""
+def homeowners_pieces():
+    """The scrolling Homeowners page cut into its parts: the page, where its
+    <main> starts and ends, and the title band (hero), #quote (the form with
+    the "Rather talk it through?" card), #overview (perils) and #covered
+    (what it covers)."""
     src = 'archive-b/homeowners-insurance-scroll'
     page = read(f'{src}/index.html')
     main_start = page.index('<main id="main"')
@@ -566,6 +560,12 @@ def build_homeowners_versions():
     quote = main[main.index('<section class="pg-close"', q0):o0].rstrip() + '\n'
     overview = main[o0:c0].rstrip() + '\n'
     covered = main[c0:].rstrip() + '\n'
+    return src, page, main_start, main_end, hero, overview, covered, quote
+
+
+def version_layouts(hero, overview, covered, quote, band_title):
+    """The four Homeowners versions' layouts, (main class, hero, sections),
+    for any page cut into the same parts."""
     # the call-us card on its own, for the version with no form
     a0 = quote.index('<div class="pg-crq__card">')
     a1 = quote.index('<aside class="pg-crq__aside"')
@@ -573,25 +573,209 @@ def build_homeowners_versions():
     talk_only = talk_only.replace('id="quote" aria-labelledby="pg-close-title"', 'id="talk" aria-label="Rather talk it through?"', 1)
     talk_only = re.sub(r'\s*<div class="pg-sec__head">.*?</div>\n', '\n', talk_only, count=1, flags=re.S)
     talk_only = re.sub(r'\s*<!-- The quote form is.*?-->', '', talk_only, count=1, flags=re.S)
-    hero = hero.replace('<div class="pg-wrap pg-head__grid">', LEAF_OUTLINE + '\n      <div class="pg-wrap pg-head__grid">', 1)
     dark = hero.replace('fl-grid fl-grid--light', 'fl-grid', 1)
-    versions = [
+    band = lambda id_, href: QUOTE_BAND.format(id=id_, href=href, title=band_title)
+    return [
         ('pg--stack', hero, [overview, covered, quote]),
         ('pg--stack pg--fade', dark, [overview, covered, quote]),
-        ('pg--stack pg--fade', dark, [overview, covered, QUOTE_BAND.format(id='quote', href='../crq-form/'), talk_only]),
-        ('pg--stack pg--fade', dark, [overview, QUOTE_BAND.format(id='quote-band', href='#quote'), covered, quote]),
+        ('pg--stack pg--fade', dark, [overview, covered, band('quote', '../crq-form/'), talk_only]),
+        ('pg--stack pg--fade', dark, [overview, band('quote-band', '#quote'), covered, quote]),
     ]
-    for n, (cls, top, secs) in enumerate(versions, 1):
+
+
+def assemble(page, main_start, main_end, cls, top, secs):
+    body = ('<main id="main" class="hs pg pg--v2 ' + cls + '">\n\n    ' + top.strip() + '\n\n    '
+            + '\n    '.join(s.strip() + '\n' for s in secs if s) + '\n  ')
+    new = page[:main_start] + body + page[main_end:]
+    return new.replace('<link rel="stylesheet" href="../palette.css">',
+                       '<link rel="stylesheet" href="../palette.css">\n'
+                       '  <link rel="stylesheet" href="../../homepages/shared/homeowners-versions.css">', 1)
+
+
+def build_homeowners_versions():
+    """archive-b/homeowners-insurance-v1 to -v4 from the scrolling page."""
+    src, page, main_start, main_end, hero, overview, covered, quote = homeowners_pieces()
+    for n, (cls, top, secs) in enumerate(version_layouts(hero, overview, covered, quote, 'Get a homeowners quote'), 1):
         out = HOMEOWNERS_VERSIONS[n - 1][0]
-        body = ('<main id="main" class="hs pg pg--v2 ' + cls + '">\n\n    ' + top.strip() + '\n\n    '
-                + '\n    '.join(s.strip() + '\n' for s in secs) + '\n  ')
-        new = page[:main_start] + body + page[main_end:]
-        new = new.replace('<link rel="stylesheet" href="../palette.css">',
-                          '<link rel="stylesheet" href="../palette.css">\n'
-                          '  <link rel="stylesheet" href="../../homepages/shared/homeowners-versions.css">', 1)
+        new = assemble(page, main_start, main_end, cls, top, secs)
         new = new.replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- Built by homepages/build.py (build_homeowners_versions): '
                           f'Homeowners version {n}, from {src}/. Edit that page or the script, then re-run it. -->', 1)
         write(f'{out}/index.html', new)
+
+
+def service_version(n, s):
+    """Personal insurance page s (homepages/service_pages.py) in Homeowners
+    version n's layout. Returns the page and the folder its relative links
+    are written from (the Homeowners version's, the same depth)."""
+    src_dir = HOMEOWNERS_VERSIONS[n - 1][0]
+    _, page, main_start, main_end, hero, overview, covered, quote = homeowners_pieces()
+    up = lambda path: posixpath.relpath(path, src_dir)
+    live = lambda slug: f'https://figleafagency.com/{slug}/'
+    hero = SP.hero(s, up)
+    article = 'an' if s['short'][0] in 'aeiou' else 'a'
+    layouts = version_layouts(hero, SP.overview(s), SP.covered(s, up, live), SP.quote(s, quote, up),
+                              f'Get {article} {s["short"]} quote')
+    cls, top, secs = layouts[n - 1]
+    cls += ' pg--service' + (' pg--draft' if s['draft'] else '')
+    new = assemble(page, main_start, main_end, cls, top, secs)
+    new = new.replace('  <link rel="stylesheet" href="../../homepages/shared/homeowners-versions.css">',
+                      '  <link rel="stylesheet" href="../../homepages/shared/homeowners-versions.css">\n'
+                      '  <link rel="stylesheet" href="../../homepages/shared/service-pages.css">', 1)
+    # the extra icons, in the page's sprite
+    syms = ''.join(f'\n    <symbol id="{i}" viewBox="0 0 24 24">{d}</symbol>' for i, d in SP.ICONS.items())
+    m = re.search(r'<symbol id="i-liability".*?</symbol>', new)
+    new = new[:m.end()] + syms + new[m.end():]
+    # head: title, description, canonical, Open Graph and the breadcrumb
+    name, slug = s['name'], s['slug']
+    new = re.sub(r'<title>[^<]*</title>', f'<title>Archive B · {name} in New Jersey | The Fig Leaf Agency</title>', new, count=1)
+    new = re.sub(r'(<meta name="description" content=")[^"]*', lambda m: m.group(1) + s['meta'], new, count=1)
+    new = re.sub(r'(<meta property="og:title" content=")[^"]*', lambda m: m.group(1) + f'{name} | The Fig Leaf Agency', new, count=1)
+    new = re.sub(r'(<meta property="og:description" content=")[^"]*', lambda m: m.group(1) + s['og'], new, count=1)
+    h = new.index('</head>')   # canonical, og:url and the breadcrumb, in the head only
+    head = new[:h].replace('https://figleafagency.com/homeowners-insurance/"', live(slug) + '"')
+    head = head.replace('"name": "Homeowners Insurance", "item": "' + live(slug), f'"name": "{name}", "item": "' + live(slug))
+    new = head + new[h:]
+    new = new.replace('Homeowners Insurance (content from figleafagency.com/homeowners-insurance)',
+                      f'{name} (copy from homepages/service_pages.py)', 1)
+    # menus: Homeowners is no longer the current page, and the pages that
+    # had no page yet (plain text in the footer) are links now
+    new = new.replace('href="../homeowners-insurance/" aria-current="page"', 'href="' + live('homeowners-insurance') + '"')
+    new = new.replace('<a href="./" aria-current="page">Homeowners Insurance</a>', '<a href="' + live('homeowners-insurance') + '">Homeowners Insurance</a>')
+    new = link_service_names(new)
+    new = new.replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- Built by homepages/build.py (service_version): '
+                      f'{name} in Homeowners version {n}\'s layout; copy in homepages/service_pages.py. -->', 1)
+    return new, src_dir
+
+
+def link_service_names(page):
+    """The footer's Renters, Condo, Health, Life and Pet entries (plain text
+    while those pages didn't exist) become links."""
+    for text, slug in SP.SPAN_NAMES.items():
+        page = page.replace(f'<li><span>{text}</span></li>', f'<li><a href="https://figleafagency.com/{slug}/">{text}</a></li>')
+    return page
+
+
+def mark_current(page):
+    """aria-current on the menu and footer links to the page itself."""
+    return re.sub(r'<a href="\./">', '<a href="./" aria-current="page">', page)
+
+
+# Homepage concepts with a video testimonial in the Google reviews (Eric,
+# 23 Nov). Build 5's homepage is concept 5: build 1's homepage with a portrait
+# video card beside the written reviews. The video turned out to be
+# landscape, so concepts 6 and 7 try landscape layouts. 6 and 7 are
+# homepages only (build-6/, build-7/); their links go to build 1's pages.
+VIDEO_BUILD = 5
+HOME_ONLY = [6, 7]
+HOME_NAMES = {
+    5: "Concept 5: build 1's homepage with a video testimonial beside the Google reviews",
+    6: "Concept 6: build 1's homepage with a video beside the Google reviews, two at a time",
+    7: "Concept 7: build 1's homepage with a full-width video above the Google reviews",
+}
+
+
+def home_name(k):
+    """The bar's name for build k's homepage."""
+    return HOME_NAMES.get(k, f'Concept 11 with Homeowners version {homeowners_version(k)}')
+
+
+PLAY = ('<button class="vr-video__play" type="button" aria-label="Play the video testimonial (video to come)" disabled>'
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button>')
+POSTER = ('homepages/shared/assets/testimonial-poster.jpg', 'homepages/shared/assets/testimonial-poster-900.jpg', 1600, 896)
+
+
+def video_card(out_dir, cls, poster=POSTER):
+    """The video testimonial, a placeholder until the video arrives: a poster
+    (a frame from the video) with a play button."""
+    big, small, w, h = poster
+    big, small = posixpath.relpath(big, out_dir), posixpath.relpath(small, out_dir)
+    return ('          <!-- Video testimonial: a placeholder until the client sends the video.\n'
+            '               Swap the poster and the button for a <video> or an embed. -->\n'
+            f'          <figure class="vr-video {cls} hs-reveal">\n'
+            '            <div class="vr-video__frame">\n'
+            f'              <img class="vr-video__poster" src="{big}" srcset="{small} 900w, {big} {w}w" sizes="(max-width: 900px) 100vw, 70vw" alt="" width="{w}" height="{h}" loading="lazy" decoding="async">\n'
+            f'              {PLAY}\n'
+            '              <span class="vr-video__tag">Video to come</span>\n'
+            '            </div>\n'
+            '            <figcaption class="vr-video__cap">\n'
+            '              <span class="vr-video__kicker">Video testimonial</span>\n'
+            '              <strong>Hear it from our clients</strong>\n'
+            '              <span>A client tells their story in their own words.</span>\n'
+            '            </figcaption>\n'
+            '          </figure>\n')
+
+
+CAROUSEL_JS = """
+  <script>
+    /* concept 6: the written reviews, two at a time (one on phones); the
+       arrows step one review at a time */
+    document.querySelectorAll('[data-vr-carousel]').forEach(function (box) {
+      var slides = box.querySelectorAll('.vr-slide'), count = box.querySelector('.vr-carousel__count'), i = 0,
+          narrow = window.matchMedia('(max-width: 640px)');
+      var prev = box.querySelector('.vr-carousel__prev'), next = box.querySelector('.vr-carousel__next');
+      function show(n) {
+        var per = Math.min(narrow.matches ? 1 : 2, slides.length), last = slides.length - per;
+        i = Math.max(0, Math.min(n, last));
+        slides.forEach(function (s, k) {
+          var on = k >= i && k < i + per;
+          s.classList.toggle('is-active', on);
+          s.setAttribute('aria-hidden', on ? 'false' : 'true');
+        });
+        prev.disabled = i === 0;
+        next.disabled = i === last;
+        count.textContent = (per > 1 ? (i + 1) + '\u2013' + (i + per) : (i + 1)) + ' of ' + slides.length;
+      }
+      prev.addEventListener('click', function () { show(i - 1); });
+      next.addEventListener('click', function () { show(i + 1); });
+      narrow.addEventListener('change', function () { show(i); });
+      show(0);
+    });
+  </script>
+"""
+
+
+def video_reviews(page, out_dir, k):
+    """The Google reviews section of homepage concept k (5, 6 or 7) with a
+    video testimonial (homepages/shared/video-reviews.css).
+    5: the written reviews on the left two thirds, a portrait video card on
+       the right third.
+    6: a 16:9 video on the left, the written reviews two at a time in a
+       carousel on the right.
+    7: a full-width 16:9 video, the three written reviews below it."""
+    head = '<link rel="stylesheet" href="' + posixpath.relpath('homepages/shared/concept-11.css', out_dir) + '">'
+    assert head in page
+    css = posixpath.relpath('homepages/shared/video-reviews.css', out_dir)
+    page = page.replace(head, head + f'\n  <link rel="stylesheet" href="{css}">', 1)
+    m = re.search(r'(        <ul class="hs-reviews__list">.*?        </ul>\n)', page, re.S)
+    assert m
+    reviews = m.group(1)
+    if k == 5:
+        team = ('archive-a/assets/team-photo.jpg', 'archive-a/assets/team-photo-900.jpg', 1800, 1199)
+        new = ('        <div class="vr-split">\n'
+               + reviews.replace('<ul class="hs-reviews__list">', '<ul class="hs-reviews__list vr-list">', 1)
+               + video_card(out_dir, 'vr-video--tall', team)
+               + '        </div>\n')
+    elif k == 6:
+        slides = reviews.replace('<ul class="hs-reviews__list">', '<ul class="vr-carousel__list">', 1) \
+                        .replace('<li class="hs-review hs-reveal">', '<li class="hs-review vr-slide" aria-roledescription="slide">')
+        slides = slides.replace('<li class="hs-review vr-slide"', '<li class="hs-review vr-slide is-active"', 2)
+        slides = re.sub(r'(?m)^', '  ', slides)
+        new = ('        <div class="vr-wide">\n'
+               + video_card(out_dir, 'vr-video--wide')
+               + '          <div class="vr-carousel hs-reveal" data-vr-carousel aria-roledescription="carousel" aria-label="Google reviews">\n'
+               + slides
+               + '            <div class="vr-carousel__nav">\n'
+               '              <button class="vr-carousel__prev" type="button" aria-label="Previous review"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></button>\n'
+               '              <span class="vr-carousel__count" aria-live="polite">1\u20132 of 3</span>\n'
+               '              <button class="vr-carousel__next" type="button" aria-label="Next review"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></button>\n'
+               '            </div>\n'
+               '          </div>\n'
+               '        </div>\n')
+        page = page.replace('</body>', CAROUSEL_JS + '</body>', 1)
+    else:
+        new = (video_card(out_dir, 'vr-video--full')
+               + reviews.replace('<ul class="hs-reviews__list">', '<ul class="hs-reviews__list vr-below">', 1))
+    return page[:m.start()] + new + page[m.end():]
 
 
 def build_dir(k):
@@ -603,16 +787,16 @@ def main_bar(cur, out_dir, page='home', build=1):
     number. On Homeowners pages the numbers open each build's Homeowners
     page, so the five layouts can be compared side by side."""
     rel_ = lambda target: posixpath.relpath(target, out_dir) + '/'
-    gc_build = cur if isinstance(cur, int) else build  # GC stays inside the build you came from
+    gc_build = cur if cur in BUILDS else build  # GC stays inside the build you came from
     entries = [('AC', 'AC', 'Fig leaf photo gallery', rel_(GALLERY)),
                ('GC', 'GC', 'Get a quote', rel_(f'{build_dir(gc_build)}/crq-form'))]
     sub = PAGE_PATH[page]
-    if page == 'homeowners':   # the numbers are the four Homeowners versions
+    if page == 'homeowners' or page in SP.BY_SLUG:   # the numbers are the four Homeowners versions
         for v, (_, name) in enumerate(HOMEOWNERS_VERSIONS, 1):
             entries.append((v, str(v), f'Homeowners version {v}: {name}', rel_(build_dir(v) + sub)))
     else:
-        for k in BUILDS:
-            entries.append((k, str(k), f'Concept 11 with Homeowners version {homeowners_version(k)}', rel_(build_dir(k) + sub)))
+        for k in BUILDS + (HOME_ONLY if page == 'home' else []):
+            entries.append((k, str(k), home_name(k) if page == 'home' else f'Concept 11 with Homeowners version {homeowners_version(k)}', rel_(build_dir(k) + sub)))
     keys = [e[0] for e in entries]
     i = keys.index(cur) if cur in keys else keys.index(homeowners_version(cur))
     items = []
@@ -630,11 +814,15 @@ def main_bar(cur, out_dir, page='home', build=1):
         if page == 'homeowners':
             v = homeowners_version(cur)
             title = f'Homeowners version {v} of {len(HOMEOWNERS_VERSIONS)}: {HOMEOWNERS_VERSIONS[v - 1][1]}' + back
+        elif page in SP.BY_SLUG:
+            v = homeowners_version(cur)
+            title = (f'{SP.BY_SLUG[page]["name"]} in Homeowners version {v}\'s layout: {HOMEOWNERS_VERSIONS[v - 1][1]}'
+                     + (' (draft copy)' if SP.BY_SLUG[page]['draft'] else '') + back)
         elif page in BIOS or page == 'about':
             a, b = ABOUT_CONCEPTS[cur]
             title = (f'About concept {cur}: {a}' if page == 'about' else f'{BIOS[page][0]} bio, concept {cur}: {b}') + back
         else:
-            title = f'Concept 11 with Homeowners version {homeowners_version(cur)}'
+            title = home_name(cur)
     return ('<nav class="review-bar" aria-label="Current build">\n'
             f'    <p class="review-bar__title"><span class="review-bar__label">{label}</span> '
             f'<span class="review-bar__name">{title}</span></p>\n'
@@ -663,7 +851,8 @@ ABOUT_CONCEPTS = {1: ('Layout A, our story', 'Photo and details'),
                   4: ('Chapters', 'Q and A'),
                   5: ('By the numbers', 'Fig leaf portrait')}
 PAGE_PATH = {'home': '', 'homeowners': '/homeowners-insurance', 'about': '/about',
-             **{slug: f'/about/{slug}' for slug in BIOS}}
+             **{slug: f'/about/{slug}' for slug in BIOS},
+             **{s['slug']: '/' + s['slug'] for s in SP.SERVICES}}
 
 
 def about_links(page, out, build):
@@ -765,10 +954,11 @@ IN_BUILD = {  # figleafagency.com path -> the same page under build-N/
     '': '', 'about/': 'about/', 'meet-our-team/': 'about/#team',
     'homeowners-insurance/': 'homeowners-insurance/',
     'crq/': 'crq-form/', 'get-a-quote/': 'crq-form/',
+    **{s['slug'] + '/': s['slug'] + '/' for s in SP.SERVICES},   # the personal insurance pages
 }
 LIVE = re.compile(r'(?:https?:)?//(?:www\.)?figleafagency\.com/(.*)$')
 QUOTE_FORM = 'secure.consumerratequotes.com/'   # the quote form, which the build frames on crq-form/
-STAY_IN = tuple(build_dir(k) for k in BUILDS) + (GALLERY,)
+STAY_IN = tuple(build_dir(k) for k in BUILDS + HOME_ONLY) + (GALLERY,)
 
 
 def keep_links_in(page, out, build):
@@ -909,18 +1099,25 @@ def build_builds():
     Homeowners version each (build k gets version k, build 5 version 1)."""
     global KEEP_IN
     c11 = next(h for h in HEROES if h[0] == 11)
-    for k in BUILDS:
+    for k in BUILDS + HOME_ONLY:
         out_dir = build_dir(k)
+        links = out_dir if k in BUILDS else build_dir(1)   # 6 and 7 are homepages only
         build_page(*c11, out_dir=out_dir)
         page = read(f'{out_dir}/index.html')
         page = swap_bar(page, main_bar(k, out_dir))
         page = round2_home(page, out_dir)
         page = re.sub(r'<title>Concept 11 ·', f'<title>Build {k} ·', page, count=1)
-        page = about_links(page, out_dir, out_dir)
-        page = keep_links_in(page, out_dir, out_dir)
+        page = about_links(page, out_dir, links)
+        page = keep_links_in(link_service_names(page), out_dir, links)
+        if k in HOME_NAMES:
+            page = video_reviews(page, out_dir, k)
+            page = re.sub(rf'<title>Build {k} ·', f'<title>Concept {k} ·', page, count=1)
         page = page.replace('<!-- Built by homepages/build.py: concept 11:',
-                            f'<!-- Built by homepages/build.py: build {k} (concept 11, Homeowners version {homeowners_version(k)}):', 1)
+                            f'<!-- Built by homepages/build.py: build {k} (concept 11, Homeowners version {homeowners_version(k)}):'
+                            if k in BUILDS else f'<!-- Built by homepages/build.py: homepage concept {k} (build 1\'s homepage, links to build 1):', 1)
         write(f'{out_dir}/index.html', page)
+        if k not in BUILDS:
+            continue
         for sub in SUBPAGES:
             src = HOMEOWNERS_VERSIONS[homeowners_version(k) - 1][0] if sub == 'homeowners-insurance' else f'{c11[1]}/{sub}'
             out = f'{out_dir}/{sub}'
@@ -930,6 +1127,9 @@ def build_builds():
             page = re.sub(r'<title>(?:Concept|Archive) \w+ ·', f'<title>{title} ·', page, count=1)
             if 'name="robots"' not in page:
                 page = page.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n  <meta name="robots" content="noindex">', 1)
+            if sub == 'homeowners-insurance':   # the footer's link to the page itself
+                page = page.replace('<a href="./" aria-current="page">Homeowners Insurance</a>',
+                                    '<a href="https://figleafagency.com/homeowners-insurance/" aria-current="page">Homeowners Insurance</a>', 1)
             KEEP_IN = out_dir
             page = rebase(page, src, out)
             KEEP_IN = None
@@ -944,15 +1144,37 @@ def build_builds():
             # the four Homeowners versions from Eric's mockups (23 Nov) replace
             # the Homeowners layouts it changed on builds 1 and 3.
             page = about_links(page, out, out_dir)
-            page = keep_links_in(page, out, out_dir)
+            page = keep_links_in(link_service_names(page), out, out_dir)
             page = page.replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- Built by homepages/build.py: '
                                 f'build {k}\'s copy of {src}/. Edit that page, then re-run the script. -->', 1)
             write(f'{out}/index.html', page)
+        build_services(k)
         build_about(k)
     # the gallery (archive D) is AC: the landing page, with the current bar
     page = read(f'{GALLERY}/index.html')
     page = keep_links_in(swap_bar(page, main_bar('AC', GALLERY)), GALLERY, build_dir(1))
     write(f'{GALLERY}/index.html', page)
+
+
+def build_services(k):
+    """build-N/<slug>/: the personal insurance pages (service_pages.py) in
+    the layout of the build's Homeowners version."""
+    global KEEP_IN
+    out_dir = build_dir(k)
+    for s in SP.SERVICES:
+        out = f'{out_dir}/{s["slug"]}'
+        page, src = service_version(homeowners_version(k), s)
+        page = swap_bar(page, '<!--REVIEW-BAR-->')
+        page = re.sub(r'<title>Archive B ·', f'<title>Build {k} ·', page, count=1)
+        if 'name="robots"' not in page:
+            page = page.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n  <meta name="robots" content="noindex">', 1)
+        KEEP_IN = out_dir
+        page = rebase(page, src, out)
+        KEEP_IN = None
+        page = page.replace('<!--REVIEW-BAR-->', main_bar(k, out, s['slug']))
+        page = about_links(page, out, out_dir)
+        page = mark_current(keep_links_in(page, out, out_dir))
+        write(f'{out}/index.html', page)
 
 
 def main():

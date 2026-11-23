@@ -7,21 +7,49 @@
    without the tabs that used to sit on its lower edge */
 .pg--v2.pg--fade .pg-head { padding-bottom: clamp(48px, 6vw, 80px); }
 
-/* the Fig Leaf outline behind the hero's photo (Eric's sketch), the same
-   filled outline art as on the other pages: grey on the black hero, light
-   green on the white one */
-.pg-head__leaf {
+/* the white hero (version 1) uses build 1's Homeowners background from
+   main: white with the faint grid and a gold line along the top. The dark
+   heroes (versions 2 to 4) have no Fig Leaf outline either. */
+.pg--v2:not(.pg--fade) .pg-head { border-top: 1px solid var(--c2-gold); }
+
+/* ... and the same flat edges: a square, full-width hero with no rounded
+   corners, edge line or soft green blob */
+.pg--v2:not(.pg--fade) .pg-head { border-radius: 0; box-shadow: none; }
+/* the faint Fig Leaf outline in the top right corner, exactly as on main's
+   build 1 Homeowners page (archive A's .pg--v1 .pg-head::before with its
+   palette colour): the same image, size, position, angle and opacity */
+.pg--v2:not(.pg--fade) .pg-head::before {
+  content: "";
   position: absolute;
   z-index: -1;
-  right: max(-10px, calc(50% - 670px));
-  top: 3%;
-  width: clamp(320px, 41vw, 590px);
-  height: auto;
-  rotate: -4deg;
-  fill: #3d4548;
+  width: clamp(240px, 30vw, 440px);
+  aspect-ratio: 520 / 567;
+  right: -4%;
+  top: -10%;
+  rotate: 16deg;
+  background: #3f8a5a;
+  opacity: .14;
+  -webkit-mask: url("../../archive-b/assets/fig-leaf-silhouette.png") center / contain no-repeat;
+          mask: url("../../archive-b/assets/fig-leaf-silhouette.png") center / contain no-repeat;
   pointer-events: none;
 }
-.pg--v2:not(.pg--fade) .pg-head__leaf { fill: var(--c2-green-light, #a9c7b4); }
+.pg--v2:not(.pg--fade) .pg-head .hs-px { display: none; }
+
+/* no numbers on the coverage cards (Dwelling, Other Structures ...) */
+.pg--v2 .pg-cover__num { display: none; }
+
+/* the "Get your ... quote" heading above the form (versions 1, 2 and 4)
+   on a dark green bar joined to the top of the form card, so it stands out */
+.pg--v2 .pg-close .pg-sec__head {
+  margin: 0;
+  padding: clamp(20px, 2.6vw, 30px) clamp(22px, 3vw, 36px);
+  border-radius: 28px 28px 0 0;
+  background: var(--c2-green);
+}
+.pg--v2 .pg-close .pg-sec__title { color: var(--c2-white); }
+.pg--v2 .pg-close .pg-sec__kicker { color: var(--c2-gold); }
+.pg--v2 .pg-close .pg-sec__head + .pg-crq .pg-crq__card { border-top-left-radius: 0; border-top-right-radius: 0; }
+.pg--v2 .pg-close .pg-sec__head + .pg-crq .pg-crq__card { box-shadow: 0 0 0 1px var(--c2-green); }
 
 /* the black "Get a homeowners quote" band (versions 3 and 4): build 1's
    quote card laid out full width */

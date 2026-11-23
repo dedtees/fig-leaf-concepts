@@ -168,3 +168,20 @@ They link back to their homepage's folder for styles and images and to the hero'
 Concept 8's card deck (hero D) has a fourth card, Business, with the headline word "business." in step; the photo (`hero-concepts/shared/business.jpg`) is archive E's business photo. The deck rules for four cards are in `hero-concepts/shared/hero-x.css` and only apply when a business card is there, so the three-card heroes are unchanged. `hero-concepts/build.py` still builds from the old concept 1, so don't re-run it; edit `hero-concepts/d/index.html` and re-run `homepages/build.py`.
 
 Concept 2 alone adds a Business insurance card under "More Ways We Protect You" (three cards across), from `EXTRAS` in `homepages/build.py`. Its photo, `homepages/shared/assets/business-insurance.jpg`, is from Unsplash, [GFrBMipOd_E](https://unsplash.com/photos/two-women-near-tables-GFrBMipOd_E), under the Unsplash License.
+
+**Personal insurance pages (builds 1 to 5).** Each build has Auto, Boat, Personal Umbrella, Renters, Condo, Life, Health and Pet
+pages (`build-N/auto-insurance/` and so on), laid out like that build's Homeowners version: the same hero,
+overview band, "generally covers" grid, quote form or band, and "Rather talk it through?" card. The copy and photos for every page
+live in `homepages/service_pages.py`; `service_version()` in `homepages/build.py` swaps them into the Homeowners layout, and
+`homepages/shared/service-pages.css` adds grids for other numbers of cards, the related coverage links, a "photo to come" placeholder
+and the draft tag. Auto, Boat and Umbrella copy comes from the agency's content map; Renters, Condo, Life, Health and Pet are the
+build brief's draft copy (marked "Draft copy" in the hero) and need the agency's review. Text in [square brackets] is a placeholder.
+The header and footer links to these pages now open the build's own copies. Edit the data file, then run `python3 homepages/build.py`.
+
+Homepage concepts 5 to 7 try a video testimonial in the Google reviews
+(`video_reviews()` in `homepages/build.py`, styles in
+`homepages/shared/video-reviews.css`). Concept 5 is build 5's homepage
+(portrait video card beside the reviews). Concepts 6 (wide video beside a
+review carousel) and 7 (full-width video above the reviews) are homepages
+only, in `build-6/` and `build-7/`, and link to build 1's pages. The poster
+is a frame from the video; swap in the video when it arrives.
