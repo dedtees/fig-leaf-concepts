@@ -299,5 +299,31 @@
   <script src="../../../archive-a/home-sections.js"></script>
   <!-- Client review ticks: review round only (review/review.js) -->
   <script src="../../../../../../review/review.js" defer></script>
+
+  <script>
+    /* concept 6: the written reviews, two at a time (one on phones); the
+       arrows step one review at a time */
+    document.querySelectorAll('[data-vr-carousel]').forEach(function (box) {
+      var slides = box.querySelectorAll('.vr-slide'), count = box.querySelector('.vr-carousel__count'), i = 0,
+          narrow = window.matchMedia('(max-width: 640px)');
+      var prev = box.querySelector('.vr-carousel__prev'), next = box.querySelector('.vr-carousel__next');
+      function show(n) {
+        var per = Math.min(narrow.matches ? 1 : 2, slides.length), last = slides.length - per;
+        i = Math.max(0, Math.min(n, last));
+        slides.forEach(function (s, k) {
+          var on = k >= i && k < i + per;
+          s.classList.toggle('is-active', on);
+          s.setAttribute('aria-hidden', on ? 'false' : 'true');
+        });
+        prev.disabled = i === 0;
+        next.disabled = i === last;
+        count.textContent = (per > 1 ? (i + 1) + '–' + (i + per) : (i + 1)) + ' of ' + slides.length;
+      }
+      prev.addEventListener('click', function () { show(i - 1); });
+      next.addEventListener('click', function () { show(i + 1); });
+      narrow.addEventListener('change', function () { show(i); });
+      show(0);
+    });
+  </script>
   <script src="../../../homepages/shared/about.js"></script>
 </body></html>
