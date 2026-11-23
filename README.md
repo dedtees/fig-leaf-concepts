@@ -72,6 +72,20 @@ The client kept concept 11. The review bar now runs AC, GC, 1, 2, 3, 4, 5:
   1 archive A's layout, 2 archive B with tabs, 3 archive B scrolling, 4 archive B with the header fade, 5 archive C's layout.
   On a Homeowners page the numbers step between the five Homeowners layouts.
 
+**Homeowners versions 1 to 4 (from Eric's mockups, 23 Nov).** The five old layouts on the builds are replaced by four
+versions cut from archive B's scrolling page, in `archive-b/homeowners-insurance-v1/` to `-v4/` (made by
+`build_homeowners_versions` in `build.py`; styles in `homepages/shared/homeowners-versions.css`). Builds 1 to 4 show
+versions 1 to 4 and build 5 shows version 1. On a Homeowners page the bar's numbers 1 to 4 are the four versions.
+
+| Version | Hero | Then |
+|---|---|---|
+| 1 | white, light green Fig Leaf outline behind the photo | perils, what a policy covers, the quote form with "Rather talk it through?" |
+| 2 | black, gold "Preserve what matters." | same as 1 |
+| 3 | black, as 2 | perils, what a policy covers, black "Get a homeowners quote" band (Start My Quote + call), "Rather talk it through?" |
+| 4 | black, as 2 | perils, the black quote band, what a policy covers, the quote form with "Rather talk it through?" |
+
+The black band is build 1's quote card laid out full width. Every hero has a thin outline of the logo's fig leaf (the path from `fig-leaf-fill.svg`) behind the photo, from Eric's sketch: grey on black, light green on white. The old layouts are still in `archive-a/b/c` for the archive.
+
 `homepages/build.py` makes them (`build_builds`, `main_bar`). Review labels are "Gallery", "Get a quote" and "Build N".
 
 **About and bio pages.** Each build has an About page (`build-N/about/`) and a bio page for each team member under it
@@ -94,6 +108,19 @@ repo root, `{B}` for the build folder; `_icons.html` is the extra icons every pa
 "Learn More About Our Values" link to these pages on every build page. To add a bio: write
 `homepages/about/<slug>-v1.html` to `-v5.html`, add it to `BIOS` in `build.py`, add a card to the team section of each
 `about-v<N>.html`, and re-run the script. Screenshots are in `screenshots/about/`.
+**Client review round 2 (Reviewer a9lh, 19 Nov).** Applied to the builds only (concept 11 itself is unchanged), by
+`round2_home` and `round2_homeowners` in `build.py`:
+
+- **Homepage, every build**: the hero panels run Car, Home, Business, Boat (Business and Boat swapped, headline words
+  and numbers to match), and "More Ways We Protect You" has four cards: Business, Special Contractor Policies, Defensive
+  Driving Course and a new Life Insurance card (`homepages/shared/assets/life-insurance.jpg`, from Unsplash,
+  photo-1511895426328-dc8714191300, Unsplash License). Four across from 1200px, two by two below that (`concept-11.css`).
+- **Build 1 Homeowners**: the "A homeowners policy generally covers" section is gone.
+- **Build 3 Homeowners**: "A homeowners policy generally covers" is merged with build 1's quote card and its Personal
+  insurance links in one full-width black band (`homepages/shared/round-2.css`).
+- **Build 5 About**: the hero uses build 3's headline and intro ("Insurance, explained by people who keep their word."),
+  and the agency-in-numbers band now shows build 3's "at a glance" facts (Where, What, How) instead (`about-v5.html`, `about-5.css`).
+
 **Links stay inside the build.** `keep_links_in` in `build.py` runs on every build page and the gallery. A link to a
 figleafagency.com page the build has (About, Meet Our Team, Homeowners, the quote form) opens the build's copy; every other
 link that leaves the build (the live site's other pages, Google Maps and reviews, Facebook, Drive Safe Today, carriers,
@@ -141,3 +168,20 @@ They link back to their homepage's folder for styles and images and to the hero'
 Concept 8's card deck (hero D) has a fourth card, Business, with the headline word "business." in step; the photo (`hero-concepts/shared/business.jpg`) is archive E's business photo. The deck rules for four cards are in `hero-concepts/shared/hero-x.css` and only apply when a business card is there, so the three-card heroes are unchanged. `hero-concepts/build.py` still builds from the old concept 1, so don't re-run it; edit `hero-concepts/d/index.html` and re-run `homepages/build.py`.
 
 Concept 2 alone adds a Business insurance card under "More Ways We Protect You" (three cards across), from `EXTRAS` in `homepages/build.py`. Its photo, `homepages/shared/assets/business-insurance.jpg`, is from Unsplash, [GFrBMipOd_E](https://unsplash.com/photos/two-women-near-tables-GFrBMipOd_E), under the Unsplash License.
+
+**Personal insurance pages (builds 1 to 5).** Each build has Auto, Boat, Personal Umbrella, Renters, Condo, Life, Health and Pet
+pages (`build-N/auto-insurance/` and so on), laid out like that build's Homeowners version: the same hero,
+overview band, "generally covers" grid, quote form or band, and "Rather talk it through?" card. The copy and photos for every page
+live in `homepages/service_pages.py`; `service_version()` in `homepages/build.py` swaps them into the Homeowners layout, and
+`homepages/shared/service-pages.css` adds grids for other numbers of cards, the related coverage links, a "photo to come" placeholder
+and the draft tag. Auto, Boat and Umbrella copy comes from the agency's content map; Renters, Condo, Life, Health and Pet are the
+build brief's draft copy (marked "Draft copy" in the hero) and need the agency's review. Text in [square brackets] is a placeholder.
+The header and footer links to these pages now open the build's own copies. Edit the data file, then run `python3 homepages/build.py`.
+
+Homepage concepts 5 to 7 try a video testimonial in the Google reviews
+(`video_reviews()` in `homepages/build.py`, styles in
+`homepages/shared/video-reviews.css`). Concept 5 is build 5's homepage
+(portrait video card beside the reviews). Concepts 6 (wide video beside a
+review carousel) and 7 (full-width video above the reviews) are homepages
+only, in `build-6/` and `build-7/`, and link to build 1's pages. The poster
+is a frame from the video; swap in the video when it arrives.

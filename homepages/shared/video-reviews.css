@@ -1,0 +1,155 @@
+/* Homepage concepts 5, 6 and 7: a video testimonial in the Google reviews,
+   made by video_reviews() in homepages/build.py.
+   5: written reviews on the left two thirds, a portrait video card on the
+      right third.
+   6: a wide 16:9 video beside a carousel of the written reviews.
+   7: a full-width 16:9 video above the three written reviews. */
+
+.vr-split {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: clamp(20px, 2.5vw, 32px);
+  align-items: stretch;
+}
+
+/* written reviews: the first one across the top, the other two below it */
+.hs-reviews__list.vr-list { grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; }
+.vr-list .hs-review:first-child { grid-column: 1 / -1; }
+.vr-list .hs-review:first-child .hs-review__text p { font-size: 1.3rem; line-height: 1.5; }
+
+/* video testimonial */
+.vr-video {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 18px;   /* as the review cards */
+  background: var(--hs-green);
+  color: #fff;
+}
+.vr-video__frame {
+  position: relative;
+  flex: 1;
+  min-height: 320px;
+  overflow: hidden;
+  background: #12301f;
+}
+.hs .vr-video__poster {   /* .hs img sets height: auto */
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: 50% 35%;
+}
+.vr-video--tall .vr-video__poster { opacity: .55; }
+.vr-video__play {
+  position: absolute; top: 50%; left: 50%;
+  display: grid; place-items: center;
+  width: 84px; height: 84px;
+  transform: translate(-50%, -50%);
+  border: 0; border-radius: 50%;
+  background: var(--hs-gold);
+  color: #12301f;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+  cursor: default;
+}
+.vr-video__play svg { width: 34px; height: 34px; margin-left: 4px; }
+.vr-video__play::after {   /* a soft ring around the button */
+  content: ""; position: absolute; inset: -12px;
+  border: 2px solid rgba(232, 194, 126, .55); border-radius: 50%;
+}
+.vr-video__tag {
+  position: absolute; top: 16px; left: 16px;
+  padding: 6px 12px;
+  border: 1px dashed var(--hs-gold); border-radius: 999px;
+  font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--hs-gold);
+  background: rgba(18, 48, 31, .6);
+}
+.vr-video__cap {
+  display: grid; gap: 4px;
+  padding: clamp(20px, 2.2vw, 28px);
+  line-height: 1.4;
+}
+.vr-video__kicker { font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--hs-gold); }
+.vr-video__cap strong { font-family: var(--hs-heading); font-size: 1.25rem; font-weight: 600; }
+.vr-video__cap span:last-child { opacity: .85; }
+
+@media (max-width: 900px) {
+  .vr-split { grid-template-columns: minmax(0, 1fr); }
+  .vr-video__frame { min-height: 0; aspect-ratio: 16 / 10; flex: none; }
+}
+@media (max-width: 640px) {
+  .hs-reviews__list.vr-list { grid-template-columns: minmax(0, 1fr); }
+  .vr-list .hs-review:first-child .hs-review__text p { font-size: 1.12rem; }
+}
+
+/* --- concepts 6 and 7: the video in landscape (16:9) -------------------- */
+.vr-video--wide .vr-video__frame,
+.vr-video--full .vr-video__frame { flex: none; min-height: 0; aspect-ratio: 16 / 9; }
+.vr-video--wide .vr-video__poster,
+.vr-video--full .vr-video__poster { object-position: 50% 30%; }
+
+/* 6: the video on the left (a little under half), the written reviews two
+   at a time on the right, with arrows below them to step through */
+.vr-wide {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(20px, 2.5vw, 32px);
+  align-items: start;
+}
+.vr-carousel { display: flex; flex-direction: column; gap: 16px; }
+.vr-carousel__list {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 24px);
+  margin: 0; padding: 0; list-style: none;
+}
+.vr-carousel .vr-slide { display: none; }
+.vr-carousel .vr-slide.is-active { display: flex; animation: vr-in .35s ease; }
+@keyframes vr-in { from { opacity: 0; } to { opacity: 1; } }
+.vr-carousel__nav { display: flex; align-items: center; justify-content: flex-end; gap: 14px; }
+.vr-carousel__nav button {
+  display: grid; place-items: center;
+  width: 44px; height: 44px;
+  border: 1px solid var(--hs-green); border-radius: 50%;
+  background: #fff; color: var(--hs-green);
+  cursor: pointer;
+}
+.vr-carousel__nav button:hover, .vr-carousel__nav button:focus-visible { background: var(--hs-green); color: #fff; }
+.vr-carousel__nav button:disabled { opacity: .35; cursor: default; background: #fff; color: var(--hs-green); }
+.vr-carousel__nav .icon { width: 18px; height: 18px; }
+.vr-carousel__prev .icon { transform: scaleX(-1); }
+.vr-carousel__count { order: -1; margin-right: auto; font-weight: 700; font-size: .9rem; letter-spacing: .08em; text-transform: uppercase; color: var(--hs-green); }
+@media (prefers-reduced-motion: reduce) { .vr-carousel .vr-slide.is-active { animation: none; } }
+
+/* 7: the video across the full width, its caption over the bottom of the
+   frame, the written reviews in a row below */
+.vr-video--full { position: relative; margin-bottom: clamp(24px, 3vw, 40px); }
+.vr-video--full .vr-video__frame::after {
+  content: ""; position: absolute; inset: 45% 0 0;
+  background: linear-gradient(to bottom, rgba(18, 48, 31, 0), rgba(18, 48, 31, .88));
+  pointer-events: none;
+}
+.vr-video--full .vr-video__cap {
+  position: absolute; left: 0; bottom: 0; z-index: 1;
+  max-width: 560px;
+  padding: clamp(22px, 3.5vw, 48px);
+}
+.vr-video--full .vr-video__cap strong { font-size: clamp(1.4rem, 1rem + 1.4vw, 2.2rem); }
+.vr-video--full .vr-video__play { width: 104px; height: 104px; }
+.vr-video--full .vr-video__play svg { width: 42px; height: 42px; }
+.vr-video--full .vr-video__tag { top: 20px; left: 20px; }
+
+@media (max-width: 900px) {
+  .vr-wide { grid-template-columns: minmax(0, 1fr); }
+  .vr-wide .vr-video { max-width: 640px; }
+  .vr-video--wide .vr-video__frame { aspect-ratio: 16 / 9; }
+}
+@media (max-width: 640px) {
+  .vr-carousel__list { grid-template-columns: minmax(0, 1fr); }
+  /* the caption moves under the frame so it doesn't cover the speaker */
+  .vr-video--full .vr-video__cap { position: static; max-width: none; }
+  .vr-video--full .vr-video__frame::after { display: none; }
+  .vr-video--full .vr-video__play { width: 72px; height: 72px; }
+  .vr-video--full .vr-video__play svg { width: 30px; height: 30px; }
+  .vr-video--full .vr-video__tag { top: 12px; left: 12px; }
+  .vr-video__play { width: 68px; height: 68px; }
+}

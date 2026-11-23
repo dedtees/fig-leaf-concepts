@@ -1,7 +1,8 @@
   <!-- About, concept 5: "By the numbers". A split black hero with the team
-       photo filling the right half, the homepage's three numbers counting up
-       (home-sections.js), then the story as a three-step path from the first
-       office to today, values on the dark green band and the team.
+       photo filling the right half and build 3's headline, then build 3's
+       "at a glance" facts on the green band (in place of the three numbers,
+       client review round 2), then the story as a three-step path from the first
+       office to today, and the team.
        Paths are from the repo root; {B} is the build folder. Styles: about-5.css -->
   <main id="main" class="hs hs--v1 ab ab--v5">
 
@@ -11,8 +12,8 @@
           <ol><li><a href="{B}/">Home</a></li><li><span aria-current="page">About</span></li></ol>
         </nav>
         <p class="ab-eyebrow">About The Fig Leaf Agency</p>
-        <h1 class="ab-head__title" id="ab-title">New Jersey's better alternative.</h1>
-        <p class="a5-head__lead">Lower insurance costs and personal service, from an independent agency that keeps its word.</p>
+        <h1 class="ab-head__title" id="ab-title">Insurance, explained by people who keep their&nbsp;word.</h1>
+        <p class="a5-head__lead">An independent agency in Hazlet, New Jersey, finding the best coverage and price for families and businesses, and making sure they understand it.</p>
         <div class="ab-head__actions">
           <a class="hs-btn hs-btn--primary" href="{B}/crq-form/">Get a Quote</a>
           <a class="ab-call" href="tel:+19088623447"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>(908) 862-3447</a>
@@ -23,16 +24,16 @@
       </div>
     </header>
 
-    <!-- The numbers come from the agency's original brief, as on the homepage -->
-    <section class="a5-stats" aria-label="The agency in numbers">
-      <div class="hs-wrap"><ul class="a5-stats__list">
-        <li class="hs-reveal"><span class="a5-stat__value"><span data-count="20">20</span>+</span><span class="a5-stat__label">Years serving New Jersey families and businesses</span></li>
-        <li class="hs-reveal"><span class="a5-stat__value"><span data-count="1000">1,000</span>s</span><span class="a5-stat__label">Happy clients across personal and commercial lines</span></li>
-        <li class="hs-reveal"><span class="a5-stat__value">140+ <span class="a5-stars" role="img" aria-label="5 out of 5 stars"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg></span></span><span class="a5-stat__label">Five star Google reviews</span></li>
-      </ul></div>
+    <!-- At a glance, from build 3's About page (in place of the numbers) -->
+    <section class="a5-stats a5-glance" aria-label="At a glance">
+      <div class="hs-wrap"><dl class="a5-stats__list">
+        <div class="hs-reveal"><dt class="a5-glance__term">Where</dt><dd class="a5-glance__value">1338 State Route 36, Hazlet, NJ</dd></div>
+        <div class="hs-reveal"><dt class="a5-glance__term">What</dt><dd class="a5-glance__value">Personal and business insurance</dd></div>
+        <div class="hs-reveal"><dt class="a5-glance__term">How</dt><dd class="a5-glance__value">Independent: we compare carriers for you</dd></div>
+      </dl></div>
     </section>
 
-    <section class="a5-path" aria-labelledby="a5-path-title">
+    <section class="a5-path" id="story" aria-labelledby="a5-path-title">
       <div class="hs-wrap">
         <div class="ab-section-head hs-reveal">
           <p class="ab-eyebrow ab-eyebrow--ink">Our story</p>
@@ -61,22 +62,6 @@
       </div>
     </section>
 
-    <section class="fl-grid-host a5-values" id="values" aria-labelledby="a5-values-title">
-      <div class="fl-grid" aria-hidden="true"><span class="fl-grid__lines" data-hs-px="0.15"></span></div>
-      <div class="hs-wrap a5-values__grid">
-        <div class="hs-reveal">
-          <p class="ab-eyebrow">Our values</p>
-          <h2 class="ab-section-head__title" id="a5-values-title">What we stand for</h2>
-          <p class="a5-values__intro">Four promises we make to every client, whether you're insuring a car or a company.</p>
-        </div>
-        <ul class="a5-values__list">
-          <li class="hs-reveal"><svg class="icon" aria-hidden="true"><use href="#i-handshake"></use></svg><div><h3>Your word is your bond</h3><p>When we tell you something about your policy, you can count on it.</p></div></li>
-          <li class="hs-reveal"><svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg><div><h3>Coverage you understand</h3><p>We explain what you're buying and how it protects you.</p></div></li>
-          <li class="hs-reveal"><svg class="icon" aria-hidden="true"><use href="#i-tag"></use></svg><div><h3>The best coverage and price</h3><p>We compare carriers for you so you don't overpay.</p></div></li>
-          <li class="hs-reveal"><svg class="icon" aria-hidden="true"><use href="#i-bolt"></use></svg><div><h3>Service and hustle</h3><p>Customer service we believe you'll find unparalleled in our field.</p></div></li>
-        </ul>
-      </div>
-    </section>
 
     <section class="a5-team" id="team" aria-labelledby="a5-team-title">
       <div class="hs-wrap a5-team__grid">
@@ -87,21 +72,58 @@
         </div>
       </div>
       <div class="hs-wrap a5-team__cards">
-        <a class="a5-person hs-reveal" href="{B}/about/chris-oliveira/">
-          <span class="a5-person__photo"><img src="homepages/shared/assets/team/chris-oliveira-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
+        <div class="a5-person hs-reveal is-soon">
+          <span class="a5-person__photo"><img src="homepages/shared/assets/team/bryan-tomko-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
           <span class="a5-person__body">
-            <span class="a5-person__name">Chris Oliveira</span>
-            <span class="a5-person__role">Account Executive</span>
-            <span class="a5-person__meta">2 years with Fig Leaf</span>
+            <span class="a5-person__name">Bryan Tomko</span>
+            <span class="a5-person__role">Bio coming soon</span>
+          </span>
+        </div>
+        <div class="a5-person hs-reveal is-soon">
+          <span class="a5-person__photo"><img src="homepages/shared/assets/team/magdalena-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
+          <span class="a5-person__body">
+            <span class="a5-person__name">Magdalena Tomko</span>
+            <span class="a5-person__role">Bio coming soon</span>
+          </span>
+        </div>
+        <a class="a5-person hs-reveal" href="{B}/about/burke/">
+          <span class="a5-person__photo"><img src="homepages/shared/assets/team/burke-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
+          <span class="a5-person__body">
+            <span class="a5-person__name">Burke</span>
+            <span class="a5-person__role">The Insurance Guy</span>
+            <span class="a5-person__meta">A proud native of Linden, NJ</span>
             <span class="a5-person__more">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
           </span>
         </a>
+        <div class="a5-person hs-reveal is-soon">
+          <span class="a5-person__photo"><img src="homepages/shared/assets/team/placeholder.svg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
+          <span class="a5-person__body">
+            <span class="a5-person__name">Les Silverman</span>
+            <span class="a5-person__role">Sr. Account Executive</span>
+          </span>
+        </div>
         <a class="a5-person hs-reveal" href="{B}/about/danielle-mohr/">
           <span class="a5-person__photo"><img src="homepages/shared/assets/team/danielle-mohr-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
           <span class="a5-person__body">
             <span class="a5-person__name">Danielle Mohr</span>
             <span class="a5-person__role">Business Development Manager</span>
             <span class="a5-person__meta">2.5 years with Fig Leaf</span>
+            <span class="a5-person__more">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+          </span>
+        </a>
+        <div class="a5-person hs-reveal is-soon">
+          <span class="a5-person__photo"><img src="homepages/shared/assets/team/placeholder.svg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
+          <span class="a5-person__body">
+            <span class="a5-person__name">Russell Mardonov</span>
+            <span class="a5-person__role">Bio coming soon</span>
+          </span>
+        </div>
+        <a class="a5-person hs-reveal" href="{B}/about/chris-oliveira/">
+          <span class="a5-person__photo"><img src="homepages/shared/assets/team/chris-oliveira-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
+          <span class="a5-person__body">
+            <span class="a5-person__name">Chris Oliveira</span>
+            <span class="a5-person__role">Account Executive</span>
+            <span class="a5-person__meta">2 years with Fig Leaf</span>
             <span class="a5-person__more">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
           </span>
         </a>
@@ -114,13 +136,6 @@
             <span class="a5-person__more">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
           </span>
         </a>
-        <div class="a5-person hs-reveal is-soon">
-          <span class="a5-person__photo"><img src="homepages/shared/assets/team/burke-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
-          <span class="a5-person__body">
-            <span class="a5-person__name">Burke</span>
-            <span class="a5-person__role">Bio coming soon</span>
-          </span>
-        </div>
       </div>
     </section>
   </main>

@@ -113,3 +113,16 @@
   .hero.hero--stack { height: auto; padding-bottom: calc(var(--c11-lap) + var(--c11-gap)); }
   .hero .scene.hx--panels { top: auto; }
 }
+
+/* Builds 1 to 5 (client review round 2): four cards under "More Ways We
+   Protect You", four across on wide screens and two by two below that */
+@media (min-width: 961px) {
+  .hs-services__grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1200px) {
+  .hs-services__grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(18px, 1.8vw, 28px); }
+  .hs-services__grid--4 .hs-service__body { padding: clamp(20px, 2vw, 28px); }
+}
+@media (min-width: 1200px) {
+  .hs-services__grid--4 .hs-line__title { font-size: clamp(1.25rem, 1rem + .5vw, 1.45rem); }
+}
