@@ -676,6 +676,8 @@ HOME_NAMES = {
 
 def home_name(k):
     """The bar's name for build k's homepage."""
+    if k == 1:
+        return 'Concept 11 with Homeowners version 1, and concept 6\'s video beside the Google reviews'
     return HOME_NAMES.get(k, f'Concept 11 with Homeowners version {homeowners_version(k)}')
 
 
@@ -1111,6 +1113,8 @@ def build_builds():
         page = keep_links_in(link_service_names(page), out_dir, links)
         if k in HOME_NAMES:
             page = video_reviews(page, out_dir, k)
+        elif k == 1:   # Eric, 23 Nov: concept 6's reviews on build 1's homepage
+            page = video_reviews(page, out_dir, 6)
             page = re.sub(rf'<title>Build {k} ·', f'<title>Concept {k} ·', page, count=1)
         page = page.replace('<!-- Built by homepages/build.py: concept 11:',
                             f'<!-- Built by homepages/build.py: build {k} (concept 11, Homeowners version {homeowners_version(k)}):'
