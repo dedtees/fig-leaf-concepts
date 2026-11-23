@@ -16,6 +16,8 @@ import os
 import posixpath
 import re
 
+import service_pages as SP
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 
@@ -529,7 +531,7 @@ QUOTE_BAND = '''
       <div class="pg-wrap">
         <div class="pg-band__box">
           <div class="pg-band__text">
-            <h2 class="pg-band__title" id="pg-band-title">Get a homeowners quote</h2>
+            <h2 class="pg-band__title" id="pg-band-title">{title}</h2>
             <p>We compare top-rated carriers for you, then walk you through every line of the policy.</p>
           </div>
           <div class="pg-band__actions">
@@ -549,10 +551,11 @@ LEAF_OUTLINE = ('<svg class="pg-head__leaf" viewBox="0 0 520.06 567.04" aria-hid
                 + ''.join(f'<path d="{d}"/>' for d in LEAF_PATHS) + '</svg>')
 
 
-def build_homeowners_versions():
-    """archive-b/homeowners-insurance-v1 to -v4 from the scrolling page.
-    Its sections: title band (hero), #quote (the form with the "Rather talk
-    it through?" card), #overview (perils) and #covered (what it covers)."""
+def homeowners_pieces():
+    """The scrolling Homeowners page cut into its parts: the page, where its
+    <main> starts and ends, and the title band (hero), #quote (the form with
+    the "Rather talk it through?" card), #overview (perils) and #covered
+    (what it covers)."""
     src = 'archive-b/homeowners-insurance-scroll'
     page = read(f'{src}/index.html')
     main_start = page.index('<main id="main"')
@@ -566,6 +569,13 @@ def build_homeowners_versions():
     quote = main[main.index('<section class="pg-close"', q0):o0].rstrip() + '\n'
     overview = main[o0:c0].rstrip() + '\n'
     covered = main[c0:].rstrip() + '\n'
+    hero = hero.replace('<div class="pg-wrap pg-head__grid">', LEAF_OUTLINE + '\n      <div class="pg-wrap pg-head__grid">', 1)
+    return src, page, main_start, main_end, hero, overview, covered, quote
+
+
+def version_layouts(hero, overview, covered, quote, band_title):
+    """The four Homeowners versions' layouts, (main class, hero, sections),
+    for any page cut into the same parts."""
     # the call-us card on its own, for the version with no form
     a0 = quote.index('<div class="pg-crq__card">')
     a1 = quote.index('<aside class="pg-crq__aside"')
@@ -573,25 +583,91 @@ def build_homeowners_versions():
     talk_only = talk_only.replace('id="quote" aria-labelledby="pg-close-title"', 'id="talk" aria-label="Rather talk it through?"', 1)
     talk_only = re.sub(r'\s*<div class="pg-sec__head">.*?</div>\n', '\n', talk_only, count=1, flags=re.S)
     talk_only = re.sub(r'\s*<!-- The quote form is.*?-->', '', talk_only, count=1, flags=re.S)
-    hero = hero.replace('<div class="pg-wrap pg-head__grid">', LEAF_OUTLINE + '\n      <div class="pg-wrap pg-head__grid">', 1)
     dark = hero.replace('fl-grid fl-grid--light', 'fl-grid', 1)
-    versions = [
+    band = lambda id_, href: QUOTE_BAND.format(id=id_, href=href, title=band_title)
+    return [
         ('pg--stack', hero, [overview, covered, quote]),
         ('pg--stack pg--fade', dark, [overview, covered, quote]),
-        ('pg--stack pg--fade', dark, [overview, covered, QUOTE_BAND.format(id='quote', href='../crq-form/'), talk_only]),
-        ('pg--stack pg--fade', dark, [overview, QUOTE_BAND.format(id='quote-band', href='#quote'), covered, quote]),
+        ('pg--stack pg--fade', dark, [overview, covered, band('quote', '../crq-form/'), talk_only]),
+        ('pg--stack pg--fade', dark, [overview, band('quote-band', '#quote'), covered, quote]),
     ]
-    for n, (cls, top, secs) in enumerate(versions, 1):
+
+
+def assemble(page, main_start, main_end, cls, top, secs):
+    body = ('<main id="main" class="hs pg pg--v2 ' + cls + '">\n\n    ' + top.strip() + '\n\n    '
+            + '\n    '.join(s.strip() + '\n' for s in secs if s) + '\n  ')
+    new = page[:main_start] + body + page[main_end:]
+    return new.replace('<link rel="stylesheet" href="../palette.css">',
+                       '<link rel="stylesheet" href="../palette.css">\n'
+                       '  <link rel="stylesheet" href="../../homepages/shared/homeowners-versions.css">', 1)
+
+
+def build_homeowners_versions():
+    """archive-b/homeowners-insurance-v1 to -v4 from the scrolling page."""
+    src, page, main_start, main_end, hero, overview, covered, quote = homeowners_pieces()
+    for n, (cls, top, secs) in enumerate(version_layouts(hero, overview, covered, quote, 'Get a homeowners quote'), 1):
         out = HOMEOWNERS_VERSIONS[n - 1][0]
-        body = ('<main id="main" class="hs pg pg--v2 ' + cls + '">\n\n    ' + top.strip() + '\n\n    '
-                + '\n    '.join(s.strip() + '\n' for s in secs) + '\n  ')
-        new = page[:main_start] + body + page[main_end:]
-        new = new.replace('<link rel="stylesheet" href="../palette.css">',
-                          '<link rel="stylesheet" href="../palette.css">\n'
-                          '  <link rel="stylesheet" href="../../homepages/shared/homeowners-versions.css">', 1)
+        new = assemble(page, main_start, main_end, cls, top, secs)
         new = new.replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- Built by homepages/build.py (build_homeowners_versions): '
                           f'Homeowners version {n}, from {src}/. Edit that page or the script, then re-run it. -->', 1)
         write(f'{out}/index.html', new)
+
+
+def service_version(n, s):
+    """Personal insurance page s (homepages/service_pages.py) in Homeowners
+    version n's layout. Returns the page and the folder its relative links
+    are written from (the Homeowners version's, the same depth)."""
+    src_dir = HOMEOWNERS_VERSIONS[n - 1][0]
+    _, page, main_start, main_end, hero, overview, covered, quote = homeowners_pieces()
+    up = lambda path: posixpath.relpath(path, src_dir)
+    live = lambda slug: f'https://figleafagency.com/{slug}/'
+    hero = SP.hero(s, up, LEAF_OUTLINE)
+    article = 'an' if s['short'][0] in 'aeiou' else 'a'
+    layouts = version_layouts(hero, SP.overview(s), SP.covered(s, up, live), SP.quote(s, quote, up),
+                              f'Get {article} {s["short"]} quote')
+    cls, top, secs = layouts[n - 1]
+    cls += ' pg--service' + (' pg--draft' if s['draft'] else '')
+    new = assemble(page, main_start, main_end, cls, top, secs)
+    new = new.replace('  <link rel="stylesheet" href="../../homepages/shared/homeowners-versions.css">',
+                      '  <link rel="stylesheet" href="../../homepages/shared/homeowners-versions.css">\n'
+                      '  <link rel="stylesheet" href="../../homepages/shared/service-pages.css">', 1)
+    # the extra icons, in the page's sprite
+    syms = ''.join(f'\n    <symbol id="{i}" viewBox="0 0 24 24">{d}</symbol>' for i, d in SP.ICONS.items())
+    m = re.search(r'<symbol id="i-liability".*?</symbol>', new)
+    new = new[:m.end()] + syms + new[m.end():]
+    # head: title, description, canonical, Open Graph and the breadcrumb
+    name, slug = s['name'], s['slug']
+    new = re.sub(r'<title>[^<]*</title>', f'<title>Archive B · {name} in New Jersey | The Fig Leaf Agency</title>', new, count=1)
+    new = re.sub(r'(<meta name="description" content=")[^"]*', lambda m: m.group(1) + s['meta'], new, count=1)
+    new = re.sub(r'(<meta property="og:title" content=")[^"]*', lambda m: m.group(1) + f'{name} | The Fig Leaf Agency', new, count=1)
+    new = re.sub(r'(<meta property="og:description" content=")[^"]*', lambda m: m.group(1) + s['og'], new, count=1)
+    h = new.index('</head>')   # canonical, og:url and the breadcrumb, in the head only
+    head = new[:h].replace('https://figleafagency.com/homeowners-insurance/"', live(slug) + '"')
+    head = head.replace('"name": "Homeowners Insurance", "item": "' + live(slug), f'"name": "{name}", "item": "' + live(slug))
+    new = head + new[h:]
+    new = new.replace('Homeowners Insurance (content from figleafagency.com/homeowners-insurance)',
+                      f'{name} (copy from homepages/service_pages.py)', 1)
+    # menus: Homeowners is no longer the current page, and the pages that
+    # had no page yet (plain text in the footer) are links now
+    new = new.replace('href="../homeowners-insurance/" aria-current="page"', 'href="' + live('homeowners-insurance') + '"')
+    new = new.replace('<a href="./" aria-current="page">Homeowners Insurance</a>', '<a href="' + live('homeowners-insurance') + '">Homeowners Insurance</a>')
+    new = link_service_names(new)
+    new = new.replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- Built by homepages/build.py (service_version): '
+                      f'{name} in Homeowners version {n}\'s layout; copy in homepages/service_pages.py. -->', 1)
+    return new, src_dir
+
+
+def link_service_names(page):
+    """The footer's Renters, Condo, Health, Life and Pet entries (plain text
+    while those pages didn't exist) become links."""
+    for text, slug in SP.SPAN_NAMES.items():
+        page = page.replace(f'<li><span>{text}</span></li>', f'<li><a href="https://figleafagency.com/{slug}/">{text}</a></li>')
+    return page
+
+
+def mark_current(page):
+    """aria-current on the menu and footer links to the page itself."""
+    return re.sub(r'<a href="\./">', '<a href="./" aria-current="page">', page)
 
 
 def build_dir(k):
@@ -607,7 +683,7 @@ def main_bar(cur, out_dir, page='home', build=1):
     entries = [('AC', 'AC', 'Fig leaf photo gallery', rel_(GALLERY)),
                ('GC', 'GC', 'Get a quote', rel_(f'{build_dir(gc_build)}/crq-form'))]
     sub = PAGE_PATH[page]
-    if page == 'homeowners':   # the numbers are the four Homeowners versions
+    if page == 'homeowners' or page in SP.BY_SLUG:   # the numbers are the four Homeowners versions
         for v, (_, name) in enumerate(HOMEOWNERS_VERSIONS, 1):
             entries.append((v, str(v), f'Homeowners version {v}: {name}', rel_(build_dir(v) + sub)))
     else:
@@ -630,6 +706,10 @@ def main_bar(cur, out_dir, page='home', build=1):
         if page == 'homeowners':
             v = homeowners_version(cur)
             title = f'Homeowners version {v} of {len(HOMEOWNERS_VERSIONS)}: {HOMEOWNERS_VERSIONS[v - 1][1]}' + back
+        elif page in SP.BY_SLUG:
+            v = homeowners_version(cur)
+            title = (f'{SP.BY_SLUG[page]["name"]} in Homeowners version {v}\'s layout: {HOMEOWNERS_VERSIONS[v - 1][1]}'
+                     + (' (draft copy)' if SP.BY_SLUG[page]['draft'] else '') + back)
         elif page in BIOS or page == 'about':
             a, b = ABOUT_CONCEPTS[cur]
             title = (f'About concept {cur}: {a}' if page == 'about' else f'{BIOS[page][0]} bio, concept {cur}: {b}') + back
@@ -663,7 +743,8 @@ ABOUT_CONCEPTS = {1: ('Layout A, our story', 'Photo and details'),
                   4: ('Chapters', 'Q and A'),
                   5: ('By the numbers', 'Fig leaf portrait')}
 PAGE_PATH = {'home': '', 'homeowners': '/homeowners-insurance', 'about': '/about',
-             **{slug: f'/about/{slug}' for slug in BIOS}}
+             **{slug: f'/about/{slug}' for slug in BIOS},
+             **{s['slug']: '/' + s['slug'] for s in SP.SERVICES}}
 
 
 def about_links(page, out, build):
@@ -765,6 +846,7 @@ IN_BUILD = {  # figleafagency.com path -> the same page under build-N/
     '': '', 'about/': 'about/', 'meet-our-team/': 'about/#team',
     'homeowners-insurance/': 'homeowners-insurance/',
     'crq/': 'crq-form/', 'get-a-quote/': 'crq-form/',
+    **{s['slug'] + '/': s['slug'] + '/' for s in SP.SERVICES},   # the personal insurance pages
 }
 LIVE = re.compile(r'(?:https?:)?//(?:www\.)?figleafagency\.com/(.*)$')
 QUOTE_FORM = 'secure.consumerratequotes.com/'   # the quote form, which the build frames on crq-form/
@@ -917,7 +999,7 @@ def build_builds():
         page = round2_home(page, out_dir)
         page = re.sub(r'<title>Concept 11 ·', f'<title>Build {k} ·', page, count=1)
         page = about_links(page, out_dir, out_dir)
-        page = keep_links_in(page, out_dir, out_dir)
+        page = keep_links_in(link_service_names(page), out_dir, out_dir)
         page = page.replace('<!-- Built by homepages/build.py: concept 11:',
                             f'<!-- Built by homepages/build.py: build {k} (concept 11, Homeowners version {homeowners_version(k)}):', 1)
         write(f'{out_dir}/index.html', page)
@@ -930,6 +1012,9 @@ def build_builds():
             page = re.sub(r'<title>(?:Concept|Archive) \w+ ·', f'<title>{title} ·', page, count=1)
             if 'name="robots"' not in page:
                 page = page.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n  <meta name="robots" content="noindex">', 1)
+            if sub == 'homeowners-insurance':   # the footer's link to the page itself
+                page = page.replace('<a href="./" aria-current="page">Homeowners Insurance</a>',
+                                    '<a href="https://figleafagency.com/homeowners-insurance/" aria-current="page">Homeowners Insurance</a>', 1)
             KEEP_IN = out_dir
             page = rebase(page, src, out)
             KEEP_IN = None
@@ -944,15 +1029,37 @@ def build_builds():
             # the four Homeowners versions from Eric's mockups (23 Nov) replace
             # the Homeowners layouts it changed on builds 1 and 3.
             page = about_links(page, out, out_dir)
-            page = keep_links_in(page, out, out_dir)
+            page = keep_links_in(link_service_names(page), out, out_dir)
             page = page.replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- Built by homepages/build.py: '
                                 f'build {k}\'s copy of {src}/. Edit that page, then re-run the script. -->', 1)
             write(f'{out}/index.html', page)
+        build_services(k)
         build_about(k)
     # the gallery (archive D) is AC: the landing page, with the current bar
     page = read(f'{GALLERY}/index.html')
     page = keep_links_in(swap_bar(page, main_bar('AC', GALLERY)), GALLERY, build_dir(1))
     write(f'{GALLERY}/index.html', page)
+
+
+def build_services(k):
+    """build-N/<slug>/: the personal insurance pages (service_pages.py) in
+    the layout of the build's Homeowners version."""
+    global KEEP_IN
+    out_dir = build_dir(k)
+    for s in SP.SERVICES:
+        out = f'{out_dir}/{s["slug"]}'
+        page, src = service_version(homeowners_version(k), s)
+        page = swap_bar(page, '<!--REVIEW-BAR-->')
+        page = re.sub(r'<title>Archive B ·', f'<title>Build {k} ·', page, count=1)
+        if 'name="robots"' not in page:
+            page = page.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n  <meta name="robots" content="noindex">', 1)
+        KEEP_IN = out_dir
+        page = rebase(page, src, out)
+        KEEP_IN = None
+        page = page.replace('<!--REVIEW-BAR-->', main_bar(k, out, s['slug']))
+        page = about_links(page, out, out_dir)
+        page = mark_current(keep_links_in(page, out, out_dir))
+        write(f'{out}/index.html', page)
 
 
 def main():
