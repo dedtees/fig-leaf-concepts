@@ -540,11 +540,13 @@ QUOTE_BAND = '''
       </div>
     </section>
 '''
-# the Fig Leaf logo's leaf (the path in archive-b/assets/fig-leaf-fill.svg),
-# drawn as a thin outline
-LEAF_PATH = re.search(r' d="([^"]+)"', read('archive-b/assets/fig-leaf-fill.svg')).group(1)
+# the Fig Leaf outline used on the other pages (the leaf-outline symbol in
+# archive B's homepage, the same art as fig-leaf-outline.svg): a filled
+# brush-stroke outline, not a thin stroke round the logo's leaf
+LEAF_PATHS = re.findall(r'<path d="([^"]+)"', re.search(r'<symbol id="leaf-outline".*?</symbol>',
+                        read('archive-b/index.html'), re.S).group(0))
 LEAF_OUTLINE = ('<svg class="pg-head__leaf" viewBox="0 0 520.06 567.04" aria-hidden="true" focusable="false">'
-                f'<path d="{LEAF_PATH}"/></svg>')
+                + ''.join(f'<path d="{d}"/>' for d in LEAF_PATHS) + '</svg>')
 
 
 def build_homeowners_versions():
