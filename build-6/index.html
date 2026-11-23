@@ -89,7 +89,7 @@
 
   <!-- Review bar: for comparing concepts only, not part of the site design -->
   <nav class="review-bar" aria-label="Current build">
-    <p class="review-bar__title"><span class="review-bar__label">Build 6</span> <span class="review-bar__name">Concept 6: build 1's homepage with a wide video beside a carousel of the Google reviews</span></p>
+    <p class="review-bar__title"><span class="review-bar__label">Build 6</span> <span class="review-bar__name">Concept 6: build 1's homepage with a video beside the Google reviews, two at a time</span></p>
     <div class="review-bar__controls">
       <ul class="review-bar__list review-bar__list--long">
         <li><a class="review-bar__link" href="../archive-d/" data-name="Fig leaf photo gallery">AC<span class="visually-hidden">: Fig leaf photo gallery</span></a></li>
@@ -99,7 +99,7 @@
         <li><a class="review-bar__link" href="../build-3/" data-name="Concept 11 with Homeowners version 3">3<span class="visually-hidden">: Concept 11 with Homeowners version 3</span></a></li>
         <li><a class="review-bar__link" href="../build-4/" data-name="Concept 11 with Homeowners version 4">4<span class="visually-hidden">: Concept 11 with Homeowners version 4</span></a></li>
         <li><a class="review-bar__link" href="../build-5/" data-name="Concept 5: build 1's homepage with a video testimonial beside the Google reviews">5<span class="visually-hidden">: Concept 5: build 1's homepage with a video testimonial beside the Google reviews</span></a></li>
-        <li><a class="review-bar__link" href="./" data-name="Concept 6: build 1's homepage with a wide video beside a carousel of the Google reviews" aria-current="page">6<span class="visually-hidden">: Concept 6: build 1's homepage with a wide video beside a carousel of the Google reviews</span></a></li>
+        <li><a class="review-bar__link" href="./" data-name="Concept 6: build 1's homepage with a video beside the Google reviews, two at a time" aria-current="page">6<span class="visually-hidden">: Concept 6: build 1's homepage with a video beside the Google reviews, two at a time</span></a></li>
         <li><a class="review-bar__link" href="../build-7/" data-name="Concept 7: build 1's homepage with a full-width video above the Google reviews">7<span class="visually-hidden">: Concept 7: build 1's homepage with a full-width video above the Google reviews</span></a></li></ul>
       <a class="review-bar__step review-bar__step--prev" href="../build-5/" rel="prev" aria-label="Previous"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
       <a class="review-bar__step" href="../build-7/" rel="next" aria-label="Next"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
@@ -472,7 +472,7 @@
               <p class="hs-review__author"><span class="hs-review__avatar" aria-hidden="true">N</span><span><strong>Natalie Montesino</strong><span class="hs-review__meta">Google review</span></span></p>
               <a class="hs-review__more" href="#" onclick="return false" data-offsite>Read the full review<span class="visually-hidden"> by Natalie Montesino</span> on Google</a>
             </li>
-            <li class="hs-review vr-slide" aria-roledescription="slide">
+            <li class="hs-review vr-slide is-active" aria-roledescription="slide">
               <span class="hs-stars" role="img" aria-label="5 out of 5 stars"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg></span>
               <blockquote class="hs-review__text"><p>&ldquo;Jarihana muy amable, profesional, me contestó mis inquietudes . Hablamos por teléfono siempre dispuesta a ayudar&hellip;&rdquo;</p></blockquote>
               <p class="hs-review__author"><span class="hs-review__avatar" aria-hidden="true">J</span><span><strong>Jaylynn Cabrera</strong><span class="hs-review__meta">Google review</span></span></p>
@@ -487,7 +487,7 @@
           </ul>
               <div class="vr-carousel__nav">
               <button class="vr-carousel__prev" type="button" aria-label="Previous review"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
-              <span class="vr-carousel__count" aria-live="polite">1 of 3</span>
+              <span class="vr-carousel__count" aria-live="polite">1–2 of 3</span>
               <button class="vr-carousel__next" type="button" aria-label="Next review"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
             </div>
           </div>
@@ -605,16 +605,27 @@
   <script src="../../../../review/review.js" defer></script>
 
   <script>
-    /* concept 6: the written reviews, one at a time */
+    /* concept 6: the written reviews, two at a time (one on phones); the
+       arrows step one review at a time */
     document.querySelectorAll('[data-vr-carousel]').forEach(function (box) {
-      var slides = box.querySelectorAll('.vr-slide'), count = box.querySelector('.vr-carousel__count'), i = 0;
+      var slides = box.querySelectorAll('.vr-slide'), count = box.querySelector('.vr-carousel__count'), i = 0,
+          narrow = window.matchMedia('(max-width: 640px)');
+      var prev = box.querySelector('.vr-carousel__prev'), next = box.querySelector('.vr-carousel__next');
       function show(n) {
-        i = (n + slides.length) % slides.length;
-        slides.forEach(function (s, k) { s.classList.toggle('is-active', k === i); s.setAttribute('aria-hidden', k === i ? 'false' : 'true'); });
-        count.textContent = (i + 1) + ' of ' + slides.length;
+        var per = Math.min(narrow.matches ? 1 : 2, slides.length), last = slides.length - per;
+        i = Math.max(0, Math.min(n, last));
+        slides.forEach(function (s, k) {
+          var on = k >= i && k < i + per;
+          s.classList.toggle('is-active', on);
+          s.setAttribute('aria-hidden', on ? 'false' : 'true');
+        });
+        prev.disabled = i === 0;
+        next.disabled = i === last;
+        count.textContent = (per > 1 ? (i + 1) + '–' + (i + per) : (i + 1)) + ' of ' + slides.length;
       }
-      box.querySelector('.vr-carousel__prev').addEventListener('click', function () { show(i - 1); });
-      box.querySelector('.vr-carousel__next').addEventListener('click', function () { show(i + 1); });
+      prev.addEventListener('click', function () { show(i - 1); });
+      next.addEventListener('click', function () { show(i + 1); });
+      narrow.addEventListener('change', function () { show(i); });
       show(0);
     });
   </script>

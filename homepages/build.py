@@ -669,7 +669,7 @@ VIDEO_BUILD = 5
 HOME_ONLY = [6, 7]
 HOME_NAMES = {
     5: "Concept 5: build 1's homepage with a video testimonial beside the Google reviews",
-    6: "Concept 6: build 1's homepage with a wide video beside a carousel of the Google reviews",
+    6: "Concept 6: build 1's homepage with a video beside the Google reviews, two at a time",
     7: "Concept 7: build 1's homepage with a full-width video above the Google reviews",
 }
 
@@ -707,16 +707,27 @@ def video_card(out_dir, cls, poster=POSTER):
 
 CAROUSEL_JS = """
   <script>
-    /* concept 6: the written reviews, one at a time */
+    /* concept 6: the written reviews, two at a time (one on phones); the
+       arrows step one review at a time */
     document.querySelectorAll('[data-vr-carousel]').forEach(function (box) {
-      var slides = box.querySelectorAll('.vr-slide'), count = box.querySelector('.vr-carousel__count'), i = 0;
+      var slides = box.querySelectorAll('.vr-slide'), count = box.querySelector('.vr-carousel__count'), i = 0,
+          narrow = window.matchMedia('(max-width: 640px)');
+      var prev = box.querySelector('.vr-carousel__prev'), next = box.querySelector('.vr-carousel__next');
       function show(n) {
-        i = (n + slides.length) % slides.length;
-        slides.forEach(function (s, k) { s.classList.toggle('is-active', k === i); s.setAttribute('aria-hidden', k === i ? 'false' : 'true'); });
-        count.textContent = (i + 1) + ' of ' + slides.length;
+        var per = Math.min(narrow.matches ? 1 : 2, slides.length), last = slides.length - per;
+        i = Math.max(0, Math.min(n, last));
+        slides.forEach(function (s, k) {
+          var on = k >= i && k < i + per;
+          s.classList.toggle('is-active', on);
+          s.setAttribute('aria-hidden', on ? 'false' : 'true');
+        });
+        prev.disabled = i === 0;
+        next.disabled = i === last;
+        count.textContent = (per > 1 ? (i + 1) + '\u2013' + (i + per) : (i + 1)) + ' of ' + slides.length;
       }
-      box.querySelector('.vr-carousel__prev').addEventListener('click', function () { show(i - 1); });
-      box.querySelector('.vr-carousel__next').addEventListener('click', function () { show(i + 1); });
+      prev.addEventListener('click', function () { show(i - 1); });
+      next.addEventListener('click', function () { show(i + 1); });
+      narrow.addEventListener('change', function () { show(i); });
       show(0);
     });
   </script>
@@ -728,7 +739,7 @@ def video_reviews(page, out_dir, k):
     video testimonial (homepages/shared/video-reviews.css).
     5: the written reviews on the left two thirds, a portrait video card on
        the right third.
-    6: a wide 16:9 video on the left, the written reviews one at a time in a
+    6: a 16:9 video on the left, the written reviews two at a time in a
        carousel on the right.
     7: a full-width 16:9 video, the three written reviews below it."""
     head = '<link rel="stylesheet" href="' + posixpath.relpath('homepages/shared/concept-11.css', out_dir) + '">'
@@ -747,7 +758,7 @@ def video_reviews(page, out_dir, k):
     elif k == 6:
         slides = reviews.replace('<ul class="hs-reviews__list">', '<ul class="vr-carousel__list">', 1) \
                         .replace('<li class="hs-review hs-reveal">', '<li class="hs-review vr-slide" aria-roledescription="slide">')
-        slides = slides.replace('<li class="hs-review vr-slide"', '<li class="hs-review vr-slide is-active"', 1)
+        slides = slides.replace('<li class="hs-review vr-slide"', '<li class="hs-review vr-slide is-active"', 2)
         slides = re.sub(r'(?m)^', '  ', slides)
         new = ('        <div class="vr-wide">\n'
                + video_card(out_dir, 'vr-video--wide')
@@ -755,7 +766,7 @@ def video_reviews(page, out_dir, k):
                + slides
                + '            <div class="vr-carousel__nav">\n'
                '              <button class="vr-carousel__prev" type="button" aria-label="Previous review"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></button>\n'
-               '              <span class="vr-carousel__count" aria-live="polite">1 of 3</span>\n'
+               '              <span class="vr-carousel__count" aria-live="polite">1\u20132 of 3</span>\n'
                '              <button class="vr-carousel__next" type="button" aria-label="Next review"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></button>\n'
                '            </div>\n'
                '          </div>\n'
