@@ -660,49 +660,111 @@ def mark_current(page):
     return re.sub(r'<a href="\./">', '<a href="./" aria-current="page">', page)
 
 
-# Build 5's homepage is concept 5 (Eric, 23 Nov): build 1's homepage with a
-# video testimonial beside the written Google reviews.
+# Homepage concepts with a video testimonial in the Google reviews (Eric,
+# 23 Nov). Build 5's homepage is concept 5: build 1's homepage with a portrait
+# video card beside the written reviews. The video turned out to be
+# landscape, so concepts 6 and 7 try landscape layouts. 6 and 7 are
+# homepages only (build-6/, build-7/); their links go to build 1's pages.
 VIDEO_BUILD = 5
+HOME_ONLY = [6, 7]
+HOME_NAMES = {
+    5: "Concept 5: build 1's homepage with a video testimonial beside the Google reviews",
+    6: "Concept 6: build 1's homepage with a wide video beside a carousel of the Google reviews",
+    7: "Concept 7: build 1's homepage with a full-width video above the Google reviews",
+}
 
 
 def home_name(k):
     """The bar's name for build k's homepage."""
-    if k == VIDEO_BUILD:
-        return 'Concept 5: build 1\'s homepage with a video testimonial beside the Google reviews'
-    return f'Concept 11 with Homeowners version {homeowners_version(k)}'
+    return HOME_NAMES.get(k, f'Concept 11 with Homeowners version {homeowners_version(k)}')
 
 
-def video_reviews(page, out_dir):
-    """Concept 5: the Google reviews section split in two, the written
-    reviews on the left two thirds and a video testimonial on the right
-    third (homepages/shared/video-reviews.css). No video yet, so the card
-    is a placeholder: a poster with a play button, ready for the video."""
+PLAY = ('<button class="vr-video__play" type="button" aria-label="Play the video testimonial (video to come)" disabled>'
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button>')
+POSTER = ('homepages/shared/assets/testimonial-poster.jpg', 'homepages/shared/assets/testimonial-poster-900.jpg', 1600, 896)
+
+
+def video_card(out_dir, cls, poster=POSTER):
+    """The video testimonial, a placeholder until the video arrives: a poster
+    (a frame from the video) with a play button."""
+    big, small, w, h = poster
+    big, small = posixpath.relpath(big, out_dir), posixpath.relpath(small, out_dir)
+    return ('          <!-- Video testimonial: a placeholder until the client sends the video.\n'
+            '               Swap the poster and the button for a <video> or an embed. -->\n'
+            f'          <figure class="vr-video {cls} hs-reveal">\n'
+            '            <div class="vr-video__frame">\n'
+            f'              <img class="vr-video__poster" src="{big}" srcset="{small} 900w, {big} {w}w" sizes="(max-width: 900px) 100vw, 70vw" alt="" width="{w}" height="{h}" loading="lazy" decoding="async">\n'
+            f'              {PLAY}\n'
+            '              <span class="vr-video__tag">Video to come</span>\n'
+            '            </div>\n'
+            '            <figcaption class="vr-video__cap">\n'
+            '              <span class="vr-video__kicker">Video testimonial</span>\n'
+            '              <strong>Hear it from our clients</strong>\n'
+            '              <span>A client tells their story in their own words.</span>\n'
+            '            </figcaption>\n'
+            '          </figure>\n')
+
+
+CAROUSEL_JS = """
+  <script>
+    /* concept 6: the written reviews, one at a time */
+    document.querySelectorAll('[data-vr-carousel]').forEach(function (box) {
+      var slides = box.querySelectorAll('.vr-slide'), count = box.querySelector('.vr-carousel__count'), i = 0;
+      function show(n) {
+        i = (n + slides.length) % slides.length;
+        slides.forEach(function (s, k) { s.classList.toggle('is-active', k === i); s.setAttribute('aria-hidden', k === i ? 'false' : 'true'); });
+        count.textContent = (i + 1) + ' of ' + slides.length;
+      }
+      box.querySelector('.vr-carousel__prev').addEventListener('click', function () { show(i - 1); });
+      box.querySelector('.vr-carousel__next').addEventListener('click', function () { show(i + 1); });
+      show(0);
+    });
+  </script>
+"""
+
+
+def video_reviews(page, out_dir, k):
+    """The Google reviews section of homepage concept k (5, 6 or 7) with a
+    video testimonial (homepages/shared/video-reviews.css).
+    5: the written reviews on the left two thirds, a portrait video card on
+       the right third.
+    6: a wide 16:9 video on the left, the written reviews one at a time in a
+       carousel on the right.
+    7: a full-width 16:9 video, the three written reviews below it."""
     head = '<link rel="stylesheet" href="' + posixpath.relpath('homepages/shared/concept-11.css', out_dir) + '">'
     assert head in page
     css = posixpath.relpath('homepages/shared/video-reviews.css', out_dir)
     page = page.replace(head, head + f'\n  <link rel="stylesheet" href="{css}">', 1)
     m = re.search(r'(        <ul class="hs-reviews__list">.*?        </ul>\n)', page, re.S)
     assert m
-    poster = posixpath.relpath('archive-a/assets/team-photo-900.jpg', out_dir)
-    video = (
-        '          <!-- Video testimonial: a placeholder until the client sends the video.\n'
-        '               Swap the poster and the button for a <video> or an embed. -->\n'
-        '          <figure class="vr-video hs-reveal">\n'
-        '            <div class="vr-video__frame">\n'
-        f'              <img class="vr-video__poster" src="{poster}" alt="" width="900" height="600" loading="lazy" decoding="async">\n'
-        '              <button class="vr-video__play" type="button" aria-label="Play the video testimonial (video to come)" disabled>'
-        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button>\n'
-        '              <span class="vr-video__tag">Video to come</span>\n'
-        '            </div>\n'
-        '            <figcaption class="vr-video__cap">\n'
-        '              <span class="vr-video__kicker">Video testimonial</span>\n'
-        '              <strong>Hear it from our clients</strong>\n'
-        '              <span>A client tells their story in their own words.</span>\n'
-        '            </figcaption>\n'
-        '          </figure>\n')
-    split = ('        <div class="vr-split">\n' + m.group(1).replace('<ul class="hs-reviews__list">', '<ul class="hs-reviews__list vr-list">', 1)
-             + video + '        </div>\n')
-    return page[:m.start()] + split + page[m.end():]
+    reviews = m.group(1)
+    if k == 5:
+        team = ('archive-a/assets/team-photo.jpg', 'archive-a/assets/team-photo-900.jpg', 1800, 1199)
+        new = ('        <div class="vr-split">\n'
+               + reviews.replace('<ul class="hs-reviews__list">', '<ul class="hs-reviews__list vr-list">', 1)
+               + video_card(out_dir, 'vr-video--tall', team)
+               + '        </div>\n')
+    elif k == 6:
+        slides = reviews.replace('<ul class="hs-reviews__list">', '<ul class="vr-carousel__list">', 1) \
+                        .replace('<li class="hs-review hs-reveal">', '<li class="hs-review vr-slide" aria-roledescription="slide">')
+        slides = slides.replace('<li class="hs-review vr-slide"', '<li class="hs-review vr-slide is-active"', 1)
+        slides = re.sub(r'(?m)^', '  ', slides)
+        new = ('        <div class="vr-wide">\n'
+               + video_card(out_dir, 'vr-video--wide')
+               + '          <div class="vr-carousel hs-reveal" data-vr-carousel aria-roledescription="carousel" aria-label="Google reviews">\n'
+               + slides
+               + '            <div class="vr-carousel__nav">\n'
+               '              <button class="vr-carousel__prev" type="button" aria-label="Previous review"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></button>\n'
+               '              <span class="vr-carousel__count" aria-live="polite">1 of 3</span>\n'
+               '              <button class="vr-carousel__next" type="button" aria-label="Next review"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></button>\n'
+               '            </div>\n'
+               '          </div>\n'
+               '        </div>\n')
+        page = page.replace('</body>', CAROUSEL_JS + '</body>', 1)
+    else:
+        new = (video_card(out_dir, 'vr-video--full')
+               + reviews.replace('<ul class="hs-reviews__list">', '<ul class="hs-reviews__list vr-below">', 1))
+    return page[:m.start()] + new + page[m.end():]
 
 
 def build_dir(k):
@@ -714,7 +776,7 @@ def main_bar(cur, out_dir, page='home', build=1):
     number. On Homeowners pages the numbers open each build's Homeowners
     page, so the five layouts can be compared side by side."""
     rel_ = lambda target: posixpath.relpath(target, out_dir) + '/'
-    gc_build = cur if isinstance(cur, int) else build  # GC stays inside the build you came from
+    gc_build = cur if cur in BUILDS else build  # GC stays inside the build you came from
     entries = [('AC', 'AC', 'Fig leaf photo gallery', rel_(GALLERY)),
                ('GC', 'GC', 'Get a quote', rel_(f'{build_dir(gc_build)}/crq-form'))]
     sub = PAGE_PATH[page]
@@ -722,7 +784,7 @@ def main_bar(cur, out_dir, page='home', build=1):
         for v, (_, name) in enumerate(HOMEOWNERS_VERSIONS, 1):
             entries.append((v, str(v), f'Homeowners version {v}: {name}', rel_(build_dir(v) + sub)))
     else:
-        for k in BUILDS:
+        for k in BUILDS + (HOME_ONLY if page == 'home' else []):
             entries.append((k, str(k), home_name(k) if page == 'home' else f'Concept 11 with Homeowners version {homeowners_version(k)}', rel_(build_dir(k) + sub)))
     keys = [e[0] for e in entries]
     i = keys.index(cur) if cur in keys else keys.index(homeowners_version(cur))
@@ -885,7 +947,7 @@ IN_BUILD = {  # figleafagency.com path -> the same page under build-N/
 }
 LIVE = re.compile(r'(?:https?:)?//(?:www\.)?figleafagency\.com/(.*)$')
 QUOTE_FORM = 'secure.consumerratequotes.com/'   # the quote form, which the build frames on crq-form/
-STAY_IN = tuple(build_dir(k) for k in BUILDS) + (GALLERY,)
+STAY_IN = tuple(build_dir(k) for k in BUILDS + HOME_ONLY) + (GALLERY,)
 
 
 def keep_links_in(page, out, build):
@@ -1026,21 +1088,25 @@ def build_builds():
     Homeowners version each (build k gets version k, build 5 version 1)."""
     global KEEP_IN
     c11 = next(h for h in HEROES if h[0] == 11)
-    for k in BUILDS:
+    for k in BUILDS + HOME_ONLY:
         out_dir = build_dir(k)
+        links = out_dir if k in BUILDS else build_dir(1)   # 6 and 7 are homepages only
         build_page(*c11, out_dir=out_dir)
         page = read(f'{out_dir}/index.html')
         page = swap_bar(page, main_bar(k, out_dir))
         page = round2_home(page, out_dir)
         page = re.sub(r'<title>Concept 11 ·', f'<title>Build {k} ·', page, count=1)
-        page = about_links(page, out_dir, out_dir)
-        page = keep_links_in(link_service_names(page), out_dir, out_dir)
-        if k == VIDEO_BUILD:
-            page = video_reviews(page, out_dir)
-            page = re.sub(r'<title>Build 5 ·', '<title>Concept 5 ·', page, count=1)
+        page = about_links(page, out_dir, links)
+        page = keep_links_in(link_service_names(page), out_dir, links)
+        if k in HOME_NAMES:
+            page = video_reviews(page, out_dir, k)
+            page = re.sub(rf'<title>Build {k} ·', f'<title>Concept {k} ·', page, count=1)
         page = page.replace('<!-- Built by homepages/build.py: concept 11:',
-                            f'<!-- Built by homepages/build.py: build {k} (concept 11, Homeowners version {homeowners_version(k)}):', 1)
+                            f'<!-- Built by homepages/build.py: build {k} (concept 11, Homeowners version {homeowners_version(k)}):'
+                            if k in BUILDS else f'<!-- Built by homepages/build.py: homepage concept {k} (build 1\'s homepage, links to build 1):', 1)
         write(f'{out_dir}/index.html', page)
+        if k not in BUILDS:
+            continue
         for sub in SUBPAGES:
             src = HOMEOWNERS_VERSIONS[homeowners_version(k) - 1][0] if sub == 'homeowners-insurance' else f'{c11[1]}/{sub}'
             out = f'{out_dir}/{sub}'

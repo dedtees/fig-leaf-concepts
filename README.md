@@ -177,3 +177,11 @@ live in `homepages/service_pages.py`; `service_version()` in `homepages/build.py
 and the draft tag. Auto, Boat and Umbrella copy comes from the agency's content map; Renters, Condo, Life, Health and Pet are the
 build brief's draft copy (marked "Draft copy" in the hero) and need the agency's review. Text in [square brackets] is a placeholder.
 The header and footer links to these pages now open the build's own copies. Edit the data file, then run `python3 homepages/build.py`.
+
+Homepage concepts 5 to 7 try a video testimonial in the Google reviews
+(`video_reviews()` in `homepages/build.py`, styles in
+`homepages/shared/video-reviews.css`). Concept 5 is build 5's homepage
+(portrait video card beside the reviews). Concepts 6 (wide video beside a
+review carousel) and 7 (full-width video above the reviews) are homepages
+only, in `build-6/` and `build-7/`, and link to build 1's pages. The poster
+is a frame from the video; swap in the video when it arrives.
