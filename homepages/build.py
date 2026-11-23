@@ -565,8 +565,8 @@ BIOS = {'chris-oliveira': ('Chris Oliveira', 'Account Executive'),
         'burke': ('Burke', 'The Insurance Guy')}
 # Each build has its own About and bio design (homepages/about/about-v<k>.html,
 # <bio>-v<k>.html; styles about.css plus about-<k>.css)
-ABOUT_CONCEPTS = {1: ('Story and values', 'Photo and details'),
-                  2: ('Then and now', 'Contact card'),
+ABOUT_CONCEPTS = {1: ('Layout A, our story', 'Photo and details'),
+                  2: ('Layout B, how we got here', 'Contact card'),
                   3: ('Editorial', 'Split screen'),
                   4: ('Chapters', 'Q and A'),
                   5: ('By the numbers', 'Fig leaf portrait')}
@@ -595,8 +595,7 @@ def about_links(page, out, build):
         f'              <li><a href="{to("#team")}">Meet the Team</a></li>\n'
         '            </ul>\n'
         '          </li>', 1)
-    page = page.replace('<a class="hs-btn hs-btn--outline" href="' + to("") + '">Learn More About Our Values</a>',
-                        '<a class="hs-btn hs-btn--outline" href="' + to("#values") + '">Learn More About Our Values</a>')
+    # (the homepage's values button keeps pointing at the About page: Our Values is gone)
     return page
 
 
@@ -611,7 +610,7 @@ def build_about(k):
     body = body[:body.index('<nav class="review-bar"')] + '<!--REVIEW-BAR-->' + body[body.index('</nav>', body.index('<nav class="review-bar"')) + len('</nav>'):]
     tail = re.sub(r'\s*<script src="[^"]*hero-x\.js"></script>', '', tail)
     pages = [('about', 'about', 'About Us | The Fig Leaf Agency',
-              'The Fig Leaf Agency is an independent insurance agency in Hazlet, NJ. Our story, our values and the team behind your policy.',
+              'The Fig Leaf Agency is an independent insurance agency in Hazlet, NJ. Our story and the team behind your policy.',
               'https://figleafagency.com/about/')]
     pages += [(slug, f'about/{slug}', f'{name}, {role} | The Fig Leaf Agency',
                f'Meet {name} of The Fig Leaf Agency in Hazlet, NJ.', f'https://figleafagency.com/about/{slug}/')
@@ -623,6 +622,8 @@ def build_about(k):
                   'homepages/shared/concept-11.css', 'homepages/shared/about.css']
         if k != 1:
             sheets.append(f'homepages/shared/about-{k}.css')
+        if key == 'about' and k in (1, 2):   # layouts A and B use concept 5's hero and story path
+            sheets.append('homepages/shared/about-5.css')
         css = ''.join(f'\n  <link rel="stylesheet" href="{up(c)}">' for c in sheets)
         head = ('<!DOCTYPE html>\n<!-- Built by homepages/build.py: build ' + str(k) + "'s " + sub +
                 f' page, from homepages/about/{key}-v{k}.html in concept 11\'s header and footer. '
