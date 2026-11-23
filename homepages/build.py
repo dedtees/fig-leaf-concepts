@@ -575,14 +575,8 @@ def version_layouts(hero, overview, covered, quote, band_title):
     talk_only = re.sub(r'\s*<!-- The quote form is.*?-->', '', talk_only, count=1, flags=re.S)
     dark = hero.replace('fl-grid fl-grid--light', 'fl-grid', 1)
     band = lambda id_, href: QUOTE_BAND.format(id=id_, href=href, title=band_title)
-    # version 1 (white hero) closes on build 1's dark green band from main:
-    # the quote section full width in dark green with the faint grid
-    tag = '<section class="pg-close" id="quote" aria-labelledby="pg-close-title">'
-    assert tag in quote
-    green_quote = quote.replace(tag, '<section class="fl-grid-host pg-close" id="quote" aria-labelledby="pg-close-title">\n'
-                                '      <div class="fl-grid" aria-hidden="true"><span class="fl-grid__lines" data-hs-px="0.15"></span></div>', 1)
     return [
-        ('pg--stack', hero, [overview, covered, green_quote]),
+        ('pg--stack', hero, [overview, covered, quote]),
         ('pg--stack pg--fade', dark, [overview, covered, quote]),
         ('pg--stack pg--fade', dark, [overview, covered, band('quote', '../crq-form/'), talk_only]),
         ('pg--stack pg--fade', dark, [overview, band('quote-band', '#quote'), covered, quote]),

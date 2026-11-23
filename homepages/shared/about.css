@@ -159,6 +159,18 @@
 .ab-person__link:hover .ab-person__photo img { transform: scale(1.04); }
 .ab-person__body { display: grid; gap: 4px; padding: 22px 24px 24px; border-top: 3px solid var(--ab-gold); }
 .ab-person__role { font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ab-green); }
+/* every title takes two lines of room and sits on its bottom line, so the
+   names line up across a row whether the title wraps or not */
+.ab-person__role { display: flex; flex-direction: column; justify-content: flex-end; min-height: 3em; line-height: 1.5; }
+/* where the browser can, the cards in a row share their row heights
+   (subgrid), so a title that wraps to three lines on a narrow card still
+   keeps every name in the row on one line */
+@supports (grid-template-rows: subgrid) {
+  .ab-team__grid > .ab-person { display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 0; }
+  .ab-team__grid .ab-person__link { display: grid; grid-row: 1 / -1; grid-template-rows: subgrid; row-gap: 0; height: auto; }
+  .ab-team__grid .ab-person__body { grid-row: 2 / -1; grid-template-rows: subgrid; }
+  .ab-team__grid .ab-person__role { min-height: 0; }
+}
 .ab-person__name { font-family: var(--ab-serif); font-weight: 600; font-size: 1.45rem; line-height: 1.2; color: var(--ab-black); }
 .ab-person__more { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; font-weight: 700; color: var(--ab-green); }
 .ab-person__more .icon { transition: transform .2s ease; }
@@ -294,4 +306,5 @@
   .ab-person__body { padding: 14px 14px 16px; }
   .ab-person__name { font-size: 1.1rem; }
   .ab-person__role { font-size: .66rem; letter-spacing: .08em; }
+  .ab-person__more { align-self: start; line-height: 1.3; font-size: .92rem; }
 }
