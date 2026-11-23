@@ -557,11 +557,12 @@ def main_bar(cur, out_dir, page='home', build=1):
 
 
 # Pages each build has, as paths under build-N/ (for the bar's numbers)
-# team bio pages under about/: slug -> (name, title). Burke has no bio sheet
-# yet, so his About card has no link and he has no page.
+# team bio pages under about/: slug -> (name, title). Burke has no bio sheet,
+# so his title is his own nickname from his bio.
 BIOS = {'chris-oliveira': ('Chris Oliveira', 'Account Executive'),
         'danielle-mohr': ('Danielle Mohr', 'Business Development Manager'),
-        'jarihana-abreu': ('Jarihana Abreu', 'Licensed Insurance Agent')}
+        'jarihana-abreu': ('Jarihana Abreu', 'Licensed Insurance Agent'),
+        'burke': ('Burke', 'The Insurance Guy')}
 # Each build has its own About and bio design (homepages/about/about-v<k>.html,
 # <bio>-v<k>.html; styles about.css plus about-<k>.css)
 ABOUT_CONCEPTS = {1: ('Story and values', 'Photo and details'),
