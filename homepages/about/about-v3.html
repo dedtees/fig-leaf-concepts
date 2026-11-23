@@ -1,7 +1,7 @@
   <!-- About, concept 3: "Editorial". A light page set like a magazine
        feature: a big headline on white, the story as a long read with a drop
        cap, the painting set into the text and the team photo across the
-       page, values as four icon tiles and the team as a list.
+       page, and the team as a list.
        Paths are from the repo root; {B} is the build folder. Styles: about-3.css -->
   <main id="main" class="hs hs--v1 ab ab--v3">
 
@@ -17,7 +17,7 @@
       </div>
     </header>
 
-    <article class="a3-read" aria-labelledby="a3-story-title">
+    <article class="a3-read" id="story" aria-labelledby="a3-story-title">
       <div class="hs-wrap a3-read__grid">
         <aside class="a3-read__meta hs-reveal" aria-label="At a glance">
           <dl>
@@ -44,29 +44,39 @@
       </figure>
     </article>
 
-    <section class="a3-values" id="values" aria-labelledby="a3-values-title">
-      <div class="hs-wrap">
-        <h2 class="a3-section-title hs-reveal" id="a3-values-title"><span>What we stand for</span></h2>
-        <ul class="a3-values__grid">
-          <li class="hs-reveal"><span class="a3-tile"><svg class="icon" aria-hidden="true"><use href="#i-handshake"></use></svg></span><h3>Your word is your bond</h3><p>When we tell you something about your policy, you can count on it.</p></li>
-          <li class="hs-reveal"><span class="a3-tile"><svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg></span><h3>Coverage you understand</h3><p>We walk you through what you're buying and how it protects you.</p></li>
-          <li class="hs-reveal"><span class="a3-tile"><svg class="icon" aria-hidden="true"><use href="#i-tag"></use></svg></span><h3>The best coverage and price</h3><p>We compare carriers so you get the right protection without overpaying.</p></li>
-          <li class="hs-reveal"><span class="a3-tile"><svg class="icon" aria-hidden="true"><use href="#i-bolt"></use></svg></span><h3>Service and hustle</h3><p>Customer service and hustle we believe you'll find unparalleled in our field.</p></li>
-        </ul>
-      </div>
-    </section>
 
     <section class="a3-team" id="team" aria-labelledby="a3-team-title">
       <div class="hs-wrap">
         <h2 class="a3-section-title hs-reveal" id="a3-team-title"><span>Meet our team</span></h2>
         <ul class="a3-team__list">
           <li class="hs-reveal">
-            <a class="a3-row" href="{B}/about/chris-oliveira/">
-              <img src="homepages/shared/assets/team/chris-oliveira-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async">
-              <span class="a3-row__name">Chris Oliveira</span>
-              <span class="a3-row__role">Account Executive</span>
+            <div class="a3-row is-soon">
+              <img src="homepages/shared/assets/team/placeholder.svg" alt="" width="600" height="900" loading="lazy" decoding="async">
+              <span class="a3-row__name">Bryan Tomko</span>
+              <span class="a3-row__role">Bio coming soon</span>
+            </div>
+          </li>
+          <li class="hs-reveal">
+            <div class="a3-row is-soon">
+              <img src="homepages/shared/assets/team/magdalena-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async">
+              <span class="a3-row__name">Magdalena Tomko</span>
+              <span class="a3-row__role">Bio coming soon</span>
+            </div>
+          </li>
+          <li class="hs-reveal">
+            <a class="a3-row" href="{B}/about/burke/">
+              <img src="homepages/shared/assets/team/burke-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async">
+              <span class="a3-row__name">Burke</span>
+              <span class="a3-row__role">The Insurance Guy</span>
               <span class="a3-row__go">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
             </a>
+          </li>
+          <li class="hs-reveal">
+            <div class="a3-row is-soon">
+              <img src="homepages/shared/assets/team/placeholder.svg" alt="" width="600" height="900" loading="lazy" decoding="async">
+              <span class="a3-row__name">Les</span>
+              <span class="a3-row__role">Bio coming soon</span>
+            </div>
           </li>
           <li class="hs-reveal">
             <a class="a3-row" href="{B}/about/danielle-mohr/">
@@ -77,19 +87,27 @@
             </a>
           </li>
           <li class="hs-reveal">
+            <div class="a3-row is-soon">
+              <img src="homepages/shared/assets/team/placeholder.svg" alt="" width="600" height="900" loading="lazy" decoding="async">
+              <span class="a3-row__name">Russ</span>
+              <span class="a3-row__role">Bio coming soon</span>
+            </div>
+          </li>
+          <li class="hs-reveal">
+            <a class="a3-row" href="{B}/about/chris-oliveira/">
+              <img src="homepages/shared/assets/team/chris-oliveira-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async">
+              <span class="a3-row__name">Chris Oliveira</span>
+              <span class="a3-row__role">Account Executive</span>
+              <span class="a3-row__go">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+            </a>
+          </li>
+          <li class="hs-reveal">
             <a class="a3-row" href="{B}/about/jarihana-abreu/">
               <img src="homepages/shared/assets/team/jarihana-abreu-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async">
               <span class="a3-row__name">Jarihana Abreu</span>
               <span class="a3-row__role">Licensed Insurance Agent</span>
               <span class="a3-row__go">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
             </a>
-          </li>
-          <li class="hs-reveal">
-            <div class="a3-row is-soon">
-              <img src="homepages/shared/assets/team/burke-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async">
-              <span class="a3-row__name">Burke</span>
-              <span class="a3-row__role">Bio coming soon</span>
-            </div>
           </li>
         </ul>
       </div>

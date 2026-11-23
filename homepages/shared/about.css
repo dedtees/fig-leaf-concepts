@@ -258,7 +258,7 @@
   .ab .ab-story .hs-about__media { margin: 0 16px 16px 0; }
 }
 @media (max-width: 560px) {
-  .ab-values__grid, .ab-team__grid { grid-template-columns: minmax(0, 1fr); }
+  .ab-values__grid { grid-template-columns: minmax(0, 1fr); }
   .ab-person--soon { min-height: 160px; }
   .ab-head__actions .hs-btn, .ab-cta__actions .hs-btn { width: 100%; }
   .ab-cta__actions { align-items: stretch; }
@@ -283,3 +283,15 @@
 
 /* a team member without a bio page yet: the card is not a link */
 .ab .is-soon { cursor: default; }
+
+/* About layouts A and B (builds 1 and 2): concept 5's split hero with a
+   smaller title, so the photo shows the whole team */
+.ab:not(.ab--v5) .a5-head { min-height: 480px; }
+.ab:not(.ab--v5) .a5-head .ab-head__title { font-size: clamp(1.9rem, 1.4rem + 1.5vw, 2.6rem); line-height: 1.2; }
+/* phones: the team stays two across, so eight people stay a short scroll */
+@media (max-width: 760px) {
+  .ab-team__grid { gap: 14px; }
+  .ab-person__body { padding: 14px 14px 16px; }
+  .ab-person__name { font-size: 1.1rem; }
+  .ab-person__role { font-size: .66rem; letter-spacing: .08em; }
+}

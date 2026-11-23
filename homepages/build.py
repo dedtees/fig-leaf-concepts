@@ -647,15 +647,16 @@ def main_bar(cur, out_dir, page='home', build=1):
 
 
 # Pages each build has, as paths under build-N/ (for the bar's numbers)
-# team bio pages under about/: slug -> (name, title). Burke has no bio sheet
-# yet, so his About card has no link and he has no page.
+# team bio pages under about/: slug -> (name, title). Burke has no bio sheet,
+# so his title is his own nickname from his bio.
 BIOS = {'chris-oliveira': ('Chris Oliveira', 'Account Executive'),
         'danielle-mohr': ('Danielle Mohr', 'Business Development Manager'),
-        'jarihana-abreu': ('Jarihana Abreu', 'Licensed Insurance Agent')}
+        'jarihana-abreu': ('Jarihana Abreu', 'Licensed Insurance Agent'),
+        'burke': ('Burke', 'The Insurance Guy')}
 # Each build has its own About and bio design (homepages/about/about-v<k>.html,
 # <bio>-v<k>.html; styles about.css plus about-<k>.css)
-ABOUT_CONCEPTS = {1: ('Story and values', 'Photo and details'),
-                  2: ('Then and now', 'Contact card'),
+ABOUT_CONCEPTS = {1: ('Layout A, our story', 'Photo and details'),
+                  2: ('Layout B, how we got here', 'Contact card'),
                   3: ('Editorial', 'Split screen'),
                   4: ('Chapters', 'Q and A'),
                   5: ('By the numbers', 'Fig leaf portrait')}
@@ -684,8 +685,7 @@ def about_links(page, out, build):
         f'              <li><a href="{to("#team")}">Meet the Team</a></li>\n'
         '            </ul>\n'
         '          </li>', 1)
-    page = page.replace('<a class="hs-btn hs-btn--outline" href="' + to("") + '">Learn More About Our Values</a>',
-                        '<a class="hs-btn hs-btn--outline" href="' + to("#values") + '">Learn More About Our Values</a>')
+    # (the homepage's values button keeps pointing at the About page: Our Values is gone)
     return page
 
 
@@ -700,7 +700,7 @@ def build_about(k):
     body = body[:body.index('<nav class="review-bar"')] + '<!--REVIEW-BAR-->' + body[body.index('</nav>', body.index('<nav class="review-bar"')) + len('</nav>'):]
     tail = re.sub(r'\s*<script src="[^"]*hero-x\.js"></script>', '', tail)
     pages = [('about', 'about', 'About Us | The Fig Leaf Agency',
-              'The Fig Leaf Agency is an independent insurance agency in Hazlet, NJ. Our story, our values and the team behind your policy.',
+              'The Fig Leaf Agency is an independent insurance agency in Hazlet, NJ. Our story and the team behind your policy.',
               'https://figleafagency.com/about/')]
     pages += [(slug, f'about/{slug}', f'{name}, {role} | The Fig Leaf Agency',
                f'Meet {name} of The Fig Leaf Agency in Hazlet, NJ.', f'https://figleafagency.com/about/{slug}/')
@@ -712,6 +712,8 @@ def build_about(k):
                   'homepages/shared/concept-11.css', 'homepages/shared/about.css']
         if k != 1:
             sheets.append(f'homepages/shared/about-{k}.css')
+        if key == 'about' and k in (1, 2):   # layouts A and B use concept 5's hero and story path
+            sheets.append('homepages/shared/about-5.css')
         css = ''.join(f'\n  <link rel="stylesheet" href="{up(c)}">' for c in sheets)
         head = ('<!DOCTYPE html>\n<!-- Built by homepages/build.py: build ' + str(k) + "'s " + sub +
                 f' page, from homepages/about/{key}-v{k}.html in concept 11\'s header and footer. '
@@ -936,8 +938,9 @@ def build_builds():
                 if sub == 'crq':
                     bar = bar.replace('review-bar__name">Get a quote<', 'review-bar__name">Get a quote · quote request page<', 1)
             page = page.replace('<!--REVIEW-BAR-->', bar)
-            if sub == 'homeowners-insurance':
-                page = round2_homeowners(k, page, out)
+            # round2_homeowners() (client review round 2, 19 Nov) is not run:
+            # the four Homeowners versions from Eric's mockups (23 Nov) replace
+            # the Homeowners layouts it changed on builds 1 and 3.
             page = about_links(page, out, out_dir)
             page = keep_links_in(page, out, out_dir)
             page = page.replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- Built by homepages/build.py: '
