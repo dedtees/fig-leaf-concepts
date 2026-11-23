@@ -542,15 +542,6 @@ QUOTE_BAND = '''
       </div>
     </section>
 '''
-# the Fig Leaf outline used on the other pages (the leaf-outline symbol in
-# archive B's homepage, the same art as fig-leaf-outline.svg): a filled
-# brush-stroke outline, not a thin stroke round the logo's leaf
-LEAF_PATHS = re.findall(r'<path d="([^"]+)"', re.search(r'<symbol id="leaf-outline".*?</symbol>',
-                        read('archive-b/index.html'), re.S).group(0))
-LEAF_OUTLINE = ('<svg class="pg-head__leaf" viewBox="0 0 520.06 567.04" aria-hidden="true" focusable="false">'
-                + ''.join(f'<path d="{d}"/>' for d in LEAF_PATHS) + '</svg>')
-
-
 def homeowners_pieces():
     """The scrolling Homeowners page cut into its parts: the page, where its
     <main> starts and ends, and the title band (hero), #quote (the form with
@@ -569,7 +560,6 @@ def homeowners_pieces():
     quote = main[main.index('<section class="pg-close"', q0):o0].rstrip() + '\n'
     overview = main[o0:c0].rstrip() + '\n'
     covered = main[c0:].rstrip() + '\n'
-    hero = hero.replace('<div class="pg-wrap pg-head__grid">', LEAF_OUTLINE + '\n      <div class="pg-wrap pg-head__grid">', 1)
     return src, page, main_start, main_end, hero, overview, covered, quote
 
 
@@ -621,7 +611,7 @@ def service_version(n, s):
     _, page, main_start, main_end, hero, overview, covered, quote = homeowners_pieces()
     up = lambda path: posixpath.relpath(path, src_dir)
     live = lambda slug: f'https://figleafagency.com/{slug}/'
-    hero = SP.hero(s, up, LEAF_OUTLINE)
+    hero = SP.hero(s, up)
     article = 'an' if s['short'][0] in 'aeiou' else 'a'
     layouts = version_layouts(hero, SP.overview(s), SP.covered(s, up, live), SP.quote(s, quote, up),
                               f'Get {article} {s["short"]} quote')

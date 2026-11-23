@@ -170,7 +170,7 @@ Concept 8's card deck (hero D) has a fourth card, Business, with the headline wo
 Concept 2 alone adds a Business insurance card under "More Ways We Protect You" (three cards across), from `EXTRAS` in `homepages/build.py`. Its photo, `homepages/shared/assets/business-insurance.jpg`, is from Unsplash, [GFrBMipOd_E](https://unsplash.com/photos/two-women-near-tables-GFrBMipOd_E), under the Unsplash License.
 
 **Personal insurance pages (builds 1 to 5).** Each build has Auto, Boat, Personal Umbrella, Renters, Condo, Life, Health and Pet
-pages (`build-N/auto-insurance/` and so on), laid out like that build's Homeowners version: the same hero with the Fig Leaf outline,
+pages (`build-N/auto-insurance/` and so on), laid out like that build's Homeowners version: the same hero,
 overview band, "generally covers" grid, quote form or band, and "Rather talk it through?" card. The copy and photos for every page
 live in `homepages/service_pages.py`; `service_version()` in `homepages/build.py` swaps them into the Homeowners layout, and
 `homepages/shared/service-pages.css` adds grids for other numbers of cards, the related coverage links, a "photo to come" placeholder

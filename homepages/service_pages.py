@@ -265,7 +265,7 @@ def icon(i):
     return f'<svg class="icon" aria-hidden="true"><use href="#{i}"></use></svg>'
 
 
-def hero(s, up, leaf):
+def hero(s, up):
     """The title band, in the markup of the Homeowners hero."""
     src, alt = s['photo']
     if src:
@@ -278,7 +278,6 @@ def hero(s, up, leaf):
     <header class="fl-grid-host pg-head">
       <div class="fl-grid fl-grid--light" aria-hidden="true"><span class="fl-grid__lines" data-hs-px="0.15"></span></div>
       <div class="hs-px" aria-hidden="true"><span class="hs-px__layer hs-px__blob hs-px__blob--a" data-hs-px="0.2"></span></div>
-      {leaf}
       <div class="pg-wrap pg-head__grid">
         <div>{draft}
           <h1 class="pg-head__title" id="pg-title">{a} <span>{b}</span></h1>
