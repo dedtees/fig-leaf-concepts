@@ -801,6 +801,8 @@ def testimonials_page(page, out_dir):
     For now the page header, the video and the Google reviews from the
     homepage; more client videos and reviews are to come (Eric, 24 Nov)."""
     out = f'{out_dir}/about/testimonials'
+    if 'data-vr-video' not in page:   # builds 1 to 4: concept 5's video and reviews
+        page = video_reviews(page, out_dir)
     page = rebase(page, out_dir, out)
     a, b = page.index('<main id="main">'), page.index('</main>') + len('</main>')
     main = page[a:b]
@@ -825,9 +827,9 @@ def testimonials_page(page, out_dir):
     page = page.replace(vr, vr + '\n  <link rel="stylesheet" href="' + posixpath.relpath('homepages/shared/testimonials.css', out) + '">', 1)
     # no hero on this page: drop the hero scripts
     page = re.sub(r'\s*<script src="[^"]*/(?:hero-x|concept-11)\.js"></script>', '', page)
-    page = re.sub(r'<title>[^<]*</title>', '<title>Concept 5 · Testimonials | The Fig Leaf Agency</title>', page, count=1)
+    page = re.sub(r'<title>[^<]*</title>', '<title>' + re.search(r'<title>([^·<]*)·', page).group(1) + '· Testimonials | The Fig Leaf Agency</title>', page, count=1)
     page = re.sub(r'(<!-- Built by homepages/build.py)[^>]*-->',
-                  r'\1 (testimonials_page): from the build 5 homepage\'s reviews. Edit the script, then re-run it. -->', page, count=1)
+                  r"\1 (testimonials_page): the video and reviews from the build's homepage. Edit the script, then re-run it. -->", page, count=1)
     page = mark_current(page)
     write(f'{out}/index.html', page)
 
@@ -932,7 +934,7 @@ def about_links(page, out, build):
         '            </ul>\n'
         '          </li>', 1)
     # (the homepage's values button keeps pointing at the About page: Our Values is gone)
-    if build == build_dir(VIDEO_BUILD) and '>Testimonials</a>' not in page:   # its Testimonials page sits under About
+    if build in [build_dir(b) for b in BUILDS] and '>Testimonials</a>' not in page:   # the Testimonials page sits under About
         page = page.replace(f'<li><a href="{to("#team")}">Meet the Team</a></li>',
                             f'<li><a href="{to("#team")}">Meet the Team</a></li>\n'
                             f'              <li><a href="{to("testimonials/")}">Testimonials</a></li>', 1)
@@ -1037,7 +1039,7 @@ def keep_links_in(page, out, build):
         elif not re.match(r'(?:https?:)?//', href):
             path = href.split('#')[0].split('?')[0]
             t = posixpath.normpath(posixpath.join(out, path)) if path else out
-            if t == f'{build_dir(VIDEO_BUILD)}/about/testimonials':
+            if t in [f'{build_dir(b)}/about/testimonials' for b in BUILDS]:
                 return tag   # made later in the run (testimonials_page)
             if t.split('/')[0] in STAY_IN and os.path.exists(os.path.join(REPO, t, 'index.html') if not t.endswith('.html') else os.path.join(REPO, t)):
                 return tag   # already inside the build
@@ -1179,7 +1181,7 @@ def build_builds():
                             f'<!-- Built by homepages/build.py: build {k} (concept 11, Homeowners version {homeowners_version(k)}):'
                             if k in BUILDS else f'<!-- Built by homepages/build.py: homepage concept {k} (build 1\'s homepage, links to build 1):', 1)
         write(f'{out_dir}/index.html', page)
-        if k in HOME_NAMES:
+        if k in BUILDS:
             testimonials_page(page, out_dir)
         if k not in BUILDS:
             continue
