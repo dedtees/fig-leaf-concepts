@@ -57,6 +57,7 @@
       'html, html * { --font-heading: ' + font.family + ' !important; ' +
       '--hs-heading: ' + font.family + ' !important; ' +
       '--ab-serif: ' + font.family + ' !important; }';
+    paintPrefer();
     if (btn) {
       btn.setAttribute('title', 'Heading font: ' + font.name);
       var items = menu.querySelectorAll('[data-font]');
@@ -66,7 +67,36 @@
     }
   }
 
-  var btn = null, menu = null;
+  var btn = null, menu = null, prefer = null;
+
+  // "I prefer this one": goes into the review (review.js) as a pick, one font
+  // at a time, so the client's choice reaches the review sheet.
+  function prefKey(id) { return '/heading-font/#' + id; }
+  function preferred() {
+    if (!window.flReview) return null;
+    for (var i = 0; i < FONTS.length; i++) if (window.flReview.get(prefKey(FONTS[i].id))) return FONTS[i];
+    return null;
+  }
+  function paintPrefer() {
+    if (!prefer) return;
+    prefer.hidden = !window.flReview;
+    var mine = preferred();
+    var on = mine && mine.id === current.id;
+    prefer.setAttribute('aria-pressed', on ? 'true' : 'false');
+    prefer.textContent = on ? '\u2713 Your pick: ' + current.name : '\u2713 I prefer ' + current.name;
+    var items = menu.querySelectorAll('[data-font]');
+    for (var i = 0; i < items.length; i++) items[i].classList.toggle('is-pick', !!mine && items[i].getAttribute('data-font') === mine.id);
+  }
+  function togglePrefer() {
+    if (!window.flReview) return;
+    var mine = preferred();
+    FONTS.forEach(function (f) { if (window.flReview.get(prefKey(f.id))) window.flReview.set(prefKey(f.id), null); });
+    if (!mine || mine.id !== current.id) {
+      window.flReview.set(prefKey(current.id), { concept: 'Heading font', page: 'Heading font', section: current.name,
+        verdict: 'like', order: FONTS.indexOf(current), url: location.origin + '/build-5/?font=' + current.id });
+    }
+    paintPrefer();
+  }
   function build() {
     var css = document.createElement('style');
     css.textContent =
@@ -82,7 +112,12 @@
       '.flhf__item:hover{background:rgba(255,255,255,.08)}' +
       '.flhf__item[aria-checked="true"]::before{content:"";position:absolute;left:10px;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:#e8c27e}' +
       '.flhf__name{display:block;font-size:22px;line-height:1.2;font-weight:600}' +
-      '.flhf__note{display:block;font-size:12px;color:rgba(255,255,255,.6)}';
+      '.flhf__note{display:block;font-size:12px;color:rgba(255,255,255,.6)}' +
+      '.flhf__item.is-pick .flhf__note::after{content:" \u00b7 your pick";color:#e8c27e}' +
+      '.flhf__prefer{display:block;width:100%;margin-top:6px;padding:9px 10px;border-radius:8px;border:1px solid #e8c27e;background:none;color:#e8c27e;font:600 14px/1.2 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;cursor:pointer}' +
+      '.flhf__prefer[aria-pressed="true"]{background:#e8c27e;color:#070d0f}' +
+      '.flhf__prefer[hidden]{display:none}' +
+      '.flhf__prefer:focus-visible{outline:2px solid #e8c27e;outline-offset:2px}';
     document.head.appendChild(css);
 
     var wrap = document.createElement('div');
@@ -103,7 +138,10 @@
         '<span class="flhf__name" style="font-family:' + f.family.replace(/"/g, '&quot;') + '">' + f.name + '</span>' +
         '<span class="flhf__note">' + f.note + '</span></button>';
     });
+    html += '<button type="button" class="flhf__prefer" aria-pressed="false"></button>';
     menu.innerHTML = html;
+    prefer = menu.querySelector('.flhf__prefer');
+    prefer.addEventListener('click', function (e) { e.stopPropagation(); togglePrefer(); });
     wrap.appendChild(menu);
     wrap.appendChild(btn);
     document.body.appendChild(wrap);

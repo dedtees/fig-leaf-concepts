@@ -6,6 +6,17 @@ corner. The header's tick sits under its bottom-left edge. A **Your review**
 button in the bottom-right corner lists all the picks across every concept, with
 **Send my feedback**, **Copy** and **Download** (a CSV for Excel or Sheets).
 
+- **Builds 1 to 5** (the latest round): every section of the homepage, About,
+  Testimonials, every bio, all nine insurance pages and both quote pages. The
+  quote pages count under their build (they used to show as "Get a quote").
+  Some parts get their own tick inside their section: the **video
+  testimonial**, and the bios' **can help you** and **Off the clock** cards.
+  Any element can opt in with `data-review="Label"`.
+- **Stock photo picks** (`review/stock-picks/`): a tick on every photo option,
+  so the client can ✓ the one they want for each slot.
+- **Heading font**: the **Aa** button's menu has **I prefer …** under the
+  fonts. Choosing it records that font (one at a time) as a pick, which shows
+  in the sheet under "Heading font".
 - Picks are saved in the reviewer's browser as they go, so they survive reloads
   and moving between concepts. They are per browser: a reviewer should use one
   browser for the whole review.
@@ -45,6 +56,13 @@ Installing it (once):
    app is unverified because it's your own script: Advanced → Go to project).
 3. Copy the **Web app URL** (ends in `/exec`) into `ENDPOINT` at the top of
    `review/review.js` and push.
+
+**Updating the script** (after a change to `review/google-apps-script.gs`):
+open the Apps Script project, paste the new file over the old one, save, then
+**Deploy → Manage deployments → ✎ Edit → Version: New version → Deploy**. The
+web app URL stays the same, so `review/review.js` doesn't change. The script
+from 24 Nov 2026 sorts the builds and the nine insurance pages in menu order
+and puts Heading font and Stock photos last; picks still arrive without it.
 
 Optional: in the Apps Script editor, run `addSampleData` once to see the layout
 with three sample picks, then delete those rows from All picks and choose
