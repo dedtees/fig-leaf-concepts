@@ -16,6 +16,7 @@ import os
 import posixpath
 import re
 
+import headings
 import service_pages as SP
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -103,6 +104,7 @@ def read(path):
 
 
 def write(path, text):
+    text = headings.rewrite(path, text)  # each build page's own headings
     full = os.path.join(REPO, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
     with open(full, 'w', encoding='utf-8') as f:
@@ -815,7 +817,7 @@ def testimonials_page(page, out_dir):
            '    <section class="hs-section tm-head" aria-labelledby="tm-title">\n'
            '      <div class="hs-wrap">\n'
            '        <p class="tm-head__eyebrow">Testimonials</p>\n'
-           '        <h1 class="tm-head__title" id="tm-title">What our clients say</h1>\n'
+           '        <h1 class="tm-head__title" id="tm-title">In our clients&rsquo; own words</h1>\n'
            '        <p class="tm-head__text">Hear it from the people we protect. More client videos are on the way.</p>\n'
            '      </div>\n'
            '    </section>\n\n'
