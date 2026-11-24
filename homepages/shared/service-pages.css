@@ -54,7 +54,11 @@
 .pg--service .pg-bento--n2 { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
 .pg--service .pg-bento--n3 { grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)); }
 .pg--service .pg-bento--n2 .pg-cover:nth-child(1),
-.pg--service .pg-bento--n3 .pg-cover:nth-child(1) { grid-column: auto; grid-row: auto; min-height: 320px; }
+.pg--service .pg-bento--n3 .pg-cover:nth-child(1) { grid-column: auto; grid-row: auto; min-height: 460px; }
+/* with a photo in a one-row grid, the photo takes the top half so the
+   icon and text below it have room */
+.pg--service .pg-bento--n2 .pg-cover:nth-child(1) .pg-cover__photo,
+.pg--service .pg-bento--n3 .pg-cover:nth-child(1) .pg-cover__photo { height: 48%; }
 .pg--service .pg-bento--n4 .pg-cover:nth-child(4) { grid-column: span 2; }
 /* the highlighted (gold) card is the last one, not always the fifth */
 .pg--service .pg-bento .pg-cover:nth-child(5):not(:last-child) { background: #fff; }
