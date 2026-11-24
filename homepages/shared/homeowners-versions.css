@@ -89,3 +89,19 @@
   .pg-head__leaf { width: 220px; right: -60px; top: auto; bottom: 30%; }
   .pg--v2 .pg-band__actions { flex-basis: 100%; }
 }
+
+/* hero photo, right of the title: the "snapshot" frame (white border, a
+   slight tilt and a flat gold block behind) instead of the arched top */
+.pg--v2 .pg-head__photo,
+.pg--v2.pg--fade .pg-head__photo {
+  border-radius: 6px;
+  border: 10px solid #fff;
+  transform: rotate(-3deg);
+  box-shadow: 14px 14px 0 var(--c2-gold);
+}
+/* on the white hero, a hairline so the white border reads */
+.pg--v2:not(.pg--fade) .pg-head__photo { box-shadow: 0 0 0 1px rgba(0, 0, 0, .08), 14px 14px 0 var(--c2-gold); }
+@media (max-width: 960px) {
+  .pg--v2.pg--fade .pg-head__photo { box-shadow: 10px 10px 0 var(--c2-gold); }
+  .pg--v2:not(.pg--fade) .pg-head__photo { box-shadow: 0 0 0 1px rgba(0, 0, 0, .08), 10px 10px 0 var(--c2-gold); }
+}
