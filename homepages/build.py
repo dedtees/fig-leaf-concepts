@@ -1318,6 +1318,56 @@ def personal_nav():
             write(path, page)
 
 
+# Floating Get a Quote and back-to-top buttons (client feedback, 24 Nov; the
+# Get a Quote one is Burke's idea) on every page of builds 1 to 5. Styles in
+# homepages/shared/float-actions.css, behaviour in float-actions.js. Get a
+# Quote goes where the page's own header button goes: the quote form page
+# (crq-form/) from the homepage and About pages, and the quote section further
+# down (#quote) on the insurance pages, which is the Consumer Rate Quotes form
+# on Auto, Homeowners, Renters and Condo and the contact form on Boat,
+# Umbrella, Life, Health and Pet. The quote pages themselves get the arrow
+# only. The look follows the headings options (headings.OPTION): A on builds
+# 1 and 4, B on 2 and 5, C on 3.
+FLOAT_LOOK = 'abc'
+UP_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg>'
+QUOTE_ICON = ('<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3.5h8M7 3.5h10a1.5 1.5 0 0 1 1.5 1.5v14.5A1.5 1.5 0 0 1 17 21H7a1.5 1.5 0 0 1-1.5-1.5V5A1.5 1.5 0 0 1 7 3.5z"/>'
+              '<path d="M9 9h6M9 13h6M9 17h3"/></svg>')
+
+
+def float_actions():
+    for k in BUILDS:
+        root = build_dir(k)
+        look = FLOAT_LOOK[headings.OPTION[str(k)]]
+        for dirpath, _, files in sorted(os.walk(os.path.join(REPO, root))):
+            if 'index.html' not in files:
+                continue
+            out = os.path.relpath(dirpath, REPO)
+            path = f'{out}/index.html'
+            page = read(path)
+            page = re.sub(r'\n  <!-- Floating Get a Quote.*?<script src="[^"]*float-actions\.js" defer></script>', '', page, flags=re.S)
+            page = re.sub(r'\n  <link rel="stylesheet" href="[^"]*float-actions\.css">', '', page)
+            cta = re.search(r'<a class="site-header__cta" href="([^"]*)"', page)
+            assert cta, path
+            href = cta.group(1)
+            only_top = os.path.basename(out) in ('crq', 'crq-form')
+            shared = posixpath.relpath('homepages/shared', out)
+            if only_top:
+                inner = (f'    <button type="button" class="fla__top" aria-label="Back to top">{UP_ICON}</button>\n')
+                box = f'  <div class="fla fla--{look} fla--only-top">\n{inner}  </div>\n'
+            else:
+                inner = (f'    <a class="fla__quote" href="{href}">{QUOTE_ICON}Get a Quote</a>\n'
+                         f'    <button type="button" class="fla__top" aria-label="Back to top">{UP_ICON}</button>\n')
+                box = (f'  <div class="fla fla--{look}" role="complementary" aria-label="Quick actions" '
+                       f'data-review="Floating Get a Quote and back-to-top buttons">\n{inner}  </div>\n')
+            block = ('\n  <!-- Floating Get a Quote and back-to-top buttons (homepages/build.py float_actions) -->\n'
+                     + box + f'  <script src="{shared}/float-actions.js" defer></script>')
+            page, n = re.subn(r'\n(?=\s*</body>)', lambda m: block + '\n', page, count=1)
+            assert n == 1, path
+            last = list(re.finditer(r'<link rel="stylesheet"[^>]*>', page))[-1]
+            page = page[:last.end()] + f'\n  <link rel="stylesheet" href="{shared}/float-actions.css">' + page[last.end():]
+            write(path, page)
+
+
 def main():
     build_hero_css()
     build_subpages(1, 'concept-1')  # concept 1's Homeowners page only
@@ -1330,6 +1380,7 @@ def main():
     build_builds()
     mark_hero_photos()
     personal_nav()
+    float_actions()
     print('built', len(HEROES), 'concept pages and builds', BUILDS)
 
 
