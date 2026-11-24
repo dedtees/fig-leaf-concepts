@@ -899,7 +899,7 @@
 
 /* --- archive A: dark and gold, continuing the hero -----------------------
    The sections pick up the hero's backdrop (#070d0f), its gold accent and
-   its Fraunces headings, so the page carries on from the hero without a
+   its Lora headings, so the page carries on from the hero without a
    break. One long gradient runs behind all the sections; each section is
    transparent on top of it. */
 
@@ -910,7 +910,7 @@
   --hs-text: rgba(255, 255, 255, .72);
   --hs-line: rgba(255, 255, 255, .1);
   --hs-glass: rgba(255, 255, 255, .035);
-  --hs-heading: var(--font-heading, "Fraunces", Georgia, serif);
+  --hs-heading: var(--font-heading, "Lora", Georgia, serif);
   --hs-body: var(--font-body, "Source Sans 3", system-ui, sans-serif);
   --hs-shield: var(--hs-gold);
   --hs-shield-ring: var(--hs-ink-bg);
@@ -928,7 +928,7 @@
 .hs--v1 .hs-services { background: none; }
 .hs--v1 .hs-carriers { border-top: 0; }
 
-/* headings: Fraunces like the hero title, gold rule */
+/* headings: Lora like the hero title, gold rule */
 .hs--v1 .hs-split__title {
   font-family: var(--hs-heading);
   font-weight: 600;
@@ -1428,7 +1428,7 @@
 }
 .hs--v3 > section { position: relative; isolation: isolate; overflow: clip; }
 
-/* headings in the concept's own Fraunces, numbered */
+/* headings in the concept's own Lora, numbered */
 .hs--v3 .hs-split__title,
 .hs--v3 .hs-heading {
   font-family: var(--font-heading, Georgia, serif);

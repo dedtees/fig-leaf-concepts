@@ -24,6 +24,14 @@
     EMAIL_SUBJECT: 'Fig Leaf website concepts: my feedback'
   };
 
+  // the heading font picker (review/heading-font.js) rides along with the ticks
+  (function () {
+    var me = document.currentScript;
+    var s = document.createElement('script');
+    s.src = (me && me.src ? me.src.replace(/review\.js(\?.*)?$/, '') : '/review/') + 'heading-font.js';
+    document.head.appendChild(s);
+  })();
+
   var STORE_KEY = 'flReview.v1';
   var params = new URLSearchParams(location.search);
   if (params.get('review') === 'off') return;
