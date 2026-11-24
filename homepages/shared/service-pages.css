@@ -144,3 +144,58 @@
   .pg--service .pg-perils li.pg-peril { gap: 14px; justify-content: flex-end; }
   .pg--service .pg-peril img { position: static; flex: 1 1 auto; min-height: 140px; width: calc(100% + 40px); max-width: none; height: auto; margin: -20px -20px 0; }
 }
+
+/* the contact form (Boat and Personal Umbrella): in the quote card, in
+   place of the Consumer Rate Quotes form, which doesn't cover them. Markup:
+   contact_form() in homepages/service_pages.py; script: contact-form.js */
+.pg--service .pg-contact { padding: clamp(22px, 3vw, 40px) clamp(20px, 3vw, 40px) clamp(26px, 3.5vw, 44px); }
+.pg--service .pg-contact__intro { margin: 0 0 clamp(20px, 2.4vw, 28px); max-width: 62ch; font-size: 1.08rem; line-height: 1.6; color: var(--pg-ink); }
+.pg--service .pg-contact__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 22px; }
+.pg--service .pg-field { display: grid; gap: 8px; align-content: start; }
+.pg--service .pg-field--wide { grid-column: 1 / -1; }
+.pg--service .pg-field label {
+  font-family: var(--hs-heading);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--pg-ink);
+}
+.pg--service .pg-field label span { font-weight: 400; letter-spacing: .02em; text-transform: none; color: #6b766f; }
+.pg--service .pg-field input,
+.pg--service .pg-field select,
+.pg--service .pg-field textarea {
+  width: 100%;
+  min-height: 52px;
+  padding: 13px 16px;
+  border: 1px solid rgba(15, 36, 24, .22);
+  border-radius: 14px;
+  background: #fff;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--pg-ink);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.pg--service .pg-field textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
+.pg--service .pg-field textarea::placeholder { color: #7d8781; }
+.pg--service .pg-field select {
+  appearance: none;
+  padding-right: 44px;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2317402b' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") right 16px center / 18px no-repeat;
+}
+.pg--service .pg-field input:focus,
+.pg--service .pg-field select:focus,
+.pg--service .pg-field textarea:focus { outline: none; border-color: var(--c2-green); box-shadow: 0 0 0 3px rgba(23, 64, 43, .18); }
+.pg--service .pg-contact.was-checked :invalid { border-color: #b3261e; box-shadow: 0 0 0 3px rgba(179, 38, 30, .12); }
+/* the spam trap: off screen, never seen or tabbed to */
+.pg--service .pg-contact__trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.pg--service .pg-contact__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: clamp(22px, 2.6vw, 30px); }
+.pg--service .pg-contact__foot .pg-btn[disabled] { opacity: .6; cursor: progress; }
+.pg--service .pg-contact__status { flex: 1 1 260px; margin: 0; font-size: .98rem; line-height: 1.5; color: var(--pg-ink); }
+.pg--service .pg-contact__status:empty { display: none; }
+.pg--service .pg-contact__status.is-ok { color: var(--c2-green); font-weight: 700; }
+.pg--service .pg-contact__status.is-error { color: #b3261e; font-weight: 700; }
+@media (max-width: 640px) {
+  .pg--service .pg-contact__grid { grid-template-columns: minmax(0, 1fr); }
+  .pg--service .pg-contact__foot .pg-btn { width: 100%; justify-content: center; }
+}
