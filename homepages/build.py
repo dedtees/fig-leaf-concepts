@@ -616,6 +616,11 @@ def service_version(n, s):
     layouts = version_layouts(hero, SP.overview(s, up), SP.covered(s, up, live), SP.quote(s, quote, up),
                               f'Get {article} {s["short"]} quote')
     cls, top, secs = layouts[n - 1]
+    if s.get('contact') and n == 3:
+        # version 3's quote band sends people to the Consumer Rate Quotes
+        # page, which doesn't cover this page: the contact form (with its
+        # call-us card) takes the band's place
+        secs = [x for x in secs if 'id="talk"' not in x and 'class="pg-band"' not in x] + [SP.quote(s, quote, up)]
     cls += ' pg--service' + (' pg--draft' if s['draft'] else '')
     new = assemble(page, main_start, main_end, cls, top, secs)
     new = new.replace('  <link rel="stylesheet" href="../../homepages/shared/homeowners-versions.css">',
@@ -642,6 +647,10 @@ def service_version(n, s):
     new = new.replace('href="../homeowners-insurance/" aria-current="page"', 'href="' + live('homeowners-insurance') + '"')
     new = new.replace('<a href="./" aria-current="page">Homeowners Insurance</a>', '<a href="' + live('homeowners-insurance') + '">Homeowners Insurance</a>')
     new = link_service_names(new)
+    if s.get('contact'):   # the contact form's script (homepages/shared/contact-form.js)
+        new = new.replace('  <script src="../insurance-page.js"></script>',
+                          '  <script src="../insurance-page.js"></script>\n'
+                          '  <script src="../../homepages/shared/contact-form.js"></script>', 1)
     new = new.replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- Built by homepages/build.py (service_version): '
                       f'{name} in Homeowners version {n}\'s layout; copy in homepages/service_pages.py. -->', 1)
     return new, src_dir

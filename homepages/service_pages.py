@@ -10,6 +10,10 @@ Copy sources:
 - Auto, Boat and Personal Umbrella: the agency's content map
   (Fig_Leaf_New_Website_Content_Map.docx, 1 Sep 2026), lightly edited the
   same way the Homeowners page is, with intros from the website build brief.
+- 'contact': pages the Consumer Rate Quotes form doesn't cover (Boat and
+  Personal Umbrella). They get a short contact form in place of the quote
+  form (contact_form() below; sent by homepages/shared/contact-form.js), and
+  the value is the hint in its message box.
 - Renters, Condo, Life, Health and Pet: the build brief's DRAFT copy (these
   pages aren't in the content map). draft=True shows a "Draft copy" tag in
   the hero; the agency needs to confirm the copy before launch.
@@ -140,6 +144,7 @@ SERVICES = [
         'h1': ('Boat insurance', 'as ready for the water as you are.'),
         'lead': 'Whether it&rsquo;s the Shore or the bay, a boat owner&rsquo;s policy brings together the coverages you need on the water, and we&rsquo;ll show you exactly what yours includes.',
         'cta': 'Get Boat Insurance Quote',
+        'contact': 'Tell us about your boat: the year, make and length, and where you keep it.',
         'photo': (BOAT, 'A white motor yacht with people on deck, cruising on open water'),
         'overview': {
             'kicker': 'A combination of coverages',
@@ -170,6 +175,7 @@ SERVICES = [
         'h1': ('An extra layer', 'over everything else.'),
         'lead': 'Personal umbrella insurance provides additional liability coverage above the limits of your homeowners and auto insurance policies. It can also cover claims your other liability policies may exclude.',
         'cta': 'Get Personal Umbrella Quote',
+        'contact': 'Tell us which policies you have now (home, auto, boat) and how much extra coverage you have in mind.',
         'photo': (HOUSE, 'A brick family home with a green lawn under a blue sky'),
         'overview': {
             'kicker': 'Above your other policies',
@@ -415,6 +421,72 @@ def quote(s, homeowners_quote, up):
                   f'<img src="{talk_url}" alt="{talk_alt}" width="416" height="483"', 1)
     old = 'For more information about homeowners insurance, condominium insurance and renters insurance, call us and an agent will run the quote with you.'
     assert old in q
+    if s.get('contact'):
+        q = q.replace(old, f'For more information about {s["short"]}, call us and an agent will run the quote with you. '
+                      'Or send the form and an agent will get back to you to go over the details.', 1)
+        return contact_form(s, q)
     q = q.replace(old, f'For more information about {s["short"]}, call us and an agent will run the quote with you. '
                   'Online, the quote takes about 3&ndash;5 minutes, and an agent follows up to walk you through it.', 1)
+    return q
+
+
+# Insurance types for the contact form's menu (the page's own is selected).
+CONTACT_TYPES = ['Boat Insurance', 'Personal Umbrella Insurance', 'Auto Insurance', 'Homeowners Insurance', 'Something else']
+CONTACT_EMAIL = 'quotes@figleafagency.com'
+
+
+def contact_form(s, q):
+    """The quote section with a contact form in place of the Consumer Rate
+    Quotes iframe, for the pages that form doesn't cover. Same card, same
+    bar; the form posts to data-endpoint once there is one (see
+    homepages/shared/contact-form.js) and opens an email until then."""
+    import re
+    opts = ''.join(f'\n                  <option{" selected" if t == s["name"] else ""}>{t}</option>' for t in CONTACT_TYPES)
+    uid = s['slug'].split('-')[0]
+    f = lambda n: f'cf-{uid}-{n}'
+    card = f'''<!-- {s["name"]} isn't on the Consumer Rate Quotes form, so this page
+             has a short contact form in its place. homepages/shared/contact-form.js
+             sends it: set data-endpoint below to the form service's URL to have it
+             post there; until then it opens an email to {CONTACT_EMAIL}. -->
+        <div class="pg-crq pg-crq--contact">
+          <div class="pg-crq__card">
+            <div class="pg-crq__bar">
+              <span class="pg-crq__secure">{icon('i-lock')}Quote request</span>
+              <span class="pg-crq__alt">Prefer email? <a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a></span>
+            </div>
+            <form class="pg-contact" data-contact-form data-endpoint="" data-mailto="{CONTACT_EMAIL}" method="post" novalidate>
+              <p class="pg-contact__intro">{s["short"][0].upper() + s["short"][1:]} quotes are done one-on-one. Send us a few details and an agent will get back to you to put yours together.</p>
+              <div class="pg-contact__grid">
+                <div class="pg-field">
+                  <label for="{f('name')}">Full name</label>
+                  <input id="{f('name')}" name="name" type="text" autocomplete="name" required>
+                </div>
+                <div class="pg-field">
+                  <label for="{f('type')}">Insurance type</label>
+                  <select id="{f('type')}" name="insurance_type">{opts}
+                  </select>
+                </div>
+                <div class="pg-field">
+                  <label for="{f('email')}">Email</label>
+                  <input id="{f('email')}" name="email" type="email" autocomplete="email" required>
+                </div>
+                <div class="pg-field">
+                  <label for="{f('phone')}">Phone</label>
+                  <input id="{f('phone')}" name="phone" type="tel" autocomplete="tel" required>
+                </div>
+                <div class="pg-field pg-field--wide">
+                  <label for="{f('message')}">Message <span>(optional)</span></label>
+                  <textarea id="{f('message')}" name="message" rows="4" placeholder="{s['contact']}"></textarea>
+                </div>
+              </div>
+              <div class="pg-contact__trap" aria-hidden="true"><label>Leave this empty <input name="company_website" type="text" tabindex="-1" autocomplete="off"></label></div>
+              <div class="pg-contact__foot">
+                <button class="pg-btn pg-btn--primary" type="submit">Send My Request</button>
+                <p class="pg-contact__status" role="status" aria-live="polite"></p>
+              </div>
+            </form>
+          </div>'''
+    q, n = re.subn(r'<!-- The quote form is.*?-->\s*<div class="pg-crq">\s*<div class="pg-crq__card">.*?</iframe>\s*</div>\s*</div>',
+                   lambda m: card, q, count=1, flags=re.S)
+    assert n == 1
     return q
