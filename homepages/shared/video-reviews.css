@@ -115,3 +115,19 @@
   .vr-carousel__list { grid-template-columns: minmax(0, 1fr); }
   .vr-video__play { width: 68px; height: 68px; }
 }
+
+/* "See more": the video card's link to the testimonials page */
+.vr-video__more {
+  display: inline-flex; align-items: center; gap: 8px;
+  justify-self: start;
+  margin-top: 10px;
+  font-weight: 700; font-size: .9rem; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--hs-gold);
+  text-decoration: none;
+}
+.vr-video__more .icon { width: 16px; height: 16px; transition: transform .2s ease; }
+.vr-video__more:hover, .vr-video__more:focus-visible { color: #fff; }
+.vr-video__more:hover .icon, .vr-video__more:focus-visible .icon { transform: translateX(3px); }
+.vr-video__more:focus-visible { outline: 2px solid #fff; outline-offset: 4px; border-radius: 4px; }
+.vr-video__cap .vr-video__more span { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .vr-video__more .icon { transition: none; } }

@@ -704,7 +704,9 @@ def video_card(out_dir, cls, poster=POSTER):
             '              <span class="vr-video__kicker">Video testimonial</span>\n'
             '              <strong>Hear it from our clients</strong>\n'
             '              <span>A client tells their story in their own words.</span>\n'
-            '            </figcaption>\n'
+            + '              <a class="vr-video__more" href="testimonials/">See more<span class="visually-hidden"> testimonials</span>'
+              '<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>\n'
+            + '            </figcaption>\n'
             '          </figure>\n')
 
 
@@ -782,6 +784,41 @@ def video_reviews(page, out_dir):
            '        </div>\n')
     page = page.replace('</body>', CAROUSEL_JS + VIDEO_JS + '</body>', 1)
     return page[:m.start()] + new + page[m.end():]
+
+
+def testimonials_page(page, out_dir):
+    """<build>/testimonials/: where the homepage video card's "See more" goes.
+    For now the page header, the video and the Google reviews from the
+    homepage; more client videos and reviews are to come (Eric, 24 Nov)."""
+    out = f'{out_dir}/testimonials'
+    page = rebase(page, out_dir, out)
+    a, b = page.index('<main id="main">'), page.index('</main>') + len('</main>')
+    main = page[a:b]
+    reviews = re.search(r'    <section class="hs-section hs-reviews".*?\n    </section>\n', main, re.S).group(0)
+    reviews = re.sub(r' *<a class="vr-video__more".*?</a>\n', '', reviews)   # no "See more" on the page itself
+    defs = re.search(r'    <svg class="hs-defs".*?</svg>\n', main, re.S)   # the stars and shields
+    new = ('<main id="main">\n'
+           '  <div class="hs hs--v1" id="home-sections">\n\n'
+           '    <!-- Testimonials: a placeholder until more client videos come in -->\n'
+           '    <section class="hs-section tm-head" aria-labelledby="tm-title">\n'
+           '      <div class="hs-wrap">\n'
+           '        <p class="tm-head__eyebrow">Testimonials</p>\n'
+           '        <h1 class="tm-head__title" id="tm-title">What our clients say</h1>\n'
+           '        <p class="tm-head__text">Hear it from the people we protect. More client videos are on the way.</p>\n'
+           '      </div>\n'
+           '    </section>\n\n'
+           + reviews + '\n' + (defs.group(0) if defs else '') +
+           '\n  </div>\n\n  </main>')
+    page = page[:a] + new + page[b:]
+    page = page.replace('<link rel="stylesheet" href="../../homepages/shared/video-reviews.css">',
+                        '<link rel="stylesheet" href="../../homepages/shared/video-reviews.css">\n'
+                        '  <link rel="stylesheet" href="../../homepages/shared/testimonials.css">', 1)
+    # no hero on this page: drop the hero scripts
+    page = re.sub(r'\s*<script src="[^"]*/(?:hero-x|concept-11)\.js"></script>', '', page)
+    page = re.sub(r'<title>[^<]*</title>', '<title>Concept 5 · Testimonials | The Fig Leaf Agency</title>', page, count=1)
+    page = re.sub(r'(<!-- Built by homepages/build.py)[^>]*-->',
+                  r'\1 (testimonials_page): from the build 5 homepage\'s reviews. Edit the script, then re-run it. -->', page, count=1)
+    write(f'{out}/index.html', page)
 
 
 def build_dir(k):
@@ -1123,6 +1160,8 @@ def build_builds():
                             f'<!-- Built by homepages/build.py: build {k} (concept 11, Homeowners version {homeowners_version(k)}):'
                             if k in BUILDS else f'<!-- Built by homepages/build.py: homepage concept {k} (build 1\'s homepage, links to build 1):', 1)
         write(f'{out_dir}/index.html', page)
+        if k in HOME_NAMES:
+            testimonials_page(page, out_dir)
         if k not in BUILDS:
             continue
         for sub in SUBPAGES:
