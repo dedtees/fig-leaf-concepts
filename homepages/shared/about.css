@@ -2,7 +2,7 @@
    Linked last by homepages/build.py, after concept-11.css. Archive A's
    palette, one shade each, no gradients or soft shadows:
    gold #e8c27e, black #070d0f, white, dark green #17402b, light green #a9c7b4
-   (and #3f8a5a for the faint leaf silhouettes). Fraunces headings,
+   (and #3f8a5a for the faint leaf silhouettes). Lora headings,
    Source Sans 3 body, as on concept 11's homepage. */
 
 .ab {
@@ -11,7 +11,7 @@
   --ab-green: #17402b;
   --ab-green-light: #a9c7b4;
   --ab-leaf: #3f8a5a;
-  --ab-serif: "Fraunces", Georgia, serif;
+  --ab-serif: "Lora", Georgia, serif;
   --ab-sans: "Source Sans 3", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   font-family: var(--ab-sans);
   background: #fff;

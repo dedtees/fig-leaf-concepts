@@ -925,7 +925,7 @@ def build_about(k):
                 f'  <link rel="icon" href="{up("archive-a/assets/fig-leaf-fill.svg")}" type="image/svg+xml">\n'
                 '  <link rel="preconnect" href="https://fonts.googleapis.com/">\n'
                 '  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">\n'
-                '  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&amp;family=Montserrat:wght@400;500;600;700&amp;family=Lato:wght@400;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap">'
+                '  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&amp;family=Montserrat:wght@400;500;600;700&amp;family=Lato:wght@400;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap">'
                 + css + '\n</head>\n')
         main = read(f'homepages/about/{key}-v{k}.html').replace('{B}', out_dir)
         icons = read('homepages/about/_icons.html')
