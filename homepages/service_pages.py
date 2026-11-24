@@ -144,7 +144,7 @@ SERVICES = [
         'h1': ('Boat insurance', 'as ready for the water as you are.'),
         'lead': 'Whether it&rsquo;s the Shore or the bay, a boat owner&rsquo;s policy brings together the coverages you need on the water, and we&rsquo;ll show you exactly what yours includes.',
         'cta': 'Get Boat Insurance Quote',
-        'contact': 'Tell us about your boat: the year, make and length, and where you keep it.',
+        'contact': 'Anything else we should know, like its length, where you keep it and how you use it.',
         'photo': (BOAT, 'A white motor yacht with people on deck, cruising on open water'),
         'overview': {
             'kicker': 'A combination of coverages',
@@ -479,6 +479,21 @@ def contact_form(s, q):
                   <label for="{f('phone')}">Phone</label>
                   <input id="{f('phone')}" name="phone" type="tel" autocomplete="tel" required>
                 </div>
+                <fieldset class="pg-contact__more" data-show-for="Boat Insurance"{'' if s['name'] == 'Boat Insurance' else ' hidden disabled'}>
+                  <legend>Your boat</legend>
+                  <div class="pg-field">
+                    <label for="{f('boat-year')}">Year</label>
+                    <input id="{f('boat-year')}" name="boat_year" type="text" inputmode="numeric" maxlength="4" pattern="[0-9]{{4}}" required>
+                  </div>
+                  <div class="pg-field">
+                    <label for="{f('boat-make')}">Make</label>
+                    <input id="{f('boat-make')}" name="boat_make" type="text" required>
+                  </div>
+                  <div class="pg-field">
+                    <label for="{f('boat-model')}">Model</label>
+                    <input id="{f('boat-model')}" name="boat_model" type="text" required>
+                  </div>
+                </fieldset>
                 <div class="pg-field pg-field--wide">
                   <label for="{f('message')}">Message <span>(optional)</span></label>
                   <textarea id="{f('message')}" name="message" rows="4" placeholder="{s['contact']}"></textarea>

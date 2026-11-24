@@ -199,3 +199,10 @@
   .pg--service .pg-contact__grid { grid-template-columns: minmax(0, 1fr); }
   .pg--service .pg-contact__foot .pg-btn { width: 100%; justify-content: center; }
 }
+/* the boat's year, make and model, shown while Boat is the chosen type */
+.pg--service .pg-contact__more { grid-column: 1 / -1; display: grid; grid-template-columns: 120px repeat(2, minmax(0, 1fr)); gap: 18px 22px; margin: 0; padding: 0; border: 0; min-width: 0; }
+.pg--service .pg-contact__more[hidden] { display: none; }
+.pg--service .pg-contact__more legend { float: left; grid-column: 1 / -1; width: 100%; margin: 4px 0 0; padding: 0; font-family: var(--hs-heading); font-weight: 700; font-size: 1.05rem; color: var(--pg-ink); }
+@media (max-width: 640px) {
+  .pg--service .pg-contact__more { grid-template-columns: minmax(0, 1fr); }
+}
