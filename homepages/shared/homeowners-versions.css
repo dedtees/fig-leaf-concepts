@@ -89,3 +89,22 @@
   .pg-head__leaf { width: 220px; right: -60px; top: auto; bottom: 30%; }
   .pg--v2 .pg-band__actions { flex-basis: 100%; }
 }
+
+/* hero photo, right of the title: three frames to pick from, set per build
+   by HERO_PHOTO in homepages/build.py (pg--photo-<frame> on <main>).
+   arch: the original arched top (no rule here).
+   snapshot: white border, a slight tilt and a flat gold block behind.
+   block: rounded corners and a flat gold block behind. */
+.pg--v2.pg--photo-snapshot .pg-head__photo {
+  border-radius: 6px;
+  border: 10px solid #fff;
+  transform: rotate(-3deg);
+  box-shadow: 14px 14px 0 var(--c2-gold);
+}
+.pg--v2.pg--photo-snapshot:not(.pg--fade) .pg-head__photo { box-shadow: 0 0 0 1px rgba(0, 0, 0, .08), 14px 14px 0 var(--c2-gold); }
+.pg--v2.pg--photo-block .pg-head__photo { border-radius: 18px; box-shadow: 18px 18px 0 var(--c2-gold); }
+@media (max-width: 960px) {
+  .pg--v2.pg--photo-snapshot .pg-head__photo { box-shadow: 10px 10px 0 var(--c2-gold); }
+  .pg--v2.pg--photo-snapshot:not(.pg--fade) .pg-head__photo { box-shadow: 0 0 0 1px rgba(0, 0, 0, .08), 10px 10px 0 var(--c2-gold); }
+  .pg--v2.pg--photo-block .pg-head__photo { box-shadow: 12px 12px 0 var(--c2-gold); }
+}
