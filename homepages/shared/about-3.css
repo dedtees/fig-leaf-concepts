@@ -98,6 +98,7 @@ a.a3-row:hover .a3-row__name, a.a3-row:hover .a3-row__role, a.a3-row:hover .a3-r
 .b3-text { max-width: 620px; }
 .b3-sub { margin-top: 40px; font-size: 1.5rem; }
 .b3-help { display: grid; gap: 14px; margin: 0 0 40px; padding: 0; list-style: none; }
+.ab .b3-help { margin-bottom: clamp(28px, 4vw, 40px); }   /* .hs ul resets list margins */
 .b3-help li { display: flex; align-items: center; gap: 14px; font-size: 1.08rem; }
 .b3-help .icon { flex: none; width: 40px; height: 40px; padding: 9px; border-radius: 12px; background: var(--ab-green); color: var(--ab-gold); }
 .b3-contact { display: grid; justify-items: start; gap: 14px; padding: 28px; border-radius: 18px; background: var(--ab-black); border-top: 3px solid var(--ab-gold); }
