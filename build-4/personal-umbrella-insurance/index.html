@@ -173,6 +173,11 @@
               <li><a href="../homeowners-insurance/">Homeowners Insurance</a></li>
               <li><a href="../boat-insurance/">Boat Insurance</a></li>
               <li><a href="./" aria-current="page">Personal Umbrella Insurance</a></li>
+              <li><a href="../renters-insurance/">Renters Insurance</a></li>
+              <li><a href="../condo-insurance/">Condo Owners Insurance</a></li>
+              <li><a href="../health-insurance/">Health Insurance</a></li>
+              <li><a href="../life-insurance/">Life Insurance</a></li>
+              <li><a href="../pet-insurance/">Pet Insurance</a></li>
             </ul>
           </li>
           <li><a class="site-nav__link" href="#" onclick="return false" data-offsite>Business Insurance</a></li>
@@ -311,6 +316,21 @@
                   <label for="cf-personal-phone">Phone</label>
                   <input id="cf-personal-phone" name="phone" type="tel" autocomplete="tel" required>
                 </div>
+                <fieldset class="pg-contact__more" data-show-for="Boat Insurance" hidden disabled>
+                  <legend>Your boat</legend>
+                  <div class="pg-field">
+                    <label for="cf-personal-boat-year">Year</label>
+                    <input id="cf-personal-boat-year" name="boat_year" type="text" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" required>
+                  </div>
+                  <div class="pg-field">
+                    <label for="cf-personal-boat-make">Make</label>
+                    <input id="cf-personal-boat-make" name="boat_make" type="text" required>
+                  </div>
+                  <div class="pg-field">
+                    <label for="cf-personal-boat-model">Model</label>
+                    <input id="cf-personal-boat-model" name="boat_model" type="text" required>
+                  </div>
+                </fieldset>
                 <div class="pg-field pg-field--wide">
                   <label for="cf-personal-message">Message <span>(optional)</span></label>
                   <textarea id="cf-personal-message" name="message" rows="4" placeholder="Tell us which policies you have now (home, auto, boat) and how much extra coverage you have in mind."></textarea>

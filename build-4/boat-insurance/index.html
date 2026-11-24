@@ -173,6 +173,11 @@
               <li><a href="../homeowners-insurance/">Homeowners Insurance</a></li>
               <li><a href="./" aria-current="page">Boat Insurance</a></li>
               <li><a href="../personal-umbrella-insurance/">Personal Umbrella Insurance</a></li>
+              <li><a href="../renters-insurance/">Renters Insurance</a></li>
+              <li><a href="../condo-insurance/">Condo Owners Insurance</a></li>
+              <li><a href="../health-insurance/">Health Insurance</a></li>
+              <li><a href="../life-insurance/">Life Insurance</a></li>
+              <li><a href="../pet-insurance/">Pet Insurance</a></li>
             </ul>
           </li>
           <li><a class="site-nav__link" href="#" onclick="return false" data-offsite>Business Insurance</a></li>
@@ -314,9 +319,24 @@
                   <label for="cf-boat-phone">Phone</label>
                   <input id="cf-boat-phone" name="phone" type="tel" autocomplete="tel" required>
                 </div>
+                <fieldset class="pg-contact__more" data-show-for="Boat Insurance">
+                  <legend>Your boat</legend>
+                  <div class="pg-field">
+                    <label for="cf-boat-boat-year">Year</label>
+                    <input id="cf-boat-boat-year" name="boat_year" type="text" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" required>
+                  </div>
+                  <div class="pg-field">
+                    <label for="cf-boat-boat-make">Make</label>
+                    <input id="cf-boat-boat-make" name="boat_make" type="text" required>
+                  </div>
+                  <div class="pg-field">
+                    <label for="cf-boat-boat-model">Model</label>
+                    <input id="cf-boat-boat-model" name="boat_model" type="text" required>
+                  </div>
+                </fieldset>
                 <div class="pg-field pg-field--wide">
                   <label for="cf-boat-message">Message <span>(optional)</span></label>
-                  <textarea id="cf-boat-message" name="message" rows="4" placeholder="Tell us about your boat: the year, make and length, and where you keep it."></textarea>
+                  <textarea id="cf-boat-message" name="message" rows="4" placeholder="Anything else we should know, like its length, where you keep it and how you use it."></textarea>
                 </div>
               </div>
               <div class="pg-contact__trap" aria-hidden="true"><label>Leave this empty <input name="company_website" type="text" tabindex="-1" autocomplete="off"></label></div>

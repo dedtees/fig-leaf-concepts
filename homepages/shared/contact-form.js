@@ -1,5 +1,5 @@
 /* Contact form on the insurance pages the Consumer Rate Quotes form doesn't
-   cover (Boat and Personal Umbrella), in place of that form. Markup:
+   cover (Boat, Personal Umbrella, Life, Health and Pet), in place of it. Markup:
    contact_form() in homepages/service_pages.py.
 
    TO MAKE IT SEND ON ITS OWN
@@ -11,7 +11,8 @@
        quotes@figleafagency.com, paste the URL it gives you), or
      - a small Vercel function (api/contact.js) that emails the agency
        through Resend, SendGrid or similar.
-   Fields sent: name, email, phone, insurance_type, message, page (the page's
+   Fields sent: name, email, phone, insurance_type, message, boat_year,
+   boat_make and boat_model (only when the type is Boat), page (the page's
    address) and company_website (a hidden spam trap; drop anything that has
    it filled in).
 
@@ -35,16 +36,17 @@
 
   function email(form) {
     var type = field(form, 'insurance_type') || 'Insurance';
-    var body = [
+    var lines = [
       'Name: ' + field(form, 'name'),
       'Email: ' + field(form, 'email'),
       'Phone: ' + field(form, 'phone'),
-      'Insurance type: ' + type,
-      '',
-      field(form, 'message') || '(no message)',
-      '',
-      'Sent from ' + location.href
-    ].join('\n');
+      'Insurance type: ' + type
+    ];
+    if (form.elements.boat_year && !form.elements.boat_year.disabled) {
+      lines.push('Boat: ' + [field(form, 'boat_year'), field(form, 'boat_make'), field(form, 'boat_model')].join(' '));
+    }
+    lines.push('', field(form, 'message') || '(no message)', '', 'Sent from ' + location.href);
+    var body = lines.join('\n');
     location.href = 'mailto:' + (form.getAttribute('data-mailto') || 'quotes@figleafagency.com') +
       '?subject=' + encodeURIComponent(type + ' quote request: ' + field(form, 'name')) +
       '&body=' + encodeURIComponent(body);
@@ -56,6 +58,7 @@
     var keep = field(form, 'insurance_type');
     form.reset();
     if (form.elements.insurance_type) form.elements.insurance_type.value = keep;
+    extras(form);
     form.classList.add('is-sent');
     say(form, 'Thanks! Your request is on its way, and an agent will be in touch soon.', 'ok');
   }
@@ -65,7 +68,7 @@
     e.preventDefault();
     form.classList.add('was-checked');
     if (!form.checkValidity()) {
-      say(form, 'Please fill in your name, email and phone so we can reach you.', 'error');
+      say(form, 'Please fill in the highlighted fields so we can reach you.', 'error');
       var bad = form.querySelector(':invalid');
       if (bad) bad.focus();
       return;
@@ -86,6 +89,24 @@
       .then(function () { if (button) button.disabled = false; });
   }
 
+  // fields that only apply to one insurance type (the boat's year, make and
+  // model): shown, required and sent only while that type is chosen
+  function extras(form) {
+    var type = field(form, 'insurance_type');
+    var sets = form.querySelectorAll('[data-show-for]');
+    for (var i = 0; i < sets.length; i++) {
+      var on = sets[i].getAttribute('data-show-for') === type;
+      sets[i].hidden = !on;
+      sets[i].disabled = !on;
+    }
+  }
+
   var forms = document.querySelectorAll('[data-contact-form]');
-  for (var i = 0; i < forms.length; i++) forms[i].addEventListener('submit', submit);
+  for (var i = 0; i < forms.length; i++) {
+    forms[i].addEventListener('submit', submit);
+    if (forms[i].elements.insurance_type) {
+      forms[i].elements.insurance_type.addEventListener('change', extras.bind(null, forms[i]));
+      extras(forms[i]);
+    }
+  }
 })();

@@ -1269,6 +1269,8 @@ def mark_hero_photos():
 # Insurance link itself goes to the homepage's Comprehensive Coverage
 # section, and every insurance page gets a breadcrumb above its title
 # (Home / Personal Insurance / <page>). Styles: homeowners-versions.css (.pg-crumbs).
+# The menu's full list of nine goes on every build (Eric, 24 Nov); the rest
+# is on NAV_BUILDS only.
 NAV_BUILDS = [1]
 
 
@@ -1277,7 +1279,7 @@ def personal_nav():
     order = ['auto-insurance', 'homeowners-insurance', 'boat-insurance', 'personal-umbrella-insurance',   # the footer's order
              'renters-insurance', 'condo-insurance', 'health-insurance', 'life-insurance', 'pet-insurance']
     pages = [(slug, names[slug]) for slug in order]
-    for k in NAV_BUILDS:
+    for k in BUILDS:
         root = build_dir(k)
         subs = [None] + sorted(d for d in os.listdir(os.path.join(REPO, root))
                                if os.path.isfile(os.path.join(REPO, root, d, 'index.html')))
@@ -1291,6 +1293,9 @@ def personal_nav():
                               lambda m: '<ul class="site-nav__sub" id="sub-personal">\n' + items + '\n            </ul>',
                               page, count=1, flags=re.S)
             assert n == 1, path
+            if k not in NAV_BUILDS:   # every build lists all nine (Eric, 24 Nov); the rest is build 1's
+                write(path, page)
+                continue
             page = page.replace('<a class="site-nav__link" href="#" onclick="return false" data-offsite>Personal Insurance</a>',
                                 f'<a class="site-nav__link" href="{up}#coverage">Personal Insurance</a>', 1)
             if sub is None:
