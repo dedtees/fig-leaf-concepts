@@ -1206,6 +1206,51 @@ def mark_hero_photos():
             write(os.path.relpath(path, REPO), page)
 
 
+# Personal Insurance navigation (Eric, 24 Nov): on these builds the header's
+# Personal Insurance menu lists all nine personal pages, the Personal
+# Insurance link itself goes to the homepage's Comprehensive Coverage
+# section, and every insurance page gets a breadcrumb above its title
+# (Home / Personal Insurance / <page>). Styles: homeowners-versions.css (.pg-crumbs).
+NAV_BUILDS = [1]
+
+
+def personal_nav():
+    names = {**{s['slug']: s['name'] for s in SP.SERVICES}, 'homeowners-insurance': 'Homeowners Insurance'}
+    order = ['auto-insurance', 'homeowners-insurance', 'boat-insurance', 'personal-umbrella-insurance',   # the footer's order
+             'renters-insurance', 'condo-insurance', 'health-insurance', 'life-insurance', 'pet-insurance']
+    pages = [(slug, names[slug]) for slug in order]
+    for k in NAV_BUILDS:
+        root = build_dir(k)
+        subs = [None] + sorted(d for d in os.listdir(os.path.join(REPO, root))
+                               if os.path.isfile(os.path.join(REPO, root, d, 'index.html')))
+        for sub in subs:
+            path = f'{root}/index.html' if sub is None else f'{root}/{sub}/index.html'
+            page = read(path)
+            up = '' if sub is None else '../'
+            items = '\n'.join(f'              <li><a href="./" aria-current="page">{n}</a></li>' if slug == sub
+                              else f'              <li><a href="{up}{slug}/">{n}</a></li>' for slug, n in pages)
+            page, n = re.subn(r'<ul class="site-nav__sub" id="sub-personal">.*?</ul>',
+                              lambda m: '<ul class="site-nav__sub" id="sub-personal">\n' + items + '\n            </ul>',
+                              page, count=1, flags=re.S)
+            assert n == 1, path
+            page = page.replace('<a class="site-nav__link" href="#" onclick="return false" data-offsite>Personal Insurance</a>',
+                                f'<a class="site-nav__link" href="{up}#coverage">Personal Insurance</a>', 1)
+            if sub is None:
+                page = page.replace('<section class="fl-grid-host hs-section hs-coverage" aria-labelledby',
+                                    '<section class="fl-grid-host hs-section hs-coverage" id="coverage" aria-labelledby', 1)
+            elif sub in names and 'pg-crumbs' not in page:
+                crumbs = ('      <nav class="pg-wrap pg-crumbs" aria-label="Breadcrumb">\n'
+                          '        <ol>\n'
+                          '          <li><a href="../">Home</a></li>\n'
+                          '          <li><a href="../#coverage">Personal Insurance</a></li>\n'
+                          f'          <li><span aria-current="page">{names[sub]}</span></li>\n'
+                          '        </ol>\n'
+                          '      </nav>\n')
+                page, n = re.subn(r'(?m)^(      <div class="pg-wrap pg-head__grid">)', lambda m: crumbs + m.group(1), page, count=1)
+                assert n == 1, path
+            write(path, page)
+
+
 def main():
     build_hero_css()
     build_subpages(1, 'concept-1')  # concept 1's Homeowners page only
@@ -1217,6 +1262,7 @@ def main():
     build_homeowners_versions()
     build_builds()
     mark_hero_photos()
+    personal_nav()
     print('built', len(HEROES), 'concept pages and builds', BUILDS)
 
 

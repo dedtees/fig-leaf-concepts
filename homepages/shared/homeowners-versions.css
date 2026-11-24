@@ -108,3 +108,29 @@
   .pg--v2.pg--photo-snapshot:not(.pg--fade) .pg-head__photo { box-shadow: 0 0 0 1px rgba(0, 0, 0, .08), 10px 10px 0 var(--c2-gold); }
   .pg--v2.pg--photo-block .pg-head__photo { box-shadow: 12px 12px 0 var(--c2-gold); }
 }
+
+/* Breadcrumb above the title on the personal insurance pages
+   (Home / Personal Insurance / page), added by personal_nav() in
+   homepages/build.py */
+.pg-crumbs { position: relative; margin-bottom: clamp(18px, 2.4vw, 28px); }
+.pg-crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: "Montserrat", var(--hs-body);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.pg-crumbs li { display: inline-flex; align-items: center; }
+.pg-crumbs li + li::before { content: "/"; margin: 0 .7em; color: var(--c2-gold); font-weight: 700; }
+.pg-crumbs a { color: var(--c2-green); text-decoration: none; border-bottom: 1px solid transparent; }
+.pg-crumbs a:hover, .pg-crumbs a:focus-visible { border-bottom-color: var(--c2-gold); }
+.pg-crumbs [aria-current="page"] { color: var(--c2-black); }
+.pg--fade .pg-crumbs a { color: var(--c2-gold); }
+.pg--fade .pg-crumbs [aria-current="page"] { color: #fff; }

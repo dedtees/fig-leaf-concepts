@@ -183,3 +183,5 @@ Google reviews: a 16:9 video on the left, the written reviews two at a time
 on the right (`video_reviews()` in `homepages/build.py`, styles in
 `homepages/shared/video-reviews.css`). The poster is a frame from the video;
 swap in the video when it arrives.
+
+**Personal Insurance navigation (build 1).** Build 1's header menu lists all nine personal insurance pages (desktop dropdown and phone menu), the Personal Insurance link goes to the homepage's Comprehensive Coverage section (`#coverage`), and every build 1 insurance page has a breadcrumb above its title: Home / Personal Insurance / page. Made by `personal_nav()` in `homepages/build.py` (`NAV_BUILDS` picks the builds); breadcrumb styles are `.pg-crumbs` in `homepages/shared/homeowners-versions.css`.
