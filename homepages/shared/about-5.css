@@ -112,8 +112,10 @@
 .b5-offclock .icon { flex: none; width: 36px; height: 36px; color: var(--ab-green); }
 .b5-offclock p { margin: 0; line-height: 1.55; }
 .b5-offclock b { display: block; font-family: var(--ab-serif); font-size: 1.2rem; color: var(--ab-green); }
-.b5-help { margin-top: 28px; padding: 24px; border-radius: 16px; border: 1px solid var(--ab-green-light); border-left: 4px solid var(--ab-gold); }
-.b5-help__title { margin: 0 0 14px; font-family: var(--ab-serif); font-size: 1.2rem; font-weight: 600; color: var(--ab-green); }
+.b5-help { margin-top: 28px; padding: 24px; border-radius: 16px; background: var(--ab-green); border: 1px solid var(--ab-green); border-left: 4px solid var(--ab-gold); }
+.b5-help__title { margin: 0 0 14px; font-family: var(--ab-serif); font-size: 1.2rem; font-weight: 600; color: #fff; }
+.b5-help .ab-checks li { color: #fff; }
+.b5-help .ab-checks .icon { color: var(--ab-gold); }
 
 /* --- tablets and phones ----------------------------------------------------------- */
 @media (max-width: 900px) {
