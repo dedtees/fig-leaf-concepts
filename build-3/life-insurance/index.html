@@ -254,30 +254,66 @@
       </div>
     </section>
 
-    <section class="pg-band" id="quote" aria-labelledby="pg-band-title">
+    <section class="pg-close" id="quote" aria-labelledby="pg-close-title">
       <div class="pg-wrap">
-        <div class="pg-band__box">
-          <div class="pg-band__text">
-            <h2 class="pg-band__title" id="pg-band-title">Get a life insurance quote</h2>
-            <p>We compare top-rated carriers for you, then walk you through every line of the policy.</p>
-          </div>
-          <div class="pg-band__actions">
-            <a class="pg-btn pg-btn--gold" href="../crq-form/">Start My Quote</a>
-            <a class="pg-call" href="tel:+19088623447"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>Call (908) 862-3447</a>
-          </div>
+        <div class="pg-sec__head">
+          <h2 class="pg-sec__title" id="pg-close-title">Get your life insurance quote</h2>
+          <p class="pg-sec__kicker">Fast, free and no obligation</p>
         </div>
-      </div>
-    </section>
-
-    <section class="pg-close" id="talk" aria-label="Rather talk it through?">
-      <div class="pg-wrap">
-        <div class="pg-crq">
+        <!-- Life Insurance isn't on the Consumer Rate Quotes form, so this page
+             has a short contact form in its place. homepages/shared/contact-form.js
+             sends it: set data-endpoint below to the form service's URL to have it
+             post there; until then it opens an email to quotes@figleafagency.com. -->
+        <div class="pg-crq pg-crq--contact">
+          <div class="pg-crq__card">
+            <div class="pg-crq__bar">
+              <span class="pg-crq__secure"><svg class="icon" aria-hidden="true"><use href="#i-lock"></use></svg>Quote request</span>
+              <span class="pg-crq__alt">Prefer email? <a href="mailto:quotes@figleafagency.com">quotes@figleafagency.com</a></span>
+            </div>
+            <form class="pg-contact" data-contact-form data-endpoint="" data-mailto="quotes@figleafagency.com" method="post" novalidate>
+              <p class="pg-contact__intro">Life insurance quotes are done one-on-one. Send us a few details and an agent will get back to you to put yours together.</p>
+              <div class="pg-contact__grid">
+                <div class="pg-field">
+                  <label for="cf-life-name">Full name</label>
+                  <input id="cf-life-name" name="name" type="text" autocomplete="name" required>
+                </div>
+                <div class="pg-field">
+                  <label for="cf-life-type">Insurance type</label>
+                  <select id="cf-life-type" name="insurance_type">
+                  <option>Boat Insurance</option>
+                  <option>Personal Umbrella Insurance</option>
+                  <option selected>Life Insurance</option>
+                  <option>Health Insurance</option>
+                  <option>Pet Insurance</option>
+                  <option>Something else</option>
+                  </select>
+                </div>
+                <div class="pg-field">
+                  <label for="cf-life-email">Email</label>
+                  <input id="cf-life-email" name="email" type="email" autocomplete="email" required>
+                </div>
+                <div class="pg-field">
+                  <label for="cf-life-phone">Phone</label>
+                  <input id="cf-life-phone" name="phone" type="tel" autocomplete="tel" required>
+                </div>
+                <div class="pg-field pg-field--wide">
+                  <label for="cf-life-message">Message <span>(optional)</span></label>
+                  <textarea id="cf-life-message" name="message" rows="4" placeholder="Tell us who you want to protect and roughly how much coverage you have in mind."></textarea>
+                </div>
+              </div>
+              <div class="pg-contact__trap" aria-hidden="true"><label>Leave this empty <input name="company_website" type="text" tabindex="-1" autocomplete="off"></label></div>
+              <div class="pg-contact__foot">
+                <button class="pg-btn pg-btn--primary" type="submit">Send My Request</button>
+                <p class="pg-contact__status" role="status" aria-live="polite"></p>
+              </div>
+            </form>
+          </div>
           <aside class="pg-crq__aside" aria-label="Other ways to get a quote">
             <div class="pg-close__card">
               <figure><img src="../../archive-b/assets/homeowners/home-4.jpg" alt="An agent with a tablet showing a couple something on their house" width="416" height="483" decoding="async" loading="lazy"></figure>
               <div class="pg-close__body">
                 <h3 class="pg-close__title">Rather talk it through?</h3>
-                <p>For more information about life insurance, call us and an agent will run the quote with you. Online, the quote takes about 3&ndash;5 minutes, and an agent follows up to walk you through it.</p>
+                <p>For more information about life insurance, call us and an agent will run the quote with you. Or send the form and an agent will get back to you to go over the details.</p>
                 <a class="pg-btn pg-btn--mint" href="tel:+19088623447"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>(908) 862-3447</a>
               </div>
             </div>
@@ -334,6 +370,7 @@
   </script>
   <script src="../../archive-b/home-sections.js"></script>
   <script src="../../archive-b/insurance-page.js"></script>
+  <script src="../../homepages/shared/contact-form.js"></script>
   <!-- Client review ticks: review round only (review/review.js) -->
   <script src="../../../../../review/review.js" defer></script>
 </body></html>
