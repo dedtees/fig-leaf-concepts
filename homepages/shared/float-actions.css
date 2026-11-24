@@ -3,8 +3,8 @@
    button that hovers at all times"). On every page of builds 1 to 5, added
    by float_actions() in homepages/build.py; behaviour in float-actions.js.
 
-   Desktop: a stack in the bottom-right corner, the back-to-top arrow above
-   the Get a Quote button. The arrow fades in once you scroll down.
+   Desktop: Get a Quote in the bottom-left corner (Eric, 24 Nov) and the
+   back-to-top arrow in the bottom-right. The arrow fades in once you scroll down.
    Phone (700px and under): a slim bar along the bottom of the screen, Get a
    Quote across it and the arrow at its right end.
 
@@ -14,8 +14,8 @@
 
    The review tools (review/) also float: the "Aa" font button bottom left
    and the "Your review" button bottom right. While they are on the page
-   (html.fla-review) the stack sits above "Your review", and on phones both
-   sit above the bar. */
+   (html.fla-review) Get a Quote sits above "Aa" and the arrow above "Your
+   review", and on phones both sit above the bar. */
 
 .fla {
   --fla-gold: var(--c1-gold, #e8c27e);
@@ -25,11 +25,13 @@
   --fla-gap: 16px;
   --fla-lift: 0px;
   position: fixed;
+  left: var(--fla-gap);
   right: var(--fla-gap);
   bottom: calc(var(--fla-gap) + var(--fla-lift));
   z-index: 900;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: flex-end;
   gap: 10px;
   font-family: var(--font-nav, "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif);
@@ -64,6 +66,7 @@ html.fla-review .fla { --fla-lift: 56px; }
 }
 .fla__quote svg { width: 18px; height: 18px; flex: none; }
 .fla__top {
+  margin-left: auto;   /* always the right-hand corner */
   width: 48px;
   height: 48px;
   padding: 0;
@@ -110,9 +113,9 @@ html.fla-review .fla { --fla-lift: 56px; }
 .fla--c .fla__top { border-radius: 50%; background: var(--fla-white); color: var(--fla-green); border-color: var(--fla-green); }
 .fla--c .fla__top:hover { background: var(--fla-gold); color: var(--fla-black); }
 
-/* the review tick for the buttons (review.js) sits just above them */
-.fla > .flr-ui.flr-tick { top: auto !important; bottom: calc(100% + 8px); right: 0; left: auto; }
-.fla > .flr-ui.flr-tick .flr-note { top: auto; bottom: calc(100% + 8px); }
+/* the review tick for the buttons (review.js) sits just above Get a Quote */
+.fla > .flr-ui.flr-tick { top: auto !important; bottom: calc(100% + 8px); left: 0; right: auto; }
+.fla > .flr-ui.flr-tick .flr-note { top: auto; bottom: calc(100% + 8px); left: 0; right: auto; }
 
 /* ---- phones: a slim bar along the bottom ---------------------------------- */
 @media (max-width: 700px) {
