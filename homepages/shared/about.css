@@ -247,15 +247,17 @@
 .ab-checks { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
 .ab-checks li { display: flex; gap: 12px; line-height: 1.5; color: var(--ab-black); }
 .ab-checks .icon { margin-top: 2px; color: var(--ab-green); stroke-width: 2.4; }
-.ab-card--dark { background: var(--ab-green); border-color: var(--ab-green); border-top: 3px solid var(--ab-gold); }
-.ab-card--dark .ab-card__title { margin-bottom: 8px; color: #fff; }
-.ab-card--dark p { margin: 0; line-height: 1.6; color: #fff; }
-.ab-card__icon { width: 34px; height: 34px; margin-bottom: 14px; color: var(--ab-gold); }
-/* fun-facts card: icon and heading on one line, text below */
-.ab-card--dark:has(> .ab-card__icon) { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 14px; align-items: center; }
-.ab-card--dark > .ab-card__icon { width: 30px; height: 30px; margin: 0 0 10px; }
-.ab-card--dark:has(> .ab-card__icon) .ab-card__title { margin-bottom: 10px; }
-.ab-card--dark:has(> .ab-card__icon) p { grid-column: 1 / -1; }
+/* "<name> can help you": the card that stands out, green with a gold top edge */
+.ab-card--help { background: var(--ab-green); border-color: var(--ab-green); border-top: 3px solid var(--ab-gold); }
+.ab-card--help .ab-card__title { color: #fff; }
+.ab-card--help .ab-checks li { color: #fff; }
+.ab-card--help .ab-checks .icon { color: var(--ab-gold); }
+.ab-card__icon { width: 30px; height: 30px; color: var(--ab-green); }
+/* "Off the clock": plain white card, icon and heading on one line, text below */
+.ab-card--offclock { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 14px; align-items: center; }
+.ab-card--offclock > .ab-card__icon { margin: 0 0 10px; }
+.ab-card--offclock .ab-card__title { margin-bottom: 10px; }
+.ab-card--offclock p { grid-column: 1 / -1; margin: 0; line-height: 1.6; color: var(--ab-black); }
 
 .ab-back { padding: 22px 0; background: var(--ab-black); border-top: 1px solid var(--ab-green); }
 .ab-back a { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; color: #fff; text-decoration: none; }
