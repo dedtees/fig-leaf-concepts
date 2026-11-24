@@ -185,3 +185,5 @@ on the right (`video_reviews()` in `homepages/build.py`, styles in
 swap in the video when it arrives.
 
 **Personal Insurance navigation (build 1).** Build 1's header menu lists all nine personal insurance pages (desktop dropdown and phone menu), the Personal Insurance link goes to the homepage's Comprehensive Coverage section (`#coverage`), and every build 1 insurance page has a breadcrumb above its title: Home / Personal Insurance / page. Made by `personal_nav()` in `homepages/build.py` (`NAV_BUILDS` picks the builds); breadcrumb styles are `.pg-crumbs` in `homepages/shared/homeowners-versions.css`.
+
+**Headings (builds 1 to 5).** Each build page's section headings come from `homepages/headings.py`: `build.py`'s `write()` swaps the archive pages' generic headings for each page's own. Edit a heading there (or at its source, which then wins) and re-run `python3 homepages/build.py`.
