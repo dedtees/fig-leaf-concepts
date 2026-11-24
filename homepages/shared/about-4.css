@@ -139,32 +139,3 @@ a.b4-reach__item:hover { color: var(--ab-gold); }
   .a4-team .a4-person img { aspect-ratio: auto; min-height: 100%; }
   .a4-team .a4-person__text { display: none; }
 }
-
-/* Photo shape options for the bio photo (review round: "the photo container
-   with the curved top needs to change"). about.js adds a review-only picker
-   and sets data-shape on .b4-stage. No data-shape = the original arch. */
-.b4-stage[data-shape] .b4-photo { transition: border-radius .35s ease, transform .35s ease, box-shadow .35s ease; }
-.b4-stage[data-shape="leaf"] .b4-photo { border-radius: 20px 170px 20px 170px; }
-.b4-stage[data-shape="circle"] .b4-photo {
-  width: min(400px, 74vw); aspect-ratio: 1; border-radius: 50%;
-  border: 0; outline: 3px solid var(--ab-gold); outline-offset: 10px;
-}
-.b4-stage[data-shape="frame"] .b4-photo { border: 0; border-radius: 18px; box-shadow: 18px 18px 0 var(--ab-gold); }
-.b4-stage[data-shape="window"] .b4-photo { border: 0; border-radius: 6px; outline: 2px solid var(--ab-gold); outline-offset: 12px; }
-.b4-stage[data-shape="tilt"] .b4-photo { border: 10px solid #fff; border-radius: 6px; transform: rotate(-3deg); box-shadow: 14px 14px 0 var(--ab-gold); }
-@media (max-width: 760px) {
-  .b4-stage[data-shape="leaf"] .b4-photo { border-radius: 16px 110px 16px 110px; }
-  .b4-stage[data-shape="frame"] .b4-photo, .b4-stage[data-shape="tilt"] .b4-photo { box-shadow: 10px 10px 0 var(--ab-gold); }
-}
-
-/* the review-only picker */
-.b4-shapes {
-  position: relative; z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px;
-  margin: 26px auto 0; padding: 6px; width: max-content; max-width: calc(100% - 32px);
-  border: 1px dashed rgba(255,255,255,.35); border-radius: 999px; font-size: .82rem;
-}
-.b4-shapes__label { padding: 0 8px 0 10px; color: var(--ab-green-light); letter-spacing: .08em; text-transform: uppercase; font-size: .72rem; }
-.b4-shapes button { padding: 7px 14px; border: 0; border-radius: 999px; background: transparent; color: #fff; font: inherit; cursor: pointer; }
-.b4-shapes button:hover { background: rgba(255,255,255,.1); }
-.b4-shapes button[aria-pressed="true"] { background: var(--ab-gold); color: var(--ab-black); font-weight: 700; }
-@media (max-width: 760px) { .b4-shapes { border-radius: 18px; } .b4-shapes__label { width: 100%; text-align: center; padding: 4px 0; } }

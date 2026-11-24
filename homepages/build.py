@@ -1160,6 +1160,28 @@ def build_services(k):
         write(f'{out}/index.html', page)
 
 
+
+# Hero photo frame on the insurance pages, right of the title (client
+# review: three to pick from). Arch is the original shape; snapshot and
+# block are in homepages/shared/homeowners-versions.css.
+HERO_PHOTO = {1: 'snapshot', 2: 'block', 3: 'arch', 4: 'snapshot', 5: 'block'}
+
+
+def mark_hero_photos():
+    """Adds pg--photo-<frame> to <main> on every build's insurance pages."""
+    for k, frame in HERO_PHOTO.items():
+        root = os.path.join(REPO, build_dir(k))
+        for sub in sorted(os.listdir(root)):
+            path = os.path.join(root, sub, 'index.html')
+            if not os.path.isfile(path):
+                continue
+            page = read(os.path.relpath(path, REPO))
+            if 'pg-head__photo' not in page:
+                continue
+            page = re.sub(r'(<main id="main" class="[^"]*?)(?: pg--photo-\w+)?"', rf'\1 pg--photo-{frame}"', page, count=1)
+            write(os.path.relpath(path, REPO), page)
+
+
 def main():
     build_hero_css()
     build_subpages(1, 'concept-1')  # concept 1's Homeowners page only
@@ -1170,6 +1192,7 @@ def main():
     landing_bars()
     build_homeowners_versions()
     build_builds()
+    mark_hero_photos()
     print('built', len(HEROES), 'concept pages and builds', BUILDS)
 
 
