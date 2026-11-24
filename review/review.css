@@ -196,3 +196,6 @@ html.flr-hidden .flr-tick { display: none; }
   .flr-panel { right: 12px; left: 12px; width: auto; max-width: none; bottom: 62px; }
 }
 @media print { .flr-ui { display: none !important; } }
+
+/* a tick on a part inside a section (video, bio cards, a stock photo option) */
+.flr-tick.flr-tick--sub { top: 8px; right: 8px; }

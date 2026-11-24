@@ -61,10 +61,15 @@
     'homeowners-insurance-fade': 'Homeowners (fade)',
     'crq': 'Quote page',
     'crq-form': 'Quote form',
-    'about': 'About'
+    'about': 'About',
+    'testimonials': 'Testimonials'
   };
   function titleCase(s) { return s.replace(/-/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); }); }
+  var root = document.documentElement;
   var conceptLabel = (function () {
+    if (root.getAttribute('data-review-concept')) return root.getAttribute('data-review-concept');
+    // a build or concept folder names the concept (the quote pages' bar says "Get a quote")
+    if (/^(build|concept)-\d+$/.test(parts[0] || '')) return titleCase(parts[0]);
     var el = document.querySelector('.review-bar__label');
     if (el && el.textContent.trim()) return el.textContent.trim().replace(/\s+/g, ' ');
     return parts[0] ? titleCase(parts[0]) : 'Home';
@@ -73,7 +78,8 @@
   var tail = parts.length > 1 ? parts[parts.length - 1] : '';
   var pageLabel = PAGE_NAMES.hasOwnProperty(tail) ? PAGE_NAMES[tail] : titleCase(tail);
   // a team bio sits under about/: label it as that person's bio
-  if (parts.length > 2 && parts[parts.length - 2] === 'about') pageLabel = 'Bio: ' + titleCase(tail);
+  if (parts.length > 2 && parts[parts.length - 2] === 'about' && !PAGE_NAMES.hasOwnProperty(tail)) pageLabel = 'Bio: ' + titleCase(tail);
+  if (root.getAttribute('data-review-page')) pageLabel = root.getAttribute('data-review-page');
 
   /* ---- styles ---------------------------------------------------------- */
   var me = document.currentScript;
@@ -90,7 +96,7 @@
   };
 
   /* ---- find the sections ----------------------------------------------- */
-  function slug(s) { return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'section'; }
+  function slug(s, n) { return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, n || 40) || 'section'; }
   function textOf(el) {
     if (!el) return '';
     var c = el.cloneNode(true);
@@ -110,6 +116,26 @@
     if (!t) t = textOf(el.querySelector('h2, h3, legend'));
     t = t || 'Section ' + (i + 1);
     return t.length > 60 ? t.slice(0, 57) + '…' : t;
+  }
+  // Smaller parts that get a tick of their own inside their section: things
+  // the client was asked about by name. Any element can opt in with
+  // data-review="Label".
+  var SUB_ITEMS = [
+    ['.vr-video', 'Video testimonial'],
+    ['.ab-card--help, .b3-help, .b5-help', 'Can help you card'],
+    ['.ab-card--offclock, .b2-offclock, .b5-offclock', 'Off the clock card'],
+    ['[data-review]', null]
+  ];
+  function findSubItems() {
+    var out = [];
+    SUB_ITEMS.forEach(function (s) {
+      document.querySelectorAll(s[0]).forEach(function (el) {
+        if (el.closest('.flr-ui') || out.some(function (o) { return o.el === el; })) return;
+        if (el.offsetHeight < 20) return;
+        out.push({ el: el, label: s[1] || el.getAttribute('data-review') });
+      });
+    });
+    return out;
   }
   function findSections() {
     var main = document.querySelector('main') || document.body;
@@ -181,12 +207,19 @@
     openNote = null;
   }
 
-  function build(el, i, used) {
-    var label = labelFor(el, i);
-    var id = slug(label);
+  function build(el, i, used, given) {
+    var label = given || labelFor(el, i);
+    var id = slug(label, given ? 90 : 40);
     while (used[id]) id += '-2';
     used[id] = true;
     var key = path + '#' + id;
+
+    // a pick made before a label changed (e.g. the quote pages were "Get a
+    // quote") takes this page's current names, here and in the sheet
+    var old = state.picks[key];
+    if (old && (old.concept !== conceptLabel || old.page !== pageLabel)) {
+      old.concept = conceptLabel; old.page = pageLabel; save(); queueSync(key);
+    }
 
     if (getComputedStyle(el).position === 'static') el.classList.add('flr-host');
     var box = document.createElement('div');
@@ -201,6 +234,7 @@
       '<textarea rows="3" placeholder="Optional: what do you like or want changed?"></textarea></label>' +
       '<div class="flr-note__row"><span class="flr-note__saved" aria-live="polite"></span><button type="button" class="flr-note__done">Done</button></div></div>';
     if (el.matches('.site-header')) box.classList.add('flr-tick--header');
+    if (given) box.classList.add('flr-tick--sub');
     el.appendChild(box);
 
     var like = box.querySelector('.flr-btn--like');
@@ -470,11 +504,35 @@
     document.body.appendChild(fab);
   }
 
+  /* ---- for other review tools (the heading font picker) ------------------ */
+  // A pick that isn't tied to a section on this page, such as the preferred
+  // heading font. key is site-wide, e.g. '/heading-font/#lora'.
+  window.flReview = {
+    get: function (key) { return state.picks[key] || null; },
+    set: function (key, p) {
+      if (p) {
+        var cur = state.picks[key] || {};
+        state.picks[key] = { concept: p.concept, page: p.page, section: p.section, url: p.url || location.origin + path,
+          verdict: p.verdict || null, note: p.note || cur.note || '', order: p.order || 0, at: new Date().toISOString() };
+      } else {
+        delete state.picks[key];
+      }
+      save(); queueSync(key); refreshPanel();
+    }
+  };
+
   /* ---- start ------------------------------------------------------------ */
   var ticks = [];
   function start() {
     var used = {};
-    findSections().forEach(function (el, i) { ticks.push(build(el, i, used)); });
+    var sections = findSections();
+    sections.forEach(function (el, i) { ticks.push(build(el, i, used)); });
+    // sub-items sort just after the section they sit in
+    findSubItems().forEach(function (s) {
+      var at = sections.findIndex(function (sec) { return sec.contains(s.el); });
+      if (at < 0) at = sections.length;
+      ticks.push(build(s.el, at + 0.5, used, s.label));
+    });
     buildPanel();
     refreshPanel();
     function placeAll() { ticks.forEach(function (t) { t.place(); }); ticks.forEach(function (t) { t.place(); }); }

@@ -29,7 +29,11 @@ var TAB_CONCEPT = 'By concept';
 var TAB_COMMENTS = 'Comments';
 var TAB_PICKS = 'All picks';
 var PICK_HEADERS = ['Updated', 'Concept', 'Page', 'Section', 'Verdict', 'Comment', 'Reviewer', 'Link', 'Order', 'Key'];
-var PAGE_ORDER = ['Homepage', 'Homeowners', 'Homeowners (scrolling)', 'Homeowners (fade)', 'Quote page', 'Quote form', 'About'];
+var PAGE_ORDER = ['Homepage', 'Homeowners', 'Homeowners (scrolling)', 'Homeowners (fade)', 'Auto Insurance',
+  'Boat Insurance', 'Personal Umbrella Insurance', 'Renters Insurance', 'Condo Insurance', 'Life Insurance',
+  'Health Insurance', 'Pet Insurance', 'Quote page', 'Quote form', 'About', 'Testimonials'];
+// after the bios: the pages that aren't part of one build
+var PAGE_LAST = ['Heading font', 'Stock photo picks'];
 
 var GREEN = '#d9f2e3', GREEN_INK = '#14532d';
 var RED = '#fbdcd8', RED_INK = '#8a1c12';
@@ -128,16 +132,24 @@ function savePicks_(rows) {
 /* ---- ordering ----------------------------------------------------------- */
 function conceptRank_(c) {
   var m = /(\d+)/.exec(c);
-  if (/^concept/i.test(c) && m) return Number(m[1]);
+  if (/^build/i.test(c) && m) return Number(m[1]);
+  if (/^concept/i.test(c) && m) return 100 + Number(m[1]);
+  var last = PAGE_LAST.indexOf(c === 'Stock photos' ? 'Stock photo picks' : c);
+  if (last > -1) return 5000 + last;
   return 1000 + String(c).toLowerCase().charCodeAt(String(c).length - 1);
 }
 function pageRank_(p) {
   var i = PAGE_ORDER.indexOf(p);
   if (i < 0 && /^Bio: /.test(p)) return PAGE_ORDER.length;   // team bios follow About
+  if (i < 0 && PAGE_LAST.indexOf(p) > -1) return 100 + PAGE_LAST.indexOf(p);
   return i < 0 ? 50 : i;
 }
+// pages with the same rank (the bios, anything unlisted) stay together, A to Z
+function pageCmp_(a, b) {
+  return pageRank_(a) - pageRank_(b) || String(a).localeCompare(String(b));
+}
 function comparePicks_(a, b) {
-  return conceptRank_(a[1]) - conceptRank_(b[1]) || pageRank_(a[2]) - pageRank_(b[2]) ||
+  return conceptRank_(a[1]) - conceptRank_(b[1]) || pageCmp_(a[2], b[2]) ||
     a[8] - b[8] || String(a[6]).localeCompare(String(b[6]));
 }
 function colourVerdicts_(range) {
@@ -224,7 +236,7 @@ function buildOverview_(ss, data) {
     sections[k].order = Math.min(sections[k].order, r[8]);
   });
   var list = Object.keys(sections).map(function (k) { return sections[k]; })
-    .sort(function (a, b) { return pageRank_(a.page) - pageRank_(b.page) || a.order - b.order; });
+    .sort(function (a, b) { return pageCmp_(a.page, b.page) || a.order - b.order; });
 
   var head = ['Page', 'Section'].concat(concepts);
   sh.getRange(row, 1, 1, head.length).setValues([head]).setFontWeight('bold').setBackground(HEAD).setFontColor(HEAD_INK)
