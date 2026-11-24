@@ -43,6 +43,32 @@ HEALTH_PEDIATRIC = COMP(('04/84/86/95', '484869531_B79MGsEMR6KgiO6hSbcpwCNSux12q
 PET_VET = COMP(('21/00/25/78', '2100257871_fe6cWogBPhc7OTcIWmCFyPQQjKlfzO4Y'))
 PET_SOFA = COMP(('14/02/42/86', '1402428625_z0CYnvI6nhJXa0L9tdkNFnptgjRCwyQt'))
 
+# Photos for the overview tiles (the small cards beside the dark intro card),
+# drawn like Homeowners' Fire, Wind and Theft. Same order as each page's tiles.
+TILE_PHOTOS = {
+    'auto-insurance': [
+        (COMP(('06/33/55/79', '633557956_HqTpzz2yv0sAnxm1yifHmsMrqR2r6gDp')), 'Two drivers exchanging insurance details after a crash'),
+        (COMP(('18/04/91/67', '1804916783_6jkezR6X06tQhPb6q8f8Hc2Q5L6djsIR')), 'A car with a dented rear quarter after a collision'),
+        (COMP(('05/44/94/20', '544942077_Vm870HjGJEe3q16Ox3Hb6r8Ww8NJuOTv')), 'A car that has crashed into a fence'),
+    ],
+    'boat-insurance': [
+        (COMP(('07/40/39/61', '740396120_QVU15RJxvJhv55DYEfZpFaC2FXZbvqpl')), 'Damaged boats piled against a marina after a storm'),
+        (COMP(('07/54/81/90', '754819020_TMfLQTCaKWX3mQC3okc2lF9lwvTtnOF7')), 'The bow of a yacht damaged in a collision'),
+        (COMP(('01/20/77/90', '120779074_c0DbmTfrT47BHmws1Y6dACK87oIOPBcs')), 'A paramedic helping an injured woman'),
+    ],
+    'personal-umbrella-insurance': [
+        (COMP(('04/39/89/39', '439893945_zcVoAbyXtTGRvQJIAdl7hRWZgP9Otc8j')), 'Friends at a backyard pool party'),
+        (COMP(('04/59/37/27', '459372773_VyB43khG7MkpRUHfp9SFElvEN0moSo6U')), 'An intersection crash involving a car and a semi truck'),
+        (COMP(('20/77/63/96', '2077639693_Mjxqnojlh5D2Vmx4bXN57AgcJIfCVgZy')), 'A lawyer reviewing legal papers beside a gavel'),
+    ],
+    'life-insurance': [
+        (COMP(('00/93/70/20', '93702077_pfqlsHF7kO5nXzhJBcoVzfUAS3Zh8Xhn')), 'A mother holding her baby while working at the kitchen table'),
+        (COMP(('20/80/19/29', '2080192959_pt4Hx2A3n8zGGcFc6i7JLKbCpx7bsaba')), 'A family receiving the keys to their new home'),
+        (COMP(('03/24/35/15', '324351546_YsHbxfuu9WzNV127oIgu4stem3ImLR6k')), 'A coffin decorated with flowers'),
+        (COMP(('21/97/61/72', '2197617222_9uWSn7mKXQSvUCdfNYDvkNgPEKMA9tCl')), 'A graduate in cap and gown with proud parents'),
+    ],
+}
+
 # Extra line icons for these pages, drawn like the rest of the sprite
 # (24px box, stroked with currentColor).
 ICONS = {
@@ -308,13 +334,19 @@ def hero(s, up):
     </header>'''
 
 
-def overview(s):
+def overview(s, up=None):
     o = s['overview']
     if not o:
         return ''
     tiles = ''
     if o['tiles']:
-        lis = '\n'.join(f'              <li>{icon(i)}{t}</li>' for i, t in o['tiles'])
+        photos = TILE_PHOTOS.get(s['slug'])
+        if photos:
+            lis = '\n'.join(f'              <li class="pg-peril">{img(src, alt, 900, 600, up, " loading=\"lazy\"")}'
+                             f'<span class="pg-peril__label">{icon(i)}{t}</span></li>'
+                             for (i, t), (src, alt) in zip(o['tiles'], photos))
+        else:
+            lis = '\n'.join(f'              <li>{icon(i)}{t}</li>' for i, t in o['tiles'])
         tiles = (f'\n          <ul class="pg-perils pg-perils--n{len(o["tiles"])}" aria-label="{s["name"]}">\n{lis}\n            </ul>')
     solo = '' if o['tiles'] else ' pg-overview--solo'
     return f'''<section class="pg-sec" id="overview" aria-labelledby="pg-overview-title">
