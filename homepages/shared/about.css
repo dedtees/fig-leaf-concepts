@@ -249,6 +249,11 @@
 .ab-card--dark .ab-card__title { margin-bottom: 8px; color: #fff; }
 .ab-card--dark p { margin: 0; line-height: 1.6; color: #fff; }
 .ab-card__icon { width: 34px; height: 34px; margin-bottom: 14px; color: var(--ab-gold); }
+/* fun-facts card: icon and heading on one line, text below */
+.ab-card--dark:has(> .ab-card__icon) { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 14px; align-items: center; }
+.ab-card--dark > .ab-card__icon { width: 30px; height: 30px; margin: 0 0 10px; }
+.ab-card--dark:has(> .ab-card__icon) .ab-card__title { margin-bottom: 10px; }
+.ab-card--dark:has(> .ab-card__icon) p { grid-column: 1 / -1; }
 
 .ab-back { padding: 22px 0; background: var(--ab-black); border-top: 1px solid var(--ab-green); }
 .ab-back a { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; color: #fff; text-decoration: none; }
