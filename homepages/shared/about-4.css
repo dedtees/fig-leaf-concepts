@@ -90,6 +90,7 @@
 .b4-qa__list div { padding: 28px; border: 1px solid var(--ab-green-light); border-radius: 18px; }
 .b4-qa__list div:nth-child(3) { background: var(--ab-green); border-color: var(--ab-green); }
 .b4-qa__list div:nth-child(3) dt, .b4-qa__list div:nth-child(3) dd { color: #fff; }
+.b4-qa__list .b4-qa__wide { grid-column: 1 / -1; }
 .b4-qa__list dt { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; font-family: var(--ab-serif); font-weight: 600; font-size: 1.35rem; line-height: 1.25; color: var(--ab-green); }
 .b4-q { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--ab-gold); color: var(--ab-black); font-family: var(--ab-sans); font-size: 1rem; font-weight: 700; }
 .b4-qa__list dd { margin: 0; font-size: 1.1rem; line-height: 1.7; }
