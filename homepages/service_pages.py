@@ -51,6 +51,12 @@ PET_SOFA = COMP(('14/02/42/86', '1402428625_z0CYnvI6nhJXa0L9tdkNFnptgjRCwyQt'))
 TALK_PHOTOS = {
     'auto-insurance': (COMP(('02/31/04/89', '231048974_VOYhhhLWbWyxeTu2MQA71pFfPGRDdFly')), 'An agent talking with a couple beside their car'),
     'boat-insurance': (COMP(('02/79/90/46', '279904629_KsZXVvInhmMdcTLOxPhzSDJvg1Zmdi8n')), 'An agent shaking hands with a couple at a marina'),
+    'renters-insurance': (COMP(('08/16/61/15', '816611560_oKfu6kjQd0QB1ii2weWIiY8IHT4Q5emY')), 'An agent with a tablet talking with young renters at home'),
+    'condo-insurance': (COMP(('02/35/02/06', '235020678_hyp4iNkW5faPkHsJfTJHonMQ1CohUtK1')), 'An agent showing a couple around a new condo'),
+    'life-insurance': (COMP(('01/79/97/54', '179975497_Dbz88exsFAVfHvaa97itL8hrOlBHHi6K')), 'A family with a baby meeting an advisor at home'),
+    'health-insurance': (COMP(('13/32/81/42', '1332814295_K5EJrPno0SZ5oloMkRvMMQ9MZyT03Jy4')), 'A couple talking through a health plan with an advisor'),
+    'pet-insurance': (COMP(('03/14/93/01', '314930144_Qh0Cy936qEtEKH5u1ic2GlbNawTR2e5I')), 'A couple with their dog meeting an insurance agent'),
+    'personal-umbrella-insurance': (COMP(('06/19/58/67', '619586727_QGQDQzdN7c3qfSFSmqyxJCvUSX4gQESD')), 'An agent showing a tablet to a couple at home'),
 }
 
 # Photos for the overview tiles (the small cards beside the dark intro card),
