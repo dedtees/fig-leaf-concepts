@@ -49,7 +49,10 @@
 .pg--service .pg-bento .pg-cover { grid-area: auto; }
 .pg--service .pg-bento .pg-cover:nth-child(1) { grid-column: span 2; grid-row: span 2; }
 .pg--service .pg-bento .pg-cover:nth-child(n+6) { grid-column: span 2; }
-.pg--service .pg-bento--n6 .pg-cover:nth-child(6) { grid-column: 1 / -1; }
+/* six cards (Boat): the big card runs down three rows and the last card
+   takes the two columns beside it, so it doesn't sit alone across the grid */
+.pg--service .pg-bento--n6 .pg-cover:nth-child(1) { grid-row: span 3; }
+.pg--service .pg-bento--n6 .pg-cover:nth-child(6) { grid-column: span 2; }
 /* two, three or four cards: one row, the first card wider */
 .pg--service .pg-bento--n2 { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
 .pg--service .pg-bento--n3 { grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)); }
@@ -105,6 +108,12 @@
   .pg--service .pg-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .pg--service .pg-bento .pg-cover:nth-child(n) { grid-column: auto; grid-row: auto; }
   .pg--service .pg-bento .pg-cover:nth-child(1) { grid-column: 1 / -1; }
+  /* full width, the first card's photo sits above its text (as on phones)
+     so a longer description never runs over the photo */
+  .pg--service .pg-bento .pg-cover:nth-child(1) { min-height: 0; justify-content: flex-start; }
+  .pg--service .pg-bento .pg-cover:nth-child(1) .pg-cover__photo { position: relative; inset: auto; z-index: 0; height: 260px; margin: -26px -26px 4px; }
+  .pg--service .pg-bento .pg-cover:nth-child(1) .pg-cover__photo img { width: 100%; height: 100%; object-fit: cover; }
+  .pg--service .pg-bento .pg-cover:nth-child(1) .pg-cover__num { z-index: 1; }
   .pg--service .pg-bento--n2 .pg-cover:nth-child(1) { grid-column: auto; }
   .pg--service .pg-bento--n3 .pg-cover:nth-child(1) { grid-column: 1 / -1; }
   .pg--service .pg-bento--n4 .pg-cover:nth-child(4),

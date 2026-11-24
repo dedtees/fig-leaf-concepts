@@ -43,6 +43,12 @@ HEALTH_PEDIATRIC = COMP(('04/84/86/95', '484869531_B79MGsEMR6KgiO6hSbcpwCNSux12q
 PET_VET = COMP(('21/00/25/78', '2100257871_fe6cWogBPhc7OTcIWmCFyPQQjKlfzO4Y'))
 PET_SOFA = COMP(('14/02/42/86', '1402428625_z0CYnvI6nhJXa0L9tdkNFnptgjRCwyQt'))
 
+# The "Rather talk it through?" photo, where the house one doesn't fit.
+TALK_PHOTOS = {
+    'auto-insurance': (COMP(('02/31/04/89', '231048974_VOYhhhLWbWyxeTu2MQA71pFfPGRDdFly')), 'An agent talking with a couple beside their car'),
+    'boat-insurance': (COMP(('02/79/90/46', '279904629_KsZXVvInhmMdcTLOxPhzSDJvg1Zmdi8n')), 'An agent shaking hands with a couple at a marina'),
+}
+
 # Photos for the overview tiles (the small cards beside the dark intro card),
 # drawn like Homeowners' Fire, Wind and Theft. Same order as each page's tiles.
 TILE_PHOTOS = {
@@ -402,9 +408,11 @@ def quote(s, homeowners_quote, up):
     """The Homeowners quote section with this page's words and photo."""
     q = homeowners_quote
     q = q.replace('Get your homeowners quote', f'Get your {s["short"]} quote', 1)
-    talk_photo = AGENT   # the agent going over a house with a couple
+    # the agent going over a house with a couple, or the page's own photo
+    talk_src, talk_alt = TALK_PHOTOS.get(s['slug'], (AGENT, 'An agent with a tablet showing a couple something on their house'))
+    talk_url = talk_src if talk_src.startswith('http') else up(talk_src)
     q = q.replace('<img src="../assets/homeowners/home-cta.jpg" alt="A laughing little boy riding in a moving box pushed by his dad" width="800" height="800"',
-                  f'<img src="{up(talk_photo)}" alt="An agent with a tablet showing a couple something on their house" width="416" height="483"', 1)
+                  f'<img src="{talk_url}" alt="{talk_alt}" width="416" height="483"', 1)
     old = 'For more information about homeowners insurance, condominium insurance and renters insurance, call us and an agent will run the quote with you.'
     assert old in q
     q = q.replace(old, f'For more information about {s["short"]}, call us and an agent will run the quote with you. '
