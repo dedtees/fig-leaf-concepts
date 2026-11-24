@@ -54,7 +54,11 @@
 .pg--service .pg-bento--n2 { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
 .pg--service .pg-bento--n3 { grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)); }
 .pg--service .pg-bento--n2 .pg-cover:nth-child(1),
-.pg--service .pg-bento--n3 .pg-cover:nth-child(1) { grid-column: auto; grid-row: auto; min-height: 320px; }
+.pg--service .pg-bento--n3 .pg-cover:nth-child(1) { grid-column: auto; grid-row: auto; min-height: 460px; }
+/* with a photo in a one-row grid, the photo takes the top half so the
+   icon and text below it have room */
+.pg--service .pg-bento--n2 .pg-cover:nth-child(1) .pg-cover__photo,
+.pg--service .pg-bento--n3 .pg-cover:nth-child(1) .pg-cover__photo { height: 48%; }
 .pg--service .pg-bento--n4 .pg-cover:nth-child(4) { grid-column: span 2; }
 /* the highlighted (gold) card is the last one, not always the fifth */
 .pg--service .pg-bento .pg-cover:nth-child(5):not(:last-child) { background: #fff; }
@@ -123,3 +127,11 @@
 
 /* a note on the dark first card (Auto's "It covers injury to people") */
 .pg--service .pg-bento .pg-cover:nth-child(1) .pg-cover__note { color: var(--c2-gold); }
+
+/* photo tiles in the overview (Auto, Boat, Umbrella, Life): the photo fills
+   what the label leaves, so a label on two or three lines (Umbrella's) never
+   runs over the photo */
+@media (min-width: 761px) {
+  .pg--service .pg-perils li.pg-peril { gap: 14px; justify-content: flex-end; }
+  .pg--service .pg-peril img { position: static; flex: 1 1 auto; min-height: 140px; width: calc(100% + 40px); max-width: none; height: auto; margin: -20px -20px 0; }
+}

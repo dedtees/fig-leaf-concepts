@@ -28,6 +28,47 @@ FAMILY_BEACH = 'homepages/shared/assets/life-insurance.jpg'
 MOVING = 'archive-b/assets/homeowners/home-cta.jpg'
 AGENT = 'archive-b/assets/homeowners/home-4.jpg'
 
+# Adobe Stock picks for review: watermarked previews (comps) straight from
+# Adobe until the agency licenses them; then the licensed files go in
+# homepages/shared/assets/stock/ and these point there.
+def COMP(path_id):
+    d, n = path_id
+    return f'https://as1.ftcdn.net/v2/jpg/{d}/1000_F_{n}.jpg'
+RENTERS_HOME = COMP(('07/54/95/66', '754956689_XTzCo4E2LfqMFvHwXKp5qCXOqcMXwaaY'))
+CONDO_ROOM = COMP(('04/71/48/71', '471487131_YzMQZZUTC1HArwsoQtp7PVLuXKqnfwgc'))
+CONDO_BUILDING = COMP(('21/49/97/47', '2149974736_Fsfjc7BdeFGIBEXuDaNHVSP32aDANmCU'))
+LIFE_FAMILY = COMP(('05/31/00/23', '531002360_RWIQ8FMWxLU6l9MWiC5nhjvN2TU2uPkS'))
+HEALTH_VISIT = COMP(('05/92/61/93', '592619383_AB8zJvSWQgBoQgicryrcytZxvbFy5Qbv'))
+HEALTH_PEDIATRIC = COMP(('04/84/86/95', '484869531_B79MGsEMR6KgiO6hSbcpwCNSux12qk13'))
+PET_VET = COMP(('21/00/25/78', '2100257871_fe6cWogBPhc7OTcIWmCFyPQQjKlfzO4Y'))
+PET_SOFA = COMP(('14/02/42/86', '1402428625_z0CYnvI6nhJXa0L9tdkNFnptgjRCwyQt'))
+
+# Photos for the overview tiles (the small cards beside the dark intro card),
+# drawn like Homeowners' Fire, Wind and Theft. Same order as each page's tiles.
+TILE_PHOTOS = {
+    'auto-insurance': [
+        (COMP(('06/33/55/79', '633557956_HqTpzz2yv0sAnxm1yifHmsMrqR2r6gDp')), 'Two drivers exchanging insurance details after a crash'),
+        (COMP(('18/04/91/67', '1804916783_6jkezR6X06tQhPb6q8f8Hc2Q5L6djsIR')), 'A car with a dented rear quarter after a collision'),
+        (COMP(('05/44/94/20', '544942077_Vm870HjGJEe3q16Ox3Hb6r8Ww8NJuOTv')), 'A car that has crashed into a fence'),
+    ],
+    'boat-insurance': [
+        (COMP(('07/40/39/61', '740396120_QVU15RJxvJhv55DYEfZpFaC2FXZbvqpl')), 'Damaged boats piled against a marina after a storm'),
+        (COMP(('07/54/81/90', '754819020_TMfLQTCaKWX3mQC3okc2lF9lwvTtnOF7')), 'The bow of a yacht damaged in a collision'),
+        (COMP(('01/20/77/90', '120779074_c0DbmTfrT47BHmws1Y6dACK87oIOPBcs')), 'A paramedic helping an injured woman'),
+    ],
+    'personal-umbrella-insurance': [
+        (COMP(('04/39/89/39', '439893945_zcVoAbyXtTGRvQJIAdl7hRWZgP9Otc8j')), 'Friends at a backyard pool party'),
+        (COMP(('04/59/37/27', '459372773_VyB43khG7MkpRUHfp9SFElvEN0moSo6U')), 'An intersection crash involving a car and a semi truck'),
+        (COMP(('20/77/63/96', '2077639693_Mjxqnojlh5D2Vmx4bXN57AgcJIfCVgZy')), 'A lawyer reviewing legal papers beside a gavel'),
+    ],
+    'life-insurance': [
+        (COMP(('00/93/70/20', '93702077_pfqlsHF7kO5nXzhJBcoVzfUAS3Zh8Xhn')), 'A mother holding her baby while working at the kitchen table'),
+        (COMP(('20/80/19/29', '2080192959_pt4Hx2A3n8zGGcFc6i7JLKbCpx7bsaba')), 'A family receiving the keys to their new home'),
+        (COMP(('03/24/35/15', '324351546_YsHbxfuu9WzNV127oIgu4stem3ImLR6k')), 'A coffin decorated with flowers'),
+        (COMP(('21/97/61/72', '2197617222_9uWSn7mKXQSvUCdfNYDvkNgPEKMA9tCl')), 'A graduate in cap and gown with proud parents'),
+    ],
+}
+
 # Extra line icons for these pages, drawn like the rest of the sprite
 # (24px box, stroked with currentColor).
 ICONS = {
@@ -155,7 +196,7 @@ SERVICES = [
         },
         'covered_title': 'Renters insurance typically covers:',
         'covered_kicker': 'Keeping you protected',
-        'cover_photo': None,
+        'cover_photo': RENTERS_HOME,
         'covered': [
             ('i-sofa', 'Personal Property', 'Your furniture, electronics, clothing and other belongings.', None),
             ('i-liability', 'Personal Liability', 'If someone is injured in your rental, or you accidentally damage someone else&rsquo;s property.', None),
@@ -170,7 +211,7 @@ SERVICES = [
         'h1': ('What&rsquo;s inside your walls', 'is up to you.'),
         'lead': 'Your association&rsquo;s master policy covers the building and common areas. Condo insurance fills the gap.',
         'cta': 'Get Condo Quote',
-        'photo': (None, '[Photo to come: a condo building or interior]'),
+        'photo': (CONDO_BUILDING, 'A modern condo building with glass balconies at sunset'),
         'overview': {
             'kicker': 'Select one or bundle',
             'text': 'Select condo insurance on its own, or <em>bundle it with auto</em> and save.',
@@ -178,7 +219,7 @@ SERVICES = [
         },
         'covered_title': 'Condo insurance typically covers:',
         'covered_kicker': 'Keeping you protected',
-        'cover_photo': None,
+        'cover_photo': CONDO_ROOM,
         'covered': [
             ('i-building', 'Your Unit&rsquo;s Interior', 'Walls, floors, fixtures and improvements you&rsquo;ve made.', None),
             ('i-sofa', 'Personal Property', 'Your belongings inside the unit.', None),
@@ -203,7 +244,7 @@ SERVICES = [
         },
         'covered_title': 'Types we can help you compare:',
         'covered_kicker': 'Term or permanent',
-        'cover_photo': None,
+        'cover_photo': LIFE_FAMILY,
         'covered': [
             ('i-clock', 'Term Life', 'Coverage for a set number of years.', None),
             ('i-infinity', 'Permanent Life', 'Lifelong coverage that may build cash value.', None),
@@ -217,11 +258,11 @@ SERVICES = [
         'h1': ('Health plans are confusing on purpose.', 'We&rsquo;re not.'),
         'lead': 'We&rsquo;ll help you compare individual and family options and understand what each plan really covers before you choose.',
         'cta': 'Get Health Insurance Quote',
-        'photo': (None, '[Photo to come: a family or a doctor visit]'),
+        'photo': (HEALTH_PEDIATRIC, 'A mother holding her baby during a visit to the pediatrician'),
         'overview': None,
         'covered_title': 'Plans we can help you compare:',
         'covered_kicker': 'Individual or family',
-        'cover_photo': None,
+        'cover_photo': HEALTH_VISIT,
         'covered': [
             ('i-people', 'Individual Plans', '[Copy to come: what an individual plan covers]', None),
             ('i-heart', 'Family Plans', '[Copy to come: what a family plan covers]', None),
@@ -235,11 +276,11 @@ SERVICES = [
         'h1': ('They&rsquo;re family.', 'Vet bills can arrive without warning.'),
         'lead': 'Pet insurance helps cover the cost of care when your dog or cat is sick or injured.',
         'cta': 'Get Pet Insurance Quote',
-        'photo': (None, '[Photo to come: a dog or cat]'),
+        'photo': (PET_SOFA, 'A smiling woman hugging her dog on the sofa at home'),
         'overview': None,
         'covered_title': 'Pet insurance plans typically cover:',
         'covered_kicker': 'Keeping them protected',
-        'cover_photo': None,
+        'cover_photo': PET_VET,
         'covered': [
             ('i-paw', 'Accidents', '[Copy to come]', None),
             ('i-medical', 'Illnesses', '[Copy to come]', None),
@@ -258,7 +299,8 @@ SPAN_NAMES = {'Renters Insurance': 'renters-insurance', 'Condo Owners Insurance'
 
 
 def img(src, alt, w, h, up, extra=''):
-    return f'<img src="{up(src)}" alt="{alt}" width="{w}" height="{h}" decoding="async"{extra}>'
+    url = src if src.startswith('http') else up(src)
+    return f'<img src="{url}" alt="{alt}" width="{w}" height="{h}" decoding="async"{extra}>'
 
 
 def icon(i):
@@ -292,13 +334,19 @@ def hero(s, up):
     </header>'''
 
 
-def overview(s):
+def overview(s, up=None):
     o = s['overview']
     if not o:
         return ''
     tiles = ''
     if o['tiles']:
-        lis = '\n'.join(f'              <li>{icon(i)}{t}</li>' for i, t in o['tiles'])
+        photos = TILE_PHOTOS.get(s['slug'])
+        if photos:
+            lis = '\n'.join(f'              <li class="pg-peril">{img(src, alt, 900, 600, up, " loading=\"lazy\"")}'
+                             f'<span class="pg-peril__label">{icon(i)}{t}</span></li>'
+                             for (i, t), (src, alt) in zip(o['tiles'], photos))
+        else:
+            lis = '\n'.join(f'              <li>{icon(i)}{t}</li>' for i, t in o['tiles'])
         tiles = (f'\n          <ul class="pg-perils pg-perils--n{len(o["tiles"])}" aria-label="{s["name"]}">\n{lis}\n            </ul>')
     solo = '' if o['tiles'] else ' pg-overview--solo'
     return f'''<section class="pg-sec" id="overview" aria-labelledby="pg-overview-title">

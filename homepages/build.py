@@ -613,7 +613,7 @@ def service_version(n, s):
     live = lambda slug: f'https://figleafagency.com/{slug}/'
     hero = SP.hero(s, up)
     article = 'an' if s['short'][0] in 'aeiou' else 'a'
-    layouts = version_layouts(hero, SP.overview(s), SP.covered(s, up, live), SP.quote(s, quote, up),
+    layouts = version_layouts(hero, SP.overview(s, up), SP.covered(s, up, live), SP.quote(s, quote, up),
                               f'Get {article} {s["short"]} quote')
     cls, top, secs = layouts[n - 1]
     cls += ' pg--service' + (' pg--draft' if s['draft'] else '')
