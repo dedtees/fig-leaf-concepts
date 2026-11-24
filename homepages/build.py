@@ -704,7 +704,7 @@ def video_card(out_dir, cls, poster=POSTER):
             '              <span class="vr-video__kicker">Video testimonial</span>\n'
             '              <strong>Hear it from our clients</strong>\n'
             '              <span>A client tells their story in their own words.</span>\n'
-            + '              <a class="vr-video__more" href="testimonials/">See more<span class="visually-hidden"> testimonials</span>'
+            + '              <a class="vr-video__more" href="about/testimonials/">See more<span class="visually-hidden"> testimonials</span>'
               '<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>\n'
             + '            </figcaption>\n'
             '          </figure>\n')
@@ -787,10 +787,11 @@ def video_reviews(page, out_dir):
 
 
 def testimonials_page(page, out_dir):
-    """<build>/testimonials/: where the homepage video card's "See more" goes.
+    """<build>/about/testimonials/ (under About, Eric 24 Nov): where the
+    homepage video card's "See more" goes.
     For now the page header, the video and the Google reviews from the
     homepage; more client videos and reviews are to come (Eric, 24 Nov)."""
-    out = f'{out_dir}/testimonials'
+    out = f'{out_dir}/about/testimonials'
     page = rebase(page, out_dir, out)
     a, b = page.index('<main id="main">'), page.index('</main>') + len('</main>')
     main = page[a:b]
@@ -810,14 +811,15 @@ def testimonials_page(page, out_dir):
            + reviews + '\n' + (defs.group(0) if defs else '') +
            '\n  </div>\n\n  </main>')
     page = page[:a] + new + page[b:]
-    page = page.replace('<link rel="stylesheet" href="../../homepages/shared/video-reviews.css">',
-                        '<link rel="stylesheet" href="../../homepages/shared/video-reviews.css">\n'
-                        '  <link rel="stylesheet" href="../../homepages/shared/testimonials.css">', 1)
+    vr = '<link rel="stylesheet" href="' + posixpath.relpath('homepages/shared/video-reviews.css', out) + '">'
+    assert vr in page
+    page = page.replace(vr, vr + '\n  <link rel="stylesheet" href="' + posixpath.relpath('homepages/shared/testimonials.css', out) + '">', 1)
     # no hero on this page: drop the hero scripts
     page = re.sub(r'\s*<script src="[^"]*/(?:hero-x|concept-11)\.js"></script>', '', page)
     page = re.sub(r'<title>[^<]*</title>', '<title>Concept 5 · Testimonials | The Fig Leaf Agency</title>', page, count=1)
     page = re.sub(r'(<!-- Built by homepages/build.py)[^>]*-->',
                   r'\1 (testimonials_page): from the build 5 homepage\'s reviews. Edit the script, then re-run it. -->', page, count=1)
+    page = mark_current(page)
     write(f'{out}/index.html', page)
 
 
@@ -921,6 +923,12 @@ def about_links(page, out, build):
         '            </ul>\n'
         '          </li>', 1)
     # (the homepage's values button keeps pointing at the About page: Our Values is gone)
+    if build == build_dir(VIDEO_BUILD) and '>Testimonials</a>' not in page:   # its Testimonials page sits under About
+        page = page.replace(f'<li><a href="{to("#team")}">Meet the Team</a></li>',
+                            f'<li><a href="{to("#team")}">Meet the Team</a></li>\n'
+                            f'              <li><a href="{to("testimonials/")}">Testimonials</a></li>', 1)
+        page = page.replace(f'<li><a href="{to("#team")}">Meet Our Team</a></li>',
+                            f'<li><a href="{to("#team")}">Meet Our Team</a></li><li><a href="{to("testimonials/")}">Testimonials</a></li>', 1)
     return page
 
 
@@ -1020,6 +1028,8 @@ def keep_links_in(page, out, build):
         elif not re.match(r'(?:https?:)?//', href):
             path = href.split('#')[0].split('?')[0]
             t = posixpath.normpath(posixpath.join(out, path)) if path else out
+            if t == f'{build_dir(VIDEO_BUILD)}/about/testimonials':
+                return tag   # made later in the run (testimonials_page)
             if t.split('/')[0] in STAY_IN and os.path.exists(os.path.join(REPO, t, 'index.html') if not t.endswith('.html') else os.path.join(REPO, t)):
                 return tag   # already inside the build
             sub = t.split('/', 1)[1] + '/' if '/' in t else ''
