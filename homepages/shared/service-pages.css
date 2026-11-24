@@ -91,6 +91,8 @@
   color: var(--c2-green);
   text-decoration: none;
 }
+/* the base sidebar style drops the last link's bottom rule; keep the full pill outline here */
+.pg--service .pg-related li:last-child a { border-bottom: 1px solid var(--c2-green); }
 .pg--service .pg-related a:hover,
 .pg--service .pg-related a:focus-visible { background: var(--c2-green); color: var(--c2-white); }
 .pg--service .pg-related .icon { width: 16px; height: 16px; }
