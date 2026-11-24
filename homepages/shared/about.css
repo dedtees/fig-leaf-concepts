@@ -220,6 +220,8 @@
 }
 .ab-bio-head__sub { margin: 18px 0 26px; max-width: 34em; font-size: clamp(1.08rem, 1rem + .3vw, 1.25rem); line-height: 1.6; color: #fff; }
 .ab-facts { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 30px; padding: 0; list-style: none; }
+/* .hs ul (archive A) resets list margins and outranks the rule above */
+.ab .ab-facts { margin: 0 0 34px; }
 .ab-facts li {
   display: inline-flex; align-items: center; gap: 10px;
   padding: 9px 16px; border: 1px solid var(--ab-green); border-radius: 999px;
