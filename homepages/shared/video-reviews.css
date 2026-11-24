@@ -33,9 +33,23 @@
   background: var(--hs-gold);
   color: #12301f;
   box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
-  cursor: default;
+  cursor: pointer;
+  transition: transform .2s ease, background-color .2s ease;
 }
+.vr-video__play:hover, .vr-video__play:focus-visible { transform: translate(-50%, -50%) scale(1.06); background: #f0d29c; }
+.vr-video__play:focus-visible { outline: 3px solid #fff; outline-offset: 14px; }
 .vr-video__play svg { width: 34px; height: 34px; margin-left: 4px; }
+.hs .vr-video__media {   /* hidden under the poster until played */
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: contain;
+  background: #000;
+  visibility: hidden;
+}
+.vr-video.is-playing .vr-video__media { visibility: visible; }
+.vr-video.is-playing .vr-video__poster,
+.vr-video.is-playing .vr-video__play { display: none; }
+@media (prefers-reduced-motion: reduce) { .vr-video__play { transition: none; } }
 .vr-video__play::after {   /* a soft ring around the button */
   content: ""; position: absolute; inset: -12px;
   border: 2px solid rgba(232, 194, 126, .55); border-radius: 50%;

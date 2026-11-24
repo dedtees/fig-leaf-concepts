@@ -308,5 +308,20 @@
       show(0);
     });
   </script>
+
+  <script>
+    /* concept 5: the play button hides the poster and plays the video with
+       its own controls */
+    document.querySelectorAll('[data-vr-video]').forEach(function (card) {
+      var video = card.querySelector('video'), play = card.querySelector('.vr-video__play');
+      play.addEventListener('click', function () {
+        card.classList.add('is-playing');
+        video.controls = true;
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});
+        video.focus();
+      });
+    });
+  </script>
   <script src="../../../homepages/shared/about.js"></script>
 </body></html>

@@ -676,23 +676,29 @@ def home_name(k):
     return HOME_NAMES.get(k, f'Concept 11 with Homeowners version {homeowners_version(k)}')
 
 
-PLAY = ('<button class="vr-video__play" type="button" aria-label="Play the video testimonial (video to come)" disabled>'
+PLAY = ('<button class="vr-video__play" type="button" aria-label="Play the video testimonial">'
         '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button>')
 POSTER = ('homepages/shared/assets/testimonial-poster.jpg', 'homepages/shared/assets/testimonial-poster-900.jpg', 1600, 896)
+# The client's testimonial (a placeholder cut for now), compressed for the web:
+# 1280x720 H.264 with AAC audio and faststart, about 6 MB for 70 seconds.
+VIDEO = 'homepages/shared/assets/testimonial.mp4'
 
 
 def video_card(out_dir, cls, poster=POSTER):
-    """The video testimonial, a placeholder until the video arrives: a poster
-    (a frame from the video) with a play button."""
+    """The video testimonial: the poster with a play button over it. The
+    play button swaps in the video with its controls (VIDEO_JS), and
+    nothing of the video loads until then."""
     big, small, w, h = poster
     big, small = posixpath.relpath(big, out_dir), posixpath.relpath(small, out_dir)
-    return ('          <!-- Video testimonial: a placeholder until the client sends the video.\n'
-            '               Swap the poster and the button for a <video> or an embed. -->\n'
-            f'          <figure class="vr-video {cls} hs-reveal">\n'
+    video = posixpath.relpath(VIDEO, out_dir)
+    return ('          <!-- Video testimonial: the poster and play button until it is played -->\n'
+            f'          <figure class="vr-video {cls} hs-reveal" data-vr-video>\n'
             '            <div class="vr-video__frame">\n'
+            f'              <video class="vr-video__media" preload="none" playsinline poster="{big}" aria-label="Video testimonial from a Fig Leaf client">\n'
+            f'                <source src="{video}" type="video/mp4">\n'
+            '              </video>\n'
             f'              <img class="vr-video__poster" src="{big}" srcset="{small} 900w, {big} {w}w" sizes="(max-width: 900px) 100vw, 70vw" alt="" width="{w}" height="{h}" loading="lazy" decoding="async">\n'
             f'              {PLAY}\n'
-            '              <span class="vr-video__tag">Video to come</span>\n'
             '            </div>\n'
             '            <figcaption class="vr-video__cap">\n'
             '              <span class="vr-video__kicker">Video testimonial</span>\n'
@@ -700,6 +706,24 @@ def video_card(out_dir, cls, poster=POSTER):
             '              <span>A client tells their story in their own words.</span>\n'
             '            </figcaption>\n'
             '          </figure>\n')
+
+
+VIDEO_JS = """
+  <script>
+    /* concept 5: the play button hides the poster and plays the video with
+       its own controls */
+    document.querySelectorAll('[data-vr-video]').forEach(function (card) {
+      var video = card.querySelector('video'), play = card.querySelector('.vr-video__play');
+      play.addEventListener('click', function () {
+        card.classList.add('is-playing');
+        video.controls = true;
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});
+        video.focus();
+      });
+    });
+  </script>
+"""
 
 
 CAROUSEL_JS = """
@@ -756,7 +780,7 @@ def video_reviews(page, out_dir):
            '            </div>\n'
            '          </div>\n'
            '        </div>\n')
-    page = page.replace('</body>', CAROUSEL_JS + '</body>', 1)
+    page = page.replace('</body>', CAROUSEL_JS + VIDEO_JS + '</body>', 1)
     return page[:m.start()] + new + page[m.end():]
 
 
