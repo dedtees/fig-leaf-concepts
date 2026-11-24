@@ -35,12 +35,13 @@ def talk(thing):
 
 M = {
 'home': [
- ('Comprehensive Coverage', q('One agency for everything you insure', 'Coverage for every part of your life', 'Car, home, boat and business, in one place')),
- ('Select One or Bundle!', q('Home on its own, or bundled with auto', 'Bundle your home and car', 'One policy or two, your call')),
+ ('Comprehensive Coverage', q('Everything you insure', 'Every policy you need', 'Car, home, boat, business')),
+ ('Select One or Bundle!', q('Solo or bundled', 'Bundle your home and car', 'One policy or two, your call')),
  ('About The Fig Leaf Agency', q('Why we started Fig Leaf', 'A better way to buy insurance in New Jersey', 'Built on keeping our word')),
- ('More Ways We Protect You', q('Beyond the everyday policies', 'For contractors, drivers and local businesses', f'There{R}s more we can cover')),
+ ('More Ways We Protect You', q('Other ways we help', 'Beyond home and auto', f'There{R}s more we can cover')),
  ('Google Reviews', q('Rated 5.0 by our clients', '140+ five-star reviews', 'What clients tell Google')),
- ('Our Carriers', q('Dozens of carriers, one agent on your side', 'We shop dozens of carriers for you', 'The carriers we compare')),
+ ('Special Contractor Policies', 'Contractor Policies'),
+ ('Our Carriers', q('One agent, many carriers', 'We shop the carriers', 'The carriers we compare')),
 ],
 'auto-insurance': [
  ('Your car gets you everywhere. Your policy should too.', q('Every mile you drive. <span>Covered by people you know.</span>', 'Insurance for the way <span>you actually drive.</span>', 'From the daily commute <span>to the long way home.</span>')),
