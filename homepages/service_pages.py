@@ -10,8 +10,8 @@ Copy sources:
 - Auto, Boat and Personal Umbrella: the agency's content map
   (Fig_Leaf_New_Website_Content_Map.docx, 1 Sep 2026), lightly edited the
   same way the Homeowners page is, with intros from the website build brief.
-- 'contact': pages the Consumer Rate Quotes form doesn't cover (Boat and
-  Personal Umbrella). They get a short contact form in place of the quote
+- 'contact': pages the Consumer Rate Quotes form doesn't cover (Boat, Personal
+  Umbrella, Life, Health and Pet; it covers Auto, Homeowners, Renters, Condo). They get a short contact form in place of the quote
   form (contact_form() below; sent by homepages/shared/contact-form.js), and
   the value is the hint in its message box.
 - Renters, Condo, Life, Health and Pet: the build brief's DRAFT copy (these
@@ -247,6 +247,7 @@ SERVICES = [
         'h1': ('Keep looking after the people you love,', 'even when you can&rsquo;t be there.'),
         'lead': 'That&rsquo;s what life insurance is for. We&rsquo;ll help you understand your options in plain English.',
         'cta': 'Get Life Insurance Quote',
+        'contact': 'Tell us who you want to protect and roughly how much coverage you have in mind.',
         'photo': (FAMILY_BEACH, 'A large family holding hands on the beach at sunset'),
         'overview': {
             'kicker': 'Why people buy it',
@@ -270,6 +271,7 @@ SERVICES = [
         'h1': ('Health plans are confusing on purpose.', 'We&rsquo;re not.'),
         'lead': 'We&rsquo;ll help you compare individual and family options and understand what each plan really covers before you choose.',
         'cta': 'Get Health Insurance Quote',
+        'contact': 'Tell us who needs coverage (just you, or your family) and anything you need the plan to include.',
         'photo': (HEALTH_PEDIATRIC, 'A mother holding her baby during a visit to the pediatrician'),
         'overview': None,
         'covered_title': 'Plans we can help you compare:',
@@ -288,6 +290,7 @@ SERVICES = [
         'h1': ('They&rsquo;re family.', 'Vet bills can arrive without warning.'),
         'lead': 'Pet insurance helps cover the cost of care when your dog or cat is sick or injured.',
         'cta': 'Get Pet Insurance Quote',
+        'contact': 'Tell us about your pet: the type, breed and age.',
         'photo': (PET_SOFA, 'A smiling woman hugging her dog on the sofa at home'),
         'overview': None,
         'covered_title': 'Pet insurance plans typically cover:',
@@ -431,7 +434,9 @@ def quote(s, homeowners_quote, up):
 
 
 # Insurance types for the contact form's menu (the page's own is selected).
-CONTACT_TYPES = ['Boat Insurance', 'Personal Umbrella Insurance', 'Auto Insurance', 'Homeowners Insurance', 'Something else']
+# Auto, Homeowners, Renters and Condo go through the Consumer Rate Quotes form,
+# so the menu lists the personal lines it doesn't cover.
+CONTACT_TYPES = ['Boat Insurance', 'Personal Umbrella Insurance', 'Life Insurance', 'Health Insurance', 'Pet Insurance', 'Something else']
 CONTACT_EMAIL = 'quotes@figleafagency.com'
 
 
