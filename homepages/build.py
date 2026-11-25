@@ -1374,7 +1374,7 @@ OUTSTANDING = [
     ('Insurance pages', 'Health insurance: what individual and family plans cover', 'Both cards say "[Copy to come]".', False),
     ('Insurance pages', 'Pet insurance: what accidents, illnesses and routine wellness care cover', 'All three cards say "[Copy to come]".', False),
     ('Insurance pages', 'Business insurance page copy sign-off', 'The six Business Insurance pages (Commercial Auto, Workers Comp, General Liability, Commercial Umbrella, Employee Benefits, Contractors Policies) have our draft copy.', False),
-    ('Photos and launch', 'Photos for the Business Insurance pages', 'Commercial Auto, Workers Comp, Employee Benefits and Contractors Policies show "Photo to come".', False),
+    ('Photos and launch', 'Photos for the Business Insurance pages', 'Adobe Stock previews are on all six Business Insurance pages (top photos and the talk-to-an-agent photo); they are in the stock photo picks for licensing.', True),
     ('Office hours', 'Confirm office hours and holiday closures', 'The open / closed badge on builds 1 and 2 uses Mon to Fri, 9 AM to 5 PM (from Google) and the usual US holidays. Tell us early closes or extra days off.', False),
     ('Photos and launch', 'Stock photo licensing picks', 'Which of the stock photos to license for the live site.', False),
 ]
