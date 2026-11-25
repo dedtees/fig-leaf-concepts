@@ -600,9 +600,21 @@ def assemble(page, main_start, main_end, cls, top, secs):
                        '  <link rel="stylesheet" href="../../homepages/shared/homeowners-versions.css">', 1)
 
 
+HOMEOWNERS_RELATED = ['auto-insurance', 'personal-umbrella-insurance', 'renters-insurance']
+
+
 def build_homeowners_versions():
     """archive-b/homeowners-insurance-v1 to -v4 from the scrolling page."""
     src, page, main_start, main_end, hero, overview, covered, quote = homeowners_pieces()
+    # the related coverage links the other insurance pages have (Eric, 25 Nov)
+    links = ''.join(f'<li><a href="https://figleafagency.com/{r}/">{SP.NAMES[r]}<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a></li>'
+                    for r in HOMEOWNERS_RELATED)
+    nav = ('        <nav class="pg-related pg-related--pills" aria-label="Related coverage">\n'
+           '          <h3 class="pg-related__head">Related coverage</h3>\n'
+           f'          <ul>{links}</ul>\n'
+           '        </nav>\n')
+    covered, k = re.subn(r'(        </ol>\n)(      </div>\n    </section>\s*)$', lambda m: m.group(1) + nav + m.group(2), covered, count=1)
+    assert k == 1
     for n, (cls, top, secs) in enumerate(version_layouts(hero, overview, covered, quote, 'Get a homeowners quote'), 1):
         out = HOMEOWNERS_VERSIONS[n - 1][0]
         new = assemble(page, main_start, main_end, cls, top, secs)

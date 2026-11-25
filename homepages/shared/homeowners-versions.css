@@ -134,3 +134,30 @@
 .pg-crumbs [aria-current="page"] { color: var(--c2-black); }
 .pg--fade .pg-crumbs a { color: var(--c2-gold); }
 .pg--fade .pg-crumbs [aria-current="page"] { color: #fff; }
+
+/* Related coverage links under "what it covers", on every insurance page
+   including Homeowners (Eric, 25 Nov): a larger caption, and each insurance
+   as a solid green pill with white text. */
+.pg-related--pills { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: clamp(28px, 4vw, 44px); }
+.pg-related--pills .pg-related__head {
+  margin: 0;
+  font-size: 1.05rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--c2-green, #17402b);
+}
+.pg-related--pills ul { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.pg-related--pills a,
+.pg-related--pills li:last-child a {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 12px 22px;
+  border: 1px solid var(--c2-green, #17402b);
+  border-radius: 999px;
+  background: var(--c2-green, #17402b);
+  font-size: 1.05rem; font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+.pg-related--pills a:hover,
+.pg-related--pills a:focus-visible { background: var(--c2-gold, #e8c27e); border-color: var(--c2-gold, #e8c27e); color: #070d0f; }
+.pg-related--pills .icon { width: 16px; height: 16px; opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .pg-related--pills a { transition: none; } }
