@@ -101,6 +101,11 @@ ICONS = {
     'i-clock': '<circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path>',
     'i-infinity': '<path d="M7 9a3 3 0 1 0 0 6c2.5 0 7.5-6 10-6a3 3 0 1 1 0 6c-2.5 0-7.5-6-10-6z"></path>',
     'i-layers': '<path d="m12 3 9 5-9 5-9-5z"></path><path d="m3 13 9 5 9-5"></path>',
+    'i-truck': '<path d="M2.5 6.5h11v10h-11z"></path><path d="M13.5 10h4l3 3.5v3h-7z"></path><circle cx="6.5" cy="17.5" r="1.8"></circle><circle cx="17" cy="17.5" r="1.8"></circle>',
+    'i-briefcase': '<rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M8.5 7V5a1.5 1.5 0 0 1 1.5-1.5h4A1.5 1.5 0 0 1 15.5 5v2"></path><path d="M3 12.5h18"></path>',
+    'i-store': '<path d="M3.5 9.5 5 4h14l1.5 5.5"></path><path d="M3.5 9.5a2.8 2.8 0 0 0 5.6 0 2.8 2.8 0 0 0 5.8 0 2.8 2.8 0 0 0 5.6 0"></path><path d="M5 12v8h14v-8"></path><path d="M10 20v-4.5h4V20"></path>',
+    'i-scale': '<path d="M12 3.5v17M7 20.5h10"></path><path d="M4.5 7.5h15"></path><path d="m6.5 7.5-3 6a3 3 0 0 0 6 0zM17.5 7.5l-3 6a3 3 0 0 0 6 0z"></path>',
+    'i-doc': '<path d="M7 3.5h7l4 4v13H7z"></path><path d="M14 3.5v4h4"></path><path d="M9.5 12h6M9.5 15.5h6"></path>',
 }
 
 # Each page: slug (as on figleafagency.com), name, draft flag, head
@@ -310,13 +315,182 @@ SERVICES = [
         'related': ['health-insurance', 'life-insurance'],
     },
 ]
+# Business insurance pages (Eric, 25 Nov: the header's Business Insurance menu
+# lists these six). Copy is our own draft, waiting on the agency's sign-off
+# (the outstanding checklist on the gallery says so; no tag on the page).
+# They use the contact form: the Consumer Rate Quotes form is personal lines
+# only. Photos: None = "photo to come" until stock picks are licensed.
+BUSINESS = [
+    {
+        'slug': 'commercial-auto-insurance', 'name': 'Commercial Auto Insurance', 'short': 'commercial auto insurance', 'draft': False,
+        'group': 'business',
+        'meta': 'Commercial auto insurance in New Jersey from The Fig Leaf Agency in Hazlet, NJ. Coverage for the cars, vans and trucks your business runs on, compared across top carriers.',
+        'og': 'Coverage for the vehicles your business runs on. From an independent agency in Hazlet, NJ.',
+        'h1': ('Your business runs on wheels.', 'Keep them covered.'),
+        'lead': 'Whether it&rsquo;s one van or a fleet of trucks, a commercial auto policy protects the vehicles your business owns and the people who drive them for work. We&rsquo;ll compare carriers and walk you through what each coverage does.',
+        'cta': 'Get Commercial Auto Quote',
+        'contact': 'Tell us about your business and its vehicles: how many, what kind, and who drives them.',
+        'photo': (None, 'Photo to come: a work van or pickup out on a job'),
+        'overview': {
+            'kicker': 'Vehicles, drivers and the people around them',
+            'text': 'A commercial auto policy protects <em>your vehicles, your drivers and everyone else on the road.</em>',
+            'tiles': [('i-truck', 'Your vehicles'), ('i-people', 'Your drivers'), ('i-liability', 'Other people')],
+        },
+        'covered_title': 'What a commercial auto policy covers',
+        'covered_kicker': 'Line by line',
+        'cover_photo': None,
+        'covered': [
+            ('i-liability', 'Liability', 'Pays for injuries and property damage your business vehicles cause, and provides a legal defense if you&rsquo;re sued.', None),
+            ('i-medical', 'Medical Payments (PIP)', 'Pays medical expenses for the driver and passengers after an accident.', None),
+            ('i-car', 'Collision and Comprehensive', 'Pays to repair or replace your vehicles after a crash, theft, fire, flood or vandalism.', None),
+            ('i-shield', 'Uninsured Motorists', 'Protects your drivers when the other driver has no insurance or too little.', None),
+            ('i-key', 'Hired and Non-Owned Auto', 'Covers your business when employees use rented cars or their own cars for work.', None),
+            ('i-receipt', 'Towing and Rental', 'Towing after a breakdown and a rental while your vehicle is in the shop, so the work doesn&rsquo;t stop.', None),
+        ],
+        'related': ['general-liability-insurance', 'workers-comp-insurance', 'commercial-umbrella-insurance'],
+    },
+    {
+        'slug': 'workers-comp-insurance', 'name': 'Workers Comp Insurance', 'short': 'workers comp insurance', 'draft': False,
+        'group': 'business',
+        'meta': 'Workers compensation insurance in New Jersey from The Fig Leaf Agency in Hazlet, NJ. Medical bills and lost wages for employees hurt on the job.',
+        'og': 'Look after your people when they get hurt on the job. Workers comp from an independent agency in Hazlet, NJ.',
+        'h1': ('When someone gets hurt on the job,', 'your people are looked after.'),
+        'lead': 'New Jersey requires most employers to carry workers compensation. It pays medical bills and lost wages for employees injured at work, and it protects your business from the lawsuits that could follow.',
+        'cta': 'Get Workers Comp Quote',
+        'contact': 'Tell us about your business: what you do, how many employees you have and your rough annual payroll.',
+        'photo': (None, 'Photo to come: a worker in a hard hat on site'),
+        'overview': {
+            'kicker': 'Required for most New Jersey employers',
+            'text': 'Workers comp looks after <em>your employees, their families and your business.</em>',
+            'tiles': [('i-medical', 'Medical care'), ('i-dollar', 'Lost wages'), ('i-scale', 'Employer&rsquo;s liability')],
+        },
+        'covered_title': 'What workers comp pays for',
+        'covered_kicker': 'From the injury to the return to work',
+        'cover_photo': None,
+        'covered': [
+            ('i-medical', 'Medical Expenses', 'Doctor visits, hospital stays, surgery and prescriptions for a work-related injury or illness.', None),
+            ('i-dollar', 'Lost Wages', 'Part of an employee&rsquo;s pay while they&rsquo;re unable to work.', None),
+            ('i-wrench', 'Rehabilitation', 'Physical therapy and retraining to help an employee get back to work.', None),
+            ('i-scale', 'Employer&rsquo;s Liability', 'A legal defense if an employee sues your business over an injury.', None),
+        ],
+        'related': ['employee-benefits', 'general-liability-insurance', 'contractors-policies'],
+    },
+    {
+        'slug': 'general-liability-insurance', 'name': 'General Liability Insurance', 'short': 'general liability insurance', 'draft': False,
+        'group': 'business',
+        'meta': 'General liability insurance in New Jersey from The Fig Leaf Agency in Hazlet, NJ. Protection when a customer is hurt or their property is damaged because of your business.',
+        'og': 'One slip, one claim, one lawsuit. General liability from an independent agency in Hazlet, NJ.',
+        'h1': ('One accident shouldn&rsquo;t', 'put your business at risk.'),
+        'lead': 'General liability protects your business when a customer is injured, their property is damaged or you&rsquo;re accused of harming someone&rsquo;s reputation. It&rsquo;s the policy most landlords and clients will ask you to show.',
+        'cta': 'Get General Liability Quote',
+        'contact': 'Tell us about your business: what you do, where you work and roughly how much you bring in a year.',
+        'photo': ('homepages/shared/assets/business-insurance.jpg', 'A shop owner helping a customer at the counter'),
+        'overview': {
+            'kicker': 'The policy clients ask to see',
+            'text': 'General liability protects you from claims of <em>injury, property damage and harm to someone&rsquo;s reputation.</em>',
+            'tiles': [('i-liability', 'Injuries'), ('i-home', 'Property damage'), ('i-doc', 'Advertising injury')],
+        },
+        'covered_title': 'What a general liability policy covers',
+        'covered_kicker': 'Line by line',
+        'cover_photo': None,
+        'covered': [
+            ('i-liability', 'Bodily Injury', 'Medical bills and legal costs if someone is hurt at your business or because of your work.', None),
+            ('i-home', 'Property Damage', 'Repairs if your business damages someone else&rsquo;s property.', None),
+            ('i-doc', 'Personal and Advertising Injury', 'Claims of libel, slander or using someone else&rsquo;s work in your ads.', None),
+            ('i-briefcase', 'Products and Completed Work', 'Claims that come from something you sold or a job you finished.', None),
+        ],
+        'covered_foot': 'Many small businesses combine general liability and property coverage in a business owner&rsquo;s policy (BOP). We&rsquo;ll tell you if that fits yours.',
+        'related': ['commercial-umbrella-insurance', 'commercial-auto-insurance', 'contractors-policies'],
+    },
+    {
+        'slug': 'commercial-umbrella-insurance', 'name': 'Commercial Umbrella', 'short': 'commercial umbrella insurance', 'draft': False,
+        'group': 'business',
+        'meta': 'Commercial umbrella insurance in New Jersey from The Fig Leaf Agency in Hazlet, NJ. Extra liability limits above your business auto, general liability and employer&rsquo;s liability policies.',
+        'og': 'Extra protection when a claim is bigger than your policy. From an independent agency in Hazlet, NJ.',
+        'h1': ('When a claim is bigger than your policy,', 'your umbrella picks up the rest.'),
+        'lead': 'A commercial umbrella adds liability limits on top of your business auto, general liability and employer&rsquo;s liability policies, so one large claim doesn&rsquo;t come out of your business&rsquo;s pocket.',
+        'cta': 'Get Commercial Umbrella Quote',
+        'contact': 'Tell us about your business and the liability policies you carry now.',
+        'photo': ('archive-e/assets/photo-business.jpg', 'A red corner store on a quiet street'),
+        'overview': {
+            'kicker': 'Extra limits, one policy',
+            'text': 'An umbrella sits above <em>your other business liability policies</em> and pays once their limits run out.',
+            'tiles': [('i-truck', 'Commercial auto'), ('i-liability', 'General liability'), ('i-scale', 'Employer&rsquo;s liability')],
+        },
+        'covered_title': 'Why businesses add an umbrella',
+        'covered_kicker': 'For the claims you hope never come',
+        'cover_photo': None,
+        'covered': [
+            ('i-umbrella', 'Higher Limits', 'Coverage from $1 million upward, above the limits of your other policies.', None),
+            ('i-scale', 'Large Judgments', 'Helps pay a court award or settlement that&rsquo;s bigger than your other policies cover.', None),
+            ('i-doc', 'Contract Requirements', 'Meets the higher limits some clients, landlords and general contractors require.', None),
+        ],
+        'related': ['general-liability-insurance', 'commercial-auto-insurance', 'personal-umbrella-insurance'],
+    },
+    {
+        'slug': 'employee-benefits', 'name': 'Employee Benefits', 'short': 'employee benefits', 'draft': False,
+        'group': 'business',
+        'meta': 'Employee benefits in New Jersey from The Fig Leaf Agency in Hazlet, NJ. Group health, dental, vision and life plans for small businesses.',
+        'og': 'Benefits that help you hire and keep good people. From an independent agency in Hazlet, NJ.',
+        'h1': ('Good people stay', 'where they&rsquo;re looked after.'),
+        'lead': 'The right benefits help you hire and keep good employees. We&rsquo;ll help you compare group plans that fit your team and your budget, and explain them to your staff in plain English.',
+        'cta': 'Get Employee Benefits Quote',
+        'contact': 'Tell us about your team: how many employees you have and which benefits you&rsquo;re thinking about.',
+        'photo': (None, 'Photo to come: a small team meeting around a table'),
+        'overview': {
+            'kicker': 'Plans for teams of every size',
+            'text': 'Benefits help you <em>hire, keep and look after</em> the people who make your business work.',
+            'tiles': [('i-medical', 'Health'), ('i-heart', 'Dental and vision'), ('i-people', 'Life and disability')],
+        },
+        'covered_title': 'Benefits we can put together',
+        'covered_kicker': 'Mix and match',
+        'cover_photo': None,
+        'covered': [
+            ('i-medical', 'Group Health', 'Medical plans for your employees, with options to cover their families.', None),
+            ('i-heart', 'Dental and Vision', 'Checkups, cleanings, glasses and contacts.', None),
+            ('i-people', 'Group Life', 'Life insurance for your employees, often at no cost to them.', None),
+            ('i-shield', 'Disability', 'Part of an employee&rsquo;s income if illness or injury keeps them out of work.', None),
+        ],
+        'related': ['workers-comp-insurance', 'health-insurance', 'life-insurance'],
+    },
+    {
+        'slug': 'contractors-policies', 'name': 'Contractors Policies', 'short': 'contractor insurance', 'draft': False,
+        'group': 'business',
+        'meta': 'Contractor insurance in New Jersey from The Fig Leaf Agency in Hazlet, NJ. Liability, tools and equipment, commercial auto and workers comp for builders and trades.',
+        'og': 'Stay covered on every job. Contractor insurance from an independent agency in Hazlet, NJ.',
+        'h1': ('Stay covered on every job,', 'from the first estimate to the final walkthrough.'),
+        'lead': 'Contractors face risks most businesses don&rsquo;t: job sites, heavy tools, subcontractors and clients who need a certificate before you start. We&rsquo;ll put together the policies your trade needs.',
+        'cta': 'Get Contractor Insurance Quote',
+        'contact': 'Tell us about your trade, your crew size and the kind of jobs you take on.',
+        'photo': (None, 'Photo to come: a contractor on a job site'),
+        'overview': {
+            'kicker': 'Built for builders and trades',
+            'text': 'We cover <em>general contractors, remodelers and the trades,</em> from electricians to landscapers.',
+            'tiles': [('i-hardhat', 'The job site'), ('i-wrench', 'Tools and equipment'), ('i-truck', 'Work vehicles')],
+        },
+        'covered_title': 'What a contractor&rsquo;s package can include',
+        'covered_kicker': 'Everything the job calls for',
+        'cover_photo': None,
+        'covered': [
+            ('i-liability', 'General Liability', 'Injuries and property damage on the job, and the certificates clients ask for.', None),
+            ('i-wrench', 'Tools and Equipment', 'Your tools and equipment, on the truck or at the site.', None),
+            ('i-truck', 'Commercial Auto', 'The trucks and vans you drive to and from the job.', None),
+            ('i-medical', 'Workers Comp', 'Medical bills and lost wages if someone on your crew gets hurt.', None),
+            ('i-building', 'Builder&rsquo;s Risk', 'The building or project while it&rsquo;s under construction.', None),
+            ('i-umbrella', 'Commercial Umbrella', 'Extra liability limits for bigger jobs and the contracts that require them.', None),
+        ],
+        'related': ['general-liability-insurance', 'workers-comp-insurance', 'commercial-auto-insurance'],
+    },
+]
+SERVICES += BUSINESS
+PERSONAL = [s for s in SERVICES if s.get('group') != 'business']
 BY_SLUG = {s['slug']: s for s in SERVICES}
 NAMES = {**{s['slug']: s['name'] for s in SERVICES},
-         'homeowners-insurance': 'Homeowners Insurance',
-         'commercial-umbrella-insurance': 'Commercial Umbrella Insurance'}
+         'homeowners-insurance': 'Homeowners Insurance'}
 # footer and menu entries that are plain text in the source pages
 SPAN_NAMES = {'Renters Insurance': 'renters-insurance', 'Condo Owners Insurance': 'condo-insurance',
-              'Health Insurance': 'health-insurance', 'Life Insurance': 'life-insurance', 'Pet Insurance': 'pet-insurance'}
+              'Health Insurance': 'health-insurance', 'Life Insurance': 'life-insurance', 'Pet Insurance': 'pet-insurance',
+              **{s['name']: s['slug'] for s in BUSINESS}}
 
 
 def img(src, alt, w, h, up, extra=''):
@@ -443,6 +617,7 @@ def quote(s, homeowners_quote, up):
 # Auto, Homeowners, Renters and Condo go through the Consumer Rate Quotes form,
 # so the menu lists the personal lines it doesn't cover.
 CONTACT_TYPES = ['Boat Insurance', 'Personal Umbrella Insurance', 'Life Insurance', 'Health Insurance', 'Pet Insurance', 'Something else']
+BUSINESS_TYPES = [b['name'] for b in BUSINESS] + ['Something else']
 CONTACT_EMAIL = 'quotes@figleafagency.com'
 
 
@@ -452,7 +627,8 @@ def contact_form(s, q):
     bar; the form posts to data-endpoint once there is one (see
     homepages/shared/contact-form.js) and opens an email until then."""
     import re
-    opts = ''.join(f'\n                  <option{" selected" if t == s["name"] else ""}>{t}</option>' for t in CONTACT_TYPES)
+    types = BUSINESS_TYPES if s.get('group') == 'business' else CONTACT_TYPES
+    opts = ''.join(f'\n                  <option{" selected" if t == s["name"] else ""}>{t}</option>' for t in types)
     uid = s['slug'].split('-')[0]
     f = lambda n: f'cf-{uid}-{n}'
     card = f'''<!-- {s["name"]} isn't on the Consumer Rate Quotes form, so this page
