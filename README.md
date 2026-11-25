@@ -18,6 +18,12 @@ then. They are still in the git history if anything needs to be looked up (`git 
 - `crq/`: the quote request page, and `crq-form/`: the quote form on its own (every Get a Quote button goes here)
 - `checklist/`: "Still needed from the agency", not linked from the site. Ticks are kept in each browser.
 
+## Quick-links bar
+
+A slim bar above the header on every page has three buttons: AC (`/checklist/`), GC (`/crq-form/`) and Site
+(the homepage), with the current one highlighted. Its markup is at the top of each page's `<body>`, and its look is
+`.review-bar` in the stylesheets plus a pill tweak in `assets/shared/approved.css`.
+
 ## Shared files
 
 - `assets/home/`: the main stylesheets and scripts, logo and badges
