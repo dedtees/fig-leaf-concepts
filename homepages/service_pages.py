@@ -335,7 +335,7 @@ def hero(s, up):
         photo = f'<figure class="pg-head__photo">{img(src, alt, 430, 483, up)}</figure>'
     else:
         photo = (f'<figure class="pg-head__photo pg-head__photo--todo"><span>{alt}</span></figure>')
-    draft = ('\n          <p class="pg-draft">Draft copy · for the agency to confirm</p>' if s['draft'] else '')
+    draft = ''   # the "Draft copy" tag is gone (Eric, 25 Nov)
     a, b = s['h1']
     return f'''<!-- Title band -->
     <header class="fl-grid-host pg-head">
