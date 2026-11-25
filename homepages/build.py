@@ -1334,7 +1334,7 @@ def mark_hero_photos():
 # (Home / Personal Insurance / <page>). Styles: homeowners-versions.css (.pg-crumbs).
 # The menu's full list of nine goes on every build (Eric, 24 Nov); the rest
 # is on NAV_BUILDS only.
-NAV_BUILDS = [1]
+NAV_BUILDS = [1, 2, 3, 4, 5]   # breadcrumb and Personal Insurance link on every build (Eric, 25 Nov)
 
 
 def personal_nav():
