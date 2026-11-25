@@ -12,6 +12,7 @@ bar on archives A to D listing the archive.
 
 Re-run after changing a homepage or a hero:  python3 homepages/build.py
 """
+import html
 import os
 import posixpath
 import re
@@ -1232,6 +1233,57 @@ def round2_homeowners(k, page, out):
     return page
 
 
+# Still needed from the agency (Eric, 25 Nov): a checklist at the top of the
+# gallery (AC), above the photos. (group, item, detail, done). Tick an item
+# by setting done to True, then re-run the script. Styles: outstanding.css.
+OUTSTANDING = [
+    ('Team and About', 'Les Silverman\'s headshot', 'His photo is a placeholder on the About page and his bio page.', False),
+    ('Team and About', 'Bryan Tomko\'s bio', 'His card on the About page says "Bio coming soon".', False),
+    ('Team and About', 'Bios for Magdalena Tomko and Russell Mardonov', 'Both cards on the About page say "Bio coming soon".', False),
+    ('Team and About', 'Juan Rosario\'s job title and a short bio', 'He is on the team list without either.', False),
+    ('Team and About', 'Fun-fact lines for Jarihana, Les and Burke', 'One line each for their bio pages.', False),
+    ('Testimonials', 'Five more client testimonial videos', 'Five of the six spots on the Testimonials page are "Video coming soon", with each client\'s name and coverage to go under it.', False),
+    ('Testimonials', 'The final cut of the current testimonial video', 'The video on the homepage and Testimonials page is a placeholder cut.', False),
+    ('Insurance pages', 'Approval of the draft copy on Renters, Condo, Life, Health and Pet', 'This copy came from the build brief, not the agency\'s content map.', False),
+    ('Insurance pages', 'Health insurance: what individual and family plans cover', 'Both cards say "[Copy to come]".', False),
+    ('Insurance pages', 'Pet insurance: what accidents, illnesses and routine wellness care cover', 'All three cards say "[Copy to come]".', False),
+    ('Photos and launch', 'Stock photo licensing picks', 'Which of the stock photos to license for the live site.', False),
+    ('Photos and launch', 'An email address or Formspree account for the contact form', 'The contact form on Boat, Umbrella, Life, Health and Pet has nowhere to send yet.', False),
+    ('Photos and launch', 'WordPress hosting details', 'Where the site will live, and a login to build it there.', False),
+]
+CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+
+
+def outstanding_items(page, out):
+    """The checklist section at the top of the gallery's <main>."""
+    page = re.sub(r'\n    <!-- Still needed from the agency.*?<!-- /still needed -->\n', '\n', page, flags=re.S)
+    page = re.sub(r'\n  <link rel="stylesheet" href="[^"]*outstanding\.css">', '', page)
+    groups = []
+    for g in dict.fromkeys(x[0] for x in OUTSTANDING):
+        items = '\n'.join(
+            f'            <li class="todo__item{" is-done" if done else ""}"><span class="todo__box">{CHECK}</span>'
+            f'<span class="todo__text"><strong>{html.escape(t)}</strong><span>{html.escape(d)}</span></span>'
+            f'<span class="visually-hidden">{" (received)" if done else " (still needed)"}</span></li>'
+            for gg, t, d, done in OUTSTANDING if gg == g)
+        groups.append(f'        <div class="todo__group">\n          <h3>{g}</h3>\n          <ul class="todo__list">\n{items}\n          </ul>\n        </div>')
+    left = sum(1 for x in OUTSTANDING if not x[3])
+    block = ('\n    <!-- Still needed from the agency (homepages/build.py OUTSTANDING) -->\n'
+             '    <section class="todo" aria-labelledby="todo-title" data-review="Still needed from the agency">\n'
+             '      <div class="todo__inner"><div class="todo__card">\n'
+             '        <p class="todo__eyebrow">Still needed from the agency</p>\n'
+             f'        <h2 class="todo__title" id="todo-title">{left} items to finish the site</h2>\n'
+             '        <p class="todo__lede">Everything below is waiting on content or a decision from The Fig Leaf Agency. Until it arrives, the builds show a placeholder.</p>\n'
+             '        <div class="todo__groups">\n' + '\n'.join(groups) + '\n        </div>\n'
+             '      </div></div>\n'
+             '    </section>\n'
+             '    <!-- /still needed -->\n')
+    page, n = re.subn(r'(<main id="main">\n)', lambda m: m.group(1) + block, page, count=1)
+    assert n == 1
+    last = list(re.finditer(r'<link rel="stylesheet"[^>]*>', page))[-1]
+    css = posixpath.relpath('homepages/shared/outstanding.css', out)
+    return page[:last.end()] + f'\n  <link rel="stylesheet" href="{css}">' + page[last.end():]
+
+
 def build_builds():
     """build-1 to build-5: concept 11's homepage, quote pages and one
     Homeowners version each (build k gets version k, build 5 version 1)."""
@@ -1293,6 +1345,7 @@ def build_builds():
     # the gallery (archive D) is AC: the landing page, with the current bar
     page = read(f'{GALLERY}/index.html')
     page = keep_links_in(swap_bar(page, main_bar('AC', GALLERY)), GALLERY, build_dir(1))
+    page = outstanding_items(page, GALLERY)
     write(f'{GALLERY}/index.html', page)
 
 

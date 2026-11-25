@@ -84,6 +84,7 @@ Some notes below describe the builds before this approval.
 The client kept concept 11. The review bar now runs AC, GC, 1, 2, 3, 4, 5:
 
 - **AC**: the Fig Leaf photo gallery (`archive-d/`), which is also the landing page (`index.html` redirects there).
+  At its top, above the photos, is a checklist of what is still needed from the agency (`OUTSTANDING` in `build.py`; set an item's last field to True to tick it, then re-run).
 - **GC**: the Get a Quote page (`build-N/crq-form/`). It stays inside the build you came from.
 - **1 to 5**: concept 11's homepage in `build-1/` to `build-5/`. They differ only in the Homeowners page:
   1 archive A's layout, 2 archive B with tabs, 3 archive B scrolling, 4 archive B with the header fade, 5 archive C's layout.
