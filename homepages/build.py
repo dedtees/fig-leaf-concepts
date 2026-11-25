@@ -1253,27 +1253,65 @@ OUTSTANDING = [
     ('Photos and launch', 'Stock photo licensing picks', 'Which of the stock photos to license for the live site.', False),
 ]
 CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+# Where each item goes (build 5's copy), by its title; otherwise by its group.
+OUTSTANDING_GROUP_LINK = {'Team and About': 'about/#team', 'Testimonials': 'about/testimonials/'}
+OUTSTANDING_LINK = {
+    "Les Silverman's headshot": 'about/les-silverman/',
+    "Fun-fact lines for Jarihana, Les and Burke": 'about/jarihana-abreu/',
+    'The final cut of the current testimonial video': '#hs-reviews-title',
+    'Approval of the draft copy on Renters, Condo, Life, Health and Pet': 'renters-insurance/',
+    'Health insurance: what individual and family plans cover': 'health-insurance/#covered',
+    'Pet insurance: what accidents, illnesses and routine wellness care cover': 'pet-insurance/#covered',
+}
+
+
+def todo_slug(title):
+    return re.sub(r'[^a-z0-9]+', '-', title.lower()).strip('-')[:60]
 
 
 def outstanding_items(page, out):
-    """The checklist section at the top of the gallery's <main>."""
+    """The checklist section at the top of the gallery's <main>. Each item
+    can be ticked (kept in the browser, outstanding.js) and links to the page
+    where its content goes. Items marked done here are ticked for everyone."""
     page = re.sub(r'\n    <!-- Still needed from the agency.*?<!-- /still needed -->\n', '\n', page, flags=re.S)
     page = re.sub(r'\n  <link rel="stylesheet" href="[^"]*outstanding\.css">', '', page)
+    page = re.sub(r'\n  <script src="[^"]*outstanding\.js" defer></script>', '', page)
     groups = []
     for g in dict.fromkeys(x[0] for x in OUTSTANDING):
-        items = '\n'.join(
-            f'            <li class="todo__item{" is-done" if done else ""}"><span class="todo__box">{CHECK}</span>'
-            f'<span class="todo__text"><strong>{html.escape(t)}</strong><span>{html.escape(d)}</span></span>'
-            f'<span class="visually-hidden">{" (received)" if done else " (still needed)"}</span></li>'
-            for gg, t, d, done in OUTSTANDING if gg == g)
-        groups.append(f'        <div class="todo__group">\n          <h3>{g}</h3>\n          <ul class="todo__list">\n{items}\n          </ul>\n        </div>')
-    left = sum(1 for x in OUTSTANDING if not x[3])
+        rows = []
+        for item in OUTSTANDING:
+            gg, t, d, done = item[:4]
+            if gg != g:
+                continue
+            slug = todo_slug(t)
+            target = OUTSTANDING_LINK.get(t, OUTSTANDING_GROUP_LINK.get(g))
+            link = ''
+            if target is not None:
+                href = posixpath.relpath(build_dir(5), out) + '/' + target
+                link = f'<a class="todo__link" href="{href}">See where it goes<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>'
+            rows.append(
+                f'            <li class="todo__item{" is-done" if done else ""}" data-todo="{slug}"{" data-fixed" if done else ""}>'
+                f'<input class="todo__check" type="checkbox" id="todo-{slug}"{" checked disabled" if done else ""}>'
+                f'<label class="todo__box" for="todo-{slug}">{CHECK}<span class="visually-hidden">Received: {html.escape(t)}</span></label>'
+                f'<span class="todo__text"><label for="todo-{slug}"><strong>{html.escape(t)}</strong></label><span>{html.escape(d)}</span>{link}</span></li>')
+        groups.append(f'        <div class="todo__group">\n          <h3>{g}</h3>\n          <ul class="todo__list">\n' + '\n'.join(rows) + '\n          </ul>\n        </div>')
+    total = len(OUTSTANDING)
+    got = sum(1 for x in OUTSTANDING if x[3])
     block = ('\n    <!-- Still needed from the agency (homepages/build.py OUTSTANDING) -->\n'
-             '    <section class="todo" aria-labelledby="todo-title" data-review="Still needed from the agency">\n'
+             '    <section class="todo" aria-labelledby="todo-title" data-review="Still needed from the agency" data-todo-list>\n'
              '      <div class="todo__inner"><div class="todo__card">\n'
-             '        <p class="todo__eyebrow">Still needed from the agency</p>\n'
-             f'        <h2 class="todo__title" id="todo-title">{left} items to finish the site</h2>\n'
-             '        <p class="todo__lede">Everything below is waiting on content or a decision from The Fig Leaf Agency. Until it arrives, the builds show a placeholder.</p>\n'
+             '        <div class="todo__head">\n'
+             '          <div>\n'
+             '            <p class="todo__eyebrow">Still needed from the agency</p>\n'
+             f'            <h2 class="todo__title" id="todo-title"><span data-todo-left>{total - got}</span> items to finish the site</h2>\n'
+             '            <p class="todo__lede">Everything below is waiting on content or a decision from The Fig Leaf Agency. Tick an item when it arrives; your ticks are kept in this browser.</p>\n'
+             '          </div>\n'
+             '          <div class="todo__progress">\n'
+             f'            <p class="todo__count" aria-live="polite"><strong data-todo-got>{got}</strong> of {total} received</p>\n'
+             f'            <div class="todo__bar" role="progressbar" aria-label="Items received" aria-valuemin="0" aria-valuemax="{total}" aria-valuenow="{got}"><span style="width:{100 * got / total:.1f}%"></span></div>\n'
+             '            <button class="todo__reset" type="button" data-todo-reset>Clear my ticks</button>\n'
+             '          </div>\n'
+             '        </div>\n'
              '        <div class="todo__groups">\n' + '\n'.join(groups) + '\n        </div>\n'
              '      </div></div>\n'
              '    </section>\n'
@@ -1281,9 +1319,9 @@ def outstanding_items(page, out):
     page, n = re.subn(r'(<main id="main">\n)', lambda m: m.group(1) + block, page, count=1)
     assert n == 1
     last = list(re.finditer(r'<link rel="stylesheet"[^>]*>', page))[-1]
-    css = posixpath.relpath('homepages/shared/outstanding.css', out)
-    return page[:last.end()] + f'\n  <link rel="stylesheet" href="{css}">' + page[last.end():]
-
+    shared = posixpath.relpath('homepages/shared', out)
+    page = page[:last.end()] + f'\n  <link rel="stylesheet" href="{shared}/outstanding.css">' + page[last.end():]
+    return page.replace('</body>', f'  <script src="{shared}/outstanding.js" defer></script>\n</body>', 1)
 
 def build_builds():
     """build-1 to build-5: concept 11's homepage, quote pages and one
