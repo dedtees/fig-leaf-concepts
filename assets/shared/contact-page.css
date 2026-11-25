@@ -1,0 +1,117 @@
+/* ==========================================================================
+   Contact page (contact/index.html), on top of the insurance pages' styles
+   (insurance-page.css, service-pages.css, approved.css).
+   ========================================================================== */
+
+/* the office photo in the title band: a tall shot, so cap its height */
+.pg--contact-page .pg-head__photo img { width: 100%; height: 100%; max-height: 460px; object-fit: cover; object-position: center 40%; }
+.pg--contact-page .pg-head__actions .pg-btn .icon { width: 18px; height: 18px; margin-right: 8px; vertical-align: -3px; }
+
+.pg--contact-page .ct-sec { scroll-margin-top: 80px; }
+
+/* form on the left, contact details on the right */
+.ct-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(300px, 1fr);
+  gap: clamp(20px, 2.5vw, 32px);
+  align-items: start;
+}
+@media (max-width: 960px) {
+  .ct-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* the details card: dark, like the "Rather talk it through?" card */
+.ct-card {
+  border-radius: 28px;
+  background: var(--pg-ink, #0f2418);
+  color: rgba(255, 255, 255, .8);
+  padding: clamp(24px, 3vw, 36px);
+}
+.ct-card__title {
+  margin: 0 0 18px;
+  font-family: var(--hs-heading);
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.01em;
+  color: #fff;
+}
+.ct-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 0; }
+.ct-list > li {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 14px;
+  padding: 18px 0;
+  border-top: 1px solid rgba(255, 255, 255, .12);
+}
+.ct-list > li:first-child { border-top: 0; padding-top: 4px; }
+.ct-list__icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(232, 194, 126, .14);
+  color: var(--c2-gold, #e8c27e);
+}
+.ct-list__icon .icon { width: 20px; height: 20px; }
+.ct-list__label {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--hs-heading);
+  font-size: .74rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--c2-gold, #e8c27e);
+}
+.ct-list address { font-style: normal; font-size: 1.05rem; line-height: 1.5; color: #fff; }
+.ct-list a { color: #fff; font-weight: 600; text-decoration: underline; text-decoration-color: rgba(255, 255, 255, .35); text-underline-offset: 3px; overflow-wrap: anywhere; }
+.ct-list a:hover { text-decoration-color: var(--c2-gold, #e8c27e); }
+.ct-list__big { display: inline-block; font-size: 1.3rem; text-decoration: none !important; }
+.ct-list__more { display: inline-block; margin-top: 6px; font-size: .95rem; }
+.ct-list__sub { display: block; margin-top: 4px; font-size: .9rem; color: rgba(255, 255, 255, .6); }
+
+/* office hours */
+.ct-hours { margin: 0; display: grid; gap: 2px; }
+.ct-hours > div { display: flex; justify-content: space-between; gap: 12px; padding: 5px 10px; margin: 0 -10px; border-radius: 8px; }
+.ct-hours dt { font-weight: 400; }
+.ct-hours dd { margin: 0; color: #fff; font-weight: 600; white-space: nowrap; }
+.ct-hours > .is-today { background: rgba(255, 255, 255, .07); }
+.ct-hours > .is-today dt { color: #fff; font-weight: 600; }
+
+.ct-now { display: flex; align-items: baseline; gap: 8px; margin: 0 0 10px; font-size: .95rem; line-height: 1.45; color: #fff; }
+.ct-now[hidden] { display: none; }
+.ct-now a { font-weight: 700; }
+.ct-now__dot { flex: none; width: 9px; height: 9px; border-radius: 50%; background: #9aa39d; transform: translateY(-1px); }
+.ct-now[data-state="open"] .ct-now__dot { background: #4cc277; box-shadow: 0 0 0 4px rgba(76, 194, 119, .2); }
+.ct-now[data-state="phones"] .ct-now__dot { background: var(--c2-gold, #e8c27e); }
+
+/* the map */
+.pg--contact-page .ct-sec--map { padding-top: clamp(48px, 6vw, 80px); }
+.ct-map {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  background: #e7ebe8;
+  box-shadow: 0 30px 70px -34px rgba(15, 36, 24, .45), 0 0 0 1px rgba(15, 36, 24, .06);
+  aspect-ratio: 21 / 9;
+  min-height: 320px;
+}
+.ct-map::before {
+  content: "Loading the map\2026";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--hs-heading);
+  font-size: .95rem;
+  color: #8a948d;
+}
+.ct-map iframe { position: relative; display: block; width: 100%; height: 100%; border: 0; }
+@media (max-width: 640px) {
+  .ct-map { aspect-ratio: auto; height: 360px; border-radius: 20px; }
+}
+.ct-map__note { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: 16px 0 0; padding: 0 6px; font-size: .98rem; color: var(--hs-text); }
+.ct-map__note .icon { width: 18px; height: 18px; color: var(--hs-green); }
+.ct-map__note a { color: var(--hs-green); font-weight: 700; text-underline-offset: 3px; }

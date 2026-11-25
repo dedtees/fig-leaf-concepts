@@ -1,5 +1,7 @@
 /* Contact form on the insurance pages the Consumer Rate Quotes form doesn't
-   cover (Boat, Personal Umbrella, Life, Health and Pet), in place of it. Markup:
+   cover (Boat, Personal Umbrella, Life, Health and Pet), in place of it, and
+   the message form on the Contact page (contact/index.html, which sets
+   data-subject so its emails aren't titled as quote requests). Markup:
    contact_form() in the build script (removed).
 
    TO MAKE IT SEND ON ITS OWN
@@ -34,13 +36,21 @@
     status.className = 'pg-contact__status' + (kind ? ' is-' + kind : '');
   }
 
+  // the email's subject: "Boat Insurance quote request: Jane Smith" on the
+  // insurance pages, or data-subject plus the topic on the Contact page:
+  // "Message from the website (A claim): Jane Smith"
+  function subject(form, type) {
+    var custom = form.getAttribute('data-subject');
+    return (custom ? custom + ' (' + type + ')' : type + ' quote request') + ': ' + field(form, 'name');
+  }
+
   function email(form) {
     var type = field(form, 'insurance_type') || 'Insurance';
     var lines = [
       'Name: ' + field(form, 'name'),
       'Email: ' + field(form, 'email'),
       'Phone: ' + field(form, 'phone'),
-      'Insurance type: ' + type
+      (form.getAttribute('data-subject') ? 'About: ' : 'Insurance type: ') + type
     ];
     if (form.elements.boat_year && !form.elements.boat_year.disabled) {
       lines.push('Boat: ' + [field(form, 'boat_year'), field(form, 'boat_make'), field(form, 'boat_model')].join(' '));
@@ -48,7 +58,7 @@
     lines.push('', field(form, 'message') || '(no message)', '', 'Sent from ' + location.href);
     var body = lines.join('\n');
     location.href = 'mailto:' + (form.getAttribute('data-mailto') || 'quotes@figleafagency.com') +
-      '?subject=' + encodeURIComponent(type + ' quote request: ' + field(form, 'name')) +
+      '?subject=' + encodeURIComponent(subject(form, type)) +
       '&body=' + encodeURIComponent(body);
     say(form, 'Your email app should open with your request ready to send. If it doesn’t, email ' +
       (form.getAttribute('data-mailto') || 'quotes@figleafagency.com') + ' or call (908) 862-3447.', 'ok');

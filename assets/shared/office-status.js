@@ -129,6 +129,9 @@
     return why + '. Phones are off' + (when ? '; we ' + (s.why === 'after' ? 'open ' : 'reopen ') + when : '') + '.';
   }
 
+  /* for the Contact page's office hours card (contact-page.js) */
+  window.FIG_LEAF_OFFICE_STATUS = { status: status, sentence: sentence, fmt: fmt };
+
   /* The week as rows: "Mon – Fri  9 AM – 5 PM", "Sat – Sun  Closed". */
   function weekRows() {
     var rows = [];
