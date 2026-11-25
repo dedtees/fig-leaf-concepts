@@ -1,12 +1,14 @@
 /* Carriers page: the All / A–C / D–H / I–O / P–Z buttons, which show one
-   alphabetical group at a time, and the carrier's name in place of a logo
+   alphabetical group at a time (All is one A to Z grid with no group headings), and the carrier's name in place of a logo
    that doesn't load. */
 (function () {
   var groups = document.querySelectorAll('[data-cr-group]');
   var buttons = document.querySelectorAll('[data-cr-filter]');
   var status = document.querySelector('[data-cr-status]');
+  var wrap = document.querySelector('[data-cr-groups]');
   function show(key) {
     var n = 0;
+    if (wrap) wrap.classList.toggle('is-all', key === 'all');   // one A to Z grid, no group headings
     for (var i = 0; i < groups.length; i++) {
       var on = key === 'all' || groups[i].getAttribute('data-cr-group') === key;
       groups[i].hidden = !on;
