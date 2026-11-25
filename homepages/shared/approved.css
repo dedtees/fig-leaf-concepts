@@ -9,8 +9,13 @@ html, html * {
   --ab-serif: "Gelasio", Georgia, serif !important;
 }
 
-/* No gold line between the address / phone / language row and the header */
-html[data-header] .utility { border-bottom: 0; }
+/* The address / phone / language row: dark green, with no gold line under
+   it (Eric, 25 Nov) */
+html[data-header] .utility { border-bottom: 0; background: #17402b; color: #fff; }
+
+/* No gold line between the header and the first band of the About page
+   and the team bio pages */
+.ab .a5-head, .ab .ab-bio-head, .ab .b2-band, .ab .b3-split, .ab .b4-head, .ab .b5-head { border-top: 0; }
 
 /* Quote form page: a visible heading above the form */
 .qp-plain__head { padding: clamp(32px, 5vw, 56px) var(--hs-gutter, 24px) 8px; text-align: center; }

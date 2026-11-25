@@ -74,7 +74,7 @@ their heading wordings (option A on builds 1 and 4, B on 2 and 5, C on 3, from `
 - **Testimonials** (`about/testimonials/`): six videos three across, then the Google reviews beneath. One client video so
   far; the other five are "Video coming soon" frames (`TM_VIDEOS`, `tm_video()`; styles in `testimonials.css`).
 - **Quote pages**: heading "Get your Free Insurance Quote" (visible above the form on `crq-form/`).
-- **Heading font**: Gelasio. **No gold line** under the address, phone and language row. Both in
+- **Heading font**: Gelasio. The address, phone and language row is **dark green**, with **no gold line** under it or between the header and the About and bio pages' first band. Both in
   `homepages/shared/approved.css`, added to every build page by `approved_pass()`. The Aa picker still works, starting on Gelasio.
 - The bar's numbers 1 to 5 open the same page on each build, so the wordings can be compared.
 - **Breadcrumb** (Home / Personal Insurance / page) on every insurance page, and the header's Personal Insurance link goes to the homepage's coverage section, on every build (`NAV_BUILDS`).
