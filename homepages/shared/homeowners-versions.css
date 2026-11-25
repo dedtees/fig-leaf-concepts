@@ -93,11 +93,11 @@
 /* hero photo, right of the title: three frames to pick from, set per build
    by HERO_PHOTO in homepages/build.py (pg--photo-<frame> on <main>).
    arch: the original arched top (no rule here).
-   snapshot: white border, a slight tilt and a flat gold block behind.
+   snapshot: a slight tilt and a flat gold block behind (no white border,
+   client 25 Nov).
    block: rounded corners and a flat gold block behind. */
 .pg--v2.pg--photo-snapshot .pg-head__photo {
   border-radius: 6px;
-  border: 10px solid #fff;
   transform: rotate(-3deg);
   box-shadow: 14px 14px 0 var(--c2-gold);
 }

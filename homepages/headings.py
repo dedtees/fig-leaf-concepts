@@ -36,7 +36,7 @@ def talk(thing):
 M = {
 'home': [
  ('Comprehensive Coverage', q('Everything you insure', 'Every policy you need', 'Car, home, boat, business')),
- ('Select One or Bundle!', q('Solo or bundled', 'Bundle your home and car', 'One policy or two, your call')),
+ ('Select One or Bundle!', 'Bundle your home and car'),   # approved by the client, 25 Nov
  ('About The Fig Leaf Agency', q('Why we started Fig Leaf', 'A better way to buy insurance in New Jersey', 'Built on keeping our word')),
  ('More Ways We Protect You', q('Other ways we help', 'Beyond home and auto', f'There{R}s more we can cover')),
  ('Google Reviews', q('Rated 5.0 by our clients', '140+ five-star reviews', 'What clients tell Google')),
