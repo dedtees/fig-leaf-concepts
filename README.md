@@ -10,7 +10,7 @@ then. They are still in the git history if anything needs to be looked up (`git 
 
 - `index.html`: the homepage
 - `about/` with the team bios and `about/testimonials/`
-- `carriers/`: claims and payments by carrier, in alphabetical groups (A–C, D–H, I–O, P–Z) with a button to show each
+- `carriers/`: claims and payments by carrier, one A to Z grid under All carriers, with buttons that show one alphabetical group (A–C, D–H, I–O, P–Z) under its heading
 - Personal insurance: `auto-insurance/`, `homeowners-insurance/`, `renters-insurance/`, `condo-insurance/`,
   `boat-insurance/`, `personal-umbrella-insurance/`, `health-insurance/`, `life-insurance/`, `pet-insurance/`
 - Business insurance: `commercial-auto-insurance/`, `workers-comp-insurance/`, `general-liability-insurance/`,
