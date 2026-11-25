@@ -1237,7 +1237,9 @@ def round2_homeowners(k, page, out):
 # gallery (AC), above the photos. (group, item, detail, done). Tick an item
 # by setting done to True, then re-run the script. Styles: outstanding.css.
 OUTSTANDING = [
-    ('Team and About', 'Les Silverman\'s headshot', 'His photo is a placeholder on the About page and his bio page.', False),
+    ('Team and About', 'Les Silverman\'s headshot', 'His photo is a placeholder on the About page and his bio page.', True),
+    ('Team and About', 'Leidy Sepulveda\'s headshot', 'Her photo is a placeholder on the About page.', False),
+    ('Team and About', 'Leidy Sepulveda\'s bio', 'Her card on the About page has her title but no bio yet.', False),
     ('Team and About', 'Bryan Tomko\'s bio', 'His card on the About page says "Bio coming soon".', False),
     ('Team and About', 'Magdalena Tomko\'s bio', 'Her card on the About page says "Bio coming soon".', False),
     ('Team and About', 'Russell Mardonov\'s bio', 'His card on the About page says "Bio coming soon".', False),

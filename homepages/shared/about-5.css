@@ -65,7 +65,8 @@
 /* --- About: team ------------------------------------------------------------------ */
 .a5-team { padding-block: clamp(64px, 8vw, 112px); background: #fff; border-top: 1px solid var(--ab-gold); color: var(--ab-black); }
 .a5-team__grid { margin-bottom: clamp(28px, 4vw, 44px); }
-.a5-team__cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 2vw, 24px); }
+.a5-team__cards { --a5-gap: clamp(16px, 2vw, 24px); display: flex; flex-wrap: wrap; justify-content: center; gap: var(--a5-gap); }   /* flex, not grid, so a short last row sits centred */
+.a5-team__cards > * { flex: 0 0 calc((100% - 3 * var(--a5-gap)) / 4); min-width: 0; }
 .a5-team .ab-section-head__title { color: var(--ab-green); }
 .a5-team__text { margin: 16px 0 0; font-size: 1.1rem; line-height: 1.6; }
 /* each person: a clean photo with the name and role set below it */
@@ -137,8 +138,8 @@
 @media (prefers-reduced-motion: reduce) {
   .a5-values__list li, .a5-person__photo img, .a5-person__more .icon { transition: none; }
 }
-@media (max-width: 1000px) { .a5-team__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 480px) { .a5-team__cards { gap: 28px 14px; } .a5-person { gap: 12px; } .a5-person__name { font-size: 1.1rem; } .a5-person__role { font-size: .68rem; letter-spacing: .08em; } .a5-person__meta { font-size: .85rem; } }
+@media (max-width: 1000px) { .a5-team__cards > * { flex-basis: calc((100% - var(--a5-gap)) / 2); } }
+@media (max-width: 480px) { .a5-team__cards { --a5-gap: 14px; row-gap: 28px; } .a5-person { gap: 12px; } .a5-person__name { font-size: 1.1rem; } .a5-person__role { font-size: .68rem; letter-spacing: .08em; } .a5-person__meta { font-size: .85rem; } }
 
 /* At a glance (client review round 2): build 3's Where / What / How facts
    on the green band, in place of the three numbers */
