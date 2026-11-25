@@ -1239,7 +1239,8 @@ def round2_homeowners(k, page, out):
 OUTSTANDING = [
     ('Team and About', 'Les Silverman\'s headshot', 'His photo is a placeholder on the About page and his bio page.', False),
     ('Team and About', 'Bryan Tomko\'s bio', 'His card on the About page says "Bio coming soon".', False),
-    ('Team and About', 'Bios for Magdalena Tomko and Russell Mardonov', 'Both cards on the About page say "Bio coming soon".', False),
+    ('Team and About', 'Magdalena Tomko\'s bio', 'Her card on the About page says "Bio coming soon".', False),
+    ('Team and About', 'Russell Mardonov\'s bio', 'His card on the About page says "Bio coming soon".', False),
     ('Team and About', 'Juan Rosario\'s job title and a short bio', 'He is on the team list without either.', False),
     ('Team and About', 'Fun-fact lines for Jarihana, Les and Burke', 'One line each for their bio pages.', False),
     ('Testimonials', 'Five more client testimonial videos', 'Five of the six spots on the Testimonials page are "Video coming soon", with each client\'s name and coverage to go under it.', False),
