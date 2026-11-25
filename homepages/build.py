@@ -1239,7 +1239,8 @@ def round2_homeowners(k, page, out):
 OUTSTANDING = [
     ('Team and About', 'Les Silverman\'s headshot', 'His photo is a placeholder on the About page and his bio page.', False),
     ('Team and About', 'Bryan Tomko\'s bio', 'His card on the About page says "Bio coming soon".', False),
-    ('Team and About', 'Bios for Magdalena Tomko and Russell Mardonov', 'Both cards on the About page say "Bio coming soon".', False),
+    ('Team and About', 'Magdalena Tomko\'s bio', 'Her card on the About page says "Bio coming soon".', False),
+    ('Team and About', 'Russell Mardonov\'s bio', 'His card on the About page says "Bio coming soon".', False),
     ('Team and About', 'Juan Rosario\'s job title and a short bio', 'He is on the team list without either.', False),
     ('Team and About', 'Fun-fact lines for Jarihana, Les and Burke', 'One line each for their bio pages.', False),
     ('Testimonials', 'Five more client testimonial videos', 'Five of the six spots on the Testimonials page are "Video coming soon", with each client\'s name and coverage to go under it.', False),
@@ -1248,8 +1249,6 @@ OUTSTANDING = [
     ('Insurance pages', 'Health insurance: what individual and family plans cover', 'Both cards say "[Copy to come]".', False),
     ('Insurance pages', 'Pet insurance: what accidents, illnesses and routine wellness care cover', 'All three cards say "[Copy to come]".', False),
     ('Photos and launch', 'Stock photo licensing picks', 'Which of the stock photos to license for the live site.', False),
-    ('Photos and launch', 'An email address or Formspree account for the contact form', 'The contact form on Boat, Umbrella, Life, Health and Pet has nowhere to send yet.', False),
-    ('Photos and launch', 'WordPress hosting details', 'Where the site will live, and a login to build it there.', False),
 ]
 CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 
