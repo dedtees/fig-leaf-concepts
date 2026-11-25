@@ -19,6 +19,10 @@
   color: #f4efe2;
 }
 .tm-head__text { margin: 16px auto 0; max-width: 46ch; font-size: 1.1rem; line-height: 1.5; color: rgba(244, 239, 226, .85); }
+/* desktop: the heading and the caption each on one line (Eric, 25 Nov) */
+@media (min-width: 900px) {
+  .tm-head__title, .tm-head__text { max-width: none; }
+}
 
 /* six videos, three across (client approval, 25 Nov) */
 .tm-videos { background: #fff; padding-bottom: clamp(24px, 3vw, 40px); }
