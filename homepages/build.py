@@ -105,7 +105,7 @@ def read(path):
         return f.read()
 
 
-OFFICE_MODE = {'1': 'badge', '2': 'badge', '3': 'badge', '4': 'badge'}
+OFFICE_MODE = {'1': 'badge', '2': 'badge', '3': 'badge', '4': 'badge', '5': 'badge'}
 
 
 def office_status(path, text):
@@ -571,7 +571,7 @@ QUOTE_BAND = '''
         <div class="pg-band__box">
           <div class="pg-band__text">
             <h2 class="pg-band__title" id="pg-band-title">{title}</h2>
-            <p>We compare top-rated carriers for you, then walk you through every line of the policy.</p>
+            <p>I&rsquo;m going to compare top rated carriers for you and then walk you through every line of the policy.</p>
           </div>
           <div class="pg-band__actions">
             <a class="pg-btn pg-btn--gold" href="{href}">Start My Quote</a>
@@ -1337,7 +1337,7 @@ def round2_homeowners(k, page, out):
             '        <aside class="r2-quote" aria-label="Quote and other coverage">\n'
             '          <div class="r2-quote__card">\n'
             '            <h3 class="r2-quote__title">Get a homeowners quote</h3>\n'
-            '            <p>We compare top-rated carriers for you, then walk you through every line of the policy.</p>\n'
+            '            <p>I&rsquo;m going to compare top rated carriers for you and then walk you through every line of the policy.</p>\n'
             '            <a class="pg-btn pg-btn--primary" href="#quote">Start My Quote</a>\n'
             '            <a class="r2-quote__call" href="tel:+19088623447"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>Call (908) 862-3447</a>\n'
             '          </div>\n'
