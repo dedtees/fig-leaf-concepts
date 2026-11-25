@@ -1002,6 +1002,11 @@ def about_links(page, out, build):
                             f'              <li><a href="{to("testimonials/")}">Testimonials</a></li>', 1)
         page = page.replace(f'<li><a href="{to("#team")}">Meet Our Team</a></li>',
                             f'<li><a href="{to("#team")}">Meet Our Team</a></li><li><a href="{to("testimonials/")}">Testimonials</a></li>', 1)
+    if build in [build_dir(b) for b in BUILDS]:
+        # the About menu holds only Meet the Team (the About page) and Testimonials (client, 25 Nov)
+        page = page.replace(f'              <li><a href="{to("")}">About The Fig Leaf</a></li>\n'
+                            f'              <li><a href="{to("#team")}">Meet the Team</a></li>\n',
+                            f'              <li><a href="{to("")}">Meet the Team</a></li>\n', 1)
     return page
 
 

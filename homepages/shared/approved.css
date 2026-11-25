@@ -9,9 +9,9 @@ html, html * {
   --ab-serif: "Gelasio", Georgia, serif !important;
 }
 
-/* The address / phone / language row: dark green, with no gold line under
-   it (Eric, 25 Nov) */
-html[data-header] .utility { border-bottom: 0; background: #17402b; color: #fff; }
+/* The address / phone / language row: its own black, with no gold line
+   under it (Eric, 25 Nov; the green was tried and taken back) */
+html[data-header] .utility { border-bottom: 0; }
 
 /* No gold line between the header and the first band of the About page
    and the team bio pages */
