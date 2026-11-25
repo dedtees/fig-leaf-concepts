@@ -95,3 +95,25 @@ p.ph, div.ph { display: block; padding: 10px 14px; }
    room under its text as above it (Eric, 25 Nov) */
 .hs .hs-section.tm-head.cr-head { padding-bottom: clamp(40px, 6vw, 80px); }
 .hs .hs-section.tm-videos { padding-top: clamp(32px, 4vw, 56px); }
+
+/* Contact is now the last header link (Eric, 25 Nov): a slightly smaller menu
+   font at every desktop width so all five items and Get a Quote fit on one
+   line, with room to spare at 1280 and 1366. The phone menu is unchanged. */
+@media (min-width: 1601px) {
+  html[data-header] .site-nav__link { font-size: 16px; }
+  html[data-header] .site-nav, html[data-header] .site-nav__list { gap: 28px; }
+}
+@media (min-width: 1321px) and (max-width: 1600px) {
+  html[data-header] .site-nav__link { font-size: 14px; }
+  html[data-header] .site-nav, html[data-header] .site-nav__list { gap: 16px; }
+  html[data-header] .site-header__cta { padding: 12px 20px; font-size: 14px; }
+}
+@media (min-width: 1181px) and (max-width: 1320px) {
+  html[data-header] .site-nav__link { font-size: 13px; }
+}
+@media (min-width: 1001px) and (max-width: 1180px) {
+  html[data-header] .site-nav__link { font-size: 12px; letter-spacing: 0; }
+  html[data-header] .site-nav, html[data-header] .site-nav__list { gap: 10px; }
+  html[data-header] .site-header__logo { max-height: 70px; }
+  html[data-header] .site-header__cta { padding: 10px 14px; font-size: 12px; }
+}
