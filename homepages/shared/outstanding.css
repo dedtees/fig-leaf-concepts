@@ -1,0 +1,27 @@
+/* "Still needed from the agency" checklist at the top of the gallery (AC),
+   made by outstanding_items() in homepages/build.py (Eric, 25 Nov). */
+.todo { padding: clamp(36px, 5vw, 64px) 0 clamp(8px, 2vw, 16px); }
+.todo__inner { width: min(1296px, calc(100% - 2 * clamp(16px, 4vw, 72px))); margin: 0 auto; }
+.todo__card {
+  padding: clamp(24px, 3.5vw, 44px);
+  border: 1px solid #e8c27e;
+  border-radius: 18px;
+  background: #fff;
+  color: #070d0f;
+}
+.todo__eyebrow { margin: 0 0 10px; font-family: "Montserrat", sans-serif; font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #17402b; }
+.todo__title { margin: 0; font-family: var(--font-heading, "Lora", Georgia, serif); font-size: clamp(1.8rem, 1.3rem + 1.6vw, 2.6rem); line-height: 1.15; color: #070d0f; }
+.todo__lede { margin: 12px 0 0; max-width: 60ch; font-size: 1.05rem; line-height: 1.55; color: #3c463f; }
+.todo__groups { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(20px, 3vw, 36px); margin-top: clamp(24px, 3vw, 36px); }
+.todo__group h3 { margin: 0 0 12px; padding-bottom: 8px; border-bottom: 2px solid #e8c27e; font-family: "Montserrat", sans-serif; font-size: .85rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #17402b; }
+.todo__list { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.todo__item { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; align-items: start; line-height: 1.45; }
+.todo__box { width: 22px; height: 22px; margin-top: 1px; border: 2px solid #17402b; border-radius: 5px; display: grid; place-items: center; }
+.todo__box svg { width: 14px; height: 14px; display: none; }
+.todo__item.is-done .todo__box { background: #17402b; color: #fff; }
+.todo__item.is-done .todo__box svg { display: block; }
+.todo__item.is-done .todo__text strong { text-decoration: line-through; color: #5b665f; }
+.todo__text strong { display: block; font-weight: 700; color: #070d0f; }
+.todo__text span { display: block; margin-top: 2px; font-size: .95rem; color: #4a554d; }
+@media (min-width: 700px) { .todo__groups { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1200px) { .todo__groups { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
