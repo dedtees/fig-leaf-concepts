@@ -1375,7 +1375,8 @@ OUTSTANDING = [
     ('Insurance pages', 'Pet insurance: what accidents, illnesses and routine wellness care cover', 'All three cards say "[Copy to come]".', False),
     ('Insurance pages', 'Business insurance page copy sign-off', 'The six Business Insurance pages (Commercial Auto, Workers Comp, General Liability, Commercial Umbrella, Employee Benefits, Contractors Policies) have our draft copy.', False),
     ('Photos and launch', 'Photos for the Business Insurance pages', 'Adobe Stock previews are on all six Business Insurance pages (top photos and the talk-to-an-agent photo); they are in the stock photo picks for licensing.', True),
-    ('Office hours', 'Confirm office hours and holiday closures', 'The open / closed badge on builds 1 and 2 uses Mon to Fri, 9 AM to 5 PM (from Google) and the usual US holidays. Tell us early closes or extra days off.', False),
+    ('Office hours', 'Confirm office hours and holiday closures', 'The open / closed status on builds 1 to 4 uses Mon to Fri, 9 AM to 5 PM (from Google) and the usual US holidays with the phones off. Tell us early closes, extra days off, or holidays when the phones are still answered.', False),
+    ('Office hours', 'Are the phones answered after hours?', 'We assumed not: evenings and weekends show "Closed" (grey), not "Office closed, phones open" (amber). Tell us if calls are covered after hours.', False),
     ('Photos and launch', 'Stock photo licensing picks', 'Which of the stock photos to license for the live site.', False),
 ]
 CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
