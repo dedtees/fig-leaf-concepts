@@ -1464,8 +1464,8 @@ def approved_pass():
                                   f'<header class="qp-plain__head"><h1 class="qp-plain__title">{QUOTE_HEADING}</h1></header>', page, count=1)
                 assert n == 1, path
             elif base == 'crq':
-                page, n = re.subn(r'(<h1 class="qp-hero__title" id="qp-title"><span>)[^<]*(</span>)',
-                                  lambda m: m.group(1) + QUOTE_HEADING + '.' + m.group(2), page, count=1)
+                page, n = re.subn(r'(<h1 class="qp-hero__title" id="qp-title">).*?(</h1>)',
+                                  lambda m: m.group(1) + f'<span>{QUOTE_HEADING}</span>' + m.group(2), page, count=1)
                 assert n == 1, path
             write(path, page)
 
