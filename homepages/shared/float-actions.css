@@ -9,8 +9,9 @@
    Quote across it and the arrow at its right end.
 
    Three looks, matched to the headings options so the client's ticks say
-   which they prefer: A on builds 1 and 4 (gold pill), B on builds 2 and 5
-   (dark green block), C on build 3 (black pill with a gold edge).
+   which they prefer: A on builds 1 and 4 (gold), B on builds 2 and 5
+   (dark green), C on build 3 (black with a gold edge). Get a Quote has
+   square corners on all three (Eric, 25 Nov).
 
    The review tools (review/) also float: the "Aa" font button bottom left
    and the "Your review" button bottom right. While they are on the page
@@ -94,21 +95,21 @@ html.fla-review .fla { --fla-lift: 56px; }
   .fla__quote:hover, .fla__top:hover { transform: none; }
 }
 
-/* ---- A: builds 1 and 4. Gold pill, black arrow disc ----------------------- */
-.fla--a .fla__quote { border-radius: 999px; background: var(--fla-gold); color: var(--fla-black); border-color: var(--fla-black); }
+/* ---- A: builds 1 and 4. Gold box, black arrow disc ----------------------- */
+.fla--a .fla__quote { border-radius: 0; background: var(--fla-gold); color: var(--fla-black); border-color: var(--fla-black); }
 .fla--a .fla__quote:hover { background: var(--fla-white); }
 .fla--a .fla__top { border-radius: 50%; background: var(--fla-black); color: var(--fla-gold); border-color: var(--fla-gold); }
 .fla--a .fla__top:hover { background: var(--fla-green); }
 
 /* ---- B: builds 2 and 5. Squared dark green blocks with a gold edge ------- */
-.fla--b .fla__quote { border-radius: 4px; background: var(--fla-green); color: var(--fla-white); border-color: var(--fla-gold); }
+.fla--b .fla__quote { border-radius: 0; background: var(--fla-green); color: var(--fla-white); border-color: var(--fla-gold); }
 .fla--b .fla__quote svg { color: var(--fla-gold); }
 .fla--b .fla__quote:hover { background: var(--fla-black); }
 .fla--b .fla__top { border-radius: 4px; background: var(--fla-gold); color: var(--fla-green); border-color: var(--fla-green); }
 .fla--b .fla__top:hover { background: var(--fla-white); }
 
-/* ---- C: build 3. Black pill with a gold edge, white arrow disc ----------- */
-.fla--c .fla__quote { border-radius: 999px; background: var(--fla-black); color: var(--fla-gold); border-color: var(--fla-gold); }
+/* ---- C: build 3. Black box with a gold edge, white arrow disc ----------- */
+.fla--c .fla__quote { border-radius: 0; background: var(--fla-black); color: var(--fla-gold); border-color: var(--fla-gold); }
 .fla--c .fla__quote:hover { background: var(--fla-gold); color: var(--fla-black); }
 .fla--c .fla__top { border-radius: 50%; background: var(--fla-white); color: var(--fla-green); border-color: var(--fla-green); }
 .fla--c .fla__top:hover { background: var(--fla-gold); color: var(--fla-black); }
