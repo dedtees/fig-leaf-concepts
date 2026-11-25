@@ -1459,6 +1459,8 @@ def approved_pass():
                 page = page[:last.end()] + f'\n  {GELASIO}\n  <link rel="stylesheet" href="{css}">' + page[last.end():]
             page = re.sub(r'<html lang="en"(?! data-heading-font)', '<html lang="en" data-heading-font="gelasio"', page, count=1)
             base = os.path.basename(out)
+            if out == build_dir(k):   # the hero's links say what is quoted: the insurance (Eric, 25 Nov)
+                page = page.replace('>Start a car quote ', '>Start a car insurance quote ', 1).replace('>Start a home quote ', '>Start a home insurance quote ', 1)
             if base == 'crq-form':
                 page, n = re.subn(r'<h1 class="visually-hidden">[^<]*</h1>',
                                   f'<header class="qp-plain__head"><h1 class="qp-plain__title">{QUOTE_HEADING}</h1></header>', page, count=1)

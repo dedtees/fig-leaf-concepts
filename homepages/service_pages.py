@@ -180,7 +180,7 @@ SERVICES = [
         'og': 'An extra layer over everything else. Personal umbrella insurance from an independent agency in Hazlet, NJ.',
         'h1': ('An extra layer', 'over everything else.'),
         'lead': 'Personal umbrella insurance provides additional liability coverage above the limits of your homeowners and auto insurance policies. It can also cover claims your other liability policies may exclude.',
-        'cta': 'Get Personal Umbrella Quote',
+        'cta': 'Get Personal Umbrella Insurance Quote',
         'contact': 'Tell us which policies you have now (home, auto, boat) and how much extra coverage you have in mind.',
         'photo': (HOUSE, 'A brick family home with a green lawn under a blue sky'),
         'overview': {
@@ -228,7 +228,7 @@ SERVICES = [
         'og': 'Your association covers the building. What&rsquo;s inside your walls is up to you.',
         'h1': ('What&rsquo;s inside your walls', 'is up to you.'),
         'lead': 'Your association&rsquo;s master policy covers the building and common areas. Condo insurance fills the gap.',
-        'cta': 'Get Condo Quote',
+        'cta': 'Get Condo Insurance Quote',
         'photo': (CONDO_BUILDING, 'A modern condo building with glass balconies at sunset'),
         'overview': {
             'kicker': 'Alone or bundled with auto',
