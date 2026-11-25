@@ -105,13 +105,13 @@ def read(path):
         return f.read()
 
 
-OFFICE_MODE = {'1': 'badge', '2': 'badge', '3': 'banner', '4': 'banner'}
+OFFICE_MODE = {'1': 'badge', '2': 'badge', '3': 'badge', '4': 'badge'}
 
 
 def office_status(path, text):
-    """Builds 1 and 2: the open / closed badge in the top bar. Builds 3 and 4:
-    the announcement banner. Both are drawn by homepages/shared/office-status.js
-    from the settings in office-config.js (the one file the agency edits)."""
+    """Builds 1 to 4: the open / closed badge and the announcements bell in the
+    top bar, drawn by homepages/shared/office-status.js from the settings in
+    office-config.js (the one file the agency edits)."""
     m = re.match(r'build-(\d)/.*\.html$', path)
     if not m or m.group(1) not in OFFICE_MODE or '</body>' not in text:
         return text
@@ -127,7 +127,7 @@ def office_status(path, text):
         if i < 0:
             i = text.find('review/review.js')
             i = text.rindex('<script', 0, i) if i >= 0 else text.rindex('</body>')
-        text = (text[:i] + '<!-- Office open/closed badge or announcement banner: edit homepages/shared/office-config.js -->\n'
+        text = (text[:i] + '<!-- Office open/closed badge and announcements bell: edit homepages/shared/office-config.js -->\n'
                 '  <script src="%s/office-config.js" defer></script>\n'
                 '  <script src="%s/office-status.js" defer></script>\n  ' % (shared, shared) + text[i:])
     return text

@@ -1,10 +1,10 @@
 /* Office status and announcements (builds 1 to 4): office-status.js draws
-   them from office-config.js. The builds' colours (gold #e8c27e, black
+   the badge and the bell from office-config.js. The builds' colours (gold #e8c27e, black
    #070d0f, white, dark green #17402b) plus three status colours so the
    state reads at a glance: green #5fbf7f open, amber #f0a92e office closed
    but phones open, grey #9aa3a8 closed with phones off. */
 
-/* ---- open / closed badge (builds 1 and 2) ------------------------------- */
+/* ---- open / closed badge ------------------------------------------------- */
 .office-badge { position: relative; }
 .office-badge--bar .office-badge__toggle { min-height: 30px; }
 .office-badge__toggle {
@@ -37,7 +37,7 @@
   position: absolute;
   left: 0;
   top: calc(100% + 10px);
-  z-index: 30;
+  z-index: 70;   /* above the review ticks (60) */
   width: 290px;
   padding: 16px 18px;
   border: 1px solid #e8c27e;
@@ -73,100 +73,113 @@
   .utility__inner { gap: 22px; }
 }
 
-/* phones and tablets: the top bar is hidden, so a slim strip across the
-   top of the header carries the same words */
-.office-badge--strip { display: none; }
-@media (max-width: 1000px) {
-  .office-badge--strip { display: block; border-bottom: 1px solid #17402b; background: #070d0f; }
-  .office-badge--strip .office-badge__toggle {
-    width: 100%;
-    min-height: 36px;
-    padding: 6px 16px;
-    justify-content: center;
-    color: #fff;
-    font-size: 13px;
-    white-space: normal;
-    text-align: center;
-  }
-  .office-badge--strip .office-badge__panel { left: 16px; right: 16px; width: auto; top: calc(100% + 6px); }
-}
-
-/* review round only: hide the badge's tick while its drop-down is open */
-.office-badge:has(.office-badge__panel:not([hidden])) > .flr-ui.flr-tick { display: none; }
-
-/* ---- announcement banner (builds 3 and 4) ------------------------------- */
-.office-banner {
+/* ---- announcements bell ------------------------------------------------- */
+.office-bell { position: relative; }
+.office-bell__toggle {
   position: relative;
-  z-index: 60;   /* above the header, so its review tick can hang over it */
-  background: #17402b;
-  color: #fff;
-  border-bottom: 2px solid #e8c27e;
-  font-size: 15px;
-  line-height: 1.45;
-}
-.office-banner__inner {
-  max-width: var(--container, 1200px);
-  margin: 0 auto;
-  padding: 11px var(--gutter, 24px);
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 14px;
-}
-.office-banner__icon {
-  width: 22px;
-  height: 22px;
-  flex: 0 0 auto;
-  fill: none;
-  stroke: #e8c27e;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.office-banner__icon--star { fill: #e8c27e; }
-/* amber: office closed, phones open */
-.office-banner--phones { background: #f0a92e; color: #070d0f; border-bottom-color: #070d0f; }
-.office-banner--phones .office-banner__icon { stroke: #070d0f; }
-.office-banner--phones .office-banner__text a,
-.office-banner--phones .office-banner__link { color: #070d0f; }
-.office-banner--phones .office-banner__close { border-color: #070d0f; color: #070d0f; }
-.office-banner--phones .office-banner__close:hover { background: #070d0f; color: #f0a92e; border-color: #070d0f; }
-/* grey: office closed, phones off */
-.office-banner--closed { background: #d9dcdd; color: #070d0f; border-bottom-color: #9aa3a8; }
-.office-banner--closed .office-banner__icon { stroke: #3c4448; }
-.office-banner--closed .office-banner__text a,
-.office-banner--closed .office-banner__link { color: #070d0f; }
-.office-banner--closed .office-banner__close { border-color: #3c4448; color: #070d0f; }
-.office-banner--closed .office-banner__close:hover { background: #070d0f; color: #fff; border-color: #070d0f; }
-.office-banner__text a { color: #e8c27e; font-weight: 700; white-space: nowrap; }
-.office-banner--phones :focus-visible, .office-banner--closed :focus-visible { outline-color: #070d0f; }
-.office-banner__text { margin: 0; flex: 1 1 auto; }
-.office-banner__text strong { font-weight: 700; }
-.office-banner__link { color: #e8c27e; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
-.office-banner__link:hover { color: #fff; }
-.office-banner__close {
-  flex: 0 0 auto;
-  width: 36px;
-  height: 36px;
-  display: grid;
-  place-items: center;
-  border: 1px solid #a9c7b4;
-  border-radius: 50%;
-  background: transparent;
-  color: #fff;
+  gap: 6px;
+  padding: 4px 2px;
+  min-height: 30px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: 500;
   cursor: pointer;
 }
-.office-banner__close:hover { border-color: #e8c27e; color: #e8c27e; }
-.office-banner__close svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; }
-.office-banner :focus-visible { outline: 2px solid #e8c27e; outline-offset: 2px; }
-@media (max-width: 600px) {
-  .office-banner { font-size: 14px; }
-  .office-banner__inner { align-items: flex-start; padding: 10px 16px; gap: 10px; }
-  .office-banner__icon { margin-top: 1px; }
-  .office-banner__close { width: 32px; height: 32px; margin: -3px -4px 0 0; }
+.office-bell__toggle:hover .office-bell__label { text-decoration: underline; }
+.office-bell__icon { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.office-bell.has-news .office-bell__icon { stroke: #e8c27e; }
+.office-bell__dot {
+  position: absolute;
+  top: 3px;
+  left: 13px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #e5484d;
+  box-shadow: 0 0 0 2px #070d0f;
+}
+.office-bell__dot[hidden] { display: none; }
+.office-bell__panel {
+  position: absolute;
+  left: -12px;
+  top: calc(100% + 10px);
+  z-index: 70;   /* above the review ticks (60) */
+  width: 340px;
+  max-height: min(70vh, 520px);
+  overflow-y: auto;
+  padding: 16px 18px 6px;
+  border: 1px solid #e8c27e;
+  border-radius: 10px;
+  background: #070d0f;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.45;
+  text-align: left;
+  white-space: normal;
+}
+.office-bell__panel[hidden] { display: none; }
+.office-bell__head {
+  margin: 0 0 6px;
+  color: #e8c27e;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.office-bell__list { list-style: none; margin: 0; padding: 0; }
+.office-news { display: flex; gap: 12px; padding: 12px 0; border-top: 1px solid #17402b; }
+.office-news:first-child { border-top: 0; }
+.office-news--empty { display: block; color: #a9c7b4; }
+.office-news__icon { width: 20px; height: 20px; flex: 0 0 auto; margin-top: 2px; fill: none; stroke: #e8c27e; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.office-news--phones .office-news__icon { stroke: #f0a92e; }
+.office-news--closed .office-news__icon { stroke: #9aa3a8; }
+.office-news__body { min-width: 0; }
+.office-news__body p { margin: 0; }
+.office-news__meta { color: #a9c7b4; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.office-news__new { display: inline-block; margin-left: 6px; padding: 1px 6px; border-radius: 3px; background: #e5484d; color: #fff; font-size: 10px; letter-spacing: 0.08em; }
+.office-news__title { margin-top: 2px !important; font-weight: 700; }
+.office-news--phones .office-news__title { color: #f0a92e; }
+.office-news--closed .office-news__title { color: #d9dcdd; }
+.office-news__text a, .office-news__link { color: #e8c27e; font-weight: 700; white-space: nowrap; }
+.office-news__link { display: inline-block; margin-top: 4px; text-decoration: underline; text-underline-offset: 3px; }
+.office-news__link:hover { color: #fff; }
+
+/* ---- phones and tablets: the top bar is hidden, so a slim strip across the
+   top of the header carries the badge and the bell ------------------------ */
+.office-strip { display: none; }
+@media (max-width: 1000px) {
+  .office-strip {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    padding: 4px 16px;
+    border-bottom: 1px solid #17402b;
+    background: #070d0f;
+    color: #fff;
+    font-size: 13px;
+  }
+  /* drop-downs hang from the strip, full width */
+  .office-strip .office-badge,
+  .office-strip .office-bell { position: static; }
+  .office-strip .office-badge__toggle { white-space: normal; text-align: left; min-height: 32px; }
+  .office-strip .office-badge__panel,
+  .office-strip .office-bell__panel { left: 16px; right: 16px; width: auto; top: calc(100% + 6px); }
+  .office-strip .office-bell__label { display: none; }
+  .office-strip .office-bell { padding-left: 14px; border-left: 1px solid #17402b; }
 }
 
-/* Review round only: the ✓ / ✕ tick for these sits just under them, so it
-   doesn't cover the badge's text or the banner's close button. */
-.office-badge > .flr-ui.flr-tick { top: calc(100% + 4px); left: 0; right: auto; }
-.office-badge--strip > .flr-ui.flr-tick { top: calc(100% + 4px) !important; left: auto; right: 16px; }
-.office-banner > .flr-ui.flr-tick { top: calc(100% + 6px) !important; left: 16px; right: auto; }
+/* review round only: the ✓ / ✕ ticks sit just under these, so they don't
+   cover the text, and hide while a drop-down is open */
+.office-badge > .flr-ui.flr-tick,
+.office-bell > .flr-ui.flr-tick { top: calc(100% + 4px) !important; left: 0; right: auto; }
+.office-strip .office-bell > .flr-ui.flr-tick { left: auto; right: 16px; }
+.office-strip .office-badge > .flr-ui.flr-tick { left: 16px; }
+.office-badge:has(.office-badge__panel:not([hidden])) > .flr-ui.flr-tick,
+.office-bell:has(.office-bell__panel:not([hidden])) > .flr-ui.flr-tick { display: none; }
+.office-strip:has(.office-badge__panel:not([hidden]), .office-bell__panel:not([hidden])) .flr-ui.flr-tick { display: none; }
