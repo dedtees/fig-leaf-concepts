@@ -67,3 +67,7 @@ html[data-header] .site-nav__link--label { cursor: default; }
   text-transform: none; line-height: 1.45; }
 p.ph, div.ph { display: block; padding: 10px 14px; }
 .ph-target { scroll-margin-top: 120px; }
+
+/* Bio "at a glance" tiles: as many columns as there are tiles (two once the
+   years tile was dropped, Eric 25 Nov) */
+@media (min-width: 761px) { .b5-tiles__list { grid-template-columns: repeat(var(--tiles, 3), minmax(0, 1fr)); } .b5-tiles__list:has(> li:nth-child(2):last-child) { --tiles: 2; } }
