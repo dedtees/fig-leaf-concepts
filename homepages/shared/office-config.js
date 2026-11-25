@@ -9,13 +9,12 @@
      closed   office closed, phones off           grey    "Closed for Thanksgiving · reopens Fri 9 AM"
               (holidays; ordinary evenings and weekends too, see afterHoursPhones)
 
-   Builds 1 and 2 show it as a badge in the top bar, left of the address.
-   Builds 3 and 4 show it as a banner above the header on a snow day or a
-   holiday, and otherwise the news message in `banner` (if it's on).
+   Builds 1 to 4 show it as a badge in the top bar, left of the address, with
+   a bell beside it for announcements (see `announcements` at the bottom).
 
    Preview without editing (add to any build 1 to 4 page's address):
      ?office=open     ?office=snow     ?office=holiday     ?office=night
-     ?banner=show     bring back a banner you have closed
+     ?news=reset      show the bell's red dot again, as a first-time visitor sees it
    ========================================================================== */
 window.FIG_LEAF_OFFICE = {
 
@@ -71,23 +70,27 @@ window.FIG_LEAF_OFFICE = {
     until: ''
   },
 
-  /* News banner (builds 3 and 4), shown when there is no closure to report.
-     show: false hides it. Give each new message a new id: a visitor who
-     closed the last one will still see the new one.
-     icon: 'info' or 'star'.
+  /* Announcements: the bell beside the badge. A red dot shows until the
+     visitor opens it; it comes back when there is something they haven't
+     seen. The bell lists, in this order:
+       - a closure today (from the override or a holiday), automatically
+       - holidays coming up within holidayNoticeDays, automatically
+       - these items, newest first, each from its `from` date to its `until`
+         date (inclusive; leave either out for no limit)
+     Give each item its own id: a new id is what brings the red dot back.
+     icon: 'star', 'info', 'calendar' or 'phone'.
      link: a page of this site, from the site's root ('carriers/'), or a full URL. */
-  banner: {
-    show: false,
-    id: 'safeco-2026',
-    icon: 'star',
-    title: 'Now offering Safeco.',
-    text: 'One more carrier we can shop for you.',
-    linkText: 'See all our carriers',
-    link: 'carriers/'
-  },
-
-  /* For the client review only: builds 3 and 4 show this state's banner on an
-     ordinary day so it can be seen ('snow', 'holiday' or ''). Set to '' on the
-     live site. A real closure or holiday always wins over it. */
-  bannerSample: 'snow'
+  holidayNoticeDays: 7,
+  announcements: [
+    {
+      id: 'safeco-2026-11',
+      from: '2026-11-24',
+      until: '2027-01-31',
+      icon: 'star',
+      title: 'Now offering Safeco.',             // sample for the review: swap in the real new carrier
+      text: 'One more carrier we can shop for you.',
+      linkText: 'See all our carriers',
+      link: 'carriers/'
+    }
+  ]
 };
