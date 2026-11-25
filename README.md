@@ -77,7 +77,7 @@ their heading wordings (option A on builds 1 and 4, B on 2 and 5, C on 3, from `
 - **Heading font**: Gelasio. The address, phone and language row is **dark green**, with **no gold line** under it or between the header and the About and bio pages' first band. Both in
   `homepages/shared/approved.css`, added to every build page by `approved_pass()`. The Aa picker still works, starting on Gelasio.
 - The bar's numbers 1 to 5 open the same page on each build, so the wordings can be compared.
-- **Breadcrumb** (Home / Personal Insurance / page) on every insurance page, and the header's Personal Insurance link goes to the homepage's coverage section, on every build (`NAV_BUILDS`).
+- **Breadcrumb** (Personal Insurance – page, no Home) on every insurance page, and the header's Personal Insurance link goes to the homepage's coverage section, on every build (`NAV_BUILDS`).
 
 Some notes below describe the builds before this approval.
 

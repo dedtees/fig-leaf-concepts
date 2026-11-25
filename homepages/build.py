@@ -934,7 +934,7 @@ def main_bar(cur, out_dir, page='home', build=1):
             title = f'Homeowners, approved layout (build 4), headings option {opt}' + back
         elif page in SP.BY_SLUG:
             title = (f'{SP.BY_SLUG[page]["name"]}, approved layout (build 4), headings option {opt}'
-                     + (' (draft copy)' if SP.BY_SLUG[page]['draft'] else '') + back)
+                     + back)
         elif page in BIOS or page == 'about':
             a, b = ABOUT_CONCEPTS[cur]
             title = ("Approved About page: concept 5 with layout 1's hero" if page == 'about' else f'{BIOS[page][0]} bio, concept {cur}: {b}') + back
@@ -1343,7 +1343,7 @@ def mark_hero_photos():
 # Personal Insurance menu lists all nine personal pages, the Personal
 # Insurance link itself goes to the homepage's Comprehensive Coverage
 # section, and every insurance page gets a breadcrumb above its title
-# (Home / Personal Insurance / <page>). Styles: homeowners-versions.css (.pg-crumbs).
+# (Personal Insurance – <page>; no Home, Eric 25 Nov). Styles: homeowners-versions.css (.pg-crumbs).
 # The menu's full list of nine goes on every build (Eric, 24 Nov); the rest
 # is on NAV_BUILDS only.
 NAV_BUILDS = [1, 2, 3, 4, 5]   # breadcrumb and Personal Insurance link on every build (Eric, 25 Nov)
@@ -1379,7 +1379,6 @@ def personal_nav():
             elif sub in names and 'pg-crumbs' not in page:
                 crumbs = ('      <nav class="pg-wrap pg-crumbs" aria-label="Breadcrumb">\n'
                           '        <ol>\n'
-                          '          <li><a href="../">Home</a></li>\n'
                           '          <li><a href="../#coverage">Personal Insurance</a></li>\n'
                           f'          <li><span aria-current="page">{names[sub]}</span></li>\n'
                           '        </ol>\n'

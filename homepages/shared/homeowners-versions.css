@@ -128,7 +128,7 @@
   text-transform: uppercase;
 }
 .pg-crumbs li { display: inline-flex; align-items: center; }
-.pg-crumbs li + li::before { content: "/"; margin: 0 .7em; color: var(--c2-gold); font-weight: 700; }
+.pg-crumbs li + li::before { content: "\2013"; margin: 0 .7em; color: var(--c2-gold); font-weight: 700; }   /* Personal Insurance – Homeowners Insurance */
 .pg-crumbs a { color: var(--c2-green); text-decoration: none; border-bottom: 1px solid transparent; }
 .pg-crumbs a:hover, .pg-crumbs a:focus-visible { border-bottom-color: var(--c2-gold); }
 .pg-crumbs [aria-current="page"] { color: var(--c2-black); }
