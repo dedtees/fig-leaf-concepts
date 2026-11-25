@@ -49,6 +49,12 @@ PET_SOFA = COMP(('14/02/42/86', '1402428625_z0CYnvI6nhJXa0L9tdkNFnptgjRCwyQt'))
 
 # The "Rather talk it through?" photo, where the house one doesn't fit.
 TALK_PHOTOS = {
+    'commercial-auto-insurance': (COMP(('02/15/24/05', '215240538_NkXRScW6K5SczUWfNeeJxKrWueAGZNvn')), 'An agent talking with a driver beside a truck'),
+    'workers-comp-insurance': (COMP(('14/25/46/22', '1425462242_J49GdrqrEj4AR4uyGBTeYotGhtVI0bzw')), 'An agent shaking hands with workers on a job site'),
+    'general-liability-insurance': (COMP(('04/57/82/64', '457826464_qguDrvjr4ooJSuig8QtrhhGNsQtp7K1q')), 'An advisor meeting two shop owners at their counter'),
+    'commercial-umbrella-insurance': (COMP(('03/34/09/63', '334096388_uaYtvZVZzzAfVbpUaMYwnTsgl2Y3jTgU')), 'A business owner talking across the desk with an agent'),
+    'employee-benefits': (COMP(('05/25/21/39', '525213999_JkSFFpyF8Xa4lR2oaAjFKU4oU9h5XA9V')), 'An advisor going over a plan with small business owners'),
+    'contractors-policies': (COMP(('00/52/99/60', '52996059_QrAltecOPXWSDalmV1FN8W9B5INUAG5Q')), 'An agent shaking hands with a contractor on site'),
     'auto-insurance': (COMP(('02/31/04/89', '231048974_VOYhhhLWbWyxeTu2MQA71pFfPGRDdFly')), 'An agent talking with a couple beside their car'),
     'boat-insurance': (COMP(('02/79/90/46', '279904629_KsZXVvInhmMdcTLOxPhzSDJvg1Zmdi8n')), 'An agent shaking hands with a couple at a marina'),
     'renters-insurance': (COMP(('08/16/61/15', '816611560_oKfu6kjQd0QB1ii2weWIiY8IHT4Q5emY')), 'An agent with a tablet talking with young renters at home'),
@@ -330,7 +336,7 @@ BUSINESS = [
         'lead': 'Whether it&rsquo;s one van or a fleet of trucks, a commercial auto policy protects the vehicles your business owns and the people who drive them for work. We&rsquo;ll compare carriers and walk you through what each coverage does.',
         'cta': 'Get Commercial Auto Quote',
         'contact': 'Tell us about your business and its vehicles: how many, what kind, and who drives them.',
-        'photo': (None, 'Photo to come: a work van or pickup out on a job'),
+        'photo': (COMP(('01/26/07/46', '126074603_T6bJPQcCWz8kfJwrc1flIL09SadObX1v')), 'A tradesman with his tools beside his work van'),
         'overview': {
             'kicker': 'Vehicles, drivers and the people around them',
             'text': 'A commercial auto policy protects <em>your vehicles, your drivers and everyone else on the road.</em>',
@@ -358,7 +364,7 @@ BUSINESS = [
         'lead': 'New Jersey requires most employers to carry workers compensation. It pays medical bills and lost wages for employees injured at work, and it protects your business from the lawsuits that could follow.',
         'cta': 'Get Workers Comp Quote',
         'contact': 'Tell us about your business: what you do, how many employees you have and your rough annual payroll.',
-        'photo': (None, 'Photo to come: a worker in a hard hat on site'),
+        'photo': (COMP(('22/51/60/45', '2251604581_BwOEBiMGnTGDLQLHmnPt5c6r1C1rhioA')), 'A worker in a hard hat and safety vest giving a thumbs up'),
         'overview': {
             'kicker': 'Required for most New Jersey employers',
             'text': 'Workers comp looks after <em>your employees, their families and your business.</em>',
@@ -436,7 +442,7 @@ BUSINESS = [
         'lead': 'The right benefits help you hire and keep good employees. We&rsquo;ll help you compare group plans that fit your team and your budget, and explain them to your staff in plain English.',
         'cta': 'Get Employee Benefits Quote',
         'contact': 'Tell us about your team: how many employees you have and which benefits you&rsquo;re thinking about.',
-        'photo': (None, 'Photo to come: a small team meeting around a table'),
+        'photo': (COMP(('05/33/30/54', '533305414_m89TQUZjZtgSngU31kEUICeGAbUuXOPj')), 'A small team smiling around a meeting table'),
         'overview': {
             'kicker': 'Plans for teams of every size',
             'text': 'Benefits help you <em>hire, keep and look after</em> the people who make your business work.',
@@ -462,7 +468,7 @@ BUSINESS = [
         'lead': 'Contractors face risks most businesses don&rsquo;t: job sites, heavy tools, subcontractors and clients who need a certificate before you start. We&rsquo;ll put together the policies your trade needs.',
         'cta': 'Get Contractor Insurance Quote',
         'contact': 'Tell us about your trade, your crew size and the kind of jobs you take on.',
-        'photo': (None, 'Photo to come: a contractor on a job site'),
+        'photo': (COMP(('01/29/84/57', '129845717_ID7cTDsoFjIUmaRC8jAclCKJW4EGKp0T')), 'A contractor in a hard hat on a framing job site'),
         'overview': {
             'kicker': 'Built for builders and trades',
             'text': 'We cover <em>general contractors, remodelers and the trades,</em> from electricians to landscapers.',
