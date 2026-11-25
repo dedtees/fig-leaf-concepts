@@ -1,6 +1,6 @@
 /* The Carriers page (carriers_page() in the build script (removed)): the dark title
    band from the testimonials page, then a light section of carrier cards
-   (logo, lines, Report a Claim and Pay Online, customer service number) with
+   (logo, Report a Claim and Pay Online, customer service number) with
    buttons to show one line, and a dark green "call us" band. Four colours:
    gold, black, white, dark green; light green sparingly. */
 
@@ -30,6 +30,17 @@
 .cr-filter__btn[aria-pressed="true"] span { background: #e8c27e; color: #070d0f; }
 .cr-filter__btn:focus-visible { outline: 3px solid #e8c27e; outline-offset: 2px; }
 
+/* alphabetical groups */
+.cr-group + .cr-group { margin-top: clamp(32px, 4vw, 48px); }
+.cr-group[hidden] { display: none; }
+.cr-group__title {
+  display: flex; align-items: center; gap: 16px;
+  margin: 0 0 clamp(16px, 2vw, 22px);
+  font-family: var(--hs-heading); font-weight: 600;
+  font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.1; color: #17402b;
+}
+.cr-group__title::after { content: ""; flex: 1; height: 2px; background: #e8c27e; }
+
 /* cards */
 .cr-grid {
   display: grid;
@@ -55,15 +66,9 @@
 .cr-card__logo.is-missing { background: #e6eee8; }
 .cr-card__logo.is-missing .cr-card__logo-text { display: block; }
 .cr-card__name {
-  margin: 0;
+  margin: 0 0 16px;
   font-family: var(--hs-heading); font-weight: 600;
   font-size: 1.12rem; line-height: 1.25; color: #070d0f;
-}
-.cr-card__tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 16px; padding: 0; list-style: none; }
-.cr-card__tags li {
-  padding: 3px 10px; border-radius: 999px;
-  background: #e6eee8; color: #17402b;
-  font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
 }
 .cr-card__actions { display: grid; gap: 8px; margin-top: auto; }
 .cr-btn {
@@ -99,13 +104,15 @@
 @media (max-width: 1100px) { .cr-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 800px) { .cr-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 520px) {
-  .cr-filter { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .cr-filter { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .cr-filter__btn[data-cr-filter="all"] { grid-column: 1 / -1; }
   .cr-filter__btn { justify-content: center; padding: 0 10px; letter-spacing: .06em; }
   .cr-grid { grid-template-columns: minmax(0, 1fr); }
   .cr-card { display: grid; grid-template-columns: 110px minmax(0, 1fr); column-gap: 14px; }
-  .cr-card__logo { grid-row: span 2; height: 72px; margin: 0; padding: 4px; }
+  .cr-card__logo { height: 72px; margin: 0 0 12px; padding: 4px; }
+  .cr-card__name { align-self: center; margin: 0 0 12px; }
   .cr-card__logo img { max-height: 56px; }
-  .cr-card__tags { margin-bottom: 12px; }
+  .cr-card__logo-text { font-size: .9rem; }
   .cr-card__actions, .cr-card__phone { grid-column: 1 / -1; }
   .cr-card__actions { grid-template-columns: 1fr 1fr; }
   .cr-help__actions, .cr-help__actions .cr-btn { width: 100%; }

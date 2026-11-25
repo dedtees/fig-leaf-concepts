@@ -1,15 +1,16 @@
-/* Carriers page: the All / Auto / Homeowners / Surplus buttons, and the
-   carrier's name in place of a logo that doesn't load. */
+/* Carriers page: the All / A–C / D–H / I–O / P–Z buttons, which show one
+   alphabetical group at a time, and the carrier's name in place of a logo
+   that doesn't load. */
 (function () {
-  var cards = document.querySelectorAll('.cr-card');
+  var groups = document.querySelectorAll('[data-cr-group]');
   var buttons = document.querySelectorAll('[data-cr-filter]');
   var status = document.querySelector('[data-cr-status]');
   function show(key) {
     var n = 0;
-    for (var i = 0; i < cards.length; i++) {
-      var on = key === 'all' || (' ' + cards[i].getAttribute('data-cr-lines') + ' ').indexOf(' ' + key + ' ') > -1;
-      cards[i].hidden = !on;
-      if (on) { cards[i].classList.add('is-in'); n++; }
+    for (var i = 0; i < groups.length; i++) {
+      var on = key === 'all' || groups[i].getAttribute('data-cr-group') === key;
+      groups[i].hidden = !on;
+      if (on) n += groups[i].querySelectorAll('.cr-card').length;
     }
     for (var j = 0; j < buttons.length; j++)
       buttons[j].setAttribute('aria-pressed', String(buttons[j].getAttribute('data-cr-filter') === key));
