@@ -50,3 +50,7 @@ html[data-header] .utility { border-bottom: 0; }
   html[data-header] .site-nav, html[data-header] .site-nav__list { gap: 10px; }
   html[data-header] .site-header__logo { max-height: 76px; }
 }
+
+/* Personal and Business Insurance are menu labels, not links (Eric, 25 Nov) */
+html[data-header] .site-nav__link--label { cursor: default; }
+@media (max-width: 1000px) { html[data-header] .site-nav__link--label { cursor: pointer; user-select: none; } }
