@@ -410,7 +410,7 @@ def covered(s, up, href):
         <ol class="pg-bento pg-bento--n{len(s['covered'])}{plain}">
           {(chr(10) + '          ').join(items)}
         </ol>{foot}
-        <nav class="pg-related" aria-label="Related coverage">
+        <nav class="pg-related pg-related--pills" aria-label="Related coverage">
           <h3 class="pg-related__head">Related coverage</h3>
           <ul>{links}</ul>
         </nav>

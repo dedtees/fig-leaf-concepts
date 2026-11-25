@@ -83,26 +83,7 @@
 .pg--service .pg-sec__intro { max-width: 70ch; margin: -8px 0 28px; font-size: 1.15rem; line-height: 1.6; }
 .pg--service .pg-foot { margin: 16px 0 0; font-size: 1rem; color: #5b665f; }
 
-/* related coverage links under the grid */
-.pg--service .pg-related { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: clamp(28px, 4vw, 44px); }
-.pg--service .pg-related__head { margin: 0; font-size: .85rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #5b665f; }
-.pg--service .pg-related ul { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
-.pg--service .pg-related a {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
-  border: 1px solid var(--c2-green);
-  border-radius: 999px;
-  font-weight: 600;
-  color: var(--c2-green);
-  text-decoration: none;
-}
-/* the base sidebar style drops the last link's bottom rule; keep the full pill outline here */
-.pg--service .pg-related li:last-child a { border-bottom: 1px solid var(--c2-green); }
-.pg--service .pg-related a:hover,
-.pg--service .pg-related a:focus-visible { background: var(--c2-green); color: var(--c2-white); }
-.pg--service .pg-related .icon { width: 16px; height: 16px; }
+/* related coverage links under the grid: homeowners-versions.css (.pg-related--pills) */
 
 @media (max-width: 1080px) {
   .pg--service .pg-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }

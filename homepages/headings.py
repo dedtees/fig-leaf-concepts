@@ -62,6 +62,7 @@ M = {
  ('Get a homeowners quote', q('See what your home would cost with us', 'See what your home would cost with us', 'What would your home cost with us?')),
  ('Fast, free and no obligation', q('Free, with an agent to walk you through it', 'An agent walks you through it', 'Free, and explained line by line')),
  ('Rather talk it through?', q('Want to go over your home by phone?', talk('your home'), 'Call us about your home')),
+ ('Related coverage', q('Often paired with home', 'Bundle it with', 'Homeowners also ask about')),
 ],
 'boat-insurance': [
  ('A combination of coverages', q('Hull, liability and the people aboard', 'Several coverages in one policy', 'For the boat and everyone on it')),
