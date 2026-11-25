@@ -1329,16 +1329,18 @@ def round2_homeowners(k, page, out):
 # gallery (AC), above the photos. (group, item, detail, done). Tick an item
 # by setting done to True, then re-run the script. Styles: outstanding.css.
 OUTSTANDING = [
-    ('Team and About', 'Les Silverman\'s headshot', 'His photo is a placeholder on the About page and his bio page.', True),
-    ('Team and About', 'Leidy Sepulveda\'s headshot', 'Her photo is a placeholder on the About page.', True),
     ('Team and About', 'Leidy Sepulveda\'s bio', 'Her card on the About page has her title but no bio yet.', False),
     ('Team and About', 'Bryan Tomko\'s bio', 'His card on the About page says "Bio coming soon".', False),
     ('Team and About', 'Magdalena Tomko\'s bio', 'Her card on the About page says "Bio coming soon".', False),
     ('Team and About', 'Russell Mardonov\'s bio', 'His card on the About page says "Bio coming soon".', False),
     ('Team and About', 'Juan Rosario\'s job title and a short bio', 'He is on the team list without either.', False),
     ('Team and About', 'Fun-fact lines for Jarihana, Les and Burke', 'One line each for their bio pages.', False),
+    ('Team and About', 'Confirm the "years with Fig Leaf" lines', 'The About page says Les 16 years, Danielle 2.5, Chris 2 and Jarihana 1.', False),
     ('Testimonials', 'Five more client testimonial videos', 'Five of the six spots on the Testimonials page are "Video coming soon", with each client\'s name and coverage to go under it.', False),
     ('Testimonials', 'The final cut of the current testimonial video', 'The video on the homepage and Testimonials page is a placeholder cut.', False),
+    ('Testimonials', 'Confirm the Google review count and rating', 'The homepage says five-star rated across 140+ Google reviews.', False),
+    ('Carriers', 'Confirm the carrier list is current', 'The Carriers page lists the 24 carriers on today\'s live site. Tell us who to add or drop.', False),
+    ('Carriers', 'Confirm each carrier\'s claim link, payment link and phone number', 'Copied from the live site on 25 Nov; a wrong number here sends a client with a claim to the wrong place.', False),
     ('Insurance pages', 'Approval of the draft copy on Renters, Condo, Life, Health and Pet', 'This copy came from the build brief, not the agency\'s content map.', False),
     ('Insurance pages', 'Health insurance: what individual and family plans cover', 'Both cards say "[Copy to come]".', False),
     ('Insurance pages', 'Pet insurance: what accidents, illnesses and routine wellness care cover', 'All three cards say "[Copy to come]".', False),
@@ -1348,7 +1350,7 @@ OUTSTANDING = [
 ]
 CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 # Where each item goes (build 5's copy), by its title; otherwise by its group.
-OUTSTANDING_GROUP_LINK = {'Team and About': 'about/#team', 'Testimonials': 'about/testimonials/'}
+OUTSTANDING_GROUP_LINK = {'Team and About': 'about/#team', 'Testimonials': 'about/testimonials/', 'Carriers': 'carriers/'}
 OUTSTANDING_LINK = {
     "Les Silverman's headshot": 'about/les-silverman/',
     "Fun-fact lines for Jarihana, Les and Burke": 'about/jarihana-abreu/',
@@ -1357,6 +1359,7 @@ OUTSTANDING_LINK = {
     'Health insurance: what individual and family plans cover': 'health-insurance/#covered',
     'Pet insurance: what accidents, illnesses and routine wellness care cover': 'pet-insurance/#covered',
     'Business insurance page copy sign-off': 'general-liability-insurance/',
+    'Confirm the Google review count and rating': '#hs-reviews-title',
     'Photos for the Business Insurance pages': 'commercial-auto-insurance/',
 }
 
