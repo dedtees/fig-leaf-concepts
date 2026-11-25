@@ -1,15 +1,349 @@
 {
   "redirects": [
-    { "source": "/archive-d", "destination": "/checklist/", "permanent": false },
-    { "source": "/archive-d/:path*", "destination": "/checklist/", "permanent": false },
-    { "source": "/build-5/testimonials/:path*", "destination": "/about/testimonials/", "permanent": false },
-    { "source": "/build-:n(\\d+)", "destination": "/", "permanent": false },
-    { "source": "/build-:n(\\d+)/:path*", "destination": "/:path*", "permanent": false },
-    { "source": "/archive-:x([a-e])/:path*", "destination": "/", "permanent": false },
-    { "source": "/concept-:n(\\d+)/:path*", "destination": "/", "permanent": false },
-    { "source": "/homepages/:path*", "destination": "/", "permanent": false },
-    { "source": "/hero-concepts/:path*", "destination": "/", "permanent": false },
-    { "source": "/hero-ideas/:path*", "destination": "/", "permanent": false },
-    { "source": "/heroes/:path*", "destination": "/", "permanent": false }
+    {
+      "source": "/build-5/testimonials/:path(.*)",
+      "destination": "/about/testimonials/",
+      "permanent": false
+    },
+    {
+      "source": "/build-1",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/build-1/:path(.*)",
+      "destination": "/:path",
+      "permanent": false
+    },
+    {
+      "source": "/build-2",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/build-2/:path(.*)",
+      "destination": "/:path",
+      "permanent": false
+    },
+    {
+      "source": "/build-3",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/build-3/:path(.*)",
+      "destination": "/:path",
+      "permanent": false
+    },
+    {
+      "source": "/build-4",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/build-4/:path(.*)",
+      "destination": "/:path",
+      "permanent": false
+    },
+    {
+      "source": "/build-5",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/build-5/:path(.*)",
+      "destination": "/:path",
+      "permanent": false
+    },
+    {
+      "source": "/archive-d",
+      "destination": "/checklist/",
+      "permanent": false
+    },
+    {
+      "source": "/archive-d/:path(.*)",
+      "destination": "/checklist/",
+      "permanent": false
+    },
+    {
+      "source": "/archive-a",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/archive-a/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/archive-b",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/archive-b/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/archive-c",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/archive-c/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/archive-e",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/archive-e/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-1",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-1/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-2",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-2/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-3",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-3/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-4",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-4/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-5",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-5/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-6",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-6/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-7",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-7/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-8",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-8/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-9",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-9/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-10",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-10/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-11",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-11/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-12",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-12/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-13",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-13/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-14",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-14/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-15",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-15/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-16",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-16/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-17",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-17/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-18",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/concept-18/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/homepages",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/homepages/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/hero-concepts",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/hero-concepts/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/hero-ideas",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/hero-ideas/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/heroes",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/heroes/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/review",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/review/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/screenshots",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/screenshots/:path(.*)",
+      "destination": "/",
+      "permanent": false
+    }
   ]
 }
