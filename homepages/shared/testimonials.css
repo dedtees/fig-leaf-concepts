@@ -5,7 +5,6 @@
   padding-block: clamp(40px, 6vw, 80px) clamp(48px, 7vw, 96px);
   text-align: center;
   color: #f4efe2;
-  border-bottom: 3px solid var(--hs-gold);
 }
 .tm-head__eyebrow {
   margin: 0 0 12px;
