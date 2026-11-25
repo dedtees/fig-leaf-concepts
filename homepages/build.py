@@ -19,6 +19,7 @@ import re
 
 import headings
 import service_pages as SP
+import carriers as CR
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
@@ -898,6 +899,91 @@ def testimonials_page(page, out_dir):
     write(f'{out}/index.html', page)
 
 
+# Carriers page (Eric, 25 Nov): figleafagency.com/carriers/ in the new look,
+# on every build, at <build>/carriers/. One card per carrier and line with the
+# carrier's logo, Report a Claim and Pay Online buttons and its customer
+# service number, and buttons to show only Auto, Homeowners or Surplus.
+# Carrier data in homepages/carriers.py; styles in homepages/shared/carriers.css,
+# the filter in carriers.js. The claim and payment buttons are the page's
+# purpose, so they keep working (new tab) instead of being turned into dead
+# links like the rest of the build's off-site links.
+def carrier_card(c):
+    name, logo, lines, claim, pay, tel = c
+    tags = ''.join(f'<li>{lab}</li>' for key, lab in CR.LINES if key in lines)
+    esc = html.escape(name)
+    new_tab = '<span class="visually-hidden"> (opens in a new tab)</span>'
+    return (f'          <li class="cr-card" data-cr-lines="{" ".join(lines)}">\n'
+            f'            <div class="cr-card__logo"><img src="{CR.UP}{logo}" alt="{esc}" width="300" height="129" loading="lazy" decoding="async" data-cr-logo><span class="cr-card__logo-text" aria-hidden="true">{esc}</span></div>\n'
+            f'            <h3 class="cr-card__name">{esc}</h3>\n'
+            f'            <ul class="cr-card__tags" aria-label="Lines">{tags}</ul>\n'
+            '            <div class="cr-card__actions">\n'
+            f'              <a class="cr-btn cr-btn--claim" href="{html.escape(claim)}" target="_blank" rel="noopener">Report a Claim<span class="visually-hidden">: {esc}</span>{new_tab}</a>\n'
+            f'              <a class="cr-btn" href="{html.escape(pay)}" target="_blank" rel="noopener">Pay Online<span class="visually-hidden">: {esc}</span>{new_tab}</a>\n'
+            '            </div>\n'
+            f'            <p class="cr-card__phone"><span>Customer service</span> <a href="tel:+1{tel.replace("-", "")[-10:]}">{tel}</a></p>\n'
+            '          </li>\n')
+
+
+def carriers_page(page, out_dir):
+    out = f'{out_dir}/carriers'
+    page = rebase(page, out_dir, out)
+    a, b = page.index('<main id="main">'), page.index('</main>') + len('</main>')
+    count = lambda key: sum(1 for c in CR.CARRIERS if key in c[2])
+    filters = (f'          <button type="button" class="cr-filter__btn" data-cr-filter="all" aria-pressed="true">All carriers <span>{len(CR.CARRIERS)}</span></button>\n'
+               + ''.join(f'          <button type="button" class="cr-filter__btn" data-cr-filter="{key}" aria-pressed="false">{lab} <span>{count(key)}</span></button>\n'
+                         for key, lab in CR.LINES))
+    up = posixpath.relpath(out_dir, out) + '/'
+    new = ('<main id="main">\n'
+           '  <div class="hs hs--v1" id="home-sections">\n\n'
+           '    <section class="hs-section tm-head cr-head" aria-labelledby="cr-title">\n'
+           '      <div class="hs-wrap">\n'
+           '        <p class="tm-head__eyebrow">Carriers</p>\n'
+           '        <h1 class="tm-head__title" id="cr-title">Carriers</h1>\n'
+           '        <p class="tm-head__text">Please select your insurance carrier below to file a claim or make a payment.</p>\n'
+           '      </div>\n'
+           '    </section>\n\n'
+           '    <section class="hs-section cr-list" aria-labelledby="cr-list-title">\n'
+           '      <div class="hs-wrap">\n'
+           '        <h2 class="visually-hidden" id="cr-list-title">Our carriers</h2>\n'
+           '        <div class="cr-filter" role="group" aria-label="Show carriers for">\n' + filters +
+           '        </div>\n'
+           '        <p class="visually-hidden" aria-live="polite" data-cr-status></p>\n'
+           '        <ul class="cr-grid">\n' + ''.join(carrier_card(c) for c in CR.CARRIERS) +
+           '        </ul>\n'
+           '      </div>\n'
+           '    </section>\n\n'
+           '    <section class="hs-section cr-help" aria-labelledby="cr-help-title">\n'
+           '      <div class="hs-wrap cr-help__inner">\n'
+           '        <div>\n'
+           '          <h2 class="cr-help__title" id="cr-help-title">Not sure who your carrier is?</h2>\n'
+           '          <p class="cr-help__text">Call us and we&rsquo;ll look up your policy, help you report a claim or take a payment question off your hands.</p>\n'
+           '        </div>\n'
+           '        <div class="cr-help__actions">\n'
+           '          <a class="cr-btn cr-btn--gold" href="tel:+19088623447">Call (908) 862-3447</a>\n'
+           '          <a class="cr-btn cr-btn--line" href="mailto:quotes@figleafagency.com">Email us</a>\n'
+           '        </div>\n'
+           '      </div>\n'
+           '    </section>\n'
+           '\n  </div>\n\n  </main>')
+    page = page[:a] + new + page[b:]
+    last = list(re.finditer(r'<link rel="stylesheet"[^>]*>', page))[-1]
+    page = page[:last.end()] + f'\n  <link rel="stylesheet" href="{posixpath.relpath("homepages/shared/testimonials.css", out)}">' \
+        + f'\n  <link rel="stylesheet" href="{posixpath.relpath("homepages/shared/carriers.css", out)}">' + page[last.end():]
+    page = page.replace('</body>', f'  <script src="{posixpath.relpath("homepages/shared/carriers.js", out)}"></script>\n</body>', 1)
+    page = re.sub(r'\s*<script src="[^"]*/(?:hero-x|concept-11)\.js"></script>', '', page)
+    page = re.sub(r'<title>[^<]*</title>', '<title>' + re.search(r'<title>([^·<]*)·', page).group(1) + '· Carriers | The Fig Leaf Agency</title>', page, count=1)
+    page = re.sub(r'<meta name="description" content="[^"]*">',
+                  '<meta name="description" content="Report a claim, make a payment or find customer service for your carrier. The Fig Leaf Agency, Hazlet, NJ.">', page, count=1)
+    page = page.replace('<link rel="canonical" href="https://figleafagency.com/">', '<link rel="canonical" href="https://figleafagency.com/carriers/">', 1)
+    page = re.sub(r'(<!-- Built by homepages/build.py)[^>]*-->',
+                  r"\1 (carriers_page): the carriers from figleafagency.com/carriers/ (homepages/carriers.py). Edit those, then re-run the script. -->", page, count=1)
+    page = swap_bar(page, main_bar(int(out_dir.split('-')[1]), out, 'carriers'))
+    # the header's Carriers link marks this page
+    page = page.replace(f'<a class="site-nav__link" href="./">Carriers</a>', '<a class="site-nav__link" href="./" aria-current="page">Carriers</a>', 1)
+    page = mark_current(page)
+    write(f'{out}/index.html', page)
+
+
 def build_dir(k):
     return f'build-{k}'
 
@@ -931,7 +1017,9 @@ def main_bar(cur, out_dir, page='home', build=1):
         label = f'Build {cur}'
         back = f' · <a href="{rel_(build_dir(cur))}" style="color:inherit">back to the homepage</a>'
         opt = 'ABC'[headings.OPTION[str(cur)]]
-        if page == 'homeowners':
+        if page == 'carriers':
+            title = f'Carriers, headings option {opt}' + back
+        elif page == 'homeowners':
             title = f'Homeowners, approved layout (build 4), headings option {opt}' + back
         elif page in SP.BY_SLUG:
             title = (f'{SP.BY_SLUG[page]["name"]}, approved layout (build 4), headings option {opt}'
@@ -969,7 +1057,7 @@ ABOUT_CONCEPTS = {1: ('Layout A, our story', 'Photo and details'),
                   3: ('Editorial', 'Split screen'),
                   4: ('Chapters', 'Q and A'),
                   5: ('By the numbers', 'Fig leaf portrait')}
-PAGE_PATH = {'home': '', 'homeowners': '/homeowners-insurance', 'about': '/about',
+PAGE_PATH = {'home': '', 'homeowners': '/homeowners-insurance', 'about': '/about', 'carriers': '/carriers',
              **{slug: f'/about/{slug}' for slug in BIOS},
              **{s['slug']: '/' + s['slug'] for s in SP.SERVICES}}
 
@@ -1094,7 +1182,7 @@ def swap_bar(page, bar):
 IN_BUILD = {  # figleafagency.com path -> the same page under build-N/
     '': '', 'about/': 'about/', 'meet-our-team/': 'about/#team',
     'homeowners-insurance/': 'homeowners-insurance/',
-    'crq/': 'crq-form/', 'get-a-quote/': 'crq-form/',
+    'crq/': 'crq-form/', 'get-a-quote/': 'crq-form/', 'carriers/': 'carriers/',
     **{s['slug'] + '/': s['slug'] + '/' for s in SP.SERVICES},   # the personal insurance pages
 }
 LIVE = re.compile(r'(?:https?:)?//(?:www\.)?figleafagency\.com/(.*)$')
@@ -1117,7 +1205,7 @@ def keep_links_in(page, out, build):
         elif not re.match(r'(?:https?:)?//', href):
             path = href.split('#')[0].split('?')[0]
             t = posixpath.normpath(posixpath.join(out, path)) if path else out
-            if t in [f'{build_dir(b)}/about/testimonials' for b in BUILDS]:
+            if t in [f'{build_dir(b)}/{p}' for b in BUILDS for p in ('about/testimonials', 'carriers')]:
                 return tag   # made later in the run (testimonials_page)
             if t.split('/')[0] in STAY_IN and os.path.exists(os.path.join(REPO, t, 'index.html') if not t.endswith('.html') else os.path.join(REPO, t)):
                 return tag   # already inside the build
@@ -1355,6 +1443,7 @@ def build_builds():
         write(f'{out_dir}/index.html', page)
         if k in BUILDS:
             testimonials_page(plain if k in HOME_NAMES else page, out_dir)
+            carriers_page(plain if k in HOME_NAMES else page, out_dir)
         if k not in BUILDS:
             continue
         for sub in SUBPAGES:

@@ -212,6 +212,10 @@ M = {
  # the reviews section is copied from this build's homepage, already reworded
  (('Google Reviews', 'Rated 5.0 by our clients', '140+ five-star reviews', 'What clients tell Google'), q('Straight from Google', 'Reviews from Google', 'What they say on Google')),
 ],
+'carriers': [
+ ('Carriers', q('Report a claim or pay your bill', 'Your carrier, one click away', 'Claims and payments, by carrier')),
+ ('Not sure who your carrier is?', q('Not sure who your carrier is?', 'Need a hand with a claim?', f'Rather we handle it?')),
+],
 'about/burke': [
  ('From Wall Street to Main Street', 'From the trading floor to your kitchen table'),
  ('Wall Street experience, Main Street service.', 'Trading-floor discipline, hometown service.'),
