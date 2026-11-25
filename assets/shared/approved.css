@@ -88,6 +88,10 @@ p.ph, div.ph { display: block; padding: 10px 14px; }
 #reviews { scroll-margin-top: 120px; }
 
 /* Testimonials: close the gap between the title band and the video cards
-   to the usual heading-to-content spacing (Eric, 25 Nov) */
+   to the usual heading-to-content spacing (Eric, 25 Nov). The videos sit on
+   the same dark background, so the band needs no room of its own below. */
 .hs .hs-section.tm-head { padding-bottom: 0; }
+/* Carriers: the dark band ends above a white section, so it keeps as much
+   room under its text as above it (Eric, 25 Nov) */
+.hs .hs-section.tm-head.cr-head { padding-bottom: clamp(40px, 6vw, 80px); }
 .hs .hs-section.tm-videos { padding-top: clamp(32px, 4vw, 56px); }
