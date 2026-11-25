@@ -1730,6 +1730,12 @@ def approved_pass():
                 last = list(re.finditer(r'<link rel="stylesheet"[^>]*>', page))[-1]
                 page = page[:last.end()] + f'\n  {GELASIO}\n  <link rel="stylesheet" href="{css}">' + page[last.end():]
             page = re.sub(r'<html lang="en"(?! data-heading-font)', '<html lang="en" data-heading-font="gelasio"', page, count=1)
+            # menus with a dropdown are labels, not links; About stays a link (Eric, 25 Nov)
+            page = re.sub(r'<a class="site-nav__link" href="[^"]*"(?: onclick="return false" data-offsite)?>(Personal Insurance|Business Insurance)</a>',
+                          r'<span class="site-nav__link site-nav__link--label" data-menu-label>\1</span>', page)
+            if 'nav-labels.js' not in page:
+                js = posixpath.relpath('homepages/shared/nav-labels.js', out)
+                page = page.replace('</body>', f'  <script src="{js}" defer></script>\n</body>', 1)
             base = os.path.basename(out)
             if out == build_dir(k):   # the hero's links say what is quoted: the insurance (Eric, 25 Nov)
                 page = page.replace('>Start a car quote ', '>Start a car insurance quote ', 1).replace('>Start a home quote ', '>Start a home insurance quote ', 1)
