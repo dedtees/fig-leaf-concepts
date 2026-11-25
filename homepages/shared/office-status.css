@@ -1,0 +1,144 @@
+/* Office status and announcements (builds 1 to 4): office-status.js draws
+   them from office-config.js. Same four colours as the builds: gold #e8c27e,
+   black #070d0f, white, dark green #17402b, light green #a9c7b4. */
+
+/* ---- open / closed badge (builds 1 and 2) ------------------------------- */
+.office-badge { position: relative; }
+.office-badge--bar .office-badge__toggle { min-height: 30px; }
+.office-badge__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.office-badge__toggle:hover .office-badge__text { text-decoration: underline; }
+.office-badge__text strong { font-weight: 700; }
+.office-badge__text span { font-weight: 500; }
+.office-badge__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+.office-badge.is-open .office-badge__dot { background: #a9c7b4; box-shadow: 0 0 0 3px #17402b; }
+.office-badge.is-closed .office-badge__dot { background: transparent; border: 2px solid #e8c27e; }
+.office-badge.is-closed .office-badge__text strong { color: #e8c27e; }
+
+.office-badge__panel {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 10px);
+  z-index: 30;
+  width: 270px;
+  padding: 16px 18px;
+  border: 1px solid #e8c27e;
+  border-radius: 10px;
+  background: #070d0f;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.45;
+  text-align: left;
+  white-space: normal;
+}
+.office-badge__panel[hidden] { display: none; }
+.office-badge__head {
+  margin: 0 0 8px;
+  color: #e8c27e;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.office-badge__note { margin: 0 0 8px; font-weight: 700; color: #e8c27e; }
+.office-badge__week { list-style: none; margin: 0; padding: 0; }
+.office-badge__week li { display: flex; justify-content: space-between; gap: 16px; padding: 4px 0; border-bottom: 1px solid #17402b; }
+.office-badge__week li:last-child { border-bottom: 0; }
+.office-badge__reach { margin: 10px 0 0; color: #a9c7b4; }
+
+/* the compact pill beside the call and menu buttons, phones and tablets */
+.office-badge--compact { display: none; }
+@media (max-width: 1000px) {
+  .office-badge--compact { display: block; margin-right: 2px; }
+  .office-badge--compact .office-badge__toggle {
+    min-height: 36px;
+    padding: 6px 12px;
+    border: 1px solid #17402b;
+    border-radius: 999px;
+    background: #070d0f;
+    color: #fff;
+    font-size: 13px;
+  }
+  .office-badge--compact.is-closed .office-badge__toggle { border-color: #e8c27e; }
+  .office-badge--compact .office-badge__panel { left: auto; right: -100px; width: min(270px, calc(100vw - 32px)); }
+}
+@media (max-width: 420px) {
+  .office-badge--compact .office-badge__text span { display: none; }   /* "Open" / "Closed" only */
+  .office-badge--compact .office-badge__toggle { padding: 6px 10px; gap: 6px; }
+}
+
+/* ---- announcement banner (builds 3 and 4) ------------------------------- */
+.office-banner {
+  position: relative;
+  z-index: 60;   /* above the header, so its review tick can hang over it */
+  background: #17402b;
+  color: #fff;
+  border-bottom: 2px solid #e8c27e;
+  font-size: 15px;
+  line-height: 1.45;
+}
+.office-banner__inner {
+  max-width: var(--container, 1200px);
+  margin: 0 auto;
+  padding: 11px var(--gutter, 24px);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.office-banner__icon {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: #e8c27e;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.office-banner--star .office-banner__icon { fill: #e8c27e; }
+.office-banner__text { margin: 0; flex: 1 1 auto; }
+.office-banner__text strong { font-weight: 700; }
+.office-banner__link { color: #e8c27e; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.office-banner__link:hover { color: #fff; }
+.office-banner__close {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #a9c7b4;
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+.office-banner__close:hover { border-color: #e8c27e; color: #e8c27e; }
+.office-banner__close svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; }
+.office-banner :focus-visible { outline: 2px solid #e8c27e; outline-offset: 2px; }
+@media (max-width: 600px) {
+  .office-banner { font-size: 14px; }
+  .office-banner__inner { align-items: flex-start; padding: 10px 16px; gap: 10px; }
+  .office-banner__icon { margin-top: 1px; }
+  .office-banner__close { width: 32px; height: 32px; margin: -3px -4px 0 0; }
+}
+
+/* Review round only: the ✓ / ✕ tick for these sits just under them, so it
+   doesn't cover the badge's text or the banner's close button. */
+.office-badge > .flr-ui.flr-tick { top: calc(100% + 4px); left: 0; right: auto; }
+.office-badge--compact > .flr-ui.flr-tick { left: auto; right: 0; }
+.office-banner > .flr-ui.flr-tick { top: calc(100% + 6px) !important; left: 16px; right: auto; }

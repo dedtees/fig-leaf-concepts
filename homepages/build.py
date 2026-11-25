@@ -105,8 +105,37 @@ def read(path):
         return f.read()
 
 
+OFFICE_MODE = {'1': 'badge', '2': 'badge', '3': 'banner', '4': 'banner'}
+
+
+def office_status(path, text):
+    """Builds 1 and 2: the open / closed badge in the top bar. Builds 3 and 4:
+    the announcement banner. Both are drawn by homepages/shared/office-status.js
+    from the settings in office-config.js (the one file the agency edits)."""
+    m = re.match(r'build-(\d)/.*\.html$', path)
+    if not m or m.group(1) not in OFFICE_MODE or '</body>' not in text:
+        return text
+    shared = posixpath.relpath('homepages/shared', posixpath.dirname(path))
+    # Pages are written more than once (later passes rewrite the head), so add each part only if it's missing.
+    if 'data-office=' not in text:
+        text = re.sub(r'<html\b', '<html data-office="%s"' % OFFICE_MODE[m.group(1)], text, count=1)
+    if 'office-status.css' not in text:
+        text = text.replace('</head>', '  <link rel="stylesheet" href="%s/office-status.css">\n</head>' % shared, 1)
+    if 'office-status.js' not in text:
+        # before review.js, which collects the ticked parts as soon as it runs
+        i = text.find('<!-- Client review ticks')
+        if i < 0:
+            i = text.find('review/review.js')
+            i = text.rindex('<script', 0, i) if i >= 0 else text.rindex('</body>')
+        text = (text[:i] + '<!-- Office open/closed badge or announcement banner: edit homepages/shared/office-config.js -->\n'
+                '  <script src="%s/office-config.js" defer></script>\n'
+                '  <script src="%s/office-status.js" defer></script>\n  ' % (shared, shared) + text[i:])
+    return text
+
+
 def write(path, text):
     text = headings.rewrite(path, text)  # each build page's own headings
+    text = office_status(path, text)
     full = os.path.join(REPO, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
     with open(full, 'w', encoding='utf-8') as f:
@@ -1346,6 +1375,7 @@ OUTSTANDING = [
     ('Insurance pages', 'Pet insurance: what accidents, illnesses and routine wellness care cover', 'All three cards say "[Copy to come]".', False),
     ('Insurance pages', 'Business insurance page copy sign-off', 'The six Business Insurance pages (Commercial Auto, Workers Comp, General Liability, Commercial Umbrella, Employee Benefits, Contractors Policies) have our draft copy.', False),
     ('Photos and launch', 'Photos for the Business Insurance pages', 'Commercial Auto, Workers Comp, Employee Benefits and Contractors Policies show "Photo to come".', False),
+    ('Office hours', 'Confirm office hours and holiday closures', 'The open / closed badge on builds 1 and 2 uses Mon to Fri, 9 AM to 5 PM (from Google) and the usual US holidays. Tell us early closes or extra days off.', False),
     ('Photos and launch', 'Stock photo licensing picks', 'Which of the stock photos to license for the live site.', False),
 ]
 CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
