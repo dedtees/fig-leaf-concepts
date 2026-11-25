@@ -1451,6 +1451,9 @@ NAV_BUILDS = [1, 2, 3, 4, 5]   # breadcrumb and Personal Insurance link on every
 
 
 BUSINESS_ORDER = [b['slug'] for b in SP.BUSINESS]   # Eric's order (25 Nov)
+PERSONAL_MENU = [(slug, 'Homeowners Insurance' if slug == 'homeowners-insurance' else SP.BY_SLUG[slug]['name'])
+                 for slug in ['auto-insurance', 'homeowners-insurance', 'boat-insurance', 'personal-umbrella-insurance',
+                              'renters-insurance', 'condo-insurance', 'health-insurance', 'life-insurance', 'pet-insurance']]
 
 
 def business_menu(up):
@@ -1529,6 +1532,10 @@ def business_nav_nested():
             up = posixpath.relpath(root, out) + '/'
             page = re.sub(r'<li><a class="site-nav__link" href="[^"]*"(?: onclick="return false" data-offsite)?>Business Insurance</a></li>',
                           lambda m: business_menu(up), page, count=1)
+            # and the full Personal Insurance list, as on the other pages
+            items = '\n'.join(f'              <li><a href="{up}{slug}/">{name}</a></li>' for slug, name in PERSONAL_MENU)
+            page = re.sub(r'<ul class="site-nav__sub" id="sub-personal">.*?</ul>',
+                          lambda m: '<ul class="site-nav__sub" id="sub-personal">\n' + items + '\n            </ul>', page, count=1, flags=re.S)
             write(path, page)
 
 

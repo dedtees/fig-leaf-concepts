@@ -26,3 +26,27 @@ html[data-header] .utility { border-bottom: 0; }
   line-height: 1.15;
   color: #070d0f;
 }
+
+/* Header dropdowns: tighter rows so Personal Insurance's nine pages fit well
+   above the fold on a laptop (Eric, 25 Nov). Desktop only; the phone menu
+   keeps its larger tap targets. */
+@media (min-width: 1001px) {
+  html[data-header] .site-nav__sub { padding: 8px; }
+  html[data-header] .site-nav__sub a { padding: 6px 14px; line-height: 1.35; }
+}
+
+/* The header now has three dropdowns (Personal, Business, About), each with
+   its chevron: slightly tighter spacing so Get a Quote stays on screen down
+   to the compact header (1000px). */
+@media (min-width: 1001px) and (max-width: 1600px) {
+  html[data-header] .site-header__inner { gap: 28px; }
+  html[data-header] .site-nav, html[data-header] .site-nav__list { gap: 20px; }
+}
+@media (min-width: 1001px) and (max-width: 1320px) {
+  html[data-header] .site-nav, html[data-header] .site-nav__list { gap: 14px; }
+}
+@media (min-width: 1001px) and (max-width: 1180px) {
+  html[data-header] .site-header__inner { gap: 16px; }
+  html[data-header] .site-nav, html[data-header] .site-nav__list { gap: 10px; }
+  html[data-header] .site-header__logo { max-height: 76px; }
+}
