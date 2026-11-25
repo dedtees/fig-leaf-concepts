@@ -161,11 +161,9 @@
   </header>
 
   
-<!-- Bio, concept 5: "Fig leaf portrait". On the dark green band the photo
-       is cut into the fig leaf (archive E's leaf mask) with a gold leaf
-       behind it; then three number tiles, the bio and an off-the-clock card.
-       Paths are from the repo root; build-5 is the build folder. Styles: about-5.css -->
-  <main id="main" class="hs hs--v1 ab ab--v5 ab--bio">
+<!-- Bio page, approved layout ("photo and details"): black title band with the framed portrait,
+       name, facts and contact; the bio beside a column of cards; then the closing call to action. -->
+  <main id="main" class="hs hs--v1 ab ab--bio">
     <!-- Icons for the About and bio pages (added by build.py) -->
     <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
       <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></symbol>
@@ -183,69 +181,72 @@
       <symbol id="i-printer" viewBox="0 0 24 24"><path d="M7 9V3h10v6M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"></path><rect x="7" y="14" width="10" height="7"></rect></symbol>
     </svg>
 
-    <header class="fl-grid-host b5-head" aria-labelledby="ab-title">
+    <!-- Title band: photo, name and how to reach them (the approved bio layout) -->
+    <header class="fl-grid-host ab-head ab-bio-head" aria-labelledby="ab-title">
       <div class="fl-grid" aria-hidden="true"><span class="fl-grid__lines" data-hs-px="0.15"></span></div>
+      <div class="c11-leaves" aria-hidden="true"><span class="c11-leaf ab-leaf--a" data-hs-px="0.3"></span><span class="c11-leaf ab-leaf--b" data-hs-px="-0.2"></span></div>
       <div class="hs-wrap">
         <nav class="ab-crumbs" aria-label="Breadcrumb">
           <ol><li><a href="../../">Home</a></li><li><a href="../">About</a></li><li><span aria-current="page">Burke</span></li></ol>
         </nav>
-        <div class="b5-head__grid">
-          <div class="b5-leaf">
-            <span class="b5-leaf__gold" aria-hidden="true"></span>
-            <span class="b5-leaf__photo"><img src="../../assets/shared/assets/team/burke.jpg" srcset="../../assets/shared/assets/team/burke-600.jpg 600w, ../../assets/shared/assets/team/burke.jpg 1200w" sizes="(max-width: 820px) 90vw, 520px" alt="Burke, The Insurance Guy at The Fig Leaf Agency" width="1200" height="1801" decoding="async"></span>
-          </div>
-          <div>
+        <div class="ab-bio-head__grid">
+          <figure class="ab-portrait">
+            <img class="ab-portrait__img" src="../../assets/shared/assets/team/burke.jpg" srcset="../../assets/shared/assets/team/burke-600.jpg 600w, ../../assets/shared/assets/team/burke.jpg 1200w" sizes="(max-width: 820px) 80vw, 420px" alt="Burke, The Insurance Guy at The Fig Leaf Agency" width="1200" height="1801" decoding="async">
+          </figure>
+          <div class="ab-bio-head__body">
             <p class="ab-eyebrow">The Insurance Guy</p>
             <h1 class="ab-head__title" id="ab-title">Burke</h1>
-            <p class="b5-head__lead">Trading-floor discipline, hometown service.</p>
+            <p class="ab-bio-head__sub">Trading-floor discipline, hometown service.</p>
+            <ul class="ab-facts">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-calendar"></use></svg><span>Graduate of Rowan University: <b>1999</b></span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-building"></use></svg><span>Where his career began: <b>NYSE</b></span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg><span>His hometown: <b>Linden, NJ</b></span></li>
+            </ul>
             <div class="ab-head__actions">
               <a class="hs-btn hs-btn--primary" href="../../crq-form/">Get a Quote</a>
-              <a class="ab-call" href="tel:+19088623447"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>(908) 862-3447</a>
+              <a class="ab-call" href="tel:+19088623447"><svg aria-hidden="true" class="icon"><use href="#i-phone"></use></svg>(908) 862-3447</a>
             </div>
           </div>
         </div>
       </div>
     </header>
 
-    <section class="b5-tiles" aria-label="Burke at a glance">
-      <div class="hs-wrap"><ul class="b5-tiles__list">
-        <li class="hs-reveal"><span class="b5-tile__value">1999</span><span class="b5-tile__label">Graduate of Rowan University</span></li>
-        <li class="hs-reveal"><span class="b5-tile__value">NYSE</span><span class="b5-tile__label">Where his career began</span></li>
-        <li class="hs-reveal"><span class="b5-tile__value b5-tile__value--sm">Linden, NJ</span><span class="b5-tile__label">His hometown</span></li>
-      </ul></div>
-    </section>
-
-    <section class="b5-bio" aria-labelledby="b5-bio-title">
-      <div class="hs-wrap b5-bio__grid">
-        <div class="hs-reveal">
+    <!-- Bio -->
+    <section class="ab-bio" aria-labelledby="ab-bio-title">
+      <div class="hs-wrap ab-bio__grid">
+        <article class="ab-bio__text hs-reveal">
           <p class="ab-eyebrow ab-eyebrow--ink">Meet Burke</p>
-          <h2 class="ab-section-head__title" id="b5-bio-title">The Insurance Guy</h2>
-        </div>
-        <div class="b5-bio__text hs-reveal">
+          <h2 class="hs-heading" id="ab-bio-title">The Insurance Guy</h2>
           <p>A proud native of Linden, New Jersey, and a 1999 graduate of Rowan University, Burke brings a unique blend of Wall Street experience, industry knowledge, and a passion for building lasting client relationships to The Fig Leaf Insurance Agency.</p>
           <p>His professional journey began on the floor of the New York Stock Exchange, where he developed a strong foundation in financial services, relationship management, and the importance of delivering exceptional service. Trading Wall Street for Main Street, he transitioned into the insurance industry alongside Bryan Tomko, becoming one of the original members of the founding Fig Leaf partnership. After a brief time away, he returned to the Fig Leaf family, bringing with him the same passion and dedication that helped shape its foundation.</p>
           <p>Today, he plays a key role in overseeing the client experience, ensuring that every interaction reflects Fig Leaf's commitment to personalized service, responsiveness, and trusted relationships. While he primarily works remotely, he's also known to make the rounds, staying connected with colleagues, clients, and the community.</p>
-          <p>Proudly referring to himself as &ldquo;The Insurance Guy,&rdquo; he brings enthusiasm, personality, and a genuine love for what he does. For him, insurance isn&rsquo;t simply about policies and coverage &mdash; it&rsquo;s about people, relationships, and making sure clients feel confident that what matters most is protected.</p>
-          <div class="b5-help">
-            <h3 class="b5-help__title">Burke can help you</h3>
+          <p>Proudly referring to himself as “The Insurance Guy,” he brings enthusiasm, personality, and a genuine love for what he does. For him, insurance isn’t simply about policies and coverage — it’s about people, relationships, and making sure clients feel confident that what matters most is protected.</p>
+        </article>
+
+        <aside class="ab-bio__aside hs-reveal" aria-label="More about Burke">
+          <div class="ab-card ab-card--help">
+            <h3 class="ab-card__title">Burke can help you</h3>
             <ul class="ab-checks">
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Get personal service from someone who knows you</li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Get a quick answer whenever you need one</li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Rest easy knowing your coverage is in good hands</li>
+            <li><svg aria-hidden="true" class="icon"><use href="#i-check"></use></svg>Get personal service from someone who knows you</li>
+            <li><svg aria-hidden="true" class="icon"><use href="#i-check"></use></svg>Get a quick answer whenever you need one</li>
+            <li><svg aria-hidden="true" class="icon"><use href="#i-check"></use></svg>Rest easy knowing your coverage is in good hands</li>
             </ul>
           </div>
-          <div class="b5-offclock">
-            <svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg>
-            <p><b>Off the clock</b>Usually out making the rounds, catching up with clients and the local community.</p>
+          <div class="ab-card ab-card--offclock">
+            <svg class="icon ab-card__icon" aria-hidden="true"><use href="#i-clock"></use></svg>
+            <h3 class="ab-card__title">Off the clock</h3>
+            <p>Usually out making the rounds, catching up with clients and the local community.</p>
           </div>
-          <div class="b5-offclock ph-target" id="fun-fact">
-            <svg class="icon" aria-hidden="true"><use href="#i-bolt"></use></svg>
-            <p><b>Fun fact</b><span class="ph">[One-line fun fact goes here]</span></p>
+          <div class="ab-card ab-card--offclock ph-target" id="fun-fact">
+            <svg class="icon ab-card__icon" aria-hidden="true"><use href="#i-bolt"></use></svg>
+            <h3 class="ab-card__title">Fun fact</h3>
+            <p><span class="ph">[One-line fun fact goes here]</span></p>
           </div>
-        </div>
+        </aside>
       </div>
     </section>
 
+    <!-- Closing call to action -->
     <section class="fl-grid-host ab-cta" aria-labelledby="ab-cta-title">
       <div class="fl-grid" aria-hidden="true"><span class="fl-grid__lines" data-hs-px="0.15"></span></div>
       <div class="hs-wrap ab-cta__grid hs-reveal">
@@ -256,10 +257,14 @@
         </div>
         <div class="ab-cta__actions">
           <a class="hs-btn hs-btn--primary" href="../../crq-form/">Get a Quote</a>
-          <a class="ab-call" href="../#team"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>Back to the team</a>
+          <a class="ab-call" href="tel:+19088623447"><svg aria-hidden="true" class="icon"><use href="#i-phone"></use></svg>(908) 862-3447</a>
         </div>
       </div>
     </section>
+
+    <nav class="ab-back" aria-label="Back to the team">
+      <div class="hs-wrap"><a href="../#team"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>Back to the team</a></div>
+    </nav>
   </main>
 
 
