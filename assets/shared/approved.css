@@ -1,0 +1,59 @@
+/* Client approval (25 Nov), on every page of builds 1 to 5. Added last by
+   approved_pass() in the build script (removed).
+
+   Heading font: Gelasio (the review's Aa picker can still swap it, and its
+   rule is added later in the page, so it wins). */
+html, html * {
+  --font-heading: "Gelasio", Georgia, "Times New Roman", serif !important;
+  --hs-heading: "Gelasio", Georgia, serif !important;
+  --ab-serif: "Gelasio", Georgia, serif !important;
+}
+
+/* The address / phone / language row: its own black, with no gold line
+   under it (Eric, 25 Nov; the green was tried and taken back) */
+html[data-header] .utility { border-bottom: 0; }
+
+/* No gold line between the header and the first band of the About page
+   and the team bio pages */
+.ab .a5-head, .ab .ab-bio-head, .ab .b2-band, .ab .b3-split, .ab .b4-head, .ab .b5-head { border-top: 0; }
+
+/* Quote form page: a visible heading above the form */
+.qp-plain__head { padding: clamp(32px, 5vw, 56px) var(--hs-gutter, 24px) 8px; text-align: center; }
+.qp-plain__title {
+  margin: 0;
+  font-family: var(--hs-heading);
+  font-size: clamp(2rem, 1.4rem + 2vw, 3rem);
+  line-height: 1.15;
+  color: #070d0f;
+}
+
+/* Header dropdowns: tighter rows so Personal Insurance's nine pages fit well
+   above the fold on a laptop (Eric, 25 Nov). Desktop only; the phone menu
+   keeps its larger tap targets. */
+@media (min-width: 1001px) {
+  html[data-header] .site-nav__sub { padding: 8px; }
+  html[data-header] .site-nav__sub a { padding: 6px 14px; line-height: 1.35; }
+}
+
+/* The header now has three dropdowns (Personal, Business, About), each with
+   its chevron: slightly tighter spacing so Get a Quote stays on screen down
+   to the compact header (1000px). */
+@media (min-width: 1001px) and (max-width: 1600px) {
+  html[data-header] .site-header__inner { gap: 28px; }
+  html[data-header] .site-nav, html[data-header] .site-nav__list { gap: 20px; }
+}
+@media (min-width: 1001px) and (max-width: 1320px) {
+  html[data-header] .site-nav, html[data-header] .site-nav__list { gap: 14px; }
+}
+@media (min-width: 1001px) and (max-width: 1180px) {
+  html[data-header] .site-header__inner { gap: 16px; }
+  html[data-header] .site-nav, html[data-header] .site-nav__list { gap: 10px; }
+  html[data-header] .site-header__logo { max-height: 76px; }
+}
+
+/* Personal and Business Insurance are menu labels, not links (Eric, 25 Nov) */
+html[data-header] .site-nav__link--label { cursor: default; }
+@media (max-width: 1000px) { html[data-header] .site-nav__link--label { cursor: pointer; user-select: none; } }
+
+/* No review bar on the finished site */
+:root { --review-h: 0px; }
