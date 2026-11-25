@@ -482,32 +482,22 @@
               <a class="vr-video__more" href="about/testimonials/">See more<span class="visually-hidden"> testimonials</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
             </figcaption>
           </figure>
-          <div class="vr-carousel hs-reveal" data-vr-carousel aria-roledescription="carousel" aria-label="Google reviews">
+          <div class="vr-carousel hs-reveal" aria-label="Google reviews">
           <ul class="vr-carousel__list">
-            <li class="hs-review vr-slide is-active" aria-roledescription="slide">
+            <li class="hs-review vr-slide is-active">
               <span class="hs-stars" role="img" aria-label="5 out of 5 stars"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg></span>
               <blockquote class="hs-review__text"><p>&ldquo;Jarihana genuinely was a big help! She helped me get lower insurance than the one I previously had&hellip;&rdquo;</p></blockquote>
               <p class="hs-review__author"><span class="hs-review__avatar" aria-hidden="true">N</span><span><strong>Natalie Montesino</strong><span class="hs-review__meta">Google review</span></span></p>
               <a class="hs-review__more" href="#" onclick="return false" data-offsite>Read the full review<span class="visually-hidden"> by Natalie Montesino</span> on Google</a>
             </li>
-            <li class="hs-review vr-slide is-active" aria-roledescription="slide">
+            <li class="hs-review vr-slide is-active">
               <span class="hs-stars" role="img" aria-label="5 out of 5 stars"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg></span>
               <blockquote class="hs-review__text"><p>&ldquo;Jarihana muy amable, profesional, me contestó mis inquietudes . Hablamos por teléfono siempre dispuesta a ayudar&hellip;&rdquo;</p></blockquote>
               <p class="hs-review__author"><span class="hs-review__avatar" aria-hidden="true">J</span><span><strong>Jaylynn Cabrera</strong><span class="hs-review__meta">Google review</span></span></p>
               <a class="hs-review__more" href="#" onclick="return false" data-offsite>Read the full review<span class="visually-hidden"> by Jaylynn Cabrera</span> on Google</a>
             </li>
-            <li class="hs-review vr-slide" aria-roledescription="slide">
-              <span class="hs-stars" role="img" aria-label="5 out of 5 stars"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#hs-star"/></svg></span>
-              <blockquote class="hs-review__text"><p>&ldquo;This is the company you want if you are looking for competitive prices, great customer service&hellip;&rdquo;</p></blockquote>
-              <p class="hs-review__author"><span class="hs-review__avatar" aria-hidden="true">E</span><span><strong>Eric Duchin</strong><span class="hs-review__meta">Google review</span></span></p>
-              <a class="hs-review__more" href="#" onclick="return false" data-offsite>Read the full review<span class="visually-hidden"> by Eric Duchin</span> on Google</a>
-            </li>
           </ul>
-              <div class="vr-carousel__nav">
-              <button class="vr-carousel__prev" type="button" aria-label="Previous review"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
-              <span class="vr-carousel__count" aria-live="polite">1–2 of 3</span>
-              <button class="vr-carousel__next" type="button" aria-label="Next review"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
-            </div>
+          <a class="vr-carousel__more" href="about/testimonials/#reviews">See more<span class="visually-hidden"> Google reviews</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
           </div>
         </div>
       </div>
@@ -623,31 +613,6 @@
   <script src="assets/shared/office-config.js" defer></script>
   <script src="assets/shared/office-status.js" defer></script>
 
-  <script>
-    /* concept 5: the written reviews, two at a time (one on phones); the
-       arrows step one review at a time */
-    document.querySelectorAll('[data-vr-carousel]').forEach(function (box) {
-      var slides = box.querySelectorAll('.vr-slide'), count = box.querySelector('.vr-carousel__count'), i = 0,
-          narrow = window.matchMedia('(max-width: 640px)');
-      var prev = box.querySelector('.vr-carousel__prev'), next = box.querySelector('.vr-carousel__next');
-      function show(n) {
-        var per = Math.min(narrow.matches ? 1 : 2, slides.length), last = slides.length - per;
-        i = Math.max(0, Math.min(n, last));
-        slides.forEach(function (s, k) {
-          var on = k >= i && k < i + per;
-          s.classList.toggle('is-active', on);
-          s.setAttribute('aria-hidden', on ? 'false' : 'true');
-        });
-        prev.disabled = i === 0;
-        next.disabled = i === last;
-        count.textContent = (per > 1 ? (i + 1) + '–' + (i + per) : (i + 1)) + ' of ' + slides.length;
-      }
-      prev.addEventListener('click', function () { show(i - 1); });
-      next.addEventListener('click', function () { show(i + 1); });
-      narrow.addEventListener('change', function () { show(i); });
-      show(0);
-    });
-  </script>
 
   <script>
     /* concept 5: the play button hides the poster and plays the video with
