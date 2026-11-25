@@ -1255,6 +1255,8 @@ OUTSTANDING = [
     ('Insurance pages', 'Approval of the draft copy on Renters, Condo, Life, Health and Pet', 'This copy came from the build brief, not the agency\'s content map.', False),
     ('Insurance pages', 'Health insurance: what individual and family plans cover', 'Both cards say "[Copy to come]".', False),
     ('Insurance pages', 'Pet insurance: what accidents, illnesses and routine wellness care cover', 'All three cards say "[Copy to come]".', False),
+    ('Insurance pages', 'Business insurance page copy sign-off', 'The six Business Insurance pages (Commercial Auto, Workers Comp, General Liability, Commercial Umbrella, Employee Benefits, Contractors Policies) have our draft copy.', False),
+    ('Photos and launch', 'Photos for the Business Insurance pages', 'Commercial Auto, Workers Comp, Employee Benefits and Contractors Policies show "Photo to come".', False),
     ('Photos and launch', 'Stock photo licensing picks', 'Which of the stock photos to license for the live site.', False),
 ]
 CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
@@ -1267,6 +1269,8 @@ OUTSTANDING_LINK = {
     'Approval of the draft copy on Renters, Condo, Life, Health and Pet': 'renters-insurance/',
     'Health insurance: what individual and family plans cover': 'health-insurance/#covered',
     'Pet insurance: what accidents, illnesses and routine wellness care cover': 'pet-insurance/#covered',
+    'Business insurance page copy sign-off': 'general-liability-insurance/',
+    'Photos for the Business Insurance pages': 'commercial-auto-insurance/',
 }
 
 
@@ -1446,8 +1450,24 @@ def mark_hero_photos():
 NAV_BUILDS = [1, 2, 3, 4, 5]   # breadcrumb and Personal Insurance link on every build (Eric, 25 Nov)
 
 
+BUSINESS_ORDER = [b['slug'] for b in SP.BUSINESS]   # Eric's order (25 Nov)
+
+
+def business_menu(up):
+    items = '\n'.join(f'              <li><a href="{up}{b["slug"]}/">{b["name"]}</a></li>' for b in SP.BUSINESS)
+    return ('<li class="site-nav__item">\n'
+            f'            <a class="site-nav__link" href="{up}#services">Business Insurance</a>\n'
+            '            <button class="site-nav__sub-toggle" type="button" aria-expanded="false" aria-controls="sub-business">\n'
+            '              <svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg>\n'
+            '              <span class="visually-hidden">Business insurance pages</span>\n'
+            '            </button>\n'
+            '            <ul class="site-nav__sub" id="sub-business">\n' + items + '\n            </ul>\n'
+            '          </li>')
+
+
 def personal_nav():
-    names = {**{s['slug']: s['name'] for s in SP.SERVICES}, 'homeowners-insurance': 'Homeowners Insurance'}
+    names = {**{s['slug']: s['name'] for s in SP.PERSONAL}, 'homeowners-insurance': 'Homeowners Insurance'}
+    biz = {b['slug']: b['name'] for b in SP.BUSINESS}
     order = ['auto-insurance', 'homeowners-insurance', 'boat-insurance', 'personal-umbrella-insurance',   # the footer's order
              'renters-insurance', 'condo-insurance', 'health-insurance', 'life-insurance', 'pet-insurance']
     pages = [(slug, names[slug]) for slug in order]
@@ -1465,6 +1485,13 @@ def personal_nav():
                               lambda m: '<ul class="site-nav__sub" id="sub-personal">\n' + items + '\n            </ul>',
                               page, count=1, flags=re.S)
             assert n == 1, path
+            # the Business Insurance menu (Eric, 25 Nov), current page marked
+            menu = business_menu(up)
+            if sub in biz:
+                menu = menu.replace(f'<a href="{up}{sub}/">', '<a href="./" aria-current="page">', 1)
+            page, n = re.subn(r'<li><a class="site-nav__link" href="[^"]*"(?: onclick="return false" data-offsite)?>Business Insurance</a></li>',
+                              lambda m: menu, page, count=1)
+            assert n == 1, path
             if k not in NAV_BUILDS:   # every build lists all nine (Eric, 24 Nov); the rest is build 1's
                 write(path, page)
                 continue
@@ -1473,15 +1500,35 @@ def personal_nav():
             if sub is None:
                 page = page.replace('<section class="fl-grid-host hs-section hs-coverage" aria-labelledby',
                                     '<section class="fl-grid-host hs-section hs-coverage" id="coverage" aria-labelledby', 1)
-            elif sub in names and 'pg-crumbs' not in page:
+                page = page.replace('<section class="fl-grid-host hs-section hs-services" aria-labelledby',
+                                    '<section class="fl-grid-host hs-section hs-services" id="services" aria-labelledby', 1)
+            elif (sub in names or sub in biz) and 'pg-crumbs' not in page:
+                top = ('../#coverage', 'Personal Insurance') if sub in names else ('../#services', 'Business Insurance')
                 crumbs = ('      <nav class="pg-wrap pg-crumbs" aria-label="Breadcrumb">\n'
                           '        <ol>\n'
-                          '          <li><a href="../#coverage">Personal Insurance</a></li>\n'
-                          f'          <li><span aria-current="page">{names[sub]}</span></li>\n'
+                          f'          <li><a href="{top[0]}">{top[1]}</a></li>\n'
+                          f'          <li><span aria-current="page">{names.get(sub) or biz[sub]}</span></li>\n'
                           '        </ol>\n'
                           '      </nav>\n')
                 page, n = re.subn(r'(?m)^(      <div class="pg-wrap pg-head__grid">)', lambda m: crumbs + m.group(1), page, count=1)
                 assert n == 1, path
+            write(path, page)
+
+
+def business_nav_nested():
+    """The Business Insurance menu on the pages a level further down (the
+    About bios and Testimonials), which personal_nav() doesn't visit."""
+    for k in BUILDS:
+        root = build_dir(k)
+        for dirpath, _, files in sorted(os.walk(os.path.join(REPO, root))):
+            out = os.path.relpath(dirpath, REPO)
+            if 'index.html' not in files or out.count('/') < 2:
+                continue
+            path = f'{out}/index.html'
+            page = read(path)
+            up = posixpath.relpath(root, out) + '/'
+            page = re.sub(r'<li><a class="site-nav__link" href="[^"]*"(?: onclick="return false" data-offsite)?>Business Insurance</a></li>',
+                          lambda m: business_menu(up), page, count=1)
             write(path, page)
 
 
@@ -1581,6 +1628,7 @@ def main():
     build_builds()
     mark_hero_photos()
     personal_nav()
+    business_nav_nested()
     float_actions()
     approved_pass()
     print('built', len(HEROES), 'concept pages and builds', BUILDS)
