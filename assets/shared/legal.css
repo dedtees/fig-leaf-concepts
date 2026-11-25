@@ -1,0 +1,34 @@
+/* Privacy Policy and Terms & Conditions: black title band (as on Carriers),
+   then a white single-column reading body. The legal text itself is copied
+   word for word from the agency's live pages. */
+.hs--v1 .lg-body { background: #fff; color: #1c2a22; padding-block: clamp(36px, 5vw, 64px) clamp(56px, 7vw, 104px); }
+.lg-prose { max-width: 72ch; margin: 0 auto; font-size: 1.05rem; line-height: 1.7; }
+.lg-prose > :first-child { margin-top: 0; }
+.lg-prose .lg-updated {
+  display: inline-block; margin: 0 0 1.75rem; padding: 6px 14px; border-radius: 999px;
+  background: #e6eee8; color: #17402b; font-size: .85rem; font-weight: 700; letter-spacing: .02em;
+}
+.lg-prose h2 {
+  margin: 2.6rem 0 .9rem; padding-bottom: .5rem;
+  font-family: var(--hs-heading); font-size: clamp(1.5rem, 2.6vw, 1.9rem); line-height: 1.2; color: #17402b;
+  border-bottom: 2px solid #e8c27e;
+}
+.lg-prose h3 { margin: 1.9rem 0 .5rem; font-family: var(--hs-heading); font-size: clamp(1.15rem, 1.8vw, 1.3rem); line-height: 1.3; color: #17402b; }
+.lg-prose h2 + h3 { margin-top: 1.2rem; }
+.lg-prose .lg-updated + h2 { margin-top: .75rem; }
+.lg-prose p { margin: 0 0 1rem; }
+.lg-prose ul { margin: 0 0 1.25rem; padding-left: 1.4rem; }
+.lg-prose li { margin: 0 0 .5rem; padding-left: .25rem; }
+.lg-prose li::marker { color: #17402b; }
+.lg-prose strong { color: #10241a; }
+.lg-prose a { color: #17402b; text-decoration: underline; text-decoration-color: #e8c27e; text-decoration-thickness: 2px; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.lg-prose a:hover { text-decoration-color: currentColor; }
+.lg-prose hr { margin: 3rem 0 0; border: 0; height: 1px; background: #d7e0da; }
+.lg-prose hr + h2 { margin-top: 2.2rem; }
+.lg-prose .lg-contact {
+  margin: 1.25rem 0 0; padding: 20px 24px; border-left: 4px solid #e8c27e; border-radius: 0 10px 10px 0;
+  background: #f5f8f6; font-style: normal;
+}
+.lg-prose .lg-contact p { margin: 0 0 .25rem; }
+.lg-prose .lg-contact p:last-child { margin: 0; }
+@media (max-width: 600px) { .lg-prose { font-size: 1rem; } }
