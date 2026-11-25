@@ -55,5 +55,7 @@ html[data-header] .utility { border-bottom: 0; }
 html[data-header] .site-nav__link--label { cursor: default; }
 @media (max-width: 1000px) { html[data-header] .site-nav__link--label { cursor: pointer; user-select: none; } }
 
-/* No review bar on the finished site */
-:root { --review-h: 0px; }
+/* The quick-links bar above the header: AC (checklist), GC (quote form), Site
+   (homepage). Eric, 25 Nov. Its look comes from .review-bar in styles.css;
+   the buttons widen into pills to fit "Site". */
+.review-bar__link { width: auto; min-width: 28px; padding: 0 10px; border-radius: 14px; }
