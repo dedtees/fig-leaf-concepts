@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="600" height="900">
-  <!-- Stand-in portrait for a team member without a photo yet -->
-  <rect width="600" height="900" fill="#17402b"/>
-  <circle cx="300" cy="360" r="118" fill="#a9c7b4" fill-opacity=".35"/>
-  <path d="M60 900c0-150 108-262 240-262s240 112 240 262z" fill="#a9c7b4" fill-opacity=".35"/>
-</svg>

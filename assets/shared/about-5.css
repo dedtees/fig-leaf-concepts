@@ -1,0 +1,161 @@
+/* About and bio, concept 5 (build 5): "By the numbers" and "Fig leaf
+   portrait". Loads after about.css. */
+
+/* --- About: split hero ------------------------------------------------------- */
+.a5-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 560px; background: var(--ab-black); border-top: 1px solid var(--ab-gold); color: #fff; }
+.a5-head__text {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: clamp(28px, 4vw, 44px) clamp(28px, 5vw, 72px) clamp(48px, 6vw, 80px) max(var(--hs-gutter), calc((100vw - var(--hs-max)) / 2));
+}
+.a5-head__text .ab-crumbs ol { margin-bottom: auto; }
+.a5-head__text .ab-crumbs { margin-bottom: clamp(32px, 6vw, 72px); }
+.a5-head__lead { margin: 22px 0 28px; max-width: 30em; font-size: clamp(1.08rem, 1rem + .3vw, 1.25rem); line-height: 1.6; color: #fff; }
+.a5-head__photo { position: relative; border-left: 4px solid var(--ab-gold); }
+.a5-head__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* --- About: the numbers ------------------------------------------------------- */
+.a5-stats { background: var(--ab-green); border-top: 1px solid var(--ab-gold); color: #fff; }
+.a5-stats__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
+.a5-stats__list li { display: grid; gap: 8px; padding: clamp(28px, 4vw, 44px) clamp(16px, 3vw, 36px); }
+.a5-stats__list li:first-child, .b5-tiles__list li:first-child { padding-left: 0; }
+.a5-stats__list li + li { border-left: 1px solid var(--ab-gold); }
+.a5-stat__value { display: flex; align-items: center; font-family: var(--ab-serif); font-weight: 600; font-size: clamp(2.4rem, 1.6rem + 2.6vw, 3.6rem); line-height: 1; color: #fff; }
+.a5-stat__label { line-height: 1.5; color: #fff; }
+.a5-stars { display: inline-flex; gap: 2px; margin-left: 12px; color: var(--ab-gold); }
+.a5-stars .icon { width: 20px; height: 20px; fill: currentColor; stroke: none; }
+
+/* --- About: the path ------------------------------------------------------------ */
+.a5-path { padding-block: clamp(64px, 8vw, 112px); background: #fff; color: var(--ab-black); }
+.a5-path .ab-section-head__title { color: var(--ab-green); }
+.a5-path__steps { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 36px); margin: 0; padding: 0; list-style: none; counter-reset: step; }
+.a5-path__steps::before {   /* the line joining the three steps */
+  content: ""; position: absolute; left: 0; right: 0; top: calc(clamp(160px, 16vw, 220px) + 26px); height: 2px; background: var(--ab-gold);
+}
+.a5-step { position: relative; }
+.a5-step img, .a5-step__quote {
+  display: block; width: 100%; height: clamp(160px, 16vw, 220px); border-radius: 16px; object-fit: cover;
+}
+.a5-step__quote {
+  display: grid; place-items: center; padding: 20px; text-align: center;
+  background: var(--ab-green); color: #fff;
+  font-family: var(--ab-serif); font-weight: 600; font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2.1rem); line-height: 1.15;
+}
+.a5-step__num {
+  position: relative; z-index: 1; display: grid; place-items: center;
+  width: 52px; height: 52px; margin: 0 0 18px; border-radius: 50%;
+  background: var(--ab-black); border: 2px solid var(--ab-gold); color: var(--ab-gold);
+  font-family: var(--ab-serif); font-weight: 600;
+}
+.a5-step img + .a5-step__num, .a5-step__quote + .a5-step__num { margin-top: 0; }
+.a5-step h3 { margin: 0 0 8px; font-family: var(--ab-serif); font-weight: 600; font-size: 1.4rem; color: var(--ab-green); }
+.a5-step p { margin: 0; line-height: 1.65; }
+
+/* --- About: values on dark green ----------------------------------------------- */
+.a5-values { padding-block: clamp(64px, 8vw, 112px); background: var(--ab-black); border-top: 1px solid var(--ab-gold); color: #fff; }
+.a5-values__grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 32px clamp(40px, 6vw, 96px); align-items: start; }
+.a5-values .ab-section-head__title { color: #fff; }
+.a5-values__intro { margin: 16px 0 0; font-size: 1.1rem; line-height: 1.6; color: #fff; }
+.a5-values__list { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
+.a5-values__list li { display: flex; gap: 18px; padding: 22px; border-radius: 16px; background: var(--ab-green); border-left: 3px solid var(--ab-gold); transition: transform .35s cubic-bezier(.2, .7, .2, 1); }
+.a5-values__list li:hover { transform: translateX(6px); }
+.a5-values__list .icon { flex: none; width: 34px; height: 34px; color: var(--ab-gold); }
+.a5-values__list h3 { margin: 0 0 4px; font-family: var(--ab-serif); font-weight: 600; font-size: 1.25rem; color: #fff; }
+.a5-values__list p { margin: 0; line-height: 1.55; color: #fff; }
+
+/* --- About: team ------------------------------------------------------------------ */
+.a5-team { padding-block: clamp(64px, 8vw, 112px); background: #fff; border-top: 1px solid var(--ab-gold); color: var(--ab-black); }
+.a5-team__grid { margin-bottom: clamp(28px, 4vw, 44px); }
+.a5-team__cards { --a5-gap: clamp(16px, 2vw, 24px); display: flex; flex-wrap: wrap; justify-content: center; gap: var(--a5-gap); }   /* flex, not grid, so a short last row sits centred */
+.a5-team__cards > * { flex: 0 0 calc((100% - 3 * var(--a5-gap)) / 4); min-width: 0; }
+.a5-team .ab-section-head__title { color: var(--ab-green); }
+.a5-team__text { margin: 16px 0 0; font-size: 1.1rem; line-height: 1.6; }
+/* each person: a clean photo with the name and role set below it */
+.a5-person { display: grid; align-content: start; gap: 18px; color: var(--ab-black); text-decoration: none; }
+.a5-person__photo { position: relative; display: block; overflow: hidden; aspect-ratio: 4 / 5; border-radius: 16px; background: var(--ab-green); border-bottom: 4px solid var(--ab-gold); }
+.a5-person__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; transition: transform .6s cubic-bezier(.2, .7, .2, 1); }
+.a5-person:hover .a5-person__photo img { transform: scale(1.04); }
+.a5-person__body { display: grid; gap: 4px; }
+.a5-person__name { font-family: var(--ab-serif); font-weight: 600; font-size: 1.35rem; line-height: 1.2; color: var(--ab-green); }
+.a5-person__role { font-weight: 700; font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ab-black); }
+.a5-person__meta { font-size: .95rem; color: var(--ab-black); opacity: .75; }
+.a5-person__more { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; padding-top: 12px; border-top: 1px solid var(--ab-green-light); font-weight: 700; color: var(--ab-green); }
+.a5-person__more .icon { width: 18px; height: 18px; color: var(--ab-gold); transition: transform .3s; }
+.a5-person:hover .a5-person__more .icon { transform: translateX(4px); }
+
+/* --- Bio: the fig leaf portrait --------------------------------------------------- */
+.b5-head { overflow: clip; padding: clamp(28px, 4vw, 44px) 0 clamp(48px, 6vw, 80px); background: var(--ab-green); border-top: 1px solid var(--ab-gold); color: #fff; }
+.b5-head .ab-crumbs ol { color: var(--ab-green-light); }
+.b5-head__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px clamp(40px, 6vw, 96px); align-items: center; }
+.b5-leaf { position: relative; width: 100%; max-width: 520px; aspect-ratio: 1; }
+.b5-leaf__gold, .b5-leaf__photo {
+  position: absolute; inset: 0;
+  -webkit-mask: url("../photos/leaf-mask.png") center / contain no-repeat;
+          mask: url("../photos/leaf-mask.png") center / contain no-repeat;
+}
+.b5-leaf__gold { background: var(--ab-gold); transform: translate(16px, 14px); }
+.b5-leaf__photo { background: var(--ab-black); }
+.b5-leaf__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 8%; }
+.b5-head__lead { margin: 20px 0 28px; font-size: clamp(1.1rem, 1rem + .4vw, 1.3rem); line-height: 1.6; color: #fff; }
+
+.b5-tiles { background: var(--ab-black); border-top: 1px solid var(--ab-gold); color: #fff; }
+.b5-tiles__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
+.b5-tiles__list li { display: grid; gap: 8px; align-content: start; padding: clamp(24px, 3vw, 40px) clamp(16px, 3vw, 32px); }
+.b5-tiles__list li + li { border-left: 1px solid var(--ab-green); }
+.b5-tile__value { font-family: var(--ab-serif); font-weight: 600; font-size: clamp(2.4rem, 1.6rem + 2.6vw, 3.6rem); line-height: 1; color: var(--ab-gold); }
+.b5-tile__value--sm { font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.3rem); line-height: 1.3; letter-spacing: .02em; }
+.b5-tile__label { line-height: 1.5; color: #fff; }
+
+.b5-bio { padding-block: clamp(64px, 8vw, 112px); background: #fff; color: var(--ab-black); }
+.b5-bio__grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 28px clamp(40px, 6vw, 96px); align-items: start; }
+.b5-bio .ab-section-head__title { color: var(--ab-green); }
+.b5-bio__text > p { margin: 0 0 18px; font-size: 1.15rem; line-height: 1.75; }
+.b5-offclock { display: flex; gap: 18px; align-items: center; margin-top: 28px; padding: 22px 24px; border-radius: 16px; border: 1px solid var(--ab-green-light); border-left: 4px solid var(--ab-gold); }
+.b5-offclock .icon { flex: none; width: 36px; height: 36px; color: var(--ab-green); }
+.b5-offclock p { margin: 0; line-height: 1.55; }
+.b5-offclock b { display: block; font-family: var(--ab-serif); font-size: 1.2rem; color: var(--ab-green); }
+.b5-help { margin-top: 28px; padding: 24px; border-radius: 16px; background: var(--ab-green); border: 1px solid var(--ab-green); border-left: 4px solid var(--ab-gold); }
+.b5-help__title { margin: 0 0 14px; font-family: var(--ab-serif); font-size: 1.2rem; font-weight: 600; color: #fff; }
+.b5-help .ab-checks li { color: #fff; }
+.b5-help .ab-checks .icon { color: var(--ab-gold); }
+
+/* --- tablets and phones ----------------------------------------------------------- */
+@media (max-width: 900px) {
+  .a5-head { grid-template-columns: minmax(0, 1fr); }
+  .a5-head__text { padding-inline: var(--hs-gutter); }
+  .a5-head__photo { aspect-ratio: 3 / 2; border-left: 0; border-top: 4px solid var(--ab-gold); }
+  .a5-path__steps { grid-template-columns: minmax(0, 1fr); }
+  .a5-path__steps::before { display: none; }
+  .a5-values__grid, .a5-team__grid, .b5-head__grid, .b5-bio__grid { grid-template-columns: minmax(0, 1fr); }
+  .b5-leaf { max-width: 380px; margin-inline: auto; }
+}
+@media (max-width: 760px) {
+  .a5-stats__list, .b5-tiles__list { grid-template-columns: minmax(0, 1fr); }
+  .a5-stats__list li, .b5-tiles__list li { padding-inline: 0; }
+  .a5-stats__list li + li { border-left: 0; border-top: 1px solid var(--ab-gold); }
+  .b5-tiles__list li + li { border-left: 0; border-top: 1px solid var(--ab-green); }
+  .b5-leaf__gold { transform: translate(10px, 8px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .a5-values__list li, .a5-person__photo img, .a5-person__more .icon { transition: none; }
+}
+@media (max-width: 1000px) { .a5-team__cards > * { flex-basis: calc((100% - var(--a5-gap)) / 2); } }
+@media (max-width: 480px) { .a5-team__cards { --a5-gap: 14px; row-gap: 28px; } .a5-person { gap: 12px; } .a5-person__name { font-size: 1.1rem; } .a5-person__role { font-size: .68rem; letter-spacing: .08em; } .a5-person__meta { font-size: .85rem; } }
+
+/* At a glance (client review round 2): build 3's Where / What / How facts
+   on the green band, in place of the three numbers */
+.a5-glance .a5-stats__list > div { display: grid; gap: 8px; align-content: start; padding: clamp(28px, 4vw, 44px) clamp(16px, 3vw, 36px); }
+.a5-glance .a5-stats__list > div:first-child { padding-left: 0; }
+.a5-glance .a5-stats__list > div + div { border-left: 1px solid var(--ab-gold); }
+.a5-glance__term { font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ab-gold); }
+.a5-glance__value { margin: 0; font-family: var(--ab-serif); font-weight: 600; font-size: clamp(1.3rem, 1.05rem + .8vw, 1.75rem); line-height: 1.25; color: #fff; }
+@media (max-width: 760px) {
+  .a5-glance .a5-stats__list > div { padding-inline: 0; }
+  .a5-glance .a5-stats__list > div + div { border-left: 0; border-top: 1px solid var(--ab-gold); }
+}
+/* build 3's longer headline in the half-width hero */
+.ab--v5 .a5-head .ab-head__title { font-size: clamp(2.3rem, 1.5rem + 2.4vw, 3.6rem); line-height: 1.05; }
+
+/* The approved About page (client, 25 Nov): concept 5 with layout 1's hero,
+   at layout 1's sizes (about.css .ab:not(.ab--v5) .a5-head) */
+.ab--v5.ab--hero-a .a5-head { min-height: 480px; }
+.ab--v5.ab--hero-a .a5-head .ab-head__title { font-size: clamp(1.9rem, 1.4rem + 1.5vw, 2.6rem); line-height: 1.2; }

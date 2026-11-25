@@ -1,22 +1,15 @@
 {
   "redirects": [
-    { "source": "/homepages/5", "destination": "/concept-2/", "permanent": false },
-    { "source": "/homepages/v1", "destination": "/concept-3/", "permanent": false },
-    { "source": "/homepages/v2", "destination": "/concept-1/", "permanent": false },
-    { "source": "/homepages/v3", "destination": "/concept-4/", "permanent": false },
-    { "source": "/homepages/a", "destination": "/concept-5/", "permanent": false },
-    { "source": "/homepages/b", "destination": "/concept-6/", "permanent": false },
-    { "source": "/homepages/c", "destination": "/concept-7/", "permanent": false },
-    { "source": "/homepages/d", "destination": "/concept-8/", "permanent": false },
-    { "source": "/homepages/6", "destination": "/concept-9/", "permanent": false },
-    { "source": "/homepages/h1", "destination": "/concept-10/", "permanent": false },
-    { "source": "/concept-12/:path*", "destination": "/concept-10/:path*", "permanent": false },
-    { "source": "/concept-13/:path*", "destination": "/concept-1/", "permanent": false },
-    { "source": "/concept-14/:path*", "destination": "/concept-1/", "permanent": false },
-    { "source": "/concept-15/:path*", "destination": "/concept-9/:path*", "permanent": false },
-    { "source": "/concept-16/:path*", "destination": "/concept-10/:path*", "permanent": false },
-    { "source": "/concept-17/:path*", "destination": "/concept-1/", "permanent": false },
-    { "source": "/concept-18/:path*", "destination": "/concept-1/", "permanent": false },
-    { "source": "/build-5/testimonials/:path*", "destination": "/build-5/about/testimonials/", "permanent": false }
+    { "source": "/archive-d", "destination": "/checklist/", "permanent": false },
+    { "source": "/archive-d/:path*", "destination": "/checklist/", "permanent": false },
+    { "source": "/build-5/testimonials/:path*", "destination": "/about/testimonials/", "permanent": false },
+    { "source": "/build-:n(\\d+)", "destination": "/", "permanent": false },
+    { "source": "/build-:n(\\d+)/:path*", "destination": "/:path*", "permanent": false },
+    { "source": "/archive-:x([a-e])/:path*", "destination": "/", "permanent": false },
+    { "source": "/concept-:n(\\d+)/:path*", "destination": "/", "permanent": false },
+    { "source": "/homepages/:path*", "destination": "/", "permanent": false },
+    { "source": "/hero-concepts/:path*", "destination": "/", "permanent": false },
+    { "source": "/hero-ideas/:path*", "destination": "/", "permanent": false },
+    { "source": "/heroes/:path*", "destination": "/", "permanent": false }
   ]
 }

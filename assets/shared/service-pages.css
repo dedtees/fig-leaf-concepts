@@ -1,0 +1,189 @@
+/* The personal insurance pages (build-N/auto-insurance/ and the rest, made
+   by service_version() in the build script (removed) from the build script (removed)).
+   They use the Homeowners versions' styles; this file loads after
+   homeowners-versions.css and only adds what the other pages need: grids
+   for other numbers of cards, the overview band without tiles, a "photo to
+   come" placeholder, the draft tag and the related coverage links. Same
+   colours: gold, black, white and dark green. */
+
+/* draft copy tag in the hero */
+.pg--service .pg-draft {
+  display: inline-block;
+  margin: 0 0 18px;
+  padding: 6px 14px;
+  border: 1px dashed var(--c2-gold);
+  border-radius: 999px;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--c2-gold);
+}
+.pg--service:not(.pg--fade) .pg-draft { color: var(--c2-green); border-color: var(--c2-green); }
+
+/* "photo to come" in place of the hero photo */
+.pg--service .pg-head__photo--todo {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 430 / 483;
+  padding: 32px;
+  background: var(--c2-green);
+  color: var(--c2-white);
+  text-align: center;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.pg--service .pg-head__photo--todo span { max-width: 22ch; opacity: .85; }
+
+/* overview: icon tiles (no photos), any number; or the text on its own */
+.pg--service .pg-perils--n2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.pg--service .pg-perils--n4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.pg--service .pg-perils li { gap: 18px; font-size: 1.15rem; line-height: 1.3; }
+.pg--service .pg-overview--solo { grid-template-columns: minmax(0, 1fr); }
+.pg--service .pg-overview--solo .pg-overview__text { padding-block: clamp(28px, 4vw, 48px); font-size: clamp(1.35rem, 1rem + 1vw, 1.9rem); }
+
+/* covered: the Homeowners bento is drawn for five cards. Here the first
+   card is big (two columns, two rows), the next four fill the grid beside
+   it and any more share the rows below, two columns each. */
+.pg--service .pg-bento { grid-template-areas: none; grid-auto-flow: dense; }
+.pg--service .pg-bento .pg-cover { grid-area: auto; }
+.pg--service .pg-bento .pg-cover:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+.pg--service .pg-bento .pg-cover:nth-child(n+6) { grid-column: span 2; }
+/* six cards (Boat): the big card runs down three rows and the last card
+   takes the two columns beside it, so it doesn't sit alone across the grid */
+.pg--service .pg-bento--n6 .pg-cover:nth-child(1) { grid-row: span 3; }
+.pg--service .pg-bento--n6 .pg-cover:nth-child(6) { grid-column: span 2; }
+/* two, three or four cards: one row, the first card wider */
+.pg--service .pg-bento--n2 { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+.pg--service .pg-bento--n3 { grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)); }
+.pg--service .pg-bento--n2 .pg-cover:nth-child(1),
+.pg--service .pg-bento--n3 .pg-cover:nth-child(1) { grid-column: auto; grid-row: auto; min-height: 460px; }
+/* with a photo in a one-row grid, the photo takes the top half so the
+   icon and text below it have room */
+.pg--service .pg-bento--n2 .pg-cover:nth-child(1) .pg-cover__photo,
+.pg--service .pg-bento--n3 .pg-cover:nth-child(1) .pg-cover__photo { height: 48%; }
+.pg--service .pg-bento--n4 .pg-cover:nth-child(4) { grid-column: span 2; }
+/* the highlighted (gold) card is the last one, not always the fifth */
+.pg--service .pg-bento .pg-cover:nth-child(5):not(:last-child) { background: #fff; }
+.pg--service .pg-bento .pg-cover:nth-child(5):not(:last-child) .pg-cover__num { color: var(--c2-green); }
+.pg--service .pg-bento .pg-cover:nth-child(5):not(:last-child) .pg-cover__title { color: var(--c2-green); }
+.pg--service .pg-bento .pg-cover:last-child:not(:first-child) { background: var(--c2-gold); }
+.pg--service .pg-bento .pg-cover:last-child:not(:first-child) .pg-cover__num,
+.pg--service .pg-bento .pg-cover:last-child:not(:first-child) .pg-cover__title,
+.pg--service .pg-bento .pg-cover:last-child:not(:first-child) p { color: var(--c2-black); }
+.pg--service .pg-bento .pg-cover:last-child:not(:first-child) .pg-cover__icon { background: var(--c2-green-light); color: var(--c2-green); }
+/* no photo for the first card: equal cards in one row, the first solid
+   dark green */
+.pg--service .pg-bento.pg-bento--plain { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.pg--service .pg-bento--plain .pg-cover:nth-child(n) { grid-column: auto; grid-row: auto; min-height: 0; }
+.pg--service .pg-bento--plain .pg-cover:nth-child(1) { justify-content: flex-start; background: var(--c2-green); }
+.pg--service .pg-bento--plain .pg-cover:nth-child(1) .pg-cover__title { font-size: 1.3rem; }
+.pg--service .pg-bento--plain .pg-cover:nth-child(1) p { font-size: 1rem; }
+
+.pg--service .pg-sec__intro { max-width: 70ch; margin: -8px 0 28px; font-size: 1.15rem; line-height: 1.6; }
+.pg--service .pg-foot { margin: 16px 0 0; font-size: 1rem; color: #5b665f; }
+
+/* related coverage links under the grid: homeowners-versions.css (.pg-related--pills) */
+
+@media (max-width: 1080px) {
+  .pg--service .pg-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pg--service .pg-bento .pg-cover:nth-child(n) { grid-column: auto; grid-row: auto; }
+  .pg--service .pg-bento .pg-cover:nth-child(1) { grid-column: 1 / -1; }
+  /* full width, the first card's photo sits above its text (as on phones)
+     so a longer description never runs over the photo */
+  .pg--service .pg-bento .pg-cover:nth-child(1) { min-height: 0; justify-content: flex-start; }
+  .pg--service .pg-bento .pg-cover:nth-child(1) .pg-cover__photo { position: relative; inset: auto; z-index: 0; height: 260px; margin: -26px -26px 4px; }
+  .pg--service .pg-bento .pg-cover:nth-child(1) .pg-cover__photo img { width: 100%; height: 100%; object-fit: cover; }
+  .pg--service .pg-bento .pg-cover:nth-child(1) .pg-cover__num { z-index: 1; }
+  .pg--service .pg-bento--n2 .pg-cover:nth-child(1) { grid-column: auto; }
+  .pg--service .pg-bento--n3 .pg-cover:nth-child(1) { grid-column: 1 / -1; }
+  .pg--service .pg-bento--n4 .pg-cover:nth-child(4),
+  .pg--service .pg-bento--n6 .pg-cover:nth-child(6) { grid-column: 1 / -1; }
+}
+@media (max-width: 640px) {
+  .pg--service .pg-bento,
+  .pg--service .pg-bento--n2,
+  .pg--service .pg-bento--n3 { grid-template-columns: minmax(0, 1fr); }
+  .pg--service .pg-bento .pg-cover:nth-child(n) { grid-column: auto; }
+  /* the first card's photo sits above its text instead of behind it, so a
+     longer description doesn't run over the photo */
+  .pg--service .pg-bento .pg-cover:nth-child(1) { min-height: 0; justify-content: flex-start; }
+  .pg--service .pg-bento .pg-cover:nth-child(1) .pg-cover__photo { position: relative; inset: auto; z-index: 0; height: 200px; margin: -26px -26px 4px; }
+  .pg--service .pg-bento .pg-cover:nth-child(1) .pg-cover__photo img { width: 100%; height: 100%; object-fit: cover; }
+  .pg--service .pg-bento .pg-cover:nth-child(1) .pg-cover__num { z-index: 1; }
+  .pg--service .pg-perils--n2,
+  .pg--service .pg-perils--n4 { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* a note on the dark first card (Auto's "It covers injury to people") */
+.pg--service .pg-bento .pg-cover:nth-child(1) .pg-cover__note { color: var(--c2-gold); }
+
+/* photo tiles in the overview (Auto, Boat, Umbrella, Life): the photo fills
+   what the label leaves, so a label on two or three lines (Umbrella's) never
+   runs over the photo */
+@media (min-width: 761px) {
+  .pg--service .pg-perils li.pg-peril { gap: 14px; justify-content: flex-end; }
+  .pg--service .pg-peril img { position: static; flex: 1 1 auto; min-height: 140px; width: calc(100% + 40px); max-width: none; height: auto; margin: -20px -20px 0; }
+}
+
+/* the contact form (Boat and Personal Umbrella): in the quote card, in
+   place of the Consumer Rate Quotes form, which doesn't cover them. Markup:
+   contact_form() in the build script (removed); script: contact-form.js */
+.pg--service .pg-contact { padding: clamp(22px, 3vw, 40px) clamp(20px, 3vw, 40px) clamp(26px, 3.5vw, 44px); }
+.pg--service .pg-contact__intro { margin: 0 0 clamp(20px, 2.4vw, 28px); max-width: 62ch; font-size: 1.08rem; line-height: 1.6; color: var(--pg-ink); }
+.pg--service .pg-contact__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 22px; }
+.pg--service .pg-field { display: grid; gap: 8px; align-content: start; }
+.pg--service .pg-field--wide { grid-column: 1 / -1; }
+.pg--service .pg-field label {
+  font-family: var(--hs-heading);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--pg-ink);
+}
+.pg--service .pg-field label span { font-weight: 400; letter-spacing: .02em; text-transform: none; color: #6b766f; }
+.pg--service .pg-field input,
+.pg--service .pg-field select,
+.pg--service .pg-field textarea {
+  width: 100%;
+  min-height: 52px;
+  padding: 13px 16px;
+  border: 1px solid rgba(15, 36, 24, .22);
+  border-radius: 14px;
+  background: #fff;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--pg-ink);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.pg--service .pg-field textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
+.pg--service .pg-field textarea::placeholder { color: #7d8781; }
+.pg--service .pg-field select {
+  appearance: none;
+  padding-right: 44px;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2317402b' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") right 16px center / 18px no-repeat;
+}
+.pg--service .pg-field input:focus,
+.pg--service .pg-field select:focus,
+.pg--service .pg-field textarea:focus { outline: none; border-color: var(--c2-green); box-shadow: 0 0 0 3px rgba(23, 64, 43, .18); }
+.pg--service .pg-contact.was-checked :invalid { border-color: #b3261e; box-shadow: 0 0 0 3px rgba(179, 38, 30, .12); }
+/* the spam trap: off screen, never seen or tabbed to */
+.pg--service .pg-contact__trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.pg--service .pg-contact__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: clamp(22px, 2.6vw, 30px); }
+.pg--service .pg-contact__foot .pg-btn[disabled] { opacity: .6; cursor: progress; }
+.pg--service .pg-contact__status { flex: 1 1 260px; margin: 0; font-size: .98rem; line-height: 1.5; color: var(--pg-ink); }
+.pg--service .pg-contact__status:empty { display: none; }
+.pg--service .pg-contact__status.is-ok { color: var(--c2-green); font-weight: 700; }
+.pg--service .pg-contact__status.is-error { color: #b3261e; font-weight: 700; }
+@media (max-width: 640px) {
+  .pg--service .pg-contact__grid { grid-template-columns: minmax(0, 1fr); }
+  .pg--service .pg-contact__foot .pg-btn { width: 100%; justify-content: center; }
+}
+/* the boat's year, make and model, shown while Boat is the chosen type */
+.pg--service .pg-contact__more { grid-column: 1 / -1; display: grid; grid-template-columns: 120px repeat(2, minmax(0, 1fr)); gap: 18px 22px; margin: 0; padding: 0; border: 0; min-width: 0; }
+.pg--service .pg-contact__more[hidden] { display: none; }
+.pg--service .pg-contact__more legend { float: left; grid-column: 1 / -1; width: 100%; margin: 4px 0 0; padding: 0; font-family: var(--hs-heading); font-weight: 700; font-size: 1.05rem; color: var(--pg-ink); }
+@media (max-width: 640px) {
+  .pg--service .pg-contact__more { grid-template-columns: minmax(0, 1fr); }
+}
