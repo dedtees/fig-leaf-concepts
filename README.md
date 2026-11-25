@@ -64,6 +64,22 @@ the photo heroes A to D (`hero-concepts/`) and the six fig leaf pictures V1 to H
 
 ## The current build: AC, GC and 1 to 5
 
+**Client approval (25 Nov): one layout on every build.** Builds 1 to 5 now share the approved layout and differ only in
+their heading wordings (option A on builds 1 and 4, B on 2 and 5, C on 3, from `homepages/headings.py`):
+
+- **Homepage**: concept 5, with the video testimonial beside the Google reviews (`video_reviews()`), on every build.
+- **Inside pages**: every insurance page uses build 4's layout, Homeowners version 4, with the slanted "snapshot"
+  photo frame (`APPROVED_VERSION`, `HERO_PHOTO` in `build.py`).
+- **About**: About concept 5 with layout 1's hero (`approved_about()`; `.ab--hero-a` in `about-5.css`). Bios keep their five designs.
+- **Testimonials** (`about/testimonials/`): six videos three across, then the Google reviews beneath. One client video so
+  far; the other five are "Video coming soon" frames (`TM_VIDEOS`, `tm_video()`; styles in `testimonials.css`).
+- **Quote pages**: heading "Get your Free Insurance Quote" (visible above the form on `crq-form/`).
+- **Heading font**: Gelasio. **No gold line** under the address, phone and language row. Both in
+  `homepages/shared/approved.css`, added to every build page by `approved_pass()`. The Aa picker still works, starting on Gelasio.
+- The bar's numbers 1 to 5 open the same page on each build, so the wordings can be compared.
+
+Some notes below describe the builds before this approval.
+
 The client kept concept 11. The review bar now runs AC, GC, 1, 2, 3, 4, 5:
 
 - **AC**: the Fig Leaf photo gallery (`archive-d/`), which is also the landing page (`index.html` redirects there).

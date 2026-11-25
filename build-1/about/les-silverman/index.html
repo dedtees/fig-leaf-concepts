@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- Built by homepages/build.py: build 1's about/les-silverman page, from homepages/about/les-silverman-v1.html in concept 11's header and footer. Edit that file, then re-run the script. -->
-<html lang="en" data-header="a"><head><meta charset="utf-8">
+<html lang="en" data-heading-font="gelasio" data-header="a"><head><meta charset="utf-8">
   <meta name="robots" content="noindex">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Build 1 · Les Silverman, Sr. Account Executive | The Fig Leaf Agency</title>
@@ -17,6 +17,8 @@
   <link rel="stylesheet" href="../../../homepages/shared/concept-11.css">
   <link rel="stylesheet" href="../../../homepages/shared/about.css">
   <link rel="stylesheet" href="../../../homepages/shared/float-actions.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@500;600;700&amp;display=swap">
+  <link rel="stylesheet" href="../../../homepages/shared/approved.css">
 </head>
 <body>
 
@@ -55,11 +57,11 @@
       <ul class="review-bar__list review-bar__list--long">
         <li><a class="review-bar__link" href="../../../archive-d/" data-name="Fig leaf photo gallery">AC<span class="visually-hidden">: Fig leaf photo gallery</span></a></li>
         <li><a class="review-bar__link" href="../../crq-form/" data-name="Get a quote">GC<span class="visually-hidden">: Get a quote</span></a></li>
-        <li><a class="review-bar__link" href="./" data-name="Concept 11 with Homeowners version 1" aria-current="page">1<span class="visually-hidden">: Concept 11 with Homeowners version 1</span></a></li>
-        <li><a class="review-bar__link" href="../../../build-2/about/les-silverman/" data-name="Concept 11 with Homeowners version 2">2<span class="visually-hidden">: Concept 11 with Homeowners version 2</span></a></li>
-        <li><a class="review-bar__link" href="../../../build-3/about/les-silverman/" data-name="Concept 11 with Homeowners version 3">3<span class="visually-hidden">: Concept 11 with Homeowners version 3</span></a></li>
-        <li><a class="review-bar__link" href="../../../build-4/about/les-silverman/" data-name="Concept 11 with Homeowners version 4">4<span class="visually-hidden">: Concept 11 with Homeowners version 4</span></a></li>
-        <li><a class="review-bar__link" href="../../../build-5/about/les-silverman/" data-name="Concept 11 with Homeowners version 1">5<span class="visually-hidden">: Concept 11 with Homeowners version 1</span></a></li></ul>
+        <li><a class="review-bar__link" href="./" data-name="Build 1, headings option A" aria-current="page">1<span class="visually-hidden">: Build 1, headings option A</span></a></li>
+        <li><a class="review-bar__link" href="../../../build-2/about/les-silverman/" data-name="Build 2, headings option B">2<span class="visually-hidden">: Build 2, headings option B</span></a></li>
+        <li><a class="review-bar__link" href="../../../build-3/about/les-silverman/" data-name="Build 3, headings option C">3<span class="visually-hidden">: Build 3, headings option C</span></a></li>
+        <li><a class="review-bar__link" href="../../../build-4/about/les-silverman/" data-name="Build 4, headings option A">4<span class="visually-hidden">: Build 4, headings option A</span></a></li>
+        <li><a class="review-bar__link" href="../../../build-5/about/les-silverman/" data-name="Build 5, headings option B">5<span class="visually-hidden">: Build 5, headings option B</span></a></li></ul>
       <a class="review-bar__step review-bar__step--prev" href="../../crq-form/" rel="prev" aria-label="Previous"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
       <a class="review-bar__step" href="../../../build-2/about/les-silverman/" rel="next" aria-label="Next"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
     </div>
@@ -301,7 +303,48 @@
 
   <script src="../../../archive-a/home-sections.js"></script>
   <!-- Client review ticks: review round only (review/review.js) -->
-  <script src="../../../../../../review/review.js" defer></script>
+  <script src="../../../../../../../review/review.js" defer></script>
+
+  <script>
+    /* concept 5: the written reviews, two at a time (one on phones); the
+       arrows step one review at a time */
+    document.querySelectorAll('[data-vr-carousel]').forEach(function (box) {
+      var slides = box.querySelectorAll('.vr-slide'), count = box.querySelector('.vr-carousel__count'), i = 0,
+          narrow = window.matchMedia('(max-width: 640px)');
+      var prev = box.querySelector('.vr-carousel__prev'), next = box.querySelector('.vr-carousel__next');
+      function show(n) {
+        var per = Math.min(narrow.matches ? 1 : 2, slides.length), last = slides.length - per;
+        i = Math.max(0, Math.min(n, last));
+        slides.forEach(function (s, k) {
+          var on = k >= i && k < i + per;
+          s.classList.toggle('is-active', on);
+          s.setAttribute('aria-hidden', on ? 'false' : 'true');
+        });
+        prev.disabled = i === 0;
+        next.disabled = i === last;
+        count.textContent = (per > 1 ? (i + 1) + '–' + (i + per) : (i + 1)) + ' of ' + slides.length;
+      }
+      prev.addEventListener('click', function () { show(i - 1); });
+      next.addEventListener('click', function () { show(i + 1); });
+      narrow.addEventListener('change', function () { show(i); });
+      show(0);
+    });
+  </script>
+
+  <script>
+    /* concept 5: the play button hides the poster and plays the video with
+       its own controls */
+    document.querySelectorAll('[data-vr-video]').forEach(function (card) {
+      var video = card.querySelector('video'), play = card.querySelector('.vr-video__play');
+      play.addEventListener('click', function () {
+        card.classList.add('is-playing');
+        video.controls = true;
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});
+        video.focus();
+      });
+    });
+  </script>
   <script src="../../../homepages/shared/about.js"></script>
   <!-- Floating Get a Quote and back-to-top buttons (homepages/build.py float_actions) -->
   <div class="fla fla--a" role="complementary" aria-label="Quick actions" data-review="Floating Get a Quote and back-to-top buttons">

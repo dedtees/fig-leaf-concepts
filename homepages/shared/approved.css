@@ -1,0 +1,23 @@
+/* Client approval (25 Nov), on every page of builds 1 to 5. Added last by
+   approved_pass() in homepages/build.py.
+
+   Heading font: Gelasio (the review's Aa picker can still swap it, and its
+   rule is added later in the page, so it wins). */
+html, html * {
+  --font-heading: "Gelasio", Georgia, "Times New Roman", serif !important;
+  --hs-heading: "Gelasio", Georgia, serif !important;
+  --ab-serif: "Gelasio", Georgia, serif !important;
+}
+
+/* No gold line between the address / phone / language row and the header */
+html[data-header] .utility { border-bottom: 0; }
+
+/* Quote form page: a visible heading above the form */
+.qp-plain__head { padding: clamp(32px, 5vw, 56px) var(--hs-gutter, 24px) 8px; text-align: center; }
+.qp-plain__title {
+  margin: 0;
+  font-family: var(--hs-heading);
+  font-size: clamp(2rem, 1.4rem + 2vw, 3rem);
+  line-height: 1.15;
+  color: #070d0f;
+}

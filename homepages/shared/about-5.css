@@ -153,3 +153,8 @@
 }
 /* build 3's longer headline in the half-width hero */
 .ab--v5 .a5-head .ab-head__title { font-size: clamp(2.3rem, 1.5rem + 2.4vw, 3.6rem); line-height: 1.05; }
+
+/* The approved About page (client, 25 Nov): concept 5 with layout 1's hero,
+   at layout 1's sizes (about.css .ab:not(.ab--v5) .a5-head) */
+.ab--v5.ab--hero-a .a5-head { min-height: 480px; }
+.ab--v5.ab--hero-a .a5-head .ab-head__title { font-size: clamp(1.9rem, 1.4rem + 1.5vw, 2.6rem); line-height: 1.2; }
