@@ -5,7 +5,9 @@
    the bottom left corner swaps the large serif used for page titles, section
    headings and names, so the options can be compared on the real pages.
 
-   Lora is the site default (set in the CSS). The choice is kept in the
+   Lora is the site default (set in the CSS). A page whose <html> has
+   data-heading-font (builds 1 to 5: "gelasio", approved 25 Nov) starts on
+   that font instead. The choice is kept in the
    browser, so it follows you from page to page. A link can also set it:
    ?font=lora, ?font=source-serif, ?font=gelasio or ?font=fraunces.
    ------------------------------------------------------------------------- */
@@ -17,7 +19,7 @@
     { id: 'source-serif', name: 'Source Serif 4', note: 'Matches the body text',
       family: '"Source Serif 4", Georgia, serif',
       css: 'family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700' },
-    { id: 'gelasio', name: 'Gelasio', note: 'Sturdy, Georgia-like',
+    { id: 'gelasio', name: 'Gelasio', note: 'Sturdy, Georgia-like (approved)',
       family: '"Gelasio", Georgia, serif', css: 'family=Gelasio:wght@500;600;700' },
     { id: 'fraunces', name: 'Fraunces', note: 'The old font',
       family: '"Fraunces", Georgia, serif',
@@ -34,7 +36,9 @@
 
   var fromUrl = byId((new URLSearchParams(location.search).get('font') || '').toLowerCase());
   if (fromUrl) store(fromUrl.id);
-  var current = fromUrl || byId(stored()) || FONTS[0];
+  // the font the page's own CSS sets: no override needed for it
+  var base = byId(document.documentElement.getAttribute('data-heading-font') || '') || FONTS[0];
+  var current = fromUrl || byId(stored()) || base;
 
   var loaded = {};
   var style = document.createElement('style');
@@ -53,7 +57,7 @@
     // The default needs no override; every other choice replaces the three
     // heading variables the pages use, on every element so no section's own
     // definition wins.
-    style.textContent = font.id === FONTS[0].id ? '' :
+    style.textContent = font.id === base.id ? '' :
       'html, html * { --font-heading: ' + font.family + ' !important; ' +
       '--hs-heading: ' + font.family + ' !important; ' +
       '--ab-serif: ' + font.family + ' !important; }';

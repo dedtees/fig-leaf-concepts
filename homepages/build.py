@@ -521,9 +521,15 @@ HOMEOWNERS_VERSIONS = [
 ]
 
 
+# Client approval (25 Nov): every build's inside pages use build 4's layout,
+# Homeowners version 4, with the slanted "snapshot" photo frame. Each build
+# keeps its own heading wordings (headings.OPTION).
+APPROVED_VERSION = 4
+
+
 def homeowners_version(k):
-    """The Homeowners version (1 to 4) build k shows."""
-    return k if k <= len(HOMEOWNERS_VERSIONS) else 1
+    """The Homeowners version (1 to 4) build k shows: the approved one."""
+    return APPROVED_VERSION
 
 
 # The black "Get a homeowners quote" band (build 1's quote card, laid out
@@ -677,9 +683,10 @@ def mark_current(page):
 # video were tried as concepts 5 and 7 and dropped.)
 VIDEO_BUILD = 5
 HOME_ONLY = []
-HOME_NAMES = {
-    5: "Concept 5: build 1's homepage with a video beside the Google reviews, two at a time",
-}
+# Client approval (25 Nov): concept 5's homepage, with the video testimonial,
+# on every build; each build keeps its heading option (A, B or C).
+HOME_NAMES = {k: f"Approved homepage, headings option {'ABC'[headings.OPTION[str(k)]]}"
+              for k in [1, 2, 3, 4, 5]}
 
 
 def home_name(k):
@@ -797,23 +804,56 @@ def video_reviews(page, out_dir):
     return page[:m.start()] + new + page[m.end():]
 
 
+# Testimonials page (client approval, 25 Nov): six client videos on top,
+# three across, then the Google reviews beneath, on a page that scrolls
+# normally. One client video so far; the other five are "coming soon" frames
+# until the videos arrive (swap each into TM_VIDEOS).
+TM_VIDEOS = 6
+
+
+def tm_video(out, i):
+    """Testimonial video i (0 is the client's video, the rest placeholders)."""
+    if i == 0:
+        big, small, w, h = POSTER
+        big, small = posixpath.relpath(big, out), posixpath.relpath(small, out)
+        video = posixpath.relpath(VIDEO, out)
+        return ('          <li class="tm-video hs-reveal">\n'
+                '            <figure class="vr-video tm-video__card" data-vr-video>\n'
+                '              <div class="vr-video__frame">\n'
+                f'                <video class="vr-video__media" preload="none" playsinline poster="{big}" aria-label="Video testimonial from a Fig Leaf client">\n'
+                f'                  <source src="{video}" type="video/mp4">\n'
+                '                </video>\n'
+                f'                <img class="vr-video__poster" src="{big}" srcset="{small} 900w, {big} {w}w" sizes="(max-width: 700px) 100vw, 33vw" alt="" width="{w}" height="{h}" loading="lazy" decoding="async">\n'
+                f'                {PLAY}\n'
+                '              </div>\n'
+                '              <figcaption class="tm-video__cap"><strong>Hear it from our clients</strong><span>A client tells their story in their own words.</span></figcaption>\n'
+                '            </figure>\n'
+                '          </li>\n')
+    return ('          <li class="tm-video tm-video--soon hs-reveal">\n'
+            '            <figure class="tm-video__card">\n'
+            '              <div class="vr-video__frame tm-video__soon" role="img" aria-label="Client video coming soon">\n'
+            '                <span class="tm-video__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>\n'
+            '                <span class="tm-video__soon-text">Video coming soon</span>\n'
+            '              </div>\n'
+            f'              <figcaption class="tm-video__cap"><strong>Client story {i + 1}</strong><span>[Client name and coverage, when the video arrives]</span></figcaption>\n'
+            '            </figure>\n'
+            '          </li>\n')
+
+
 def testimonials_page(page, out_dir):
-    """<build>/about/testimonials/ (under About, Eric 24 Nov): where the
-    homepage video card's "See more" goes.
-    For now the page header, the video and the Google reviews from the
-    homepage; more client videos and reviews are to come (Eric, 24 Nov)."""
+    """<build>/about/testimonials/ (under About): where the homepage video
+    card's "See more" goes. Page header, six videos three across, then the
+    homepage's Google reviews (all of them, in a grid) beneath."""
     out = f'{out_dir}/about/testimonials'
-    if 'data-vr-video' not in page:   # builds 1 to 4: concept 5's video and reviews
-        page = video_reviews(page, out_dir)
     page = rebase(page, out_dir, out)
     a, b = page.index('<main id="main">'), page.index('</main>') + len('</main>')
     main = page[a:b]
     reviews = re.search(r'    <section class="hs-section hs-reviews".*?\n    </section>\n', main, re.S).group(0)
-    reviews = re.sub(r' *<a class="vr-video__more".*?</a>\n', '', reviews)   # no "See more" on the page itself
+    reviews = reviews.replace('<section class="hs-section hs-reviews"', '<section class="hs-section hs-reviews tm-reviews"', 1)
     defs = re.search(r'    <svg class="hs-defs".*?</svg>\n', main, re.S)   # the stars and shields
+    videos = ''.join(tm_video(out, i) for i in range(TM_VIDEOS))
     new = ('<main id="main">\n'
            '  <div class="hs hs--v1" id="home-sections">\n\n'
-           '    <!-- Testimonials: a placeholder until more client videos come in -->\n'
            '    <section class="hs-section tm-head" aria-labelledby="tm-title">\n'
            '      <div class="hs-wrap">\n'
            '        <p class="tm-head__eyebrow">Testimonials</p>\n'
@@ -821,17 +861,26 @@ def testimonials_page(page, out_dir):
            '        <p class="tm-head__text">Hear it from the people we protect. More client videos are on the way.</p>\n'
            '      </div>\n'
            '    </section>\n\n'
+           '    <!-- Six client videos, three across (two on tablets, one on phones) -->\n'
+           '    <section class="hs-section tm-videos" aria-label="Video testimonials">\n'
+           '      <div class="hs-wrap">\n'
+           '        <ul class="tm-videos__grid">\n' + videos +
+           '        </ul>\n'
+           '      </div>\n'
+           '    </section>\n\n'
            + reviews + '\n' + (defs.group(0) if defs else '') +
            '\n  </div>\n\n  </main>')
     page = page[:a] + new + page[b:]
-    vr = '<link rel="stylesheet" href="' + posixpath.relpath('homepages/shared/video-reviews.css', out) + '">'
-    assert vr in page
-    page = page.replace(vr, vr + '\n  <link rel="stylesheet" href="' + posixpath.relpath('homepages/shared/testimonials.css', out) + '">', 1)
+    last = list(re.finditer(r'<link rel="stylesheet"[^>]*>', page))[-1]
+    page = page[:last.end()] + ''.join(
+        f'\n  <link rel="stylesheet" href="{posixpath.relpath(c, out)}">'
+        for c in ('homepages/shared/video-reviews.css', 'homepages/shared/testimonials.css')) + page[last.end():]
+    page = page.replace('</body>', VIDEO_JS + '</body>', 1)
     # no hero on this page: drop the hero scripts
     page = re.sub(r'\s*<script src="[^"]*/(?:hero-x|concept-11)\.js"></script>', '', page)
     page = re.sub(r'<title>[^<]*</title>', '<title>' + re.search(r'<title>([^·<]*)·', page).group(1) + '· Testimonials | The Fig Leaf Agency</title>', page, count=1)
     page = re.sub(r'(<!-- Built by homepages/build.py)[^>]*-->',
-                  r"\1 (testimonials_page): the video and reviews from the build's homepage. Edit the script, then re-run it. -->", page, count=1)
+                  r"\1 (testimonials_page): six videos, then the reviews from the build's homepage. Edit the script, then re-run it. -->", page, count=1)
     page = mark_current(page)
     write(f'{out}/index.html', page)
 
@@ -842,21 +891,20 @@ def build_dir(k):
 
 def main_bar(cur, out_dir, page='home', build=1):
     """The bar on the current build's pages. cur is 'AC', 'GC' or a build
-    number. On Homeowners pages the numbers open each build's Homeowners
-    page, so the five layouts can be compared side by side."""
+    number. On every page the numbers open the same page on each build, so
+    the builds' heading wordings can be compared side by side."""
     rel_ = lambda target: posixpath.relpath(target, out_dir) + '/'
     gc_build = cur if cur in BUILDS else build  # GC stays inside the build you came from
     entries = [('AC', 'AC', 'Fig leaf photo gallery', rel_(GALLERY)),
                ('GC', 'GC', 'Get a quote', rel_(f'{build_dir(gc_build)}/crq-form'))]
     sub = PAGE_PATH[page]
-    if page == 'homeowners' or page in SP.BY_SLUG:   # the numbers are the four Homeowners versions
-        for v, (_, name) in enumerate(HOMEOWNERS_VERSIONS, 1):
-            entries.append((v, str(v), f'Homeowners version {v}: {name}', rel_(build_dir(v) + sub)))
-    else:
-        for k in BUILDS + (HOME_ONLY if page == 'home' else []):
-            entries.append((k, str(k), home_name(k) if page == 'home' else f'Concept 11 with Homeowners version {homeowners_version(k)}', rel_(build_dir(k) + sub)))
+    # every build has the same layouts now (client approval, 25 Nov); the
+    # numbers step between the builds' heading wordings
+    for k in BUILDS + (HOME_ONLY if page == 'home' else []):
+        opt = 'ABC'[headings.OPTION[str(k)]]
+        entries.append((k, str(k), home_name(k) if page == 'home' else f'Build {k}, headings option {opt}', rel_(build_dir(k) + sub)))
     keys = [e[0] for e in entries]
-    i = keys.index(cur) if cur in keys else keys.index(homeowners_version(cur))
+    i = keys.index(cur)
     items = []
     for key, text, name, href in entries:
         here = ' aria-current="page"' if key == cur else ''
@@ -869,16 +917,15 @@ def main_bar(cur, out_dir, page='home', build=1):
     else:
         label = f'Build {cur}'
         back = f' · <a href="{rel_(build_dir(cur))}" style="color:inherit">back to the homepage</a>'
+        opt = 'ABC'[headings.OPTION[str(cur)]]
         if page == 'homeowners':
-            v = homeowners_version(cur)
-            title = f'Homeowners version {v} of {len(HOMEOWNERS_VERSIONS)}: {HOMEOWNERS_VERSIONS[v - 1][1]}' + back
+            title = f'Homeowners, approved layout (build 4), headings option {opt}' + back
         elif page in SP.BY_SLUG:
-            v = homeowners_version(cur)
-            title = (f'{SP.BY_SLUG[page]["name"]} in Homeowners version {v}\'s layout: {HOMEOWNERS_VERSIONS[v - 1][1]}'
+            title = (f'{SP.BY_SLUG[page]["name"]}, approved layout (build 4), headings option {opt}'
                      + (' (draft copy)' if SP.BY_SLUG[page]['draft'] else '') + back)
         elif page in BIOS or page == 'about':
             a, b = ABOUT_CONCEPTS[cur]
-            title = (f'About concept {cur}: {a}' if page == 'about' else f'{BIOS[page][0]} bio, concept {cur}: {b}') + back
+            title = ("Approved About page: concept 5 with layout 1's hero" if page == 'about' else f'{BIOS[page][0]} bio, concept {cur}: {b}') + back
         else:
             title = home_name(cur)
     return ('<nav class="review-bar" aria-label="Current build">\n'
@@ -945,6 +992,18 @@ def about_links(page, out, build):
     return page
 
 
+def approved_about():
+    """The approved About page (client, 25 Nov): About concept 5
+    (about-v5.html) with its hero swapped for layout 1's (about-v1.html),
+    on every build. The ab--hero-a class gives the hero layout 1's sizes."""
+    v5, v1 = read('homepages/about/about-v5.html'), read('homepages/about/about-v1.html')
+    head = re.compile(r'    <header class="a5-head".*?</header>\n', re.S)
+    page = head.sub(lambda m: head.search(v1).group(0), v5, count=1)
+    page = page.replace('<main id="main" class="hs hs--v1 ab ab--v5">', '<main id="main" class="hs hs--v1 ab ab--v5 ab--hero-a">', 1)
+    assert 'ab--hero-a' in page and 'Lower insurance costs and personal service' in page
+    return page.replace('  <!-- About, concept 5:', "  <!-- The approved About page: About concept 5 with layout 1's hero (homepages/build.py approved_about).\n       About, concept 5:", 1)
+
+
 def build_about(k):
     """build-N/about/ and build-N/about/<bio>/: concept 11's header and
     footer (from the build's homepage) around the About page and the team
@@ -966,10 +1025,10 @@ def build_about(k):
         up = lambda p: posixpath.relpath(p, out)
         sheets = ['archive-a/styles.css', 'archive-a/home-sections.css', 'archive-a/grid.css', 'archive-a/palette.css',
                   'homepages/shared/concept-11.css', 'homepages/shared/about.css']
-        if k != 1:
-            sheets.append(f'homepages/shared/about-{k}.css')
-        if key == 'about' and k in (1, 2):   # layouts A and B use concept 5's hero and story path
+        if key == 'about':   # every build: About concept 5 (client approval, 25 Nov)
             sheets.append('homepages/shared/about-5.css')
+        elif k != 1:
+            sheets.append(f'homepages/shared/about-{k}.css')
         css = ''.join(f'\n  <link rel="stylesheet" href="{up(c)}">' for c in sheets)
         head = ('<!DOCTYPE html>\n<!-- Built by homepages/build.py: build ' + str(k) + "'s " + sub +
                 f' page, from homepages/about/{key}-v{k}.html in concept 11\'s header and footer. '
@@ -985,7 +1044,7 @@ def build_about(k):
                 '  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">\n'
                 '  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&amp;family=Montserrat:wght@400;500;600;700&amp;family=Lato:wght@400;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap">'
                 + css + '\n</head>\n')
-        main = read(f'homepages/about/{key}-v{k}.html').replace('{B}', out_dir)
+        main = (approved_about() if key == 'about' else read(f'homepages/about/{key}-v{k}.html')).replace('{B}', out_dir)
         icons = read('homepages/about/_icons.html')
         main = re.sub(r'(<main [^>]*>\n)', lambda m: m.group(1) + icons, main, count=1)
         main = rebase(main, '', out)
@@ -1177,14 +1236,14 @@ def build_builds():
         page = about_links(page, out_dir, links)
         page = keep_links_in(link_service_names(page), out_dir, links)
         if k in HOME_NAMES:
+            plain = page   # before the video: the testimonials page lays its own out
             page = video_reviews(page, out_dir)
-            page = re.sub(rf'<title>Build {k} ·', f'<title>Concept {k} ·', page, count=1)
         page = page.replace('<!-- Built by homepages/build.py: concept 11:',
                             f'<!-- Built by homepages/build.py: build {k} (concept 11, Homeowners version {homeowners_version(k)}):'
                             if k in BUILDS else f'<!-- Built by homepages/build.py: homepage concept {k} (build 1\'s homepage, links to build 1):', 1)
         write(f'{out_dir}/index.html', page)
         if k in BUILDS:
-            testimonials_page(page, out_dir)
+            testimonials_page(plain if k in HOME_NAMES else page, out_dir)
         if k not in BUILDS:
             continue
         for sub in SUBPAGES:
@@ -1250,7 +1309,7 @@ def build_services(k):
 # Hero photo frame on the insurance pages, right of the title (client
 # review: three to pick from). Arch is the original shape; snapshot and
 # block are in homepages/shared/homeowners-versions.css.
-HERO_PHOTO = {1: 'snapshot', 2: 'block', 3: 'arch', 4: 'snapshot', 5: 'block'}
+HERO_PHOTO = {k: 'snapshot' for k in [1, 2, 3, 4, 5]}   # build 4's slanted frame on every build (client, 25 Nov)
 
 
 def mark_hero_photos():
@@ -1368,6 +1427,38 @@ def float_actions():
             write(path, page)
 
 
+# Client approval (25 Nov), on every page of builds 1 to 5: Gelasio headings,
+# no gold line under the top row, and "Get your Free Insurance Quote" as the
+# quote pages' heading. Styles in homepages/shared/approved.css.
+GELASIO = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@500;600;700&amp;display=swap">'
+QUOTE_HEADING = 'Get your Free Insurance Quote'
+
+
+def approved_pass():
+    for k in BUILDS:
+        for dirpath, _, files in sorted(os.walk(os.path.join(REPO, build_dir(k)))):
+            if 'index.html' not in files:
+                continue
+            out = os.path.relpath(dirpath, REPO)
+            path = f'{out}/index.html'
+            page = read(path)
+            css = posixpath.relpath('homepages/shared/approved.css', out)
+            if 'approved.css' not in page:
+                last = list(re.finditer(r'<link rel="stylesheet"[^>]*>', page))[-1]
+                page = page[:last.end()] + f'\n  {GELASIO}\n  <link rel="stylesheet" href="{css}">' + page[last.end():]
+            page = re.sub(r'<html lang="en"(?! data-heading-font)', '<html lang="en" data-heading-font="gelasio"', page, count=1)
+            base = os.path.basename(out)
+            if base == 'crq-form':
+                page, n = re.subn(r'<h1 class="visually-hidden">[^<]*</h1>',
+                                  f'<header class="qp-plain__head"><h1 class="qp-plain__title">{QUOTE_HEADING}</h1></header>', page, count=1)
+                assert n == 1, path
+            elif base == 'crq':
+                page, n = re.subn(r'(<h1 class="qp-hero__title" id="qp-title"><span>)[^<]*(</span>)',
+                                  lambda m: m.group(1) + QUOTE_HEADING + '.' + m.group(2), page, count=1)
+                assert n == 1, path
+            write(path, page)
+
+
 def main():
     build_hero_css()
     build_subpages(1, 'concept-1')  # concept 1's Homeowners page only
@@ -1381,6 +1472,7 @@ def main():
     mark_hero_photos()
     personal_nav()
     float_actions()
+    approved_pass()
     print('built', len(HEROES), 'concept pages and builds', BUILDS)
 
 

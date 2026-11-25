@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- Built by homepages/build.py: build 4's about page, from homepages/about/about-v4.html in concept 11's header and footer. Edit that file, then re-run the script. -->
-<html lang="en" data-header="a"><head><meta charset="utf-8">
+<html lang="en" data-heading-font="gelasio" data-header="a"><head><meta charset="utf-8">
   <meta name="robots" content="noindex">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Build 4 · About Us | The Fig Leaf Agency</title>
@@ -16,8 +16,10 @@
   <link rel="stylesheet" href="../../archive-a/palette.css">
   <link rel="stylesheet" href="../../homepages/shared/concept-11.css">
   <link rel="stylesheet" href="../../homepages/shared/about.css">
-  <link rel="stylesheet" href="../../homepages/shared/about-4.css">
+  <link rel="stylesheet" href="../../homepages/shared/about-5.css">
   <link rel="stylesheet" href="../../homepages/shared/float-actions.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@500;600;700&amp;display=swap">
+  <link rel="stylesheet" href="../../homepages/shared/approved.css">
 </head>
 <body>
 
@@ -51,16 +53,16 @@
 
   <!-- Review bar: for comparing concepts only, not part of the site design -->
   <nav class="review-bar" aria-label="Current build">
-    <p class="review-bar__title"><span class="review-bar__label">Build 4</span> <span class="review-bar__name">About concept 4: Chapters · <a href="../" style="color:inherit">back to the homepage</a></span></p>
+    <p class="review-bar__title"><span class="review-bar__label">Build 4</span> <span class="review-bar__name">Approved About page: concept 5 with layout 1's hero · <a href="../" style="color:inherit">back to the homepage</a></span></p>
     <div class="review-bar__controls">
       <ul class="review-bar__list review-bar__list--long">
         <li><a class="review-bar__link" href="../../archive-d/" data-name="Fig leaf photo gallery">AC<span class="visually-hidden">: Fig leaf photo gallery</span></a></li>
         <li><a class="review-bar__link" href="../crq-form/" data-name="Get a quote">GC<span class="visually-hidden">: Get a quote</span></a></li>
-        <li><a class="review-bar__link" href="../../build-1/about/" data-name="Concept 11 with Homeowners version 1">1<span class="visually-hidden">: Concept 11 with Homeowners version 1</span></a></li>
-        <li><a class="review-bar__link" href="../../build-2/about/" data-name="Concept 11 with Homeowners version 2">2<span class="visually-hidden">: Concept 11 with Homeowners version 2</span></a></li>
-        <li><a class="review-bar__link" href="../../build-3/about/" data-name="Concept 11 with Homeowners version 3">3<span class="visually-hidden">: Concept 11 with Homeowners version 3</span></a></li>
-        <li><a class="review-bar__link" href="./" data-name="Concept 11 with Homeowners version 4" aria-current="page">4<span class="visually-hidden">: Concept 11 with Homeowners version 4</span></a></li>
-        <li><a class="review-bar__link" href="../../build-5/about/" data-name="Concept 11 with Homeowners version 1">5<span class="visually-hidden">: Concept 11 with Homeowners version 1</span></a></li></ul>
+        <li><a class="review-bar__link" href="../../build-1/about/" data-name="Build 1, headings option A">1<span class="visually-hidden">: Build 1, headings option A</span></a></li>
+        <li><a class="review-bar__link" href="../../build-2/about/" data-name="Build 2, headings option B">2<span class="visually-hidden">: Build 2, headings option B</span></a></li>
+        <li><a class="review-bar__link" href="../../build-3/about/" data-name="Build 3, headings option C">3<span class="visually-hidden">: Build 3, headings option C</span></a></li>
+        <li><a class="review-bar__link" href="./" data-name="Build 4, headings option A" aria-current="page">4<span class="visually-hidden">: Build 4, headings option A</span></a></li>
+        <li><a class="review-bar__link" href="../../build-5/about/" data-name="Build 5, headings option B">5<span class="visually-hidden">: Build 5, headings option B</span></a></li></ul>
       <a class="review-bar__step review-bar__step--prev" href="../../build-3/about/" rel="prev" aria-label="Previous"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
       <a class="review-bar__step" href="../../build-5/about/" rel="next" aria-label="Next"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
     </div>
@@ -150,12 +152,14 @@
   </header>
 
   
-<!-- About, concept 4: "Chapters". A short black title band, then the page
-       reads as three numbered chapters beside a sticky chapter list that marks
-       where you are (about.js): our story, our team and
-       visit us. Paths are from the repo root; build-4 is the build folder.
-       Styles: about-4.css -->
-  <main id="main" class="hs hs--v1 ab ab--v4">
+<!-- The approved About page: About concept 5 with layout 1's hero (homepages/build.py approved_about).
+       About, concept 5: "By the numbers". A split black hero with the team
+       photo filling the right half and build 3's headline, then build 3's
+       "at a glance" facts on the green band (in place of the three numbers,
+       client review round 2), then the story as a three-step path from the first
+       office to today, and the team.
+       Paths are from the repo root; build-4 is the build folder. Styles: about-5.css -->
+  <main id="main" class="hs hs--v1 ab ab--v5 ab--hero-a">
     <!-- Icons for the About and bio pages (added by build.py) -->
     <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
       <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></symbol>
@@ -173,135 +177,147 @@
       <symbol id="i-printer" viewBox="0 0 24 24"><path d="M7 9V3h10v6M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"></path><rect x="7" y="14" width="10" height="7"></rect></symbol>
     </svg>
 
-    <header class="fl-grid-host ab-head a4-head" aria-labelledby="ab-title">
-      <div class="fl-grid" aria-hidden="true"><span class="fl-grid__lines" data-hs-px="0.15"></span></div>
-      <div class="hs-wrap">
+    <header class="a5-head" aria-labelledby="ab-title">
+      <div class="a5-head__text">
         <nav class="ab-crumbs" aria-label="Breadcrumb">
           <ol><li><a href="../">Home</a></li><li><span aria-current="page">About</span></li></ol>
         </nav>
-        <div class="a4-head__row">
-          <h1 class="ab-head__title" id="ab-title">The Fig Leaf story</h1>
-          <p>An independent insurance agency in Hazlet, New Jersey. Here's who we are, what we believe and how to find us.</p>
+        <p class="ab-eyebrow">About The Fig Leaf Agency</p>
+        <h1 class="ab-head__title" id="ab-title">Insurance, explained by people who keep their word.</h1>
+        <p class="a5-head__lead">Lower insurance costs and personal service, from an independent agency that keeps its word.</p>
+        <div class="ab-head__actions">
+          <a class="hs-btn hs-btn--primary" href="../crq-form/">Get a Quote</a>
+          <a class="ab-call" href="tel:+19088623447"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>(908) 862-3447</a>
         </div>
+      </div>
+      <div class="a5-head__photo">
+        <img src="../../archive-a/assets/team-photo.jpg" srcset="../../archive-a/assets/team-photo-900.jpg 900w, ../../archive-a/assets/team-photo.jpg 1800w" sizes="(max-width: 900px) 100vw, 50vw" alt="The Fig Leaf Insurance Agency team in their office" width="1800" height="1199" decoding="async">
       </div>
     </header>
 
-    <div class="a4-layout hs-wrap">
-      <nav class="a4-toc" aria-label="On this page" data-toc>
-        <p class="a4-toc__title">On this page</p>
-        <ol>
-          <li><a href="#story"><span>01</span>Why Fig Leaf exists</a></li>
-          <li><a href="#team"><span>02</span>Who you&rsquo;ll work with</a></li>
-          <li><a href="#visit"><span>03</span>Come see us in Hazlet</a></li>
+    <!-- At a glance, from build 3's About page (in place of the numbers) -->
+    <section class="a5-stats a5-glance" aria-label="At a glance">
+      <div class="hs-wrap"><dl class="a5-stats__list">
+        <div class="hs-reveal"><dt class="a5-glance__term">Where</dt><dd class="a5-glance__value">1338 State Route 36, Hazlet, NJ</dd></div>
+        <div class="hs-reveal"><dt class="a5-glance__term">What</dt><dd class="a5-glance__value">Personal and business insurance</dd></div>
+        <div class="hs-reveal"><dt class="a5-glance__term">How</dt><dd class="a5-glance__value">Independent: we compare carriers for you</dd></div>
+      </dl></div>
+    </section>
+
+    <section class="a5-path" id="story" aria-labelledby="a5-path-title">
+      <div class="hs-wrap">
+        <div class="ab-section-head hs-reveal">
+          <p class="ab-eyebrow ab-eyebrow--ink">Our story</p>
+          <h2 class="ab-section-head__title" id="a5-path-title">From the trading floor to Hazlet</h2>
+        </div>
+        <ol class="a5-path__steps">
+          <li class="a5-step hs-reveal">
+            <img src="../../homepages/shared/assets/old-building-figleaf-900.jpg" alt="Painting of the agency's original office, its sign reading Fig Leaf Agency" width="900" height="698" loading="lazy" decoding="async">
+            <span class="a5-step__num">01</span>
+            <h3>Where we started</h3>
+            <p>Fig Leaf was founded to give New Jersey a better alternative to high insurance costs and impersonal service.</p>
+          </li>
+          <li class="a5-step hs-reveal">
+            <span class="a5-step__quote" aria-hidden="true">&ldquo;Your word is your bond.&rdquo;</span>
+            <span class="a5-step__num">02</span>
+            <h3>Your word is your bond</h3>
+            <p>Our leadership learned it while working on the NYSE, and it applies to every industry, insurance included.</p>
+          </li>
+          <li class="a5-step hs-reveal">
+            <img src="../../archive-a/assets/team-photo-900.jpg" alt="The Fig Leaf team today" width="900" height="600" loading="lazy" decoding="async">
+            <span class="a5-step__num">03</span>
+            <h3>Where we are today</h3>
+            <p>A team in Hazlet that finds the best coverage and price, and makes sure every client understands it.</p>
+          </li>
         </ol>
-        <a class="hs-btn hs-btn--primary a4-toc__cta" href="../crq-form/">Get a Quote</a>
-      </nav>
-
-      <div class="a4-chapters">
-        <section class="a4-ch" id="story" aria-labelledby="a4-story-title">
-          <p class="a4-ch__num" aria-hidden="true">01</p>
-          <h2 class="a4-ch__title" id="a4-story-title">Why Fig Leaf exists</h2>
-          <div class="a4-media c11-fade hs-reveal"><img class="c11-fade__building" src="../../homepages/shared/assets/old-building-figleaf.jpg" srcset="../../homepages/shared/assets/old-building-figleaf-900.jpg 900w, ../../homepages/shared/assets/old-building-figleaf.jpg 1800w" sizes="(max-width: 1000px) 100vw, 760px" alt="Painting of the agency's original office, its sign reading Fig Leaf Agency" width="1800" height="1396" decoding="async"><img class="c11-fade__team" src="../../archive-a/assets/team-photo.jpg" srcset="../../archive-a/assets/team-photo-900.jpg 900w, ../../archive-a/assets/team-photo.jpg 1800w" sizes="(max-width: 1000px) 100vw, 760px" alt="The Fig Leaf Insurance Agency team in their office" width="1800" height="1199" decoding="async"><span class="c11-fade__tag" aria-hidden="true"><span class="c11-fade__then">Where we started</span><span class="c11-fade__now">Our team today</span></span></div>
-          <p>Fig Leaf Insurance Agency was founded to give New Jersey a better alternative to high insurance costs and impersonal service. We take the time to find the best possible coverage and price while making sure every client understands what they're buying and how they're protected.</p>
-          <p>Our leadership learned an important lesson while working on the NYSE that applies to every industry: your word is your bond.</p>
-        </section>
-
-
-        <section class="a4-ch" id="team" aria-labelledby="a4-team-title">
-          <p class="a4-ch__num" aria-hidden="true">02</p>
-          <h2 class="a4-ch__title" id="a4-team-title">Who you&rsquo;ll work with</h2>
-          <div class="a4-team">
-            <div class="a4-person hs-reveal is-soon" data-review="New headshot: Bryan Tomko">
-              <img src="../../homepages/shared/assets/team/bryan-tomko-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async">
-              <span class="a4-person__body">
-                <span class="a4-person__role">Bio coming soon</span>
-                <span class="a4-person__name">Bryan Tomko</span>
-              </span>
-            </div>
-            <div class="a4-person hs-reveal is-soon" data-review="New headshot: Magdalena Tomko">
-              <img src="../../homepages/shared/assets/team/magdalena-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async">
-              <span class="a4-person__body">
-                <span class="a4-person__role">Bio coming soon</span>
-                <span class="a4-person__name">Magdalena Tomko</span>
-              </span>
-            </div>
-            <a class="a4-person hs-reveal" href="burke/">
-              <img src="../../homepages/shared/assets/team/burke-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async">
-              <span class="a4-person__body">
-                <span class="a4-person__role">The Insurance Guy</span>
-                <span class="a4-person__name">Burke</span>
-                <span class="a4-person__text">Oversees the client experience: personalized service, responsiveness and trusted relationships.</span>
-                <span class="a4-person__more">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
-              </span>
-            </a>
-            <a class="a4-person hs-reveal" href="les-silverman/">
-              <img src="../../homepages/shared/assets/team/placeholder.svg" alt="" width="600" height="900" loading="lazy" decoding="async">
-              <span class="a4-person__body">
-                <span class="a4-person__role">Sr. Account Executive</span>
-                <span class="a4-person__name">Les Silverman</span>
-                <span class="a4-person__text">Enjoys the challenges the insurance world offers on a daily basis. Your word is your bond.</span>
-                <span class="a4-person__more">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
-              </span>
-            </a>
-            <a class="a4-person hs-reveal" href="danielle-mohr/">
-              <img src="../../homepages/shared/assets/team/danielle-mohr-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async">
-              <span class="a4-person__body">
-                <span class="a4-person__role">Business Development Manager</span>
-                <span class="a4-person__name">Danielle Mohr</span>
-                <span class="a4-person__text">Helps you find the right coverage and understand what you're paying for, and what it actually provides.</span>
-                <span class="a4-person__more">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
-              </span>
-            </a>
-            <div class="a4-person hs-reveal is-soon">
-              <img src="../../homepages/shared/assets/team/russell-mardonov-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async">
-              <span class="a4-person__body">
-                <span class="a4-person__role">Bio coming soon</span>
-                <span class="a4-person__name">Russell Mardonov</span>
-              </span>
-            </div>
-            <a class="a4-person hs-reveal" href="chris-oliveira/">
-              <img src="../../homepages/shared/assets/team/chris-oliveira-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async">
-              <span class="a4-person__body">
-                <span class="a4-person__role">Account Executive</span>
-                <span class="a4-person__name">Chris Oliveira</span>
-                <span class="a4-person__text">Explains your coverage, gives a professional opinion on what you need and finds the best price available.</span>
-                <span class="a4-person__more">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
-              </span>
-            </a>
-            <a class="a4-person hs-reveal" href="jarihana-abreu/">
-              <img src="../../homepages/shared/assets/team/jarihana-abreu-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async">
-              <span class="a4-person__body">
-                <span class="a4-person__role">Licensed Insurance Agent</span>
-                <span class="a4-person__name">Jarihana Abreu</span>
-                <span class="a4-person__text">Home, auto and personal insurance, with personalized service and clear guidance.</span>
-                <span class="a4-person__more">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
-              </span>
-            </a>
-            <div class="a4-person hs-reveal is-soon" data-review="New team member: Juan Rosario">
-              <img src="../../homepages/shared/assets/team/juan-rosario-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async">
-              <span class="a4-person__body">
-                <span class="a4-person__role">Bio coming soon</span>
-                <span class="a4-person__name">Juan Rosario</span>
-              </span>
-            </div>
-          </div>
-        </section>
-
-        <section class="a4-ch" id="visit" aria-labelledby="a4-visit-title">
-          <p class="a4-ch__num" aria-hidden="true">03</p>
-          <h2 class="a4-ch__title" id="a4-visit-title">Come see us in Hazlet</h2>
-          <div class="a4-visit hs-reveal">
-            <ul class="a4-visit__list">
-              <li><svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg><span><b>Office</b>1338 State Route 36, Hazlet, NJ 07730</span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg><span><b>Phone</b><a href="tel:+19088623447">(908) 862-3447</a></span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-printer"></use></svg><span><b>Fax</b>(908) 357-2241</span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-mail"></use></svg><span><b>Email</b><a href="mailto:quotes@figleafagency.com">quotes@figleafagency.com</a></span></li>
-            </ul>
-            <a class="hs-btn hs-btn--outline" href="#" onclick="return false" data-offsite>Get directions</a>
-          </div>
-        </section>
       </div>
-    </div>
+    </section>
+
+
+    <section class="a5-team" id="team" aria-labelledby="a5-team-title">
+      <div class="hs-wrap a5-team__grid">
+        <div class="hs-reveal">
+          <p class="ab-eyebrow ab-eyebrow--ink">Meet our team</p>
+          <h2 class="ab-section-head__title" id="a5-team-title">The people behind your policy</h2>
+          <p class="a5-team__text">The people who answer your calls, review your coverage and shop your quotes.</p>
+        </div>
+      </div>
+      <div class="hs-wrap a5-team__cards">
+        <div class="a5-person hs-reveal is-soon" data-review="New headshot: Bryan Tomko">
+          <span class="a5-person__photo"><img src="../../homepages/shared/assets/team/bryan-tomko-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
+          <span class="a5-person__body">
+            <span class="a5-person__name">Bryan Tomko</span>
+            <span class="a5-person__role">Bio coming soon</span>
+          </span>
+        </div>
+        <div class="a5-person hs-reveal is-soon" data-review="New headshot: Magdalena Tomko">
+          <span class="a5-person__photo"><img src="../../homepages/shared/assets/team/magdalena-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
+          <span class="a5-person__body">
+            <span class="a5-person__name">Magdalena Tomko</span>
+            <span class="a5-person__role">Bio coming soon</span>
+          </span>
+        </div>
+        <a class="a5-person hs-reveal" href="burke/">
+          <span class="a5-person__photo"><img src="../../homepages/shared/assets/team/burke-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
+          <span class="a5-person__body">
+            <span class="a5-person__name">Burke</span>
+            <span class="a5-person__role">The Insurance Guy</span>
+            <span class="a5-person__meta">A proud native of Linden, NJ</span>
+            <span class="a5-person__more">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+          </span>
+        </a>
+        <a class="a5-person hs-reveal" href="les-silverman/">
+          <span class="a5-person__photo"><img src="../../homepages/shared/assets/team/placeholder.svg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
+          <span class="a5-person__body">
+            <span class="a5-person__name">Les Silverman</span>
+            <span class="a5-person__role">Sr. Account Executive</span>
+            <span class="a5-person__meta">16 years with Fig Leaf</span>
+            <span class="a5-person__more">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+          </span>
+        </a>
+        <a class="a5-person hs-reveal" href="danielle-mohr/">
+          <span class="a5-person__photo"><img src="../../homepages/shared/assets/team/danielle-mohr-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
+          <span class="a5-person__body">
+            <span class="a5-person__name">Danielle Mohr</span>
+            <span class="a5-person__role">Business Development Manager</span>
+            <span class="a5-person__meta">2.5 years with Fig Leaf</span>
+            <span class="a5-person__more">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+          </span>
+        </a>
+        <div class="a5-person hs-reveal is-soon">
+          <span class="a5-person__photo"><img src="../../homepages/shared/assets/team/russell-mardonov-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
+          <span class="a5-person__body">
+            <span class="a5-person__name">Russell Mardonov</span>
+            <span class="a5-person__role">Bio coming soon</span>
+          </span>
+        </div>
+        <a class="a5-person hs-reveal" href="chris-oliveira/">
+          <span class="a5-person__photo"><img src="../../homepages/shared/assets/team/chris-oliveira-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
+          <span class="a5-person__body">
+            <span class="a5-person__name">Chris Oliveira</span>
+            <span class="a5-person__role">Account Executive</span>
+            <span class="a5-person__meta">2 years with Fig Leaf</span>
+            <span class="a5-person__more">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+          </span>
+        </a>
+        <a class="a5-person hs-reveal" href="jarihana-abreu/">
+          <span class="a5-person__photo"><img src="../../homepages/shared/assets/team/jarihana-abreu-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
+          <span class="a5-person__body">
+            <span class="a5-person__name">Jarihana Abreu</span>
+            <span class="a5-person__role">Licensed Insurance Agent</span>
+            <span class="a5-person__meta">1 year with Fig Leaf</span>
+            <span class="a5-person__more">Read bio <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+          </span>
+        </a>
+        <div class="a5-person hs-reveal is-soon" data-review="New team member: Juan Rosario">
+          <span class="a5-person__photo"><img src="../../homepages/shared/assets/team/juan-rosario-600.jpg" alt="" width="600" height="900" loading="lazy" decoding="async"></span>
+          <span class="a5-person__body">
+            <span class="a5-person__name">Juan Rosario</span>
+            <span class="a5-person__role">Bio coming soon</span>
+          </span>
+        </div>
+      </div>
+    </section>
   </main>
 
 
@@ -356,7 +372,48 @@
 
   <script src="../../archive-a/home-sections.js"></script>
   <!-- Client review ticks: review round only (review/review.js) -->
-  <script src="../../../../../review/review.js" defer></script>
+  <script src="../../../../../../review/review.js" defer></script>
+
+  <script>
+    /* concept 5: the written reviews, two at a time (one on phones); the
+       arrows step one review at a time */
+    document.querySelectorAll('[data-vr-carousel]').forEach(function (box) {
+      var slides = box.querySelectorAll('.vr-slide'), count = box.querySelector('.vr-carousel__count'), i = 0,
+          narrow = window.matchMedia('(max-width: 640px)');
+      var prev = box.querySelector('.vr-carousel__prev'), next = box.querySelector('.vr-carousel__next');
+      function show(n) {
+        var per = Math.min(narrow.matches ? 1 : 2, slides.length), last = slides.length - per;
+        i = Math.max(0, Math.min(n, last));
+        slides.forEach(function (s, k) {
+          var on = k >= i && k < i + per;
+          s.classList.toggle('is-active', on);
+          s.setAttribute('aria-hidden', on ? 'false' : 'true');
+        });
+        prev.disabled = i === 0;
+        next.disabled = i === last;
+        count.textContent = (per > 1 ? (i + 1) + '–' + (i + per) : (i + 1)) + ' of ' + slides.length;
+      }
+      prev.addEventListener('click', function () { show(i - 1); });
+      next.addEventListener('click', function () { show(i + 1); });
+      narrow.addEventListener('change', function () { show(i); });
+      show(0);
+    });
+  </script>
+
+  <script>
+    /* concept 5: the play button hides the poster and plays the video with
+       its own controls */
+    document.querySelectorAll('[data-vr-video]').forEach(function (card) {
+      var video = card.querySelector('video'), play = card.querySelector('.vr-video__play');
+      play.addEventListener('click', function () {
+        card.classList.add('is-playing');
+        video.controls = true;
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});
+        video.focus();
+      });
+    });
+  </script>
   <script src="../../homepages/shared/about.js"></script>
   <!-- Floating Get a Quote and back-to-top buttons (homepages/build.py float_actions) -->
   <div class="fla fla--a" role="complementary" aria-label="Quick actions" data-review="Floating Get a Quote and back-to-top buttons">
