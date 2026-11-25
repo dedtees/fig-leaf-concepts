@@ -218,9 +218,6 @@
           <li class="tm-video hs-reveal">
             <figure class="vr-video tm-video__card" data-vr-video>
               <div class="vr-video__frame">
-                <video class="vr-video__media" preload="none" playsinline poster="../../assets/shared/assets/testimonial-poster.jpg" aria-label="Video testimonial from a Fig Leaf client">
-                  <source src="../../assets/shared/assets/testimonial.mp4" type="video/mp4">
-                </video>
                 <img class="vr-video__poster" src="../../assets/shared/assets/testimonial-poster.jpg" srcset="../../assets/shared/assets/testimonial-poster-900.jpg 900w, ../../assets/shared/assets/testimonial-poster.jpg 1600w" sizes="(max-width: 700px) 100vw, 33vw" alt="" width="1600" height="896" loading="lazy" decoding="async">
                 <button class="vr-video__play" type="button" aria-label="Play the video testimonial"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button>
               </div>
@@ -376,20 +373,7 @@
   <script src="../../assets/shared/office-config.js" defer></script>
   <script src="../../assets/shared/office-status.js" defer></script>
 
-  <script>
-    /* concept 5: the play button hides the poster and plays the video with
-       its own controls */
-    document.querySelectorAll('[data-vr-video]').forEach(function (card) {
-      var video = card.querySelector('video'), play = card.querySelector('.vr-video__play');
-      play.addEventListener('click', function () {
-        card.classList.add('is-playing');
-        video.controls = true;
-        var p = video.play();
-        if (p && p.catch) p.catch(function () {});
-        video.focus();
-      });
-    });
-  </script>
+  <script src="../../assets/shared/video-testimonial.js" defer></script>
   <!-- Floating Get a Quote and back-to-top buttons -->
   <div class="fla fla--b" role="complementary" aria-label="Quick actions">
     <a class="fla__quote" href="../../crq-form/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3.5h8M7 3.5h10a1.5 1.5 0 0 1 1.5 1.5v14.5A1.5 1.5 0 0 1 17 21H7a1.5 1.5 0 0 1-1.5-1.5V5A1.5 1.5 0 0 1 7 3.5z"/><path d="M9 9h6M9 13h6M9 17h3"/></svg>Get a Quote</a>
